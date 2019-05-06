@@ -239,67 +239,7 @@ class MainWindow extends Reflux.Component {
                         </Toolbar>
                     </AppBar>
                     <nav>
-                        <Drawer
-                            open={this.state.open}
-                            onClose={this.handleDrawerClose}
-                            classes={{
-                                paper: classes.drawerPaper
-                            }}
-                        >
-                            <List>
-                                <ListItem button onClick={this.handleAboutDialogToggle}>
-                                    <ListItemIcon>
-                                        <InfoIcon />
-                                    </ListItemIcon>
-                                    <ListItemText primary="关于" />
-                                </ListItem>
-                                <Divider />
-                                {/* 小组名单 */}
-                                <ListItem button onClick={this.handleListToggle}>
-                                    <ListItemIcon>
-                                        <PeopleIcon />
-                                    </ListItemIcon>
-                                    <ListItemText inset primary="选择小组" />
-                                    {this.state.listOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-                                </ListItem>
-                                <Collapse in={this.state.listOpen} timeout="auto" unmountOnExit>
-                                    <List component="div" disablePadding>
-                                        {this.state.groups.map((n, index) => (
-                                            <ListItem
-                                                key={index}
-                                                button
-                                                className={classes.nested}
-                                                selected={this.state.choosingGroup == index}
-                                                onClick={this.handleGroupSelected(index)}
-                                            >
-                                                <ListItemIcon>
-                                                    <HumanIcon />
-                                                </ListItemIcon>
-                                                <ListItemText inset primary={n.name} />
-                                                <Menu
-                                                    anchorEl={this.state.anchorEl}
-                                                    open={this.state.menuSelect == index}
-                                                    onClose={this.handleListMenuToggle(index)}
-                                                >
-                                                    <MenuItem onClick={this.handleGroupChangeWindow(index)}>修改</MenuItem>
-                                                    <MenuItem disabled={this.state.groups.length <= 1} onClick={this.handleGroupDelete(index)}>删除</MenuItem>
-                                                </Menu>
-                                                <IconButton onClick={this.handleListMenuToggle(index)}>
-                                                    <MoreIcon />
-                                                </IconButton>
-                                            </ListItem>
-                                        ))}
-                                        <ListItem button className={classes.nested} onClick={this.handleGroupNew}>
-                                            <ListItemIcon>
-                                                <AddIcon />
-                                            </ListItemIcon>
-                                            <ListItemText inset primary={"添加新的小组"} />
-                                        </ListItem>
-                                    </List>
-                                </Collapse>
-                            </List>
-                            <Divider />
-                        </Drawer>
+                        
                     </nav>
                     <main className={classes.content}>
                         <div className={classes.toolbar} />

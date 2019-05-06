@@ -53068,58 +53068,7 @@ class MainWindow extends _reflux.default.Component {
       variant: "h6",
       color: "inherit",
       noWrap: true
-    }, "\u6D77\u70B9"))), _react.default.createElement("nav", null, _react.default.createElement(_Drawer.default, {
-      open: this.state.open,
-      onClose: this.handleDrawerClose,
-      classes: {
-        paper: classes.drawerPaper
-      }
-    }, _react.default.createElement(_List.default, null, _react.default.createElement(_ListItem.default, {
-      button: true,
-      onClick: this.handleAboutDialogToggle
-    }, _react.default.createElement(_ListItemIcon.default, null, _react.default.createElement(_information.default, null)), _react.default.createElement(_ListItemText.default, {
-      primary: "\u5173\u4E8E"
-    })), _react.default.createElement(_Divider.default, null), _react.default.createElement(_ListItem.default, {
-      button: true,
-      onClick: this.handleListToggle
-    }, _react.default.createElement(_ListItemIcon.default, null, _react.default.createElement(_accountGroup.default, null)), _react.default.createElement(_ListItemText.default, {
-      inset: true,
-      primary: "\u9009\u62E9\u5C0F\u7EC4"
-    }), this.state.listOpen ? _react.default.createElement(_chevronDown.default, null) : _react.default.createElement(_chevronRight.default, null)), _react.default.createElement(_Collapse.default, {
-      in: this.state.listOpen,
-      timeout: "auto",
-      unmountOnExit: true
-    }, _react.default.createElement(_List.default, {
-      component: "div",
-      disablePadding: true
-    }, this.state.groups.map((n, index) => _react.default.createElement(_ListItem.default, {
-      key: index,
-      button: true,
-      className: classes.nested,
-      selected: this.state.choosingGroup == index,
-      onClick: this.handleGroupSelected(index)
-    }, _react.default.createElement(_ListItemIcon.default, null, _react.default.createElement(_humanHandsdown.default, null)), _react.default.createElement(_ListItemText.default, {
-      inset: true,
-      primary: n.name
-    }), _react.default.createElement(_Menu.default, {
-      anchorEl: this.state.anchorEl,
-      open: this.state.menuSelect == index,
-      onClose: this.handleListMenuToggle(index)
-    }, _react.default.createElement(_MenuItem.default, {
-      onClick: this.handleGroupChangeWindow(index)
-    }, "\u4FEE\u6539"), _react.default.createElement(_MenuItem.default, {
-      disabled: this.state.groups.length <= 1,
-      onClick: this.handleGroupDelete(index)
-    }, "\u5220\u9664")), _react.default.createElement(_IconButton.default, {
-      onClick: this.handleListMenuToggle(index)
-    }, _react.default.createElement(_dotsHorizontal.default, null)))), _react.default.createElement(_ListItem.default, {
-      button: true,
-      className: classes.nested,
-      onClick: this.handleGroupNew
-    }, _react.default.createElement(_ListItemIcon.default, null, _react.default.createElement(_plus.default, null)), _react.default.createElement(_ListItemText.default, {
-      inset: true,
-      primary: "添加新的小组"
-    }))))), _react.default.createElement(_Divider.default, null))), _react.default.createElement("main", {
+    }, "\u6D77\u70B9"))), _react.default.createElement("nav", null), _react.default.createElement("main", {
       className: classes.content
     }, _react.default.createElement("div", {
       className: classes.toolbar

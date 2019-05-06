@@ -1,6 +1,7 @@
-﻿import mainPage from "./databaseStore/mainPage";
+﻿import classes from "./databaseStore/currentManager";
 
-import post from "./databaseStore/posts";
+import aClass from "./databaseStore/aClass";
+import group from "./databaseStore/group";
 
 import tag from "./viewStore/tag";
 import dialog from "./viewStore/dialog";
@@ -13,12 +14,13 @@ export default {
     database: {
         // 以下部分为单个的全局 Store
         global: {
-            mainPage: mainPage,
+            classes: classes
         },
 
         // 以下部分为用于创建 Store 的类
         single: {
-            post: post,
+            aClass: aClass,
+            group: group
         }
     },
 

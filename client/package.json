@@ -34,6 +34,7 @@
     "react": "^16.6.3",
     "react-color": "^2.17.2",
     "react-dom": "^16.6.3",
+    "react-route": "^1.0.3",
     "react-router-dom": "^5.0.0",
     "react-swipeable-views": "^0.13.0",
     "react-swipeable-views-utils": "^0.13.0",
