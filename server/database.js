@@ -7,9 +7,7 @@ let db = mongoose.connection;
 db.on('error', e => console.error(e));
 db.on('open', () => console.log("success"));
 
-// TODO: mongoose.model('XXX', SchemaObject);
-
-var School = mongoose.Schema({
+var School = mongoose.model('School', mongoose.Schema({
     classes: [Class],
     accounts: [Account],
     scoreTypes: [ScoreType],
@@ -20,9 +18,9 @@ var School = mongoose.Schema({
         userExpression: ExporessionGroup
     }],
     scoreGroups: [ScoreGroup]
-});
+}));
 
-var Class = mongoose.Schema({
+var Class = mongoose.model('Class', mongoose.Schema({
     groupTypes: [GroupType],
     members: [{
         account: ObjectId,
@@ -30,62 +28,62 @@ var Class = mongoose.Schema({
         log: [Log]
     }],
     name: String
-});
+}));
 
-var GroupType = mongoose.Schema({
+var GroupType = mongoose.model('GroupType', mongoose.Schema({
     type: ObjectId,
     group: [Group],
     name: String
-});
+}));
 
-var Group = mongoose.Schema({
+var Group = mongoose.model('Group', mongoose.Schema({
     scores: [Score],
     log: [Log],
     members: [{
         account: ObjectId,
         log: [Log]
     }]
-});
+}));
 
-var Log = mongoose.Schema({
+var Log = mongoose.model('Log', mongoose.Schema({
     value: Number,
     reason: String,
     operator: ObjectId,
     time: Date
-});
+}));
 
-var Score = mongoose.Schema({
+var Score = mongoose.model('Score', mongoose.Schema({
     at: ObjectId,
     value: Number
-});
+}));
 
-var Account = mongoose.Schema({
+var Account = mongoose.model('Account', mongoose.Schema({
     name: String,
     password: String,   // MD5/SHA3
     userGroup: ObjectId,
     scoreExpression: ExpressionGroup,
     userExpression: ExporessionGroup
-});
+}));
 
-var ExpressionGroup = mongoose.Schema({
+var ExpressionGroup = mongoose.model('ExpressionGroup', mongoose.Schema({
     read: [Expression],
     write: [Expression],
     add: [Expression],
     remove: [Expression]
-});
+}));
 
-var Expression = mongoose.Schema({
+var Expression = mongoose.model('Expression', mongoose.Schema({
     path: [String],
     tag: Boolean
-});
+}));
 
-var ScoreType = mongoose.Schema({
+var ScoreType = mongoose.model('ScoreType', mongoose.Schema({
     name: String,
     description: String,
     tradeRules: [TradeRule]
-});
+}));
 
-var TradeRule = mongoose.Schema({
+var TradeRule = mongoose.model('TradeRule', mongoose.Schema({
     from: ObjectId,
     to: ObjectId,
     weight: {
@@ -96,11 +94,11 @@ var TradeRule = mongoose.Schema({
             enum: ['toZero', 'toOne', 'nearly'] // 分别代表抹零、进一和四舍五入
         }
     }
-});
+}));
 
-var UserGroup = mongoose.Schema({
+var UserGroup = mongoose.model('UserGroup', mongoose.Schema({
     extendBy: ObjectId,
     name: String,
     scoreExpression: ExpressionGroup,
     userExpression: ExporessionGroup
-});
+}));
