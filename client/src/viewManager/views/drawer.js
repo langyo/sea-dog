@@ -16,8 +16,14 @@ import Divider from '@material-ui/core/Divider'
 import Badge from "@material-ui/core/Badge";
 
 import ClassroomIcon from "mdi-material-ui/GoogleClassroom";
-import InfoIcon from "mdi-material-ui/InformationOutline";
 import AccountIcon from "mdi-material-ui/AccountCircleOutline";
+import PickStudentIcon from "mdi-material-ui/CursorDefaultClickOutline";
+import TableIcon from "mdi-material-ui/TableLarge";
+import RankIcon from "mdi-material-ui/TrophyVariantOutline";
+import ManagementIcon from "mdi-material-ui/AccountGroup";
+import SettingIcon from "mdi-material-ui/SettingsOutline";
+import InfoIcon from "mdi-material-ui/InformationOutline";
+import ThemeIcon from "mdi-material-ui/Palette";
 
 import Actions from "../../resourceManager/actions";
 
@@ -26,7 +32,11 @@ const styles = theme => ({
 		width: 250,
 		opacity: 0.8
 	},
-	toolbar: theme.mixins.toolbar
+	toolbar: theme.mixins.toolbar,
+	line: {
+		marginTop: 4,
+		marginBottom: 4
+	}
 });
 
 class MainDrawer extends Reflux.Component {
@@ -69,12 +79,49 @@ class MainDrawer extends Reflux.Component {
 						</ListItemIcon>
 						<ListItemText inset primary="未登录" secondary="当前教师" />
 					</ListItem>
-					<Divider />
+					<Divider className={classes.line}/>
+					<ListItem button selected>
+						<ListItemIcon>
+							<PickStudentIcon />
+						</ListItemIcon>
+						<ListItemText inset primary="点名" />
+					</ListItem>
+					<ListItem button>
+						<ListItemIcon>
+							<TableIcon />
+						</ListItemIcon>
+						<ListItemText inset primary="座位表" />
+					</ListItem>
+					<ListItem button>
+						<ListItemIcon>
+							<RankIcon />
+						</ListItemIcon>
+						<ListItemText inset primary="排行榜" />
+					</ListItem>
+					<ListItem button>
+						<ListItemIcon>
+							<ManagementIcon />
+						</ListItemIcon>
+						<ListItemText inset primary="班级管理" />
+					</ListItem>
+					<Divider className={classes.line}/>
+					<ListItem button>
+						<ListItemIcon>
+							<SettingIcon />
+						</ListItemIcon>
+						<ListItemText inset primary="设置" />
+					</ListItem>
 					<ListItem button onClick={() => Actions.view.global.dialog.toggleTo('about')}>
 						<ListItemIcon>
 							<InfoIcon />
 						</ListItemIcon>
 						<ListItemText primary="关于" />
+					</ListItem>
+					<ListItem button>
+						<ListItemIcon>
+							<ThemeIcon />
+						</ListItemIcon>
+						<ListItemText inset primary="皮肤主题" />
 					</ListItem>
 				</List>
 				<Divider />
