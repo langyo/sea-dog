@@ -15,6 +15,7 @@ import MenuIcon from "mdi-material-ui/Menu";
 import PacManIcon from "mdi-material-ui/PacMan";
 
 import Drawer from "./drawer";
+import BottomNavigation from "./bottomNavigation";
 
 import Actions from "../../resourceManager/actions";
 
@@ -34,7 +35,8 @@ const styles = theme => ({
 class MainAppbar extends Reflux.Component {
     state = {
         drawerOpen: false,
-        isDesktop: document.body.scrollWidth >= 600
+        isDesktop: document.body.scrollWidth >= 600,
+        menuTheme: 'ios'    // Android 版为左侧抽屉，ios 版为底部选择器
     }
 
     componentDidMount() {
@@ -63,7 +65,7 @@ class MainAppbar extends Reflux.Component {
                 <AppBar position="fixed" className={classes.appBar}>
                     <Toolbar>
                         {
-                            !this.state.isDesktop && (<IconButton
+                            (!this.state.isDesktop && this.state.menuTheme == 'android') && (<IconButton
                                 color="inherit"
                                 aria-label="打开侧边栏"
                                 onClick={this.toggleDrawer}
@@ -73,19 +75,20 @@ class MainAppbar extends Reflux.Component {
                             </IconButton>)
                         }
                         {
-                            this.state.isDesktop && <PacManIcon className={classes.menuButton} />
+                            (this.state.isDesktop || !this.state.isDesktop && this.state.menuTheme == 'ios') && <PacManIcon className={classes.menuButton} />
                         }
                         <Typography variant="h6" color="inherit" noWrap>
                             海点
                         </Typography>
                     </Toolbar>
                 </AppBar>
-                <Drawer
+                {(this.state.menuTheme == 'android' || this.state.isDesktop) && <Drawer
                     className={classes.drawer}
                     open={this.state.isDesktop || this.state.drawerOpen}
                     onToggle={this.toggleDrawer}
                     isDesktop={this.state.isDesktop}
-                />
+                />}
+                {!this.state.isDesktop && this.state.menuTheme == 'ios' && <BottomNavigation />}
             </div>
         )
     }

@@ -41,27 +41,12 @@ let randomNum = (minNum, maxNum) => parseInt(Math.random() * (maxNum - minNum + 
 class Picker extends Reflux.Component {
     state = {
         rounding: false,
-        timeInterval: 100,
 
-        choosingGroup: 0,
-        groupChangeName: "",
-        groupChangeBody: "",
-        nowSelectedLuckyGuy: "点击开始",
-        groups: JSON.parse(localStorage.getItem("cache")).list
+        nowSelectedLuckyGuy: "点击开始"
     }
 
     handleRoundingToggle = () => {
-        this.setState({ rounding: !this.state.rounding }, () => {
-            if (this.state.rounding) {
-                this.timer = setInterval(() => {
-                    let members = this.state.groups[this.state.choosingGroup].members;
-                    let picked = randomNum(0, members.length - 1);
-                    this.setState({ nowSelectedLuckyGuy: this.state.groups[this.state.choosingGroup].members[picked] });
-                }, this.state.timeInterval);
-            } else {
-                clearInterval(this.timer);
-            }
-        });
+        this.setState({ rounding: !this.state.rounding });
     }
 
     randomTimerObject = null;
@@ -76,7 +61,7 @@ class Picker extends Reflux.Component {
                         {this.state.nowSelectedLuckyGuy}
                     </Typography>
                     <Typography variant="caption" gutterBottom>
-                        当前正在抽取 {this.state.groups[this.state.choosingGroup] && this.state.groups[this.state.choosingGroup].name} ，共 {this.state.groups[this.state.choosingGroup] && this.state.groups[this.state.choosingGroup].members.length} 人
+                        当前正在抽取 ，共 人
                     </Typography>
                 </CardContent>
                 <CardActions>

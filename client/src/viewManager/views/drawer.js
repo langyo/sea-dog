@@ -20,6 +20,7 @@ import AccountIcon from "mdi-material-ui/AccountCircleOutline";
 import PickStudentIcon from "mdi-material-ui/CursorDefaultClickOutline";
 import TableIcon from "mdi-material-ui/TableLarge";
 import RankIcon from "mdi-material-ui/TrophyVariantOutline";
+import PaperIcon from "mdi-material-ui/NoteOutline";
 import ManagementIcon from "mdi-material-ui/AccountGroup";
 import SettingIcon from "mdi-material-ui/SettingsOutline";
 import InfoIcon from "mdi-material-ui/InformationOutline";
@@ -100,11 +101,17 @@ class MainDrawer extends Reflux.Component {
 					</ListItem>
 					<ListItem button>
 						<ListItemIcon>
+							<PaperIcon />
+						</ListItemIcon>
+						<ListItemText inset primary="课堂小练" />
+					</ListItem>
+					<Divider className={classes.line}/>
+					<ListItem button>
+						<ListItemIcon>
 							<ManagementIcon />
 						</ListItemIcon>
 						<ListItemText inset primary="班级管理" />
 					</ListItem>
-					<Divider className={classes.line}/>
 					<ListItem button>
 						<ListItemIcon>
 							<SettingIcon />

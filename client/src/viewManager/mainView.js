@@ -7,6 +7,8 @@ import shortid from "shortid";
 
 import { withStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
+import CssBaseline from '@material-ui/core/CssBaseline';
+
 import red from '@material-ui/core/colors/red';
 
 import Appbar from "./views/appbar";
@@ -47,6 +49,7 @@ class Root extends Reflux.Component {
 
         return (
             <div className={classes.root}>
+                <CssBaseline />
                 <MuiThemeProvider theme={theme}>
                     <BrowserRouter>
                         <Appbar />
