@@ -297,7 +297,15 @@ function _inherits(subClass, superClass) {
 }
 
 module.exports = _inherits;
-},{"./setPrototypeOf":17}],10:[function(require,module,exports){
+},{"./setPrototypeOf":18}],10:[function(require,module,exports){
+function _inheritsLoose(subClass, superClass) {
+  subClass.prototype = Object.create(superClass.prototype);
+  subClass.prototype.constructor = subClass;
+  subClass.__proto__ = superClass;
+}
+
+module.exports = _inheritsLoose;
+},{}],11:[function(require,module,exports){
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
     "default": obj
@@ -305,7 +313,7 @@ function _interopRequireDefault(obj) {
 }
 
 module.exports = _interopRequireDefault;
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 function _interopRequireWildcard(obj) {
   if (obj && obj.__esModule) {
     return obj;
@@ -332,19 +340,19 @@ function _interopRequireWildcard(obj) {
 }
 
 module.exports = _interopRequireWildcard;
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 function _iterableToArray(iter) {
   if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter);
 }
 
 module.exports = _iterableToArray;
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 function _nonIterableSpread() {
   throw new TypeError("Invalid attempt to spread non-iterable instance");
 }
 
 module.exports = _nonIterableSpread;
-},{}],14:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 var objectWithoutPropertiesLoose = require("./objectWithoutPropertiesLoose");
 
 function _objectWithoutProperties(source, excluded) {
@@ -367,7 +375,7 @@ function _objectWithoutProperties(source, excluded) {
 }
 
 module.exports = _objectWithoutProperties;
-},{"./objectWithoutPropertiesLoose":15}],15:[function(require,module,exports){
+},{"./objectWithoutPropertiesLoose":16}],16:[function(require,module,exports){
 function _objectWithoutPropertiesLoose(source, excluded) {
   if (source == null) return {};
   var target = {};
@@ -384,7 +392,7 @@ function _objectWithoutPropertiesLoose(source, excluded) {
 }
 
 module.exports = _objectWithoutPropertiesLoose;
-},{}],16:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 var _typeof = require("../helpers/typeof");
 
 var assertThisInitialized = require("./assertThisInitialized");
@@ -398,7 +406,7 @@ function _possibleConstructorReturn(self, call) {
 }
 
 module.exports = _possibleConstructorReturn;
-},{"../helpers/typeof":19,"./assertThisInitialized":3}],17:[function(require,module,exports){
+},{"../helpers/typeof":20,"./assertThisInitialized":3}],18:[function(require,module,exports){
 function _setPrototypeOf(o, p) {
   module.exports = _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
     o.__proto__ = p;
@@ -409,7 +417,7 @@ function _setPrototypeOf(o, p) {
 }
 
 module.exports = _setPrototypeOf;
-},{}],18:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 var arrayWithoutHoles = require("./arrayWithoutHoles");
 
 var iterableToArray = require("./iterableToArray");
@@ -421,7 +429,7 @@ function _toConsumableArray(arr) {
 }
 
 module.exports = _toConsumableArray;
-},{"./arrayWithoutHoles":2,"./iterableToArray":12,"./nonIterableSpread":13}],19:[function(require,module,exports){
+},{"./arrayWithoutHoles":2,"./iterableToArray":13,"./nonIterableSpread":14}],20:[function(require,module,exports){
 function _typeof2(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof2 = function _typeof2(obj) { return typeof obj; }; } else { _typeof2 = function _typeof2(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof2(obj); }
 
 function _typeof(obj) {
@@ -439,7 +447,7 @@ function _typeof(obj) {
 }
 
 module.exports = _typeof;
-},{}],20:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 (function (process){
 "use strict";
 
@@ -597,7 +605,7 @@ var _default = (0, _withStyles.default)(styles, {
 
 exports.default = _default;
 }).call(this,require('_process'))
-},{"../Paper":84,"../styles/withStyles":123,"../utils/helpers":127,"@babel/runtime/helpers/defineProperty":6,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":10,"@babel/runtime/helpers/objectWithoutProperties":14,"_process":1,"classnames":139,"prop-types":238,"react":260}],21:[function(require,module,exports){
+},{"../Paper":91,"../styles/withStyles":139,"../utils/helpers":143,"@babel/runtime/helpers/defineProperty":6,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":11,"@babel/runtime/helpers/objectWithoutProperties":15,"_process":1,"classnames":155,"prop-types":255,"react":277}],22:[function(require,module,exports){
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -613,7 +621,7 @@ Object.defineProperty(exports, "default", {
 });
 
 var _AppBar = _interopRequireDefault(require("./AppBar"));
-},{"./AppBar":20,"@babel/runtime/helpers/interopRequireDefault":10}],22:[function(require,module,exports){
+},{"./AppBar":21,"@babel/runtime/helpers/interopRequireDefault":11}],23:[function(require,module,exports){
 (function (process){
 "use strict";
 
@@ -721,7 +729,7 @@ var _default = (0, _withStyles.default)(styles, {
 
 exports.default = _default;
 }).call(this,require('_process'))
-},{"../Fade":61,"../styles/withStyles":123,"@babel/runtime/helpers/defineProperty":6,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":10,"@babel/runtime/helpers/objectWithoutProperties":14,"_process":1,"classnames":139,"prop-types":238,"react":260}],23:[function(require,module,exports){
+},{"../Fade":62,"../styles/withStyles":139,"@babel/runtime/helpers/defineProperty":6,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":11,"@babel/runtime/helpers/objectWithoutProperties":15,"_process":1,"classnames":155,"prop-types":255,"react":277}],24:[function(require,module,exports){
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -737,7 +745,7 @@ Object.defineProperty(exports, "default", {
 });
 
 var _Backdrop = _interopRequireDefault(require("./Backdrop"));
-},{"./Backdrop":22,"@babel/runtime/helpers/interopRequireDefault":10}],24:[function(require,module,exports){
+},{"./Backdrop":23,"@babel/runtime/helpers/interopRequireDefault":11}],25:[function(require,module,exports){
 (function (process){
 "use strict";
 
@@ -949,7 +957,7 @@ var _default = (0, _withStyles.default)(styles, {
 
 exports.default = _default;
 }).call(this,require('_process'))
-},{"../styles/withStyles":123,"../utils/helpers":127,"@babel/runtime/helpers/defineProperty":6,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":10,"@babel/runtime/helpers/objectWithoutProperties":14,"@material-ui/utils":136,"_process":1,"classnames":139,"prop-types":238,"react":260}],25:[function(require,module,exports){
+},{"../styles/withStyles":139,"../utils/helpers":143,"@babel/runtime/helpers/defineProperty":6,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":11,"@babel/runtime/helpers/objectWithoutProperties":15,"@material-ui/utils":152,"_process":1,"classnames":155,"prop-types":255,"react":277}],26:[function(require,module,exports){
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -965,7 +973,7 @@ Object.defineProperty(exports, "default", {
 });
 
 var _Badge = _interopRequireDefault(require("./Badge"));
-},{"./Badge":24,"@babel/runtime/helpers/interopRequireDefault":10}],26:[function(require,module,exports){
+},{"./Badge":25,"@babel/runtime/helpers/interopRequireDefault":11}],27:[function(require,module,exports){
 (function (process){
 "use strict";
 
@@ -1191,7 +1199,7 @@ var _default = (0, _withStyles.default)(styles, {
 
 exports.default = _default;
 }).call(this,require('_process'))
-},{"../ButtonBase":35,"../styles/withStyles":123,"../utils/unsupportedProp":131,"@babel/runtime/helpers/classCallCheck":4,"@babel/runtime/helpers/createClass":5,"@babel/runtime/helpers/defineProperty":6,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/getPrototypeOf":8,"@babel/runtime/helpers/inherits":9,"@babel/runtime/helpers/interopRequireDefault":10,"@babel/runtime/helpers/objectWithoutProperties":14,"@babel/runtime/helpers/possibleConstructorReturn":16,"_process":1,"classnames":139,"prop-types":238,"react":260}],27:[function(require,module,exports){
+},{"../ButtonBase":36,"../styles/withStyles":139,"../utils/unsupportedProp":147,"@babel/runtime/helpers/classCallCheck":4,"@babel/runtime/helpers/createClass":5,"@babel/runtime/helpers/defineProperty":6,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/getPrototypeOf":8,"@babel/runtime/helpers/inherits":9,"@babel/runtime/helpers/interopRequireDefault":11,"@babel/runtime/helpers/objectWithoutProperties":15,"@babel/runtime/helpers/possibleConstructorReturn":17,"_process":1,"classnames":155,"prop-types":255,"react":277}],28:[function(require,module,exports){
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -1207,7 +1215,7 @@ Object.defineProperty(exports, "default", {
 });
 
 var _BottomNavigationAction = _interopRequireDefault(require("./BottomNavigationAction"));
-},{"./BottomNavigationAction":26,"@babel/runtime/helpers/interopRequireDefault":10}],28:[function(require,module,exports){
+},{"./BottomNavigationAction":27,"@babel/runtime/helpers/interopRequireDefault":11}],29:[function(require,module,exports){
 (function (process){
 "use strict";
 
@@ -1332,7 +1340,7 @@ var _default = (0, _withStyles.default)(styles, {
 
 exports.default = _default;
 }).call(this,require('_process'))
-},{"../styles/withStyles":123,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":10,"@babel/runtime/helpers/objectWithoutProperties":14,"@material-ui/utils":136,"_process":1,"classnames":139,"prop-types":238,"react":260,"warning":302}],29:[function(require,module,exports){
+},{"../styles/withStyles":139,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":11,"@babel/runtime/helpers/objectWithoutProperties":15,"@material-ui/utils":152,"_process":1,"classnames":155,"prop-types":255,"react":277,"warning":326}],30:[function(require,module,exports){
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -1348,7 +1356,7 @@ Object.defineProperty(exports, "default", {
 });
 
 var _BottomNavigation = _interopRequireDefault(require("./BottomNavigation"));
-},{"./BottomNavigation":28,"@babel/runtime/helpers/interopRequireDefault":10}],30:[function(require,module,exports){
+},{"./BottomNavigation":29,"@babel/runtime/helpers/interopRequireDefault":11}],31:[function(require,module,exports){
 (function (process){
 "use strict";
 
@@ -1895,7 +1903,7 @@ var _default = (0, _withStyles.default)(styles, {
 
 exports.default = _default;
 }).call(this,require('_process'))
-},{"../NoSsr":82,"../styles/withStyles":123,"../utils/ownerWindow":129,"./TouchRipple":32,"./createRippleHandler":33,"./focusVisible":34,"@babel/runtime/helpers/assertThisInitialized":3,"@babel/runtime/helpers/classCallCheck":4,"@babel/runtime/helpers/createClass":5,"@babel/runtime/helpers/defineProperty":6,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/getPrototypeOf":8,"@babel/runtime/helpers/inherits":9,"@babel/runtime/helpers/interopRequireDefault":10,"@babel/runtime/helpers/objectWithoutProperties":14,"@babel/runtime/helpers/possibleConstructorReturn":16,"@material-ui/utils":136,"_process":1,"classnames":139,"prop-types":238,"react":260,"react-dom":242}],31:[function(require,module,exports){
+},{"../NoSsr":89,"../styles/withStyles":139,"../utils/ownerWindow":145,"./TouchRipple":33,"./createRippleHandler":34,"./focusVisible":35,"@babel/runtime/helpers/assertThisInitialized":3,"@babel/runtime/helpers/classCallCheck":4,"@babel/runtime/helpers/createClass":5,"@babel/runtime/helpers/defineProperty":6,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/getPrototypeOf":8,"@babel/runtime/helpers/inherits":9,"@babel/runtime/helpers/interopRequireDefault":11,"@babel/runtime/helpers/objectWithoutProperties":15,"@babel/runtime/helpers/possibleConstructorReturn":17,"@material-ui/utils":152,"_process":1,"classnames":155,"prop-types":255,"react":277,"react-dom":259}],32:[function(require,module,exports){
 (function (process){
 "use strict";
 
@@ -2046,7 +2054,7 @@ Ripple.defaultProps = {
 var _default = Ripple;
 exports.default = _default;
 }).call(this,require('_process'))
-},{"@babel/runtime/helpers/classCallCheck":4,"@babel/runtime/helpers/createClass":5,"@babel/runtime/helpers/defineProperty":6,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/getPrototypeOf":8,"@babel/runtime/helpers/inherits":9,"@babel/runtime/helpers/interopRequireDefault":10,"@babel/runtime/helpers/objectWithoutProperties":14,"@babel/runtime/helpers/possibleConstructorReturn":16,"_process":1,"classnames":139,"prop-types":238,"react":260,"react-transition-group/Transition":254}],32:[function(require,module,exports){
+},{"@babel/runtime/helpers/classCallCheck":4,"@babel/runtime/helpers/createClass":5,"@babel/runtime/helpers/defineProperty":6,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/getPrototypeOf":8,"@babel/runtime/helpers/inherits":9,"@babel/runtime/helpers/interopRequireDefault":11,"@babel/runtime/helpers/objectWithoutProperties":15,"@babel/runtime/helpers/possibleConstructorReturn":17,"_process":1,"classnames":155,"prop-types":255,"react":277,"react-transition-group/Transition":271}],33:[function(require,module,exports){
 (function (process){
 "use strict";
 
@@ -2419,7 +2427,7 @@ var _default = (0, _withStyles.default)(styles, {
 
 exports.default = _default;
 }).call(this,require('_process'))
-},{"../styles/withStyles":123,"./Ripple":31,"@babel/runtime/helpers/assertThisInitialized":3,"@babel/runtime/helpers/classCallCheck":4,"@babel/runtime/helpers/createClass":5,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/getPrototypeOf":8,"@babel/runtime/helpers/inherits":9,"@babel/runtime/helpers/interopRequireDefault":10,"@babel/runtime/helpers/objectWithoutProperties":14,"@babel/runtime/helpers/possibleConstructorReturn":16,"@babel/runtime/helpers/toConsumableArray":18,"_process":1,"classnames":139,"prop-types":238,"react":260,"react-dom":242,"react-transition-group/TransitionGroup":255}],33:[function(require,module,exports){
+},{"../styles/withStyles":139,"./Ripple":32,"@babel/runtime/helpers/assertThisInitialized":3,"@babel/runtime/helpers/classCallCheck":4,"@babel/runtime/helpers/createClass":5,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/getPrototypeOf":8,"@babel/runtime/helpers/inherits":9,"@babel/runtime/helpers/interopRequireDefault":11,"@babel/runtime/helpers/objectWithoutProperties":15,"@babel/runtime/helpers/possibleConstructorReturn":17,"@babel/runtime/helpers/toConsumableArray":19,"_process":1,"classnames":155,"prop-types":255,"react":277,"react-dom":259,"react-transition-group/TransitionGroup":272}],34:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -2466,7 +2474,7 @@ if (typeof window === 'undefined') {
 
 var _default = createRippleHandler;
 exports.default = _default;
-},{}],34:[function(require,module,exports){
+},{}],35:[function(require,module,exports){
 (function (process){
 "use strict";
 
@@ -2545,7 +2553,7 @@ function listenForFocusKeys(win) {
   win.addEventListener('keyup', handleKeyUpEvent);
 }
 }).call(this,require('_process'))
-},{"../utils/ownerDocument":128,"@babel/runtime/helpers/interopRequireDefault":10,"_process":1,"warning":302}],35:[function(require,module,exports){
+},{"../utils/ownerDocument":144,"@babel/runtime/helpers/interopRequireDefault":11,"_process":1,"warning":326}],36:[function(require,module,exports){
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -2561,7 +2569,7 @@ Object.defineProperty(exports, "default", {
 });
 
 var _ButtonBase = _interopRequireDefault(require("./ButtonBase"));
-},{"./ButtonBase":30,"@babel/runtime/helpers/interopRequireDefault":10}],36:[function(require,module,exports){
+},{"./ButtonBase":31,"@babel/runtime/helpers/interopRequireDefault":11}],37:[function(require,module,exports){
 (function (process){
 "use strict";
 
@@ -2990,7 +2998,7 @@ var _default = (0, _withStyles.default)(styles, {
 
 exports.default = _default;
 }).call(this,require('_process'))
-},{"../ButtonBase":35,"../styles/colorManipulator":103,"../styles/withStyles":123,"../utils/helpers":127,"@babel/runtime/helpers/defineProperty":6,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":10,"@babel/runtime/helpers/objectWithoutProperties":14,"@material-ui/utils":136,"_process":1,"classnames":139,"prop-types":238,"react":260}],37:[function(require,module,exports){
+},{"../ButtonBase":36,"../styles/colorManipulator":119,"../styles/withStyles":139,"../utils/helpers":143,"@babel/runtime/helpers/defineProperty":6,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":11,"@babel/runtime/helpers/objectWithoutProperties":15,"@material-ui/utils":152,"_process":1,"classnames":155,"prop-types":255,"react":277}],38:[function(require,module,exports){
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -3006,7 +3014,7 @@ Object.defineProperty(exports, "default", {
 });
 
 var _Button = _interopRequireDefault(require("./Button"));
-},{"./Button":36,"@babel/runtime/helpers/interopRequireDefault":10}],38:[function(require,module,exports){
+},{"./Button":37,"@babel/runtime/helpers/interopRequireDefault":11}],39:[function(require,module,exports){
 (function (process){
 "use strict";
 
@@ -3100,7 +3108,7 @@ var _default = (0, _withStyles.default)(styles, {
 
 exports.default = _default;
 }).call(this,require('_process'))
-},{"../Button":37,"../styles/withStyles":123,"../utils/reactHelpers":130,"@babel/runtime/helpers/defineProperty":6,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":10,"@babel/runtime/helpers/objectWithoutProperties":14,"_process":1,"classnames":139,"prop-types":238,"react":260}],39:[function(require,module,exports){
+},{"../Button":38,"../styles/withStyles":139,"../utils/reactHelpers":146,"@babel/runtime/helpers/defineProperty":6,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":11,"@babel/runtime/helpers/objectWithoutProperties":15,"_process":1,"classnames":155,"prop-types":255,"react":277}],40:[function(require,module,exports){
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -3116,7 +3124,7 @@ Object.defineProperty(exports, "default", {
 });
 
 var _CardActions = _interopRequireDefault(require("./CardActions"));
-},{"./CardActions":38,"@babel/runtime/helpers/interopRequireDefault":10}],40:[function(require,module,exports){
+},{"./CardActions":39,"@babel/runtime/helpers/interopRequireDefault":11}],41:[function(require,module,exports){
 (function (process){
 "use strict";
 
@@ -3190,7 +3198,7 @@ var _default = (0, _withStyles.default)(styles, {
 
 exports.default = _default;
 }).call(this,require('_process'))
-},{"../styles/withStyles":123,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":10,"@babel/runtime/helpers/objectWithoutProperties":14,"@material-ui/utils":136,"_process":1,"classnames":139,"prop-types":238,"react":260}],41:[function(require,module,exports){
+},{"../styles/withStyles":139,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":11,"@babel/runtime/helpers/objectWithoutProperties":15,"@material-ui/utils":152,"_process":1,"classnames":155,"prop-types":255,"react":277}],42:[function(require,module,exports){
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -3206,7 +3214,7 @@ Object.defineProperty(exports, "default", {
 });
 
 var _CardContent = _interopRequireDefault(require("./CardContent"));
-},{"./CardContent":40,"@babel/runtime/helpers/interopRequireDefault":10}],42:[function(require,module,exports){
+},{"./CardContent":41,"@babel/runtime/helpers/interopRequireDefault":11}],43:[function(require,module,exports){
 (function (process){
 "use strict";
 
@@ -3278,7 +3286,7 @@ var _default = (0, _withStyles.default)(styles, {
 
 exports.default = _default;
 }).call(this,require('_process'))
-},{"../Paper":84,"../styles/withStyles":123,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":10,"@babel/runtime/helpers/objectWithoutProperties":14,"_process":1,"classnames":139,"prop-types":238,"react":260}],43:[function(require,module,exports){
+},{"../Paper":91,"../styles/withStyles":139,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":11,"@babel/runtime/helpers/objectWithoutProperties":15,"_process":1,"classnames":155,"prop-types":255,"react":277}],44:[function(require,module,exports){
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -3294,7 +3302,7 @@ Object.defineProperty(exports, "default", {
 });
 
 var _Card = _interopRequireDefault(require("./Card"));
-},{"./Card":42,"@babel/runtime/helpers/interopRequireDefault":10}],44:[function(require,module,exports){
+},{"./Card":43,"@babel/runtime/helpers/interopRequireDefault":11}],45:[function(require,module,exports){
 (function (process){
 "use strict";
 
@@ -3401,7 +3409,7 @@ var _default = (0, _styles.withStyles)(styles, {
 
 exports.default = _default;
 }).call(this,require('_process'))
-},{"../styles":113,"@babel/runtime/helpers/classCallCheck":4,"@babel/runtime/helpers/createClass":5,"@babel/runtime/helpers/getPrototypeOf":8,"@babel/runtime/helpers/inherits":9,"@babel/runtime/helpers/interopRequireDefault":10,"@babel/runtime/helpers/possibleConstructorReturn":16,"@material-ui/utils":136,"_process":1,"prop-types":238,"react":260}],45:[function(require,module,exports){
+},{"../styles":129,"@babel/runtime/helpers/classCallCheck":4,"@babel/runtime/helpers/createClass":5,"@babel/runtime/helpers/getPrototypeOf":8,"@babel/runtime/helpers/inherits":9,"@babel/runtime/helpers/interopRequireDefault":11,"@babel/runtime/helpers/possibleConstructorReturn":17,"@material-ui/utils":152,"_process":1,"prop-types":255,"react":277}],46:[function(require,module,exports){
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -3417,7 +3425,7 @@ Object.defineProperty(exports, "default", {
 });
 
 var _CssBaseline = _interopRequireDefault(require("./CssBaseline"));
-},{"./CssBaseline":44,"@babel/runtime/helpers/interopRequireDefault":10}],46:[function(require,module,exports){
+},{"./CssBaseline":45,"@babel/runtime/helpers/interopRequireDefault":11}],47:[function(require,module,exports){
 (function (process){
 "use strict";
 
@@ -3505,7 +3513,7 @@ var _default = (0, _withStyles.default)(styles, {
 
 exports.default = _default;
 }).call(this,require('_process'))
-},{"../Button":37,"../styles/withStyles":123,"../utils/reactHelpers":130,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":10,"@babel/runtime/helpers/objectWithoutProperties":14,"_process":1,"classnames":139,"prop-types":238,"react":260}],47:[function(require,module,exports){
+},{"../Button":38,"../styles/withStyles":139,"../utils/reactHelpers":146,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":11,"@babel/runtime/helpers/objectWithoutProperties":15,"_process":1,"classnames":155,"prop-types":255,"react":277}],48:[function(require,module,exports){
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -3521,7 +3529,7 @@ Object.defineProperty(exports, "default", {
 });
 
 var _DialogActions = _interopRequireDefault(require("./DialogActions"));
-},{"./DialogActions":46,"@babel/runtime/helpers/interopRequireDefault":10}],48:[function(require,module,exports){
+},{"./DialogActions":47,"@babel/runtime/helpers/interopRequireDefault":11}],49:[function(require,module,exports){
 (function (process){
 "use strict";
 
@@ -3580,7 +3588,7 @@ var _default = (0, _withStyles.default)(styles, {
 
 exports.default = _default;
 }).call(this,require('_process'))
-},{"../Typography":96,"../styles/withStyles":123,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":10,"_process":1,"prop-types":238,"react":260}],49:[function(require,module,exports){
+},{"../Typography":109,"../styles/withStyles":139,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":11,"_process":1,"prop-types":255,"react":277}],50:[function(require,module,exports){
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -3596,7 +3604,7 @@ Object.defineProperty(exports, "default", {
 });
 
 var _DialogContentText = _interopRequireDefault(require("./DialogContentText"));
-},{"./DialogContentText":48,"@babel/runtime/helpers/interopRequireDefault":10}],50:[function(require,module,exports){
+},{"./DialogContentText":49,"@babel/runtime/helpers/interopRequireDefault":11}],51:[function(require,module,exports){
 (function (process){
 "use strict";
 
@@ -3668,7 +3676,7 @@ var _default = (0, _withStyles.default)(styles, {
 
 exports.default = _default;
 }).call(this,require('_process'))
-},{"../styles/withStyles":123,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":10,"@babel/runtime/helpers/objectWithoutProperties":14,"_process":1,"classnames":139,"prop-types":238,"react":260}],51:[function(require,module,exports){
+},{"../styles/withStyles":139,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":11,"@babel/runtime/helpers/objectWithoutProperties":15,"_process":1,"classnames":155,"prop-types":255,"react":277}],52:[function(require,module,exports){
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -3684,7 +3692,7 @@ Object.defineProperty(exports, "default", {
 });
 
 var _DialogContent = _interopRequireDefault(require("./DialogContent"));
-},{"./DialogContent":50,"@babel/runtime/helpers/interopRequireDefault":10}],52:[function(require,module,exports){
+},{"./DialogContent":51,"@babel/runtime/helpers/interopRequireDefault":11}],53:[function(require,module,exports){
 (function (process){
 "use strict";
 
@@ -3766,7 +3774,7 @@ var _default = (0, _withStyles.default)(styles, {
 
 exports.default = _default;
 }).call(this,require('_process'))
-},{"../Typography":96,"../styles/withStyles":123,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":10,"@babel/runtime/helpers/objectWithoutProperties":14,"_process":1,"classnames":139,"prop-types":238,"react":260}],53:[function(require,module,exports){
+},{"../Typography":109,"../styles/withStyles":139,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":11,"@babel/runtime/helpers/objectWithoutProperties":15,"_process":1,"classnames":155,"prop-types":255,"react":277}],54:[function(require,module,exports){
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -3782,7 +3790,7 @@ Object.defineProperty(exports, "default", {
 });
 
 var _DialogTitle = _interopRequireDefault(require("./DialogTitle"));
-},{"./DialogTitle":52,"@babel/runtime/helpers/interopRequireDefault":10}],54:[function(require,module,exports){
+},{"./DialogTitle":53,"@babel/runtime/helpers/interopRequireDefault":11}],55:[function(require,module,exports){
 (function (process){
 "use strict";
 
@@ -4223,7 +4231,7 @@ var _default = (0, _withStyles.default)(styles, {
 
 exports.default = _default;
 }).call(this,require('_process'))
-},{"../Fade":61,"../Modal":78,"../Paper":84,"../styles/transitions":122,"../styles/withStyles":123,"../utils/helpers":127,"@babel/runtime/helpers/classCallCheck":4,"@babel/runtime/helpers/createClass":5,"@babel/runtime/helpers/defineProperty":6,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/getPrototypeOf":8,"@babel/runtime/helpers/inherits":9,"@babel/runtime/helpers/interopRequireDefault":10,"@babel/runtime/helpers/objectWithoutProperties":14,"@babel/runtime/helpers/possibleConstructorReturn":16,"@material-ui/utils":136,"_process":1,"classnames":139,"prop-types":238,"react":260}],55:[function(require,module,exports){
+},{"../Fade":62,"../Modal":85,"../Paper":91,"../styles/transitions":138,"../styles/withStyles":139,"../utils/helpers":143,"@babel/runtime/helpers/classCallCheck":4,"@babel/runtime/helpers/createClass":5,"@babel/runtime/helpers/defineProperty":6,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/getPrototypeOf":8,"@babel/runtime/helpers/inherits":9,"@babel/runtime/helpers/interopRequireDefault":11,"@babel/runtime/helpers/objectWithoutProperties":15,"@babel/runtime/helpers/possibleConstructorReturn":17,"@material-ui/utils":152,"_process":1,"classnames":155,"prop-types":255,"react":277}],56:[function(require,module,exports){
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -4239,7 +4247,7 @@ Object.defineProperty(exports, "default", {
 });
 
 var _Dialog = _interopRequireDefault(require("./Dialog"));
-},{"./Dialog":54,"@babel/runtime/helpers/interopRequireDefault":10}],56:[function(require,module,exports){
+},{"./Dialog":55,"@babel/runtime/helpers/interopRequireDefault":11}],57:[function(require,module,exports){
 (function (process){
 "use strict";
 
@@ -4384,7 +4392,7 @@ var _default = (0, _withStyles.default)(styles, {
 
 exports.default = _default;
 }).call(this,require('_process'))
-},{"../styles/colorManipulator":103,"../styles/withStyles":123,"@babel/runtime/helpers/defineProperty":6,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":10,"@babel/runtime/helpers/objectWithoutProperties":14,"@material-ui/utils":136,"_process":1,"classnames":139,"prop-types":238,"react":260}],57:[function(require,module,exports){
+},{"../styles/colorManipulator":119,"../styles/withStyles":139,"@babel/runtime/helpers/defineProperty":6,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":11,"@babel/runtime/helpers/objectWithoutProperties":15,"@material-ui/utils":152,"_process":1,"classnames":155,"prop-types":255,"react":277}],58:[function(require,module,exports){
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -4400,7 +4408,7 @@ Object.defineProperty(exports, "default", {
 });
 
 var _Divider = _interopRequireDefault(require("./Divider"));
-},{"./Divider":56,"@babel/runtime/helpers/interopRequireDefault":10}],58:[function(require,module,exports){
+},{"./Divider":57,"@babel/runtime/helpers/interopRequireDefault":11}],59:[function(require,module,exports){
 (function (process){
 "use strict";
 
@@ -4742,7 +4750,7 @@ var _default = (0, _withStyles.default)(styles, {
 
 exports.default = _default;
 }).call(this,require('_process'))
-},{"../Modal":78,"../Paper":84,"../Slide":90,"../styles/transitions":122,"../styles/withStyles":123,"../utils/helpers":127,"@babel/runtime/helpers/classCallCheck":4,"@babel/runtime/helpers/createClass":5,"@babel/runtime/helpers/defineProperty":6,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/getPrototypeOf":8,"@babel/runtime/helpers/inherits":9,"@babel/runtime/helpers/interopRequireDefault":10,"@babel/runtime/helpers/objectWithoutProperties":14,"@babel/runtime/helpers/possibleConstructorReturn":16,"_process":1,"classnames":139,"prop-types":238,"react":260}],59:[function(require,module,exports){
+},{"../Modal":85,"../Paper":91,"../Slide":101,"../styles/transitions":138,"../styles/withStyles":139,"../utils/helpers":143,"@babel/runtime/helpers/classCallCheck":4,"@babel/runtime/helpers/createClass":5,"@babel/runtime/helpers/defineProperty":6,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/getPrototypeOf":8,"@babel/runtime/helpers/inherits":9,"@babel/runtime/helpers/interopRequireDefault":11,"@babel/runtime/helpers/objectWithoutProperties":15,"@babel/runtime/helpers/possibleConstructorReturn":17,"_process":1,"classnames":155,"prop-types":255,"react":277}],60:[function(require,module,exports){
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -4758,7 +4766,7 @@ Object.defineProperty(exports, "default", {
 });
 
 var _Drawer = _interopRequireDefault(require("./Drawer"));
-},{"./Drawer":58,"@babel/runtime/helpers/interopRequireDefault":10}],60:[function(require,module,exports){
+},{"./Drawer":59,"@babel/runtime/helpers/interopRequireDefault":11}],61:[function(require,module,exports){
 (function (process){
 "use strict";
 
@@ -4936,7 +4944,7 @@ var _default = (0, _withTheme.default)()(Fade);
 
 exports.default = _default;
 }).call(this,require('_process'))
-},{"../styles/transitions":122,"../styles/withTheme":124,"../transitions/utils":126,"@babel/runtime/helpers/classCallCheck":4,"@babel/runtime/helpers/createClass":5,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/getPrototypeOf":8,"@babel/runtime/helpers/inherits":9,"@babel/runtime/helpers/interopRequireDefault":10,"@babel/runtime/helpers/objectWithoutProperties":14,"@babel/runtime/helpers/possibleConstructorReturn":16,"_process":1,"prop-types":238,"react":260,"react-transition-group/Transition":254}],61:[function(require,module,exports){
+},{"../styles/transitions":138,"../styles/withTheme":140,"../transitions/utils":142,"@babel/runtime/helpers/classCallCheck":4,"@babel/runtime/helpers/createClass":5,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/getPrototypeOf":8,"@babel/runtime/helpers/inherits":9,"@babel/runtime/helpers/interopRequireDefault":11,"@babel/runtime/helpers/objectWithoutProperties":15,"@babel/runtime/helpers/possibleConstructorReturn":17,"_process":1,"prop-types":255,"react":277,"react-transition-group/Transition":271}],62:[function(require,module,exports){
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -4952,7 +4960,392 @@ Object.defineProperty(exports, "default", {
 });
 
 var _Fade = _interopRequireDefault(require("./Fade"));
-},{"./Fade":60,"@babel/runtime/helpers/interopRequireDefault":10}],62:[function(require,module,exports){
+},{"./Fade":61,"@babel/runtime/helpers/interopRequireDefault":11}],63:[function(require,module,exports){
+(function (process){
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = exports.styles = void 0;
+
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
+
+var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
+
+var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
+
+var _react = _interopRequireDefault(require("react"));
+
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
+var _classnames = _interopRequireDefault(require("classnames"));
+
+var _withFormControlContext = _interopRequireDefault(require("../FormControl/withFormControlContext"));
+
+var _withStyles = _interopRequireDefault(require("../styles/withStyles"));
+
+var _Typography = _interopRequireDefault(require("../Typography"));
+
+var _helpers = require("../utils/helpers");
+
+var styles = function styles(theme) {
+  return {
+    /* Styles applied to the root element. */
+    root: {
+      display: 'inline-flex',
+      alignItems: 'center',
+      cursor: 'pointer',
+      // For correct alignment with the text.
+      verticalAlign: 'middle',
+      // Remove grey highlight
+      WebkitTapHighlightColor: 'transparent',
+      marginLeft: -14,
+      marginRight: 16,
+      // used for row presentation of radio/checkbox
+      '&$disabled': {
+        cursor: 'default'
+      }
+    },
+
+    /* Styles applied to the root element if `labelPlacement="start"`. */
+    labelPlacementStart: {
+      flexDirection: 'row-reverse',
+      marginLeft: 16,
+      // used for row presentation of radio/checkbox
+      marginRight: -14
+    },
+
+    /* Styles applied to the root element if `labelPlacement="top"`. */
+    labelPlacementTop: {
+      flexDirection: 'column-reverse',
+      marginLeft: 16
+    },
+
+    /* Styles applied to the root element if `labelPlacement="bottom"`. */
+    labelPlacementBottom: {
+      flexDirection: 'column',
+      marginLeft: 16
+    },
+
+    /* Styles applied to the root element if `disabled={true}`. */
+    disabled: {},
+
+    /* Styles applied to the label's Typography component. */
+    label: {
+      '&$disabled': {
+        color: theme.palette.text.disabled
+      }
+    }
+  };
+};
+/**
+ * Drop in replacement of the `Radio`, `Switch` and `Checkbox` component.
+ * Use this component if you want to display an extra label.
+ */
+
+
+exports.styles = styles;
+
+function FormControlLabel(props) {
+  var _classNames;
+
+  var checked = props.checked,
+      classes = props.classes,
+      classNameProp = props.className,
+      control = props.control,
+      disabledProp = props.disabled,
+      inputRef = props.inputRef,
+      label = props.label,
+      labelPlacement = props.labelPlacement,
+      muiFormControl = props.muiFormControl,
+      name = props.name,
+      onChange = props.onChange,
+      value = props.value,
+      other = (0, _objectWithoutProperties2.default)(props, ["checked", "classes", "className", "control", "disabled", "inputRef", "label", "labelPlacement", "muiFormControl", "name", "onChange", "value"]);
+  var disabled = disabledProp;
+
+  if (typeof disabled === 'undefined' && typeof control.props.disabled !== 'undefined') {
+    disabled = control.props.disabled;
+  }
+
+  if (typeof disabled === 'undefined' && muiFormControl) {
+    disabled = muiFormControl.disabled;
+  }
+
+  var controlProps = {
+    disabled: disabled
+  };
+  ['checked', 'name', 'onChange', 'value', 'inputRef'].forEach(function (key) {
+    if (typeof control.props[key] === 'undefined' && typeof props[key] !== 'undefined') {
+      controlProps[key] = props[key];
+    }
+  });
+  return _react.default.createElement("label", (0, _extends2.default)({
+    className: (0, _classnames.default)(classes.root, (_classNames = {}, (0, _defineProperty2.default)(_classNames, classes["labelPlacement".concat((0, _helpers.capitalize)(labelPlacement))], labelPlacement !== 'end'), (0, _defineProperty2.default)(_classNames, classes.disabled, disabled), _classNames), classNameProp)
+  }, other), _react.default.cloneElement(control, controlProps), _react.default.createElement(_Typography.default, {
+    component: "span",
+    className: (0, _classnames.default)(classes.label, (0, _defineProperty2.default)({}, classes.disabled, disabled))
+  }, label));
+}
+
+process.env.NODE_ENV !== "production" ? FormControlLabel.propTypes = {
+  /**
+   * If `true`, the component appears selected.
+   */
+  checked: _propTypes.default.oneOfType([_propTypes.default.bool, _propTypes.default.string]),
+
+  /**
+   * Override or extend the styles applied to the component.
+   * See [CSS API](#css-api) below for more details.
+   */
+  classes: _propTypes.default.object.isRequired,
+
+  /**
+   * @ignore
+   */
+  className: _propTypes.default.string,
+
+  /**
+   * A control element. For instance, it can be be a `Radio`, a `Switch` or a `Checkbox`.
+   */
+  control: _propTypes.default.element,
+
+  /**
+   * If `true`, the control will be disabled.
+   */
+  disabled: _propTypes.default.bool,
+
+  /**
+   * Use that property to pass a ref callback to the native input component.
+   */
+  inputRef: _propTypes.default.oneOfType([_propTypes.default.func, _propTypes.default.object]),
+
+  /**
+   * The text to be used in an enclosing label element.
+   */
+  label: _propTypes.default.node,
+
+  /**
+   * The position of the label.
+   */
+  labelPlacement: _propTypes.default.oneOf(['end', 'start', 'top', 'bottom']),
+
+  /**
+   * @ignore
+   */
+  muiFormControl: _propTypes.default.object,
+
+  /*
+   * @ignore
+   */
+  name: _propTypes.default.string,
+
+  /**
+   * Callback fired when the state is changed.
+   *
+   * @param {object} event The event source of the callback.
+   * You can pull out the new value by accessing `event.target.checked`.
+   * @param {boolean} checked The `checked` value of the switch
+   */
+  onChange: _propTypes.default.func,
+
+  /**
+   * The value of the component.
+   */
+  value: _propTypes.default.string
+} : void 0;
+FormControlLabel.defaultProps = {
+  labelPlacement: 'end'
+};
+
+var _default = (0, _withStyles.default)(styles, {
+  name: 'MuiFormControlLabel'
+})((0, _withFormControlContext.default)(FormControlLabel));
+
+exports.default = _default;
+}).call(this,require('_process'))
+},{"../FormControl/withFormControlContext":66,"../Typography":109,"../styles/withStyles":139,"../utils/helpers":143,"@babel/runtime/helpers/defineProperty":6,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":11,"@babel/runtime/helpers/objectWithoutProperties":15,"_process":1,"classnames":155,"prop-types":255,"react":277}],64:[function(require,module,exports){
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function get() {
+    return _FormControlLabel.default;
+  }
+});
+
+var _FormControlLabel = _interopRequireDefault(require("./FormControlLabel"));
+},{"./FormControlLabel":63,"@babel/runtime/helpers/interopRequireDefault":11}],65:[function(require,module,exports){
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+/**
+ * @ignore - internal component.
+ */
+var FormControlContext = _react.default.createContext();
+
+var _default = FormControlContext;
+exports.default = _default;
+},{"@babel/runtime/helpers/interopRequireDefault":11,"react":277}],66:[function(require,module,exports){
+(function (process){
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = withFormControlContext;
+
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
+
+var _react = _interopRequireDefault(require("react"));
+
+var _hoistNonReactStatics = _interopRequireDefault(require("hoist-non-react-statics"));
+
+var _FormControlContext = _interopRequireDefault(require("./FormControlContext"));
+
+var _utils = require("@material-ui/utils");
+
+function withFormControlContext(Component) {
+  var EnhancedComponent = function EnhancedComponent(props) {
+    return _react.default.createElement(_FormControlContext.default.Consumer, null, function (context) {
+      return _react.default.createElement(Component, (0, _extends2.default)({
+        muiFormControl: context
+      }, props));
+    });
+  };
+
+  if (process.env.NODE_ENV !== 'production') {
+    EnhancedComponent.displayName = "WithFormControlContext(".concat((0, _utils.getDisplayName)(Component), ")");
+  }
+
+  (0, _hoistNonReactStatics.default)(EnhancedComponent, Component);
+  return EnhancedComponent;
+}
+}).call(this,require('_process'))
+},{"./FormControlContext":65,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":11,"@material-ui/utils":152,"_process":1,"hoist-non-react-statics":185,"react":277}],67:[function(require,module,exports){
+(function (process){
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = exports.styles = void 0;
+
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
+
+var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
+
+var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
+
+var _react = _interopRequireDefault(require("react"));
+
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
+var _classnames = _interopRequireDefault(require("classnames"));
+
+var _withStyles = _interopRequireDefault(require("../styles/withStyles"));
+
+var styles = {
+  /* Styles applied to the root element. */
+  root: {
+    display: 'flex',
+    flexDirection: 'column',
+    flexWrap: 'wrap'
+  },
+
+  /* Styles applied to the root element if `row={true}`. */
+  row: {
+    flexDirection: 'row'
+  }
+};
+/**
+ * `FormGroup` wraps controls such as `Checkbox` and `Switch`.
+ * It provides compact row layout.
+ * For the `Radio`, you should be using the `RadioGroup` component instead of this one.
+ */
+
+exports.styles = styles;
+
+function FormGroup(props) {
+  var classes = props.classes,
+      className = props.className,
+      children = props.children,
+      row = props.row,
+      other = (0, _objectWithoutProperties2.default)(props, ["classes", "className", "children", "row"]);
+  return _react.default.createElement("div", (0, _extends2.default)({
+    className: (0, _classnames.default)(classes.root, (0, _defineProperty2.default)({}, classes.row, row), className)
+  }, other), children);
+}
+
+process.env.NODE_ENV !== "production" ? FormGroup.propTypes = {
+  /**
+   * The content of the component.
+   */
+  children: _propTypes.default.node,
+
+  /**
+   * Override or extend the styles applied to the component.
+   * See [CSS API](#css-api) below for more details.
+   */
+  classes: _propTypes.default.object.isRequired,
+
+  /**
+   * @ignore
+   */
+  className: _propTypes.default.string,
+
+  /**
+   * Display group of elements in a compact row.
+   */
+  row: _propTypes.default.bool
+} : void 0;
+FormGroup.defaultProps = {
+  row: false
+};
+
+var _default = (0, _withStyles.default)(styles, {
+  name: 'MuiFormGroup'
+})(FormGroup);
+
+exports.default = _default;
+}).call(this,require('_process'))
+},{"../styles/withStyles":139,"@babel/runtime/helpers/defineProperty":6,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":11,"@babel/runtime/helpers/objectWithoutProperties":15,"_process":1,"classnames":155,"prop-types":255,"react":277}],68:[function(require,module,exports){
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function get() {
+    return _FormGroup.default;
+  }
+});
+
+var _FormGroup = _interopRequireDefault(require("./FormGroup"));
+},{"./FormGroup":67,"@babel/runtime/helpers/interopRequireDefault":11}],69:[function(require,module,exports){
 (function (process){
 "use strict";
 
@@ -5191,7 +5584,7 @@ var _default = (0, _withTheme.default)()(Grow);
 
 exports.default = _default;
 }).call(this,require('_process'))
-},{"../styles/withTheme":124,"../transitions/utils":126,"@babel/runtime/helpers/classCallCheck":4,"@babel/runtime/helpers/createClass":5,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/getPrototypeOf":8,"@babel/runtime/helpers/inherits":9,"@babel/runtime/helpers/interopRequireDefault":10,"@babel/runtime/helpers/objectWithoutProperties":14,"@babel/runtime/helpers/possibleConstructorReturn":16,"_process":1,"prop-types":238,"react":260,"react-transition-group/Transition":254}],63:[function(require,module,exports){
+},{"../styles/withTheme":140,"../transitions/utils":142,"@babel/runtime/helpers/classCallCheck":4,"@babel/runtime/helpers/createClass":5,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/getPrototypeOf":8,"@babel/runtime/helpers/inherits":9,"@babel/runtime/helpers/interopRequireDefault":11,"@babel/runtime/helpers/objectWithoutProperties":15,"@babel/runtime/helpers/possibleConstructorReturn":17,"_process":1,"prop-types":255,"react":277,"react-transition-group/Transition":271}],70:[function(require,module,exports){
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -5207,7 +5600,7 @@ Object.defineProperty(exports, "default", {
 });
 
 var _Grow = _interopRequireDefault(require("./Grow"));
-},{"./Grow":62,"@babel/runtime/helpers/interopRequireDefault":10}],64:[function(require,module,exports){
+},{"./Grow":69,"@babel/runtime/helpers/interopRequireDefault":11}],71:[function(require,module,exports){
 (function (process){
 "use strict";
 
@@ -5394,7 +5787,7 @@ var _default = (0, _withStyles.default)(styles, {
 
 exports.default = _default;
 }).call(this,require('_process'))
-},{"../ButtonBase":35,"../styles/colorManipulator":103,"../styles/withStyles":123,"../utils/helpers":127,"@babel/runtime/helpers/defineProperty":6,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":10,"@babel/runtime/helpers/objectWithoutProperties":14,"@material-ui/utils":136,"_process":1,"classnames":139,"prop-types":238,"react":260}],65:[function(require,module,exports){
+},{"../ButtonBase":36,"../styles/colorManipulator":119,"../styles/withStyles":139,"../utils/helpers":143,"@babel/runtime/helpers/defineProperty":6,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":11,"@babel/runtime/helpers/objectWithoutProperties":15,"@material-ui/utils":152,"_process":1,"classnames":155,"prop-types":255,"react":277}],72:[function(require,module,exports){
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -5410,7 +5803,7 @@ Object.defineProperty(exports, "default", {
 });
 
 var _IconButton = _interopRequireDefault(require("./IconButton"));
-},{"./IconButton":64,"@babel/runtime/helpers/interopRequireDefault":10}],66:[function(require,module,exports){
+},{"./IconButton":71,"@babel/runtime/helpers/interopRequireDefault":11}],73:[function(require,module,exports){
 (function (process){
 "use strict";
 
@@ -5486,7 +5879,7 @@ var _default = (0, _withStyles.default)(styles, {
 
 exports.default = _default;
 }).call(this,require('_process'))
-},{"../styles/withStyles":123,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":10,"@babel/runtime/helpers/objectWithoutProperties":14,"_process":1,"classnames":139,"prop-types":238,"react":260}],67:[function(require,module,exports){
+},{"../styles/withStyles":139,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":11,"@babel/runtime/helpers/objectWithoutProperties":15,"_process":1,"classnames":155,"prop-types":255,"react":277}],74:[function(require,module,exports){
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -5502,7 +5895,7 @@ Object.defineProperty(exports, "default", {
 });
 
 var _ListItemIcon = _interopRequireDefault(require("./ListItemIcon"));
-},{"./ListItemIcon":66,"@babel/runtime/helpers/interopRequireDefault":10}],68:[function(require,module,exports){
+},{"./ListItemIcon":73,"@babel/runtime/helpers/interopRequireDefault":11}],75:[function(require,module,exports){
 (function (process){
 "use strict";
 
@@ -5687,7 +6080,7 @@ var _default = (0, _withStyles.default)(styles, {
 
 exports.default = _default;
 }).call(this,require('_process'))
-},{"../List/ListContext":74,"../Typography":96,"../styles/withStyles":123,"@babel/runtime/helpers/defineProperty":6,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":10,"@babel/runtime/helpers/objectWithoutProperties":14,"_process":1,"classnames":139,"prop-types":238,"react":260}],69:[function(require,module,exports){
+},{"../List/ListContext":81,"../Typography":109,"../styles/withStyles":139,"@babel/runtime/helpers/defineProperty":6,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":11,"@babel/runtime/helpers/objectWithoutProperties":15,"_process":1,"classnames":155,"prop-types":255,"react":277}],76:[function(require,module,exports){
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -5703,7 +6096,7 @@ Object.defineProperty(exports, "default", {
 });
 
 var _ListItemText = _interopRequireDefault(require("./ListItemText"));
-},{"./ListItemText":68,"@babel/runtime/helpers/interopRequireDefault":10}],70:[function(require,module,exports){
+},{"./ListItemText":75,"@babel/runtime/helpers/interopRequireDefault":11}],77:[function(require,module,exports){
 (function (process){
 "use strict";
 
@@ -6013,7 +6406,7 @@ var _default = (0, _withStyles.default)(styles, {
 
 exports.default = _default;
 }).call(this,require('_process'))
-},{"../ButtonBase":35,"../styles/withStyles":123,"../utils/reactHelpers":130,"./MergeListContext":71,"@babel/runtime/helpers/defineProperty":6,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":10,"@babel/runtime/helpers/objectWithoutProperties":14,"@material-ui/utils":136,"_process":1,"classnames":139,"prop-types":238,"react":260}],71:[function(require,module,exports){
+},{"../ButtonBase":36,"../styles/withStyles":139,"../utils/reactHelpers":146,"./MergeListContext":78,"@babel/runtime/helpers/defineProperty":6,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":11,"@babel/runtime/helpers/objectWithoutProperties":15,"@material-ui/utils":152,"_process":1,"classnames":155,"prop-types":255,"react":277}],78:[function(require,module,exports){
 (function (process){
 "use strict";
 
@@ -6058,7 +6451,7 @@ process.env.NODE_ENV !== "production" ? MergeListContext.propTypes = {
 var _default = MergeListContext;
 exports.default = _default;
 }).call(this,require('_process'))
-},{"../List/ListContext":74,"@babel/runtime/helpers/interopRequireDefault":10,"_process":1,"prop-types":238,"react":260}],72:[function(require,module,exports){
+},{"../List/ListContext":81,"@babel/runtime/helpers/interopRequireDefault":11,"_process":1,"prop-types":255,"react":277}],79:[function(require,module,exports){
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -6074,7 +6467,7 @@ Object.defineProperty(exports, "default", {
 });
 
 var _ListItem = _interopRequireDefault(require("./ListItem"));
-},{"./ListItem":70,"@babel/runtime/helpers/interopRequireDefault":10}],73:[function(require,module,exports){
+},{"./ListItem":77,"@babel/runtime/helpers/interopRequireDefault":11}],80:[function(require,module,exports){
 (function (process){
 "use strict";
 
@@ -6203,7 +6596,7 @@ var _default = (0, _withStyles.default)(styles, {
 
 exports.default = _default;
 }).call(this,require('_process'))
-},{"../styles/withStyles":123,"./ListContext":74,"@babel/runtime/helpers/defineProperty":6,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":10,"@babel/runtime/helpers/objectWithoutProperties":14,"@material-ui/utils":136,"_process":1,"classnames":139,"prop-types":238,"react":260}],74:[function(require,module,exports){
+},{"../styles/withStyles":139,"./ListContext":81,"@babel/runtime/helpers/defineProperty":6,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":11,"@babel/runtime/helpers/objectWithoutProperties":15,"@material-ui/utils":152,"_process":1,"classnames":155,"prop-types":255,"react":277}],81:[function(require,module,exports){
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -6222,7 +6615,7 @@ var ListContext = _react.default.createContext({});
 
 var _default = ListContext;
 exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":10,"react":260}],75:[function(require,module,exports){
+},{"@babel/runtime/helpers/interopRequireDefault":11,"react":277}],82:[function(require,module,exports){
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -6238,7 +6631,7 @@ Object.defineProperty(exports, "default", {
 });
 
 var _List = _interopRequireDefault(require("./List"));
-},{"./List":73,"@babel/runtime/helpers/interopRequireDefault":10}],76:[function(require,module,exports){
+},{"./List":80,"@babel/runtime/helpers/interopRequireDefault":11}],83:[function(require,module,exports){
 (function (process){
 "use strict";
 
@@ -6794,7 +7187,7 @@ var _default = (0, _withStyles.default)(styles, {
 
 exports.default = _default;
 }).call(this,require('_process'))
-},{"../Backdrop":23,"../Portal":86,"../RootRef":88,"../styles/withStyles":123,"../utils/helpers":127,"../utils/ownerDocument":128,"./ModalManager":77,"./manageAriaHidden":80,"@babel/runtime/helpers/assertThisInitialized":3,"@babel/runtime/helpers/classCallCheck":4,"@babel/runtime/helpers/createClass":5,"@babel/runtime/helpers/defineProperty":6,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/getPrototypeOf":8,"@babel/runtime/helpers/inherits":9,"@babel/runtime/helpers/interopRequireDefault":10,"@babel/runtime/helpers/objectWithoutProperties":14,"@babel/runtime/helpers/possibleConstructorReturn":16,"@material-ui/utils":136,"_process":1,"classnames":139,"prop-types":238,"react":260,"react-dom":242,"warning":302}],77:[function(require,module,exports){
+},{"../Backdrop":24,"../Portal":93,"../RootRef":99,"../styles/withStyles":139,"../utils/helpers":143,"../utils/ownerDocument":144,"./ModalManager":84,"./manageAriaHidden":87,"@babel/runtime/helpers/assertThisInitialized":3,"@babel/runtime/helpers/classCallCheck":4,"@babel/runtime/helpers/createClass":5,"@babel/runtime/helpers/defineProperty":6,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/getPrototypeOf":8,"@babel/runtime/helpers/inherits":9,"@babel/runtime/helpers/interopRequireDefault":11,"@babel/runtime/helpers/objectWithoutProperties":15,"@babel/runtime/helpers/possibleConstructorReturn":17,"@material-ui/utils":152,"_process":1,"classnames":155,"prop-types":255,"react":277,"react-dom":259,"warning":326}],84:[function(require,module,exports){
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -7015,7 +7408,7 @@ function () {
 
 var _default = ModalManager;
 exports.default = _default;
-},{"../utils/ownerDocument":128,"./isOverflowing":79,"./manageAriaHidden":80,"@babel/runtime/helpers/classCallCheck":4,"@babel/runtime/helpers/createClass":5,"@babel/runtime/helpers/interopRequireDefault":10,"dom-helpers/style":151,"dom-helpers/util/scrollbarSize":160}],78:[function(require,module,exports){
+},{"../utils/ownerDocument":144,"./isOverflowing":86,"./manageAriaHidden":87,"@babel/runtime/helpers/classCallCheck":4,"@babel/runtime/helpers/createClass":5,"@babel/runtime/helpers/interopRequireDefault":11,"dom-helpers/style":167,"dom-helpers/util/scrollbarSize":176}],85:[function(require,module,exports){
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -7039,7 +7432,7 @@ Object.defineProperty(exports, "ModalManager", {
 var _Modal = _interopRequireDefault(require("./Modal"));
 
 var _ModalManager = _interopRequireDefault(require("./ModalManager"));
-},{"./Modal":76,"./ModalManager":77,"@babel/runtime/helpers/interopRequireDefault":10}],79:[function(require,module,exports){
+},{"./Modal":83,"./ModalManager":84,"@babel/runtime/helpers/interopRequireDefault":11}],86:[function(require,module,exports){
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -7076,7 +7469,7 @@ function isOverflowing(container) {
   var marginRight = parseInt(style.getPropertyValue('margin-right'), 10);
   return marginLeft + doc.body.clientWidth + marginRight < win.innerWidth;
 }
-},{"../utils/ownerDocument":128,"../utils/ownerWindow":129,"@babel/runtime/helpers/interopRequireDefault":10,"dom-helpers/query/isWindow":149}],80:[function(require,module,exports){
+},{"../utils/ownerDocument":144,"../utils/ownerWindow":145,"@babel/runtime/helpers/interopRequireDefault":11,"dom-helpers/query/isWindow":165}],87:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -7112,7 +7505,7 @@ function ariaHiddenSiblings(container, mountNode, currentNode, show) {
     return ariaHidden(node, show);
   });
 }
-},{}],81:[function(require,module,exports){
+},{}],88:[function(require,module,exports){
 (function (process){
 "use strict";
 
@@ -7248,7 +7641,7 @@ NoSsr.defaultProps = {
 var _default = NoSsr;
 exports.default = _default;
 }).call(this,require('_process'))
-},{"@babel/runtime/helpers/classCallCheck":4,"@babel/runtime/helpers/createClass":5,"@babel/runtime/helpers/getPrototypeOf":8,"@babel/runtime/helpers/inherits":9,"@babel/runtime/helpers/interopRequireDefault":10,"@babel/runtime/helpers/possibleConstructorReturn":16,"@material-ui/utils":136,"_process":1,"prop-types":238,"react":260}],82:[function(require,module,exports){
+},{"@babel/runtime/helpers/classCallCheck":4,"@babel/runtime/helpers/createClass":5,"@babel/runtime/helpers/getPrototypeOf":8,"@babel/runtime/helpers/inherits":9,"@babel/runtime/helpers/interopRequireDefault":11,"@babel/runtime/helpers/possibleConstructorReturn":17,"@material-ui/utils":152,"_process":1,"prop-types":255,"react":277}],89:[function(require,module,exports){
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -7264,7 +7657,7 @@ Object.defineProperty(exports, "default", {
 });
 
 var _NoSsr = _interopRequireDefault(require("./NoSsr"));
-},{"./NoSsr":81,"@babel/runtime/helpers/interopRequireDefault":10}],83:[function(require,module,exports){
+},{"./NoSsr":88,"@babel/runtime/helpers/interopRequireDefault":11}],90:[function(require,module,exports){
 (function (process){
 "use strict";
 
@@ -7375,7 +7768,7 @@ var _default = (0, _withStyles.default)(styles, {
 
 exports.default = _default;
 }).call(this,require('_process'))
-},{"../styles/withStyles":123,"@babel/runtime/helpers/defineProperty":6,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":10,"@babel/runtime/helpers/objectWithoutProperties":14,"@material-ui/utils":136,"_process":1,"classnames":139,"prop-types":238,"react":260,"warning":302}],84:[function(require,module,exports){
+},{"../styles/withStyles":139,"@babel/runtime/helpers/defineProperty":6,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":11,"@babel/runtime/helpers/objectWithoutProperties":15,"@material-ui/utils":152,"_process":1,"classnames":155,"prop-types":255,"react":277,"warning":326}],91:[function(require,module,exports){
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -7391,7 +7784,7 @@ Object.defineProperty(exports, "default", {
 });
 
 var _Paper = _interopRequireDefault(require("./Paper"));
-},{"./Paper":83,"@babel/runtime/helpers/interopRequireDefault":10}],85:[function(require,module,exports){
+},{"./Paper":90,"@babel/runtime/helpers/interopRequireDefault":11}],92:[function(require,module,exports){
 (function (process){
 "use strict";
 
@@ -7563,7 +7956,7 @@ if (process.env.NODE_ENV !== 'production') {
 var _default = Portal;
 exports.default = _default;
 }).call(this,require('_process'))
-},{"../utils/ownerDocument":128,"@babel/runtime/helpers/classCallCheck":4,"@babel/runtime/helpers/createClass":5,"@babel/runtime/helpers/getPrototypeOf":8,"@babel/runtime/helpers/inherits":9,"@babel/runtime/helpers/interopRequireDefault":10,"@babel/runtime/helpers/possibleConstructorReturn":16,"@material-ui/utils":136,"_process":1,"prop-types":238,"react":260,"react-dom":242}],86:[function(require,module,exports){
+},{"../utils/ownerDocument":144,"@babel/runtime/helpers/classCallCheck":4,"@babel/runtime/helpers/createClass":5,"@babel/runtime/helpers/getPrototypeOf":8,"@babel/runtime/helpers/inherits":9,"@babel/runtime/helpers/interopRequireDefault":11,"@babel/runtime/helpers/possibleConstructorReturn":17,"@material-ui/utils":152,"_process":1,"prop-types":255,"react":277,"react-dom":259}],93:[function(require,module,exports){
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -7579,7 +7972,384 @@ Object.defineProperty(exports, "default", {
 });
 
 var _Portal = _interopRequireDefault(require("./Portal"));
-},{"./Portal":85,"@babel/runtime/helpers/interopRequireDefault":10}],87:[function(require,module,exports){
+},{"./Portal":92,"@babel/runtime/helpers/interopRequireDefault":11}],94:[function(require,module,exports){
+(function (process){
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
+
+var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
+
+var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
+
+var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
+
+var _possibleConstructorReturn2 = _interopRequireDefault(require("@babel/runtime/helpers/possibleConstructorReturn"));
+
+var _getPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/helpers/getPrototypeOf"));
+
+var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/inherits"));
+
+var _react = _interopRequireDefault(require("react"));
+
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
+var _warning = _interopRequireDefault(require("warning"));
+
+var _FormGroup = _interopRequireDefault(require("../FormGroup"));
+
+var _helpers = require("../utils/helpers");
+
+// @inheritedComponent FormGroup
+var RadioGroup =
+/*#__PURE__*/
+function (_React$Component) {
+  (0, _inherits2.default)(RadioGroup, _React$Component);
+
+  function RadioGroup(props) {
+    var _this;
+
+    (0, _classCallCheck2.default)(this, RadioGroup);
+    _this = (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(RadioGroup).call(this));
+    _this.radios = [];
+
+    _this.focus = function () {
+      if (!_this.radios || !_this.radios.length) {
+        return;
+      }
+
+      var focusRadios = _this.radios.filter(function (n) {
+        return !n.disabled;
+      });
+
+      if (!focusRadios.length) {
+        return;
+      }
+
+      var selectedRadio = (0, _helpers.find)(focusRadios, function (n) {
+        return n.checked;
+      });
+
+      if (selectedRadio) {
+        selectedRadio.focus();
+        return;
+      }
+
+      focusRadios[0].focus();
+    };
+
+    _this.handleChange = function (event) {
+      if (!_this.isControlled) {
+        _this.setState({
+          value: event.target.value
+        });
+      }
+
+      if (_this.props.onChange) {
+        _this.props.onChange(event, event.target.value);
+      }
+    };
+
+    _this.isControlled = props.value != null;
+
+    if (!_this.isControlled) {
+      _this.state = {
+        value: props.defaultValue
+      };
+    }
+
+    return _this;
+  }
+
+  (0, _createClass2.default)(RadioGroup, [{
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      var _this$props = this.props,
+          children = _this$props.children,
+          name = _this$props.name,
+          valueProp = _this$props.value,
+          onChange = _this$props.onChange,
+          other = (0, _objectWithoutProperties2.default)(_this$props, ["children", "name", "value", "onChange"]);
+      var value = this.isControlled ? valueProp : this.state.value;
+      this.radios = [];
+      return _react.default.createElement(_FormGroup.default, (0, _extends2.default)({
+        role: "radiogroup"
+      }, other), _react.default.Children.map(children, function (child) {
+        if (!_react.default.isValidElement(child)) {
+          return null;
+        }
+
+        process.env.NODE_ENV !== "production" ? (0, _warning.default)(child.type !== _react.default.Fragment, ["Material-UI: the RadioGroup component doesn't accept a Fragment as a child.", 'Consider providing an array instead.'].join('\n')) : void 0;
+        return _react.default.cloneElement(child, {
+          name: name,
+          inputRef: function inputRef(node) {
+            if (node) {
+              _this2.radios.push(node);
+            }
+          },
+          checked: value === child.props.value,
+          onChange: (0, _helpers.createChainedFunction)(child.props.onChange, _this2.handleChange)
+        });
+      }));
+    }
+  }]);
+  return RadioGroup;
+}(_react.default.Component);
+
+process.env.NODE_ENV !== "production" ? RadioGroup.propTypes = {
+  /**
+   * The content of the component.
+   */
+  children: _propTypes.default.node,
+
+  /**
+   * The default input value, useful when not controlling the component.
+   */
+  defaultValue: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.number, _propTypes.default.bool]),
+
+  /**
+   * The name used to reference the value of the control.
+   */
+  name: _propTypes.default.string,
+
+  /**
+   * @ignore
+   */
+  onBlur: _propTypes.default.func,
+
+  /**
+   * Callback fired when a radio button is selected.
+   *
+   * @param {object} event The event source of the callback.
+   * You can pull out the new value by accessing `event.target.value`.
+   * @param {string} value The `value` of the selected radio button
+   */
+  onChange: _propTypes.default.func,
+
+  /**
+   * @ignore
+   */
+  onKeyDown: _propTypes.default.func,
+
+  /**
+   * Value of the selected radio button.
+   */
+  value: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.number, _propTypes.default.bool])
+} : void 0;
+var _default = RadioGroup;
+exports.default = _default;
+}).call(this,require('_process'))
+},{"../FormGroup":68,"../utils/helpers":143,"@babel/runtime/helpers/classCallCheck":4,"@babel/runtime/helpers/createClass":5,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/getPrototypeOf":8,"@babel/runtime/helpers/inherits":9,"@babel/runtime/helpers/interopRequireDefault":11,"@babel/runtime/helpers/objectWithoutProperties":15,"@babel/runtime/helpers/possibleConstructorReturn":17,"_process":1,"prop-types":255,"react":277,"warning":326}],95:[function(require,module,exports){
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function get() {
+    return _RadioGroup.default;
+  }
+});
+
+var _RadioGroup = _interopRequireDefault(require("./RadioGroup"));
+},{"./RadioGroup":94,"@babel/runtime/helpers/interopRequireDefault":11}],96:[function(require,module,exports){
+(function (process){
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = exports.styles = void 0;
+
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
+
+var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
+
+var _react = _interopRequireDefault(require("react"));
+
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
+var _classnames = _interopRequireDefault(require("classnames"));
+
+var _SwitchBase = _interopRequireDefault(require("../internal/SwitchBase"));
+
+var _RadioButtonUnchecked = _interopRequireDefault(require("../internal/svg-icons/RadioButtonUnchecked"));
+
+var _RadioButtonChecked = _interopRequireDefault(require("../internal/svg-icons/RadioButtonChecked"));
+
+var _helpers = require("../utils/helpers");
+
+var _withStyles = _interopRequireDefault(require("../styles/withStyles"));
+
+var styles = function styles(theme) {
+  return {
+    /* Styles applied to the root element. */
+    root: {
+      color: theme.palette.text.secondary
+    },
+
+    /* Styles applied to the root element if `checked={true}`. */
+    checked: {},
+
+    /* Styles applied to the root element if `disabled={true}`. */
+    disabled: {},
+
+    /* Styles applied to the root element if `color="primary"`. */
+    colorPrimary: {
+      '&$checked': {
+        color: theme.palette.primary.main
+      },
+      '&$disabled': {
+        color: theme.palette.action.disabled
+      }
+    },
+
+    /* Styles applied to the root element if `color="secondary"`. */
+    colorSecondary: {
+      '&$checked': {
+        color: theme.palette.secondary.main
+      },
+      '&$disabled': {
+        color: theme.palette.action.disabled
+      }
+    }
+  };
+};
+
+exports.styles = styles;
+
+var _ref = _react.default.createElement(_RadioButtonUnchecked.default, null);
+
+var _ref2 = _react.default.createElement(_RadioButtonChecked.default, null);
+
+function Radio(props) {
+  var classes = props.classes,
+      color = props.color,
+      other = (0, _objectWithoutProperties2.default)(props, ["classes", "color"]);
+  return _react.default.createElement(_SwitchBase.default, (0, _extends2.default)({
+    type: "radio",
+    icon: _ref,
+    checkedIcon: _ref2,
+    classes: {
+      root: (0, _classnames.default)(classes.root, classes["color".concat((0, _helpers.capitalize)(color))]),
+      checked: classes.checked,
+      disabled: classes.disabled
+    }
+  }, other));
+}
+
+process.env.NODE_ENV !== "production" ? Radio.propTypes = {
+  /**
+   * If `true`, the component is checked.
+   */
+  checked: _propTypes.default.oneOfType([_propTypes.default.bool, _propTypes.default.string]),
+
+  /**
+   * The icon to display when the component is checked.
+   */
+  checkedIcon: _propTypes.default.node,
+
+  /**
+   * Override or extend the styles applied to the component.
+   * See [CSS API](#css-api) below for more details.
+   */
+  classes: _propTypes.default.object.isRequired,
+
+  /**
+   * The color of the component. It supports those theme colors that make sense for this component.
+   */
+  color: _propTypes.default.oneOf(['primary', 'secondary', 'default']),
+
+  /**
+   * If `true`, the switch will be disabled.
+   */
+  disabled: _propTypes.default.bool,
+
+  /**
+   * If `true`, the ripple effect will be disabled.
+   */
+  disableRipple: _propTypes.default.bool,
+
+  /**
+   * The icon to display when the component is unchecked.
+   */
+  icon: _propTypes.default.node,
+
+  /**
+   * The id of the `input` element.
+   */
+  id: _propTypes.default.string,
+
+  /**
+   * Attributes applied to the `input` element.
+   */
+  inputProps: _propTypes.default.object,
+
+  /**
+   * Use that property to pass a ref callback to the native input component.
+   */
+  inputRef: _propTypes.default.oneOfType([_propTypes.default.func, _propTypes.default.object]),
+
+  /**
+   * Callback fired when the state is changed.
+   *
+   * @param {object} event The event source of the callback.
+   * You can pull out the new value by accessing `event.target.value`.
+   * @param {boolean} checked The `checked` value of the switch
+   */
+  onChange: _propTypes.default.func,
+
+  /**
+   * The input component property `type`.
+   */
+  type: _propTypes.default.string,
+
+  /**
+   * The value of the component.
+   */
+  value: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.number, _propTypes.default.bool])
+} : void 0;
+Radio.defaultProps = {
+  color: 'secondary'
+};
+
+var _default = (0, _withStyles.default)(styles, {
+  name: 'MuiRadio'
+})(Radio);
+
+exports.default = _default;
+}).call(this,require('_process'))
+},{"../internal/SwitchBase":115,"../internal/svg-icons/RadioButtonChecked":116,"../internal/svg-icons/RadioButtonUnchecked":117,"../styles/withStyles":139,"../utils/helpers":143,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":11,"@babel/runtime/helpers/objectWithoutProperties":15,"_process":1,"classnames":155,"prop-types":255,"react":277}],97:[function(require,module,exports){
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function get() {
+    return _Radio.default;
+  }
+});
+
+var _Radio = _interopRequireDefault(require("./Radio"));
+},{"./Radio":96,"@babel/runtime/helpers/interopRequireDefault":11}],98:[function(require,module,exports){
 (function (process){
 "use strict";
 
@@ -7705,7 +8475,7 @@ if (process.env.NODE_ENV !== 'production') {
 var _default = RootRef;
 exports.default = _default;
 }).call(this,require('_process'))
-},{"../utils/reactHelpers":130,"@babel/runtime/helpers/classCallCheck":4,"@babel/runtime/helpers/createClass":5,"@babel/runtime/helpers/getPrototypeOf":8,"@babel/runtime/helpers/inherits":9,"@babel/runtime/helpers/interopRequireDefault":10,"@babel/runtime/helpers/possibleConstructorReturn":16,"@material-ui/utils":136,"_process":1,"prop-types":238,"react":260,"react-dom":242}],88:[function(require,module,exports){
+},{"../utils/reactHelpers":146,"@babel/runtime/helpers/classCallCheck":4,"@babel/runtime/helpers/createClass":5,"@babel/runtime/helpers/getPrototypeOf":8,"@babel/runtime/helpers/inherits":9,"@babel/runtime/helpers/interopRequireDefault":11,"@babel/runtime/helpers/possibleConstructorReturn":17,"@material-ui/utils":152,"_process":1,"prop-types":255,"react":277,"react-dom":259}],99:[function(require,module,exports){
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -7721,7 +8491,7 @@ Object.defineProperty(exports, "default", {
 });
 
 var _RootRef = _interopRequireDefault(require("./RootRef"));
-},{"./RootRef":87,"@babel/runtime/helpers/interopRequireDefault":10}],89:[function(require,module,exports){
+},{"./RootRef":98,"@babel/runtime/helpers/interopRequireDefault":11}],100:[function(require,module,exports){
 (function (process){
 "use strict";
 
@@ -8052,7 +8822,7 @@ var _default = (0, _withTheme.default)()(Slide);
 
 exports.default = _default;
 }).call(this,require('_process'))
-},{"../styles/transitions":122,"../styles/withTheme":124,"../transitions/utils":126,"../utils/ownerWindow":129,"@babel/runtime/helpers/classCallCheck":4,"@babel/runtime/helpers/createClass":5,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/getPrototypeOf":8,"@babel/runtime/helpers/inherits":9,"@babel/runtime/helpers/interopRequireDefault":10,"@babel/runtime/helpers/objectWithoutProperties":14,"@babel/runtime/helpers/possibleConstructorReturn":16,"_process":1,"debounce":147,"prop-types":238,"react":260,"react-dom":242,"react-event-listener":243,"react-transition-group/Transition":254}],90:[function(require,module,exports){
+},{"../styles/transitions":138,"../styles/withTheme":140,"../transitions/utils":142,"../utils/ownerWindow":145,"@babel/runtime/helpers/classCallCheck":4,"@babel/runtime/helpers/createClass":5,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/getPrototypeOf":8,"@babel/runtime/helpers/inherits":9,"@babel/runtime/helpers/interopRequireDefault":11,"@babel/runtime/helpers/objectWithoutProperties":15,"@babel/runtime/helpers/possibleConstructorReturn":17,"_process":1,"debounce":163,"prop-types":255,"react":277,"react-dom":259,"react-event-listener":260,"react-transition-group/Transition":271}],101:[function(require,module,exports){
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -8068,7 +8838,7 @@ Object.defineProperty(exports, "default", {
 });
 
 var _Slide = _interopRequireDefault(require("./Slide"));
-},{"./Slide":89,"@babel/runtime/helpers/interopRequireDefault":10}],91:[function(require,module,exports){
+},{"./Slide":100,"@babel/runtime/helpers/interopRequireDefault":11}],102:[function(require,module,exports){
 (function (process){
 "use strict";
 
@@ -8255,7 +9025,7 @@ var _default = (0, _withStyles.default)(styles, {
 
 exports.default = _default;
 }).call(this,require('_process'))
-},{"../styles/withStyles":123,"../utils/helpers":127,"@babel/runtime/helpers/defineProperty":6,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":10,"@babel/runtime/helpers/objectWithoutProperties":14,"@material-ui/utils":136,"_process":1,"classnames":139,"prop-types":238,"react":260}],92:[function(require,module,exports){
+},{"../styles/withStyles":139,"../utils/helpers":143,"@babel/runtime/helpers/defineProperty":6,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":11,"@babel/runtime/helpers/objectWithoutProperties":15,"@material-ui/utils":152,"_process":1,"classnames":155,"prop-types":255,"react":277}],103:[function(require,module,exports){
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -8271,7 +9041,272 @@ Object.defineProperty(exports, "default", {
 });
 
 var _SvgIcon = _interopRequireDefault(require("./SvgIcon"));
-},{"./SvgIcon":91,"@babel/runtime/helpers/interopRequireDefault":10}],93:[function(require,module,exports){
+},{"./SvgIcon":102,"@babel/runtime/helpers/interopRequireDefault":11}],104:[function(require,module,exports){
+(function (process){
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = exports.styles = void 0;
+
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
+
+var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
+
+var _react = _interopRequireDefault(require("react"));
+
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
+var _classnames = _interopRequireDefault(require("classnames"));
+
+var _withStyles = _interopRequireDefault(require("../styles/withStyles"));
+
+var _helpers = require("../utils/helpers");
+
+var _SwitchBase = _interopRequireDefault(require("../internal/SwitchBase"));
+
+var styles = function styles(theme) {
+  return {
+    /* Styles applied to the root element. */
+    root: {
+      display: 'inline-flex',
+      width: 62,
+      position: 'relative',
+      flexShrink: 0,
+      zIndex: 0,
+      // Reset the stacking context.
+      // For correct alignment with the text.
+      verticalAlign: 'middle'
+    },
+
+    /* Styles used to create the `icon` passed to the internal `SwitchBase` component `icon` prop. */
+    icon: {
+      boxShadow: theme.shadows[1],
+      backgroundColor: 'currentColor',
+      width: 20,
+      height: 20,
+      borderRadius: '50%'
+    },
+
+    /* Styles applied the icon element component if `checked={true}`. */
+    iconChecked: {
+      boxShadow: theme.shadows[2]
+    },
+
+    /* Styles applied to the internal `SwitchBase` component's `root` class. */
+    switchBase: {
+      padding: 0,
+      height: 48,
+      width: 48,
+      color: theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[400],
+      transition: theme.transitions.create('transform', {
+        duration: theme.transitions.duration.shortest
+      })
+    },
+
+    /* Styles applied to the internal `SwitchBase` component's `checked` class. */
+    checked: {
+      transform: 'translateX(14px)',
+      '& + $bar': {
+        opacity: 0.5
+      }
+    },
+
+    /* Styles applied to the internal SwitchBase component's root element if `color="primary"`. */
+    colorPrimary: {
+      '&$checked': {
+        color: theme.palette.primary.main,
+        '& + $bar': {
+          backgroundColor: theme.palette.primary.main
+        }
+      }
+    },
+
+    /* Styles applied to the internal SwitchBase component's root element if `color="secondary"`. */
+    colorSecondary: {
+      '&$checked': {
+        color: theme.palette.secondary.main,
+        '& + $bar': {
+          backgroundColor: theme.palette.secondary.main
+        }
+      }
+    },
+
+    /* Styles applied to the internal SwitchBase component's disabled class. */
+    disabled: {
+      '& + $bar': {
+        opacity: theme.palette.type === 'light' ? 0.12 : 0.1
+      },
+      '& $icon': {
+        boxShadow: theme.shadows[1]
+      },
+      '&$switchBase': {
+        color: theme.palette.type === 'light' ? theme.palette.grey[400] : theme.palette.grey[800],
+        '& + $bar': {
+          backgroundColor: theme.palette.type === 'light' ? theme.palette.common.black : theme.palette.common.white
+        }
+      }
+    },
+
+    /* Styles applied to the bar element. */
+    bar: {
+      borderRadius: 14 / 2,
+      display: 'block',
+      position: 'absolute',
+      zIndex: -1,
+      width: 34,
+      height: 14,
+      top: '50%',
+      left: '50%',
+      marginTop: -7,
+      marginLeft: -17,
+      transition: theme.transitions.create(['opacity', 'background-color'], {
+        duration: theme.transitions.duration.shortest
+      }),
+      backgroundColor: theme.palette.type === 'light' ? theme.palette.common.black : theme.palette.common.white,
+      opacity: theme.palette.type === 'light' ? 0.38 : 0.3
+    }
+  };
+};
+
+exports.styles = styles;
+
+function Switch(props) {
+  var classes = props.classes,
+      className = props.className,
+      color = props.color,
+      other = (0, _objectWithoutProperties2.default)(props, ["classes", "className", "color"]);
+  return _react.default.createElement("span", {
+    className: (0, _classnames.default)(classes.root, className)
+  }, _react.default.createElement(_SwitchBase.default, (0, _extends2.default)({
+    type: "checkbox",
+    icon: _react.default.createElement("span", {
+      className: classes.icon
+    }),
+    classes: {
+      root: (0, _classnames.default)(classes.switchBase, classes["color".concat((0, _helpers.capitalize)(color))]),
+      checked: classes.checked,
+      disabled: classes.disabled
+    },
+    checkedIcon: _react.default.createElement("span", {
+      className: (0, _classnames.default)(classes.icon, classes.iconChecked)
+    })
+  }, other)), _react.default.createElement("span", {
+    className: classes.bar
+  }));
+}
+
+process.env.NODE_ENV !== "production" ? Switch.propTypes = {
+  /**
+   * If `true`, the component is checked.
+   */
+  checked: _propTypes.default.oneOfType([_propTypes.default.bool, _propTypes.default.string]),
+
+  /**
+   * The icon to display when the component is checked.
+   */
+  checkedIcon: _propTypes.default.node,
+
+  /**
+   * Override or extend the styles applied to the component.
+   * See [CSS API](#css-api) below for more details.
+   */
+  classes: _propTypes.default.object.isRequired,
+
+  /**
+   * @ignore
+   */
+  className: _propTypes.default.string,
+
+  /**
+   * The color of the component. It supports those theme colors that make sense for this component.
+   */
+  color: _propTypes.default.oneOf(['primary', 'secondary', 'default']),
+
+  /**
+   * @ignore
+   */
+  defaultChecked: _propTypes.default.bool,
+
+  /**
+   * If `true`, the switch will be disabled.
+   */
+  disabled: _propTypes.default.bool,
+
+  /**
+   * If `true`, the ripple effect will be disabled.
+   */
+  disableRipple: _propTypes.default.bool,
+
+  /**
+   * The icon to display when the component is unchecked.
+   */
+  icon: _propTypes.default.node,
+
+  /**
+   * The id of the `input` element.
+   */
+  id: _propTypes.default.string,
+
+  /**
+   * Attributes applied to the `input` element.
+   */
+  inputProps: _propTypes.default.object,
+
+  /**
+   * Use that property to pass a ref callback to the native input component.
+   */
+  inputRef: _propTypes.default.oneOfType([_propTypes.default.func, _propTypes.default.object]),
+
+  /**
+   * Callback fired when the state is changed.
+   *
+   * @param {object} event The event source of the callback.
+   * You can pull out the new value by accessing `event.target.checked`.
+   * @param {boolean} checked The `checked` value of the switch
+   */
+  onChange: _propTypes.default.func,
+
+  /**
+   * The input component property `type`.
+   */
+  type: _propTypes.default.string,
+
+  /**
+   * The value of the component.
+   */
+  value: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.number, _propTypes.default.bool])
+} : void 0;
+Switch.defaultProps = {
+  color: 'secondary'
+};
+
+var _default = (0, _withStyles.default)(styles, {
+  name: 'MuiSwitch'
+})(Switch);
+
+exports.default = _default;
+}).call(this,require('_process'))
+},{"../internal/SwitchBase":115,"../styles/withStyles":139,"../utils/helpers":143,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":11,"@babel/runtime/helpers/objectWithoutProperties":15,"_process":1,"classnames":155,"prop-types":255,"react":277}],105:[function(require,module,exports){
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function get() {
+    return _Switch.default;
+  }
+});
+
+var _Switch = _interopRequireDefault(require("./Switch"));
+},{"./Switch":104,"@babel/runtime/helpers/interopRequireDefault":11}],106:[function(require,module,exports){
 (function (process){
 "use strict";
 
@@ -8371,7 +9406,7 @@ var _default = (0, _withStyles.default)(styles, {
 
 exports.default = _default;
 }).call(this,require('_process'))
-},{"../styles/withStyles":123,"@babel/runtime/helpers/defineProperty":6,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":10,"@babel/runtime/helpers/objectWithoutProperties":14,"_process":1,"classnames":139,"prop-types":238,"react":260}],94:[function(require,module,exports){
+},{"../styles/withStyles":139,"@babel/runtime/helpers/defineProperty":6,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":11,"@babel/runtime/helpers/objectWithoutProperties":15,"_process":1,"classnames":155,"prop-types":255,"react":277}],107:[function(require,module,exports){
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -8387,7 +9422,7 @@ Object.defineProperty(exports, "default", {
 });
 
 var _Toolbar = _interopRequireDefault(require("./Toolbar"));
-},{"./Toolbar":93,"@babel/runtime/helpers/interopRequireDefault":10}],95:[function(require,module,exports){
+},{"./Toolbar":106,"@babel/runtime/helpers/interopRequireDefault":11}],108:[function(require,module,exports){
 (function (process){
 "use strict";
 
@@ -8748,7 +9783,7 @@ var _default = (0, _withStyles.default)(styles, {
 
 exports.default = _default;
 }).call(this,require('_process'))
-},{"../styles/withStyles":123,"../utils/helpers":127,"@babel/runtime/helpers/defineProperty":6,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":10,"@babel/runtime/helpers/objectWithoutProperties":14,"@material-ui/utils":136,"_process":1,"classnames":139,"prop-types":238,"react":260}],96:[function(require,module,exports){
+},{"../styles/withStyles":139,"../utils/helpers":143,"@babel/runtime/helpers/defineProperty":6,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":11,"@babel/runtime/helpers/objectWithoutProperties":15,"@material-ui/utils":152,"_process":1,"classnames":155,"prop-types":255,"react":277}],109:[function(require,module,exports){
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -8764,7 +9799,7 @@ Object.defineProperty(exports, "default", {
 });
 
 var _Typography = _interopRequireDefault(require("./Typography"));
-},{"./Typography":95,"@babel/runtime/helpers/interopRequireDefault":10}],97:[function(require,module,exports){
+},{"./Typography":108,"@babel/runtime/helpers/interopRequireDefault":11}],110:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -8777,7 +9812,7 @@ var common = {
 };
 var _default = common;
 exports.default = _default;
-},{}],98:[function(require,module,exports){
+},{}],111:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -8802,7 +9837,7 @@ var grey = {
 };
 var _default = grey;
 exports.default = _default;
-},{}],99:[function(require,module,exports){
+},{}],112:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -8827,7 +9862,7 @@ var indigo = {
 };
 var _default = indigo;
 exports.default = _default;
-},{}],100:[function(require,module,exports){
+},{}],113:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -8852,7 +9887,7 @@ var pink = {
 };
 var _default = pink;
 exports.default = _default;
-},{}],101:[function(require,module,exports){
+},{}],114:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -8877,7 +9912,392 @@ var red = {
 };
 var _default = red;
 exports.default = _default;
-},{}],102:[function(require,module,exports){
+},{}],115:[function(require,module,exports){
+(function (process){
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = exports.styles = void 0;
+
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
+
+var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
+
+var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
+
+var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
+
+var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
+
+var _possibleConstructorReturn2 = _interopRequireDefault(require("@babel/runtime/helpers/possibleConstructorReturn"));
+
+var _getPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/helpers/getPrototypeOf"));
+
+var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/inherits"));
+
+var _react = _interopRequireDefault(require("react"));
+
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
+var _classnames = _interopRequireDefault(require("classnames"));
+
+var _withFormControlContext = _interopRequireDefault(require("../FormControl/withFormControlContext"));
+
+var _withStyles = _interopRequireDefault(require("../styles/withStyles"));
+
+var _IconButton = _interopRequireDefault(require("../IconButton"));
+
+// @inheritedComponent IconButton
+var styles = {
+  root: {
+    display: 'inline-flex',
+    alignItems: 'center',
+    transition: 'none',
+    '&:hover': {
+      // Disable the hover effect for the IconButton.
+      backgroundColor: 'transparent'
+    }
+  },
+  checked: {},
+  disabled: {},
+  input: {
+    cursor: 'inherit',
+    position: 'absolute',
+    opacity: 0,
+    width: '100%',
+    height: '100%',
+    top: 0,
+    left: 0,
+    margin: 0,
+    padding: 0
+  }
+};
+/**
+ * @ignore - internal component.
+ */
+
+exports.styles = styles;
+
+var SwitchBase =
+/*#__PURE__*/
+function (_React$Component) {
+  (0, _inherits2.default)(SwitchBase, _React$Component);
+
+  function SwitchBase(props) {
+    var _this;
+
+    (0, _classCallCheck2.default)(this, SwitchBase);
+    _this = (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(SwitchBase).call(this));
+
+    _this.handleFocus = function (event) {
+      if (_this.props.onFocus) {
+        _this.props.onFocus(event);
+      }
+
+      var muiFormControl = _this.props.muiFormControl;
+
+      if (muiFormControl && muiFormControl.onFocus) {
+        muiFormControl.onFocus(event);
+      }
+    };
+
+    _this.handleBlur = function (event) {
+      if (_this.props.onBlur) {
+        _this.props.onBlur(event);
+      }
+
+      var muiFormControl = _this.props.muiFormControl;
+
+      if (muiFormControl && muiFormControl.onBlur) {
+        muiFormControl.onBlur(event);
+      }
+    };
+
+    _this.handleInputChange = function (event) {
+      var checked = event.target.checked;
+
+      if (!_this.isControlled) {
+        _this.setState({
+          checked: checked
+        });
+      }
+
+      if (_this.props.onChange) {
+        _this.props.onChange(event, checked);
+      }
+    };
+
+    _this.isControlled = props.checked != null;
+    _this.state = {};
+
+    if (!_this.isControlled) {
+      // not controlled, use internal state
+      _this.state.checked = props.defaultChecked !== undefined ? props.defaultChecked : false;
+    }
+
+    return _this;
+  }
+
+  (0, _createClass2.default)(SwitchBase, [{
+    key: "render",
+    value: function render() {
+      var _classNames;
+
+      var _this$props = this.props,
+          autoFocus = _this$props.autoFocus,
+          checkedProp = _this$props.checked,
+          checkedIcon = _this$props.checkedIcon,
+          classes = _this$props.classes,
+          classNameProp = _this$props.className,
+          defaultChecked = _this$props.defaultChecked,
+          disabledProp = _this$props.disabled,
+          icon = _this$props.icon,
+          id = _this$props.id,
+          inputProps = _this$props.inputProps,
+          inputRef = _this$props.inputRef,
+          muiFormControl = _this$props.muiFormControl,
+          name = _this$props.name,
+          onBlur = _this$props.onBlur,
+          onChange = _this$props.onChange,
+          onFocus = _this$props.onFocus,
+          readOnly = _this$props.readOnly,
+          required = _this$props.required,
+          tabIndex = _this$props.tabIndex,
+          type = _this$props.type,
+          value = _this$props.value,
+          other = (0, _objectWithoutProperties2.default)(_this$props, ["autoFocus", "checked", "checkedIcon", "classes", "className", "defaultChecked", "disabled", "icon", "id", "inputProps", "inputRef", "muiFormControl", "name", "onBlur", "onChange", "onFocus", "readOnly", "required", "tabIndex", "type", "value"]);
+      var disabled = disabledProp;
+
+      if (muiFormControl) {
+        if (typeof disabled === 'undefined') {
+          disabled = muiFormControl.disabled;
+        }
+      }
+
+      var checked = this.isControlled ? checkedProp : this.state.checked;
+      var hasLabelFor = type === 'checkbox' || type === 'radio';
+      return _react.default.createElement(_IconButton.default, (0, _extends2.default)({
+        component: "span",
+        className: (0, _classnames.default)(classes.root, (_classNames = {}, (0, _defineProperty2.default)(_classNames, classes.checked, checked), (0, _defineProperty2.default)(_classNames, classes.disabled, disabled), _classNames), classNameProp),
+        disabled: disabled,
+        tabIndex: null,
+        role: undefined,
+        onFocus: this.handleFocus,
+        onBlur: this.handleBlur
+      }, other), checked ? checkedIcon : icon, _react.default.createElement("input", (0, _extends2.default)({
+        autoFocus: autoFocus,
+        checked: checkedProp,
+        defaultChecked: defaultChecked,
+        className: classes.input,
+        disabled: disabled,
+        id: hasLabelFor && id,
+        name: name,
+        onChange: this.handleInputChange,
+        readOnly: readOnly,
+        ref: inputRef,
+        required: required,
+        tabIndex: tabIndex,
+        type: type,
+        value: value
+      }, inputProps)));
+    }
+  }]);
+  return SwitchBase;
+}(_react.default.Component); // NB: If changed, please update Checkbox, Switch and Radio
+// so that the API documentation is updated.
+
+
+process.env.NODE_ENV !== "production" ? SwitchBase.propTypes = {
+  /**
+   * If `true`, the input will be focused during the first mount.
+   */
+  autoFocus: _propTypes.default.bool,
+
+  /**
+   * If `true`, the component is checked.
+   */
+  checked: _propTypes.default.oneOfType([_propTypes.default.bool, _propTypes.default.string]),
+
+  /**
+   * The icon to display when the component is checked.
+   */
+  checkedIcon: _propTypes.default.node.isRequired,
+
+  /**
+   * Override or extend the styles applied to the component.
+   * See [CSS API](#css-api) below for more details.
+   */
+  classes: _propTypes.default.object.isRequired,
+
+  /**
+   * @ignore
+   */
+  className: _propTypes.default.string,
+
+  /**
+   * @ignore
+   */
+  defaultChecked: _propTypes.default.bool,
+
+  /**
+   * If `true`, the switch will be disabled.
+   */
+  disabled: _propTypes.default.bool,
+
+  /**
+   * If `true`, the ripple effect will be disabled.
+   */
+  disableRipple: _propTypes.default.bool,
+
+  /**
+   * The icon to display when the component is unchecked.
+   */
+  icon: _propTypes.default.node.isRequired,
+
+  /**
+   * The id of the `input` element.
+   */
+  id: _propTypes.default.string,
+
+  /**
+   * Attributes applied to the `input` element.
+   */
+  inputProps: _propTypes.default.object,
+
+  /**
+   * Use that property to pass a ref callback to the native input component.
+   */
+  inputRef: _propTypes.default.oneOfType([_propTypes.default.func, _propTypes.default.object]),
+
+  /**
+   * @ignore
+   */
+  muiFormControl: _propTypes.default.object,
+
+  /*
+   * @ignore
+   */
+  name: _propTypes.default.string,
+
+  /**
+   * @ignore
+   */
+  onBlur: _propTypes.default.func,
+
+  /**
+   * Callback fired when the state is changed.
+   *
+   * @param {object} event The event source of the callback.
+   * You can pull out the new value by accessing `event.target.checked`.
+   * @param {boolean} checked The `checked` value of the switch
+   */
+  onChange: _propTypes.default.func,
+
+  /**
+   * @ignore
+   */
+  onFocus: _propTypes.default.func,
+
+  /**
+   * It prevents the user from changing the value of the field
+   * (not from interacting with the field).
+   */
+  readOnly: _propTypes.default.bool,
+
+  /**
+   * If `true`, the input will be required.
+   */
+  required: _propTypes.default.bool,
+
+  /**
+   * @ignore
+   */
+  tabIndex: _propTypes.default.oneOfType([_propTypes.default.number, _propTypes.default.string]),
+
+  /**
+   * The input component property `type`.
+   */
+  type: _propTypes.default.string.isRequired,
+
+  /**
+   * The value of the component.
+   */
+  value: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.number, _propTypes.default.bool])
+} : void 0;
+
+var _default = (0, _withStyles.default)(styles, {
+  name: 'MuiPrivateSwitchBase'
+})((0, _withFormControlContext.default)(SwitchBase));
+
+exports.default = _default;
+}).call(this,require('_process'))
+},{"../FormControl/withFormControlContext":66,"../IconButton":72,"../styles/withStyles":139,"@babel/runtime/helpers/classCallCheck":4,"@babel/runtime/helpers/createClass":5,"@babel/runtime/helpers/defineProperty":6,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/getPrototypeOf":8,"@babel/runtime/helpers/inherits":9,"@babel/runtime/helpers/interopRequireDefault":11,"@babel/runtime/helpers/objectWithoutProperties":15,"@babel/runtime/helpers/possibleConstructorReturn":17,"_process":1,"classnames":155,"prop-types":255,"react":277}],116:[function(require,module,exports){
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _pure = _interopRequireDefault(require("recompose/pure"));
+
+var _SvgIcon = _interopRequireDefault(require("../../SvgIcon"));
+
+var _ref = _react.default.createElement("path", {
+  d: "M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"
+});
+
+/**
+ * @ignore - internal component.
+ */
+var RadioButtonChecked = function RadioButtonChecked(props) {
+  return _react.default.createElement(_SvgIcon.default, props, _ref);
+};
+
+RadioButtonChecked = (0, _pure.default)(RadioButtonChecked);
+RadioButtonChecked.muiName = 'SvgIcon';
+var _default = RadioButtonChecked;
+exports.default = _default;
+},{"../../SvgIcon":103,"@babel/runtime/helpers/interopRequireDefault":11,"react":277,"recompose/pure":279}],117:[function(require,module,exports){
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _pure = _interopRequireDefault(require("recompose/pure"));
+
+var _SvgIcon = _interopRequireDefault(require("../../SvgIcon"));
+
+var _ref = _react.default.createElement("path", {
+  d: "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"
+});
+
+/**
+ * @ignore - internal component.
+ */
+var RadioButtonUnchecked = function RadioButtonUnchecked(props) {
+  return _react.default.createElement(_SvgIcon.default, props, _ref);
+};
+
+RadioButtonUnchecked = (0, _pure.default)(RadioButtonUnchecked);
+RadioButtonUnchecked.muiName = 'SvgIcon';
+var _default = RadioButtonUnchecked;
+exports.default = _default;
+},{"../../SvgIcon":103,"@babel/runtime/helpers/interopRequireDefault":11,"react":277,"recompose/pure":279}],118:[function(require,module,exports){
 (function (process){
 "use strict";
 
@@ -9089,7 +10509,7 @@ if (!_utils.ponyfillGlobal.__MUI_STYLES__.MuiThemeProvider) {
 var _default = _utils.ponyfillGlobal.__MUI_STYLES__.MuiThemeProvider;
 exports.default = _default;
 }).call(this,require('_process'))
-},{"./themeListener":121,"@babel/runtime/helpers/classCallCheck":4,"@babel/runtime/helpers/createClass":5,"@babel/runtime/helpers/defineProperty":6,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/getPrototypeOf":8,"@babel/runtime/helpers/inherits":9,"@babel/runtime/helpers/interopRequireDefault":10,"@babel/runtime/helpers/interopRequireWildcard":11,"@babel/runtime/helpers/possibleConstructorReturn":16,"@material-ui/utils":136,"_process":1,"brcast":138,"prop-types":238,"react":260,"warning":302}],103:[function(require,module,exports){
+},{"./themeListener":137,"@babel/runtime/helpers/classCallCheck":4,"@babel/runtime/helpers/createClass":5,"@babel/runtime/helpers/defineProperty":6,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/getPrototypeOf":8,"@babel/runtime/helpers/inherits":9,"@babel/runtime/helpers/interopRequireDefault":11,"@babel/runtime/helpers/interopRequireWildcard":12,"@babel/runtime/helpers/possibleConstructorReturn":17,"@material-ui/utils":152,"_process":1,"brcast":154,"prop-types":255,"react":277,"warning":326}],119:[function(require,module,exports){
 (function (process){
 "use strict";
 
@@ -9378,7 +10798,7 @@ function lighten(color, coefficient) {
   return recomposeColor(color);
 }
 }).call(this,require('_process'))
-},{"@babel/runtime/helpers/interopRequireDefault":10,"_process":1,"warning":302}],104:[function(require,module,exports){
+},{"@babel/runtime/helpers/interopRequireDefault":11,"_process":1,"warning":326}],120:[function(require,module,exports){
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -9460,7 +10880,7 @@ function createBreakpoints(breakpoints) {
     width: width
   }, other);
 }
-},{"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":10,"@babel/runtime/helpers/objectWithoutProperties":14}],105:[function(require,module,exports){
+},{"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":11,"@babel/runtime/helpers/objectWithoutProperties":15}],121:[function(require,module,exports){
 (function (process){
 "use strict";
 
@@ -9518,7 +10938,7 @@ function createGenerateClassName() {
   };
 }
 }).call(this,require('_process'))
-},{"@babel/runtime/helpers/interopRequireDefault":10,"_process":1,"warning":302}],106:[function(require,module,exports){
+},{"@babel/runtime/helpers/interopRequireDefault":11,"_process":1,"warning":326}],122:[function(require,module,exports){
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -9555,7 +10975,7 @@ function createMixins(breakpoints, spacing, mixins) {
     }), _toolbar)
   }, mixins);
 }
-},{"@babel/runtime/helpers/defineProperty":6,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":10}],107:[function(require,module,exports){
+},{"@babel/runtime/helpers/defineProperty":6,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":11}],123:[function(require,module,exports){
 (function (process){
 "use strict";
 
@@ -9664,7 +11084,7 @@ function createMuiTheme() {
 var _default = createMuiTheme;
 exports.default = _default;
 }).call(this,require('_process'))
-},{"./createBreakpoints":104,"./createMixins":106,"./createPalette":108,"./createTypography":110,"./shadows":118,"./shape":119,"./spacing":120,"./transitions":122,"./zIndex":125,"@babel/runtime/helpers/defineProperty":6,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":10,"@babel/runtime/helpers/objectWithoutProperties":14,"_process":1,"deepmerge":148,"is-plain-object":171,"warning":302}],108:[function(require,module,exports){
+},{"./createBreakpoints":120,"./createMixins":122,"./createPalette":124,"./createTypography":126,"./shadows":134,"./shape":135,"./spacing":136,"./transitions":138,"./zIndex":141,"@babel/runtime/helpers/defineProperty":6,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":11,"@babel/runtime/helpers/objectWithoutProperties":15,"_process":1,"deepmerge":164,"is-plain-object":188,"warning":326}],124:[function(require,module,exports){
 (function (process){
 "use strict";
 
@@ -9872,7 +11292,7 @@ function createPalette(palette) {
   return paletteOutput;
 }
 }).call(this,require('_process'))
-},{"../colors/common":97,"../colors/grey":98,"../colors/indigo":99,"../colors/pink":100,"../colors/red":101,"./colorManipulator":103,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":10,"@babel/runtime/helpers/objectWithoutProperties":14,"_process":1,"deepmerge":148,"warning":302}],109:[function(require,module,exports){
+},{"../colors/common":110,"../colors/grey":111,"../colors/indigo":112,"../colors/pink":113,"../colors/red":114,"./colorManipulator":119,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":11,"@babel/runtime/helpers/objectWithoutProperties":15,"_process":1,"deepmerge":164,"warning":326}],125:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -9883,7 +11303,7 @@ exports.default = createStyles;
 function createStyles(styles) {
   return styles;
 }
-},{}],110:[function(require,module,exports){
+},{}],126:[function(require,module,exports){
 (function (process){
 "use strict";
 
@@ -10080,7 +11500,7 @@ function createTypography(palette, typography) {
   });
 }
 }).call(this,require('_process'))
-},{"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":10,"@babel/runtime/helpers/objectWithoutProperties":14,"@material-ui/utils":136,"_process":1,"deepmerge":148,"warning":302}],111:[function(require,module,exports){
+},{"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":11,"@babel/runtime/helpers/objectWithoutProperties":15,"@material-ui/utils":152,"_process":1,"deepmerge":164,"warning":326}],127:[function(require,module,exports){
 (function (process){
 "use strict";
 
@@ -10137,7 +11557,7 @@ function getStylesCreator(stylesOrCreator) {
 var _default = getStylesCreator;
 exports.default = _default;
 }).call(this,require('_process'))
-},{"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":10,"@babel/runtime/helpers/typeof":19,"_process":1,"deepmerge":148,"warning":302}],112:[function(require,module,exports){
+},{"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":11,"@babel/runtime/helpers/typeof":20,"_process":1,"deepmerge":164,"warning":326}],128:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -10171,7 +11591,7 @@ function getThemeProps(params) {
 
 var _default = getThemeProps;
 exports.default = _default;
-},{}],113:[function(require,module,exports){
+},{}],129:[function(require,module,exports){
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -10235,7 +11655,7 @@ var _createStyles = _interopRequireDefault(require("./createStyles"));
 var _withStyles = _interopRequireDefault(require("./withStyles"));
 
 var _withTheme = _interopRequireDefault(require("./withTheme"));
-},{"./MuiThemeProvider":102,"./createGenerateClassName":105,"./createMuiTheme":107,"./createStyles":109,"./jssPreset":114,"./withStyles":123,"./withTheme":124,"@babel/runtime/helpers/interopRequireDefault":10}],114:[function(require,module,exports){
+},{"./MuiThemeProvider":118,"./createGenerateClassName":121,"./createMuiTheme":123,"./createStyles":125,"./jssPreset":130,"./withStyles":139,"./withTheme":140,"@babel/runtime/helpers/interopRequireDefault":11}],130:[function(require,module,exports){
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -10269,7 +11689,7 @@ function jssPreset() {
 
 var _default = jssPreset;
 exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":10,"jss-camel-case":174,"jss-default-unit":176,"jss-global":177,"jss-nested":178,"jss-props-sort":180,"jss-vendor-prefixer":181}],115:[function(require,module,exports){
+},{"@babel/runtime/helpers/interopRequireDefault":11,"jss-camel-case":191,"jss-default-unit":193,"jss-global":194,"jss-nested":195,"jss-props-sort":197,"jss-vendor-prefixer":198}],131:[function(require,module,exports){
 (function (process){
 "use strict";
 
@@ -10317,7 +11737,7 @@ function mergeClasses() {
 var _default = mergeClasses;
 exports.default = _default;
 }).call(this,require('_process'))
-},{"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":10,"@material-ui/utils":136,"_process":1,"warning":302}],116:[function(require,module,exports){
+},{"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":11,"@material-ui/utils":152,"_process":1,"warning":326}],132:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -10347,7 +11767,7 @@ var multiKeyStore = {
 };
 var _default = multiKeyStore;
 exports.default = _default;
-},{}],117:[function(require,module,exports){
+},{}],133:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -10363,7 +11783,7 @@ var ns = {
 };
 var _default = ns;
 exports.default = _default;
-},{}],118:[function(require,module,exports){
+},{}],134:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -10381,7 +11801,7 @@ function createShadow() {
 var shadows = ['none', createShadow(0, 1, 3, 0, 0, 1, 1, 0, 0, 2, 1, -1), createShadow(0, 1, 5, 0, 0, 2, 2, 0, 0, 3, 1, -2), createShadow(0, 1, 8, 0, 0, 3, 4, 0, 0, 3, 3, -2), createShadow(0, 2, 4, -1, 0, 4, 5, 0, 0, 1, 10, 0), createShadow(0, 3, 5, -1, 0, 5, 8, 0, 0, 1, 14, 0), createShadow(0, 3, 5, -1, 0, 6, 10, 0, 0, 1, 18, 0), createShadow(0, 4, 5, -2, 0, 7, 10, 1, 0, 2, 16, 1), createShadow(0, 5, 5, -3, 0, 8, 10, 1, 0, 3, 14, 2), createShadow(0, 5, 6, -3, 0, 9, 12, 1, 0, 3, 16, 2), createShadow(0, 6, 6, -3, 0, 10, 14, 1, 0, 4, 18, 3), createShadow(0, 6, 7, -4, 0, 11, 15, 1, 0, 4, 20, 3), createShadow(0, 7, 8, -4, 0, 12, 17, 2, 0, 5, 22, 4), createShadow(0, 7, 8, -4, 0, 13, 19, 2, 0, 5, 24, 4), createShadow(0, 7, 9, -4, 0, 14, 21, 2, 0, 5, 26, 4), createShadow(0, 8, 9, -5, 0, 15, 22, 2, 0, 6, 28, 5), createShadow(0, 8, 10, -5, 0, 16, 24, 2, 0, 6, 30, 5), createShadow(0, 8, 11, -5, 0, 17, 26, 2, 0, 6, 32, 5), createShadow(0, 9, 11, -5, 0, 18, 28, 2, 0, 7, 34, 6), createShadow(0, 9, 12, -6, 0, 19, 29, 2, 0, 7, 36, 6), createShadow(0, 10, 13, -6, 0, 20, 31, 3, 0, 8, 38, 7), createShadow(0, 10, 13, -6, 0, 21, 33, 3, 0, 8, 40, 7), createShadow(0, 10, 14, -6, 0, 22, 35, 3, 0, 8, 42, 7), createShadow(0, 11, 14, -7, 0, 23, 36, 3, 0, 9, 44, 8), createShadow(0, 11, 15, -7, 0, 24, 38, 3, 0, 9, 46, 8)];
 var _default = shadows;
 exports.default = _default;
-},{}],119:[function(require,module,exports){
+},{}],135:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -10393,7 +11813,7 @@ var shape = {
 };
 var _default = shape;
 exports.default = _default;
-},{}],120:[function(require,module,exports){
+},{}],136:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -10407,7 +11827,7 @@ var spacing = {
 };
 var _default = spacing;
 exports.default = _default;
-},{}],121:[function(require,module,exports){
+},{}],137:[function(require,module,exports){
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -10446,7 +11866,7 @@ var themeListener = {
 };
 var _default = themeListener;
 exports.default = _default;
-},{"@babel/runtime/helpers/defineProperty":6,"@babel/runtime/helpers/interopRequireDefault":10}],122:[function(require,module,exports){
+},{"@babel/runtime/helpers/defineProperty":6,"@babel/runtime/helpers/interopRequireDefault":11}],138:[function(require,module,exports){
 (function (process){
 "use strict";
 
@@ -10553,7 +11973,7 @@ var _default = {
 };
 exports.default = _default;
 }).call(this,require('_process'))
-},{"@babel/runtime/helpers/interopRequireDefault":10,"@babel/runtime/helpers/objectWithoutProperties":14,"_process":1,"warning":302}],123:[function(require,module,exports){
+},{"@babel/runtime/helpers/interopRequireDefault":11,"@babel/runtime/helpers/objectWithoutProperties":15,"_process":1,"warning":326}],139:[function(require,module,exports){
 (function (process){
 "use strict";
 
@@ -10948,7 +12368,7 @@ var _default = function _default(styles, options) {
 
 exports.default = _default;
 }).call(this,require('_process'))
-},{"./createGenerateClassName":105,"./createMuiTheme":107,"./getStylesCreator":111,"./getThemeProps":112,"./jssPreset":114,"./mergeClasses":115,"./multiKeyStore":116,"./reactJssContext":117,"./themeListener":121,"@babel/runtime/helpers/classCallCheck":4,"@babel/runtime/helpers/createClass":5,"@babel/runtime/helpers/defineProperty":6,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/getPrototypeOf":8,"@babel/runtime/helpers/inherits":9,"@babel/runtime/helpers/interopRequireDefault":10,"@babel/runtime/helpers/objectWithoutProperties":14,"@babel/runtime/helpers/possibleConstructorReturn":16,"@material-ui/utils":136,"_process":1,"hoist-non-react-statics":168,"jss":188,"prop-types":238,"react":260,"warning":302}],124:[function(require,module,exports){
+},{"./createGenerateClassName":121,"./createMuiTheme":123,"./getStylesCreator":127,"./getThemeProps":128,"./jssPreset":130,"./mergeClasses":131,"./multiKeyStore":132,"./reactJssContext":133,"./themeListener":137,"@babel/runtime/helpers/classCallCheck":4,"@babel/runtime/helpers/createClass":5,"@babel/runtime/helpers/defineProperty":6,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/getPrototypeOf":8,"@babel/runtime/helpers/inherits":9,"@babel/runtime/helpers/interopRequireDefault":11,"@babel/runtime/helpers/objectWithoutProperties":15,"@babel/runtime/helpers/possibleConstructorReturn":17,"@material-ui/utils":152,"_process":1,"hoist-non-react-statics":185,"jss":205,"prop-types":255,"react":277,"warning":326}],140:[function(require,module,exports){
 (function (process){
 "use strict";
 
@@ -11090,7 +12510,7 @@ if (!_utils.ponyfillGlobal.__MUI_STYLES__.withTheme) {
 var _default = _utils.ponyfillGlobal.__MUI_STYLES__.withTheme;
 exports.default = _default;
 }).call(this,require('_process'))
-},{"./createMuiTheme":107,"./themeListener":121,"@babel/runtime/helpers/classCallCheck":4,"@babel/runtime/helpers/createClass":5,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/getPrototypeOf":8,"@babel/runtime/helpers/inherits":9,"@babel/runtime/helpers/interopRequireDefault":10,"@babel/runtime/helpers/objectWithoutProperties":14,"@babel/runtime/helpers/possibleConstructorReturn":16,"@material-ui/utils":136,"_process":1,"hoist-non-react-statics":168,"prop-types":238,"react":260}],125:[function(require,module,exports){
+},{"./createMuiTheme":123,"./themeListener":137,"@babel/runtime/helpers/classCallCheck":4,"@babel/runtime/helpers/createClass":5,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/getPrototypeOf":8,"@babel/runtime/helpers/inherits":9,"@babel/runtime/helpers/interopRequireDefault":11,"@babel/runtime/helpers/objectWithoutProperties":15,"@babel/runtime/helpers/possibleConstructorReturn":17,"@material-ui/utils":152,"_process":1,"hoist-non-react-statics":185,"prop-types":255,"react":277}],141:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -11109,7 +12529,7 @@ var zIndex = {
 };
 var _default = zIndex;
 exports.default = _default;
-},{}],126:[function(require,module,exports){
+},{}],142:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -11133,7 +12553,7 @@ function getTransitionProps(props, options) {
     delay: style.transitionDelay
   };
 }
-},{}],127:[function(require,module,exports){
+},{}],143:[function(require,module,exports){
 (function (process){
 "use strict";
 
@@ -11227,7 +12647,7 @@ function createChainedFunction() {
   }, function () {});
 }
 }).call(this,require('_process'))
-},{"@babel/runtime/helpers/interopRequireDefault":10,"@babel/runtime/helpers/typeof":19,"_process":1,"warning":302}],128:[function(require,module,exports){
+},{"@babel/runtime/helpers/interopRequireDefault":11,"@babel/runtime/helpers/typeof":20,"_process":1,"warning":326}],144:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -11241,7 +12661,7 @@ function ownerDocument(node) {
 
 var _default = ownerDocument;
 exports.default = _default;
-},{}],129:[function(require,module,exports){
+},{}],145:[function(require,module,exports){
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -11261,7 +12681,7 @@ function ownerWindow(node) {
 
 var _default = ownerWindow;
 exports.default = _default;
-},{"./ownerDocument":128,"@babel/runtime/helpers/interopRequireDefault":10}],130:[function(require,module,exports){
+},{"./ownerDocument":144,"@babel/runtime/helpers/interopRequireDefault":11}],146:[function(require,module,exports){
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -11301,7 +12721,7 @@ function setRef(ref, value) {
     ref.current = value;
   }
 }
-},{"@babel/runtime/helpers/interopRequireDefault":10,"classnames":139,"react":260}],131:[function(require,module,exports){
+},{"@babel/runtime/helpers/interopRequireDefault":11,"classnames":155,"react":277}],147:[function(require,module,exports){
 (function (process){
 "use strict";
 
@@ -11328,7 +12748,7 @@ function unsupportedProp(props, propName, componentName, location, propFullName)
 var _default = unsupportedProp;
 exports.default = _default;
 }).call(this,require('_process'))
-},{"_process":1}],132:[function(require,module,exports){
+},{"_process":1}],148:[function(require,module,exports){
 (function (process){
 "use strict";
 
@@ -11353,7 +12773,7 @@ function chainPropTypes(propType1, propType2) {
 var _default = chainPropTypes;
 exports.default = _default;
 }).call(this,require('_process'))
-},{"_process":1}],133:[function(require,module,exports){
+},{"_process":1}],149:[function(require,module,exports){
 (function (process){
 "use strict";
 
@@ -11413,7 +12833,7 @@ componentPropType.isRequired = createComponentProp(true);
 var _default = componentPropType;
 exports.default = _default;
 }).call(this,require('_process'))
-},{"@babel/runtime/helpers/interopRequireDefault":10,"@babel/runtime/helpers/typeof":19,"_process":1,"react-is":246}],134:[function(require,module,exports){
+},{"@babel/runtime/helpers/interopRequireDefault":11,"@babel/runtime/helpers/typeof":20,"_process":1,"react-is":263}],150:[function(require,module,exports){
 (function (process){
 "use strict";
 
@@ -11459,7 +12879,7 @@ function exactProp(propTypes) {
 var _default = exactProp;
 exports.default = _default;
 }).call(this,require('_process'))
-},{"@babel/runtime/helpers/defineProperty":6,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":10,"_process":1}],135:[function(require,module,exports){
+},{"@babel/runtime/helpers/defineProperty":6,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/interopRequireDefault":11,"_process":1}],151:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -11492,7 +12912,7 @@ function getDisplayName(Component) {
 
 var _default = getDisplayName;
 exports.default = _default;
-},{}],136:[function(require,module,exports){
+},{}],152:[function(require,module,exports){
 /** @license Material-UI v3.0.0-alpha.3
  *
  * This source code is licensed under the MIT license found in the
@@ -11545,7 +12965,7 @@ var _exactProp = _interopRequireDefault(require("./exactProp"));
 var _getDisplayName = _interopRequireDefault(require("./getDisplayName"));
 
 var _ponyfillGlobal = _interopRequireDefault(require("./ponyfillGlobal"));
-},{"./chainPropTypes":132,"./componentPropType":133,"./exactProp":134,"./getDisplayName":135,"./ponyfillGlobal":137,"@babel/runtime/helpers/interopRequireDefault":10}],137:[function(require,module,exports){
+},{"./chainPropTypes":148,"./componentPropType":149,"./exactProp":150,"./getDisplayName":151,"./ponyfillGlobal":153,"@babel/runtime/helpers/interopRequireDefault":11}],153:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -11558,7 +12978,7 @@ exports.default = void 0;
 var _default = typeof window != 'undefined' && window.Math == Math ? window : typeof self != 'undefined' && self.Math == Math ? self : Function('return this')();
 
 exports.default = _default;
-},{}],138:[function(require,module,exports){
+},{}],154:[function(require,module,exports){
 function createBroadcast (initialState) {
   var listeners = {};
   var id = 1;
@@ -11600,7 +13020,7 @@ function createBroadcast (initialState) {
 
 module.exports = createBroadcast;
 
-},{}],139:[function(require,module,exports){
+},{}],155:[function(require,module,exports){
 /*!
   Copyright (c) 2017 Jed Watson.
   Licensed under the MIT License (MIT), see
@@ -11654,7 +13074,7 @@ module.exports = createBroadcast;
 	}
 }());
 
-},{}],140:[function(require,module,exports){
+},{}],156:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -11853,7 +13273,7 @@ function createReactContext(defaultValue, calculateChangedBits) {
 exports.default = createReactContext;
 module.exports = exports['default'];
 }).call(this,require('_process'))
-},{"_process":1,"fbjs/lib/warning":163,"gud":164,"prop-types":238,"react":260}],141:[function(require,module,exports){
+},{"_process":1,"fbjs/lib/warning":180,"gud":181,"prop-types":255,"react":277}],157:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -11870,7 +13290,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.default = _react2.default.createContext || _implementation2.default;
 module.exports = exports['default'];
-},{"./implementation":140,"react":260}],142:[function(require,module,exports){
+},{"./implementation":156,"react":277}],158:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -11892,7 +13312,7 @@ function camelize(str) {
 function toUpper(match, c) {
   return c ? c.toUpperCase() : '';
 }
-},{}],143:[function(require,module,exports){
+},{}],159:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -11929,7 +13349,7 @@ exports['default'] = {
 exports.prefix = _prefix2['default'];
 exports.supportedProperty = _supportedProperty2['default'];
 exports.supportedValue = _supportedValue2['default'];
-},{"./prefix":144,"./supported-property":145,"./supported-value":146}],144:[function(require,module,exports){
+},{"./prefix":160,"./supported-property":161,"./supported-value":162}],160:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -11979,7 +13399,7 @@ if (_isInBrowser2['default']) {
  * @api public
  */
 exports['default'] = { js: js, css: css };
-},{"is-in-browser":170}],145:[function(require,module,exports){
+},{"is-in-browser":187}],161:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -12052,7 +13472,7 @@ function supportedProperty(prop) {
 
   return cache[prop];
 }
-},{"./camelize":142,"./prefix":144,"is-in-browser":170}],146:[function(require,module,exports){
+},{"./camelize":158,"./prefix":160,"is-in-browser":187}],162:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -12127,7 +13547,7 @@ function supportedValue(property, value) {
 
   return cache[cacheKey];
 }
-},{"./prefix":144,"is-in-browser":170}],147:[function(require,module,exports){
+},{"./prefix":160,"is-in-browser":187}],163:[function(require,module,exports){
 /**
  * Returns a function, that, as long as it continues to be invoked, will not
  * be triggered. The function will be called after it stops being called for
@@ -12199,7 +13619,7 @@ debounce.debounce = debounce;
 
 module.exports = debounce;
 
-},{}],148:[function(require,module,exports){
+},{}],164:[function(require,module,exports){
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
@@ -12306,7 +13726,7 @@ return deepmerge_1;
 
 })));
 
-},{}],149:[function(require,module,exports){
+},{}],165:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -12317,7 +13737,7 @@ function getWindow(node) {
 }
 
 module.exports = exports["default"];
-},{}],150:[function(require,module,exports){
+},{}],166:[function(require,module,exports){
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -12362,7 +13782,7 @@ function _getComputedStyle(node) {
 }
 
 module.exports = exports["default"];
-},{"../util/camelizeStyle":156,"@babel/runtime/helpers/interopRequireDefault":10}],151:[function(require,module,exports){
+},{"../util/camelizeStyle":172,"@babel/runtime/helpers/interopRequireDefault":11}],167:[function(require,module,exports){
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -12415,7 +13835,7 @@ function style(node, property, value) {
 }
 
 module.exports = exports["default"];
-},{"../transition/isTransform":153,"../transition/properties":154,"../util/camelizeStyle":156,"../util/hyphenateStyle":158,"./getComputedStyle":150,"./removeStyle":152,"@babel/runtime/helpers/interopRequireDefault":10}],152:[function(require,module,exports){
+},{"../transition/isTransform":169,"../transition/properties":170,"../util/camelizeStyle":172,"../util/hyphenateStyle":174,"./getComputedStyle":166,"./removeStyle":168,"@babel/runtime/helpers/interopRequireDefault":11}],168:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -12426,7 +13846,7 @@ function removeStyle(node, key) {
 }
 
 module.exports = exports["default"];
-},{}],153:[function(require,module,exports){
+},{}],169:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -12438,7 +13858,7 @@ function isTransform(property) {
 }
 
 module.exports = exports["default"];
-},{}],154:[function(require,module,exports){
+},{}],170:[function(require,module,exports){
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -12531,7 +13951,7 @@ function getTransitionProperties() {
     prefix: prefix
   };
 }
-},{"../util/inDOM":159,"@babel/runtime/helpers/interopRequireDefault":10}],155:[function(require,module,exports){
+},{"../util/inDOM":175,"@babel/runtime/helpers/interopRequireDefault":11}],171:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -12545,7 +13965,7 @@ function camelize(string) {
 }
 
 module.exports = exports["default"];
-},{}],156:[function(require,module,exports){
+},{}],172:[function(require,module,exports){
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -12567,7 +13987,7 @@ function camelizeStyleName(string) {
 }
 
 module.exports = exports["default"];
-},{"./camelize":155,"@babel/runtime/helpers/interopRequireDefault":10}],157:[function(require,module,exports){
+},{"./camelize":171,"@babel/runtime/helpers/interopRequireDefault":11}],173:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -12579,7 +13999,7 @@ function hyphenate(string) {
 }
 
 module.exports = exports["default"];
-},{}],158:[function(require,module,exports){
+},{}],174:[function(require,module,exports){
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -12601,7 +14021,7 @@ function hyphenateStyleName(string) {
 }
 
 module.exports = exports["default"];
-},{"./hyphenate":157,"@babel/runtime/helpers/interopRequireDefault":10}],159:[function(require,module,exports){
+},{"./hyphenate":173,"@babel/runtime/helpers/interopRequireDefault":11}],175:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -12611,7 +14031,7 @@ var _default = !!(typeof window !== 'undefined' && window.document && window.doc
 
 exports.default = _default;
 module.exports = exports["default"];
-},{}],160:[function(require,module,exports){
+},{}],176:[function(require,module,exports){
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -12642,7 +14062,7 @@ function scrollbarSize(recalc) {
 }
 
 module.exports = exports["default"];
-},{"./inDOM":159,"@babel/runtime/helpers/interopRequireDefault":10}],161:[function(require,module,exports){
+},{"./inDOM":175,"@babel/runtime/helpers/interopRequireDefault":11}],177:[function(require,module,exports){
 'use strict';
 
 var has = Object.prototype.hasOwnProperty;
@@ -12933,7 +14353,7 @@ if ('undefined' !== typeof module) {
   module.exports = EventEmitter;
 }
 
-},{}],162:[function(require,module,exports){
+},{}],178:[function(require,module,exports){
 "use strict";
 
 /**
@@ -12970,7 +14390,73 @@ emptyFunction.thatReturnsArgument = function (arg) {
 };
 
 module.exports = emptyFunction;
-},{}],163:[function(require,module,exports){
+},{}],179:[function(require,module,exports){
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @typechecks
+ * 
+ */
+
+/*eslint-disable no-self-compare */
+
+'use strict';
+
+var hasOwnProperty = Object.prototype.hasOwnProperty;
+
+/**
+ * inlined Object.is polyfill to avoid requiring consumers ship their own
+ * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is
+ */
+function is(x, y) {
+  // SameValue algorithm
+  if (x === y) {
+    // Steps 1-5, 7-10
+    // Steps 6.b-6.e: +0 != -0
+    // Added the nonzero y check to make Flow happy, but it is redundant
+    return x !== 0 || y !== 0 || 1 / x === 1 / y;
+  } else {
+    // Step 6.a: NaN == NaN
+    return x !== x && y !== y;
+  }
+}
+
+/**
+ * Performs equality by iterating through keys on an object and returning false
+ * when any key has values which are not strictly equal between the arguments.
+ * Returns true when the values of all keys are strictly equal.
+ */
+function shallowEqual(objA, objB) {
+  if (is(objA, objB)) {
+    return true;
+  }
+
+  if (typeof objA !== 'object' || objA === null || typeof objB !== 'object' || objB === null) {
+    return false;
+  }
+
+  var keysA = Object.keys(objA);
+  var keysB = Object.keys(objB);
+
+  if (keysA.length !== keysB.length) {
+    return false;
+  }
+
+  // Test for A's keys different from B.
+  for (var i = 0; i < keysA.length; i++) {
+    if (!hasOwnProperty.call(objB, keysA[i]) || !is(objA[keysA[i]], objB[keysA[i]])) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+module.exports = shallowEqual;
+},{}],180:[function(require,module,exports){
 (function (process){
 /**
  * Copyright (c) 2014-present, Facebook, Inc.
@@ -13035,7 +14521,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 module.exports = warning;
 }).call(this,require('_process'))
-},{"./emptyFunction":162,"_process":1}],164:[function(require,module,exports){
+},{"./emptyFunction":178,"_process":1}],181:[function(require,module,exports){
 (function (global){
 // @flow
 'use strict';
@@ -13047,7 +14533,7 @@ module.exports = function() {
 };
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],165:[function(require,module,exports){
+},{}],182:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', { value: true });
@@ -13982,10 +15468,10 @@ exports.locationsAreEqual = locationsAreEqual;
 exports.parsePath = parsePath;
 exports.createPath = createPath;
 
-},{"resolve-pathname":281,"tiny-invariant":299,"tiny-warning":300,"value-equal":301}],166:[function(require,module,exports){
+},{"resolve-pathname":305,"tiny-invariant":323,"tiny-warning":324,"value-equal":325}],183:[function(require,module,exports){
 "use strict";function _interopDefault(n){return n&&"object"==typeof n&&"default"in n?n.default:n}Object.defineProperty(exports,"__esModule",{value:!0});var resolvePathname=_interopDefault(require("resolve-pathname")),valueEqual=_interopDefault(require("value-equal"));require("tiny-warning");var invariant=_interopDefault(require("tiny-invariant"));function _extends(){return(_extends=Object.assign||function(n){for(var t=1;t<arguments.length;t++){var e=arguments[t];for(var a in e)Object.prototype.hasOwnProperty.call(e,a)&&(n[a]=e[a])}return n}).apply(this,arguments)}function addLeadingSlash(n){return"/"===n.charAt(0)?n:"/"+n}function stripLeadingSlash(n){return"/"===n.charAt(0)?n.substr(1):n}function hasBasename(n,t){return new RegExp("^"+t+"(\\/|\\?|#|$)","i").test(n)}function stripBasename(n,t){return hasBasename(n,t)?n.substr(t.length):n}function stripTrailingSlash(n){return"/"===n.charAt(n.length-1)?n.slice(0,-1):n}function parsePath(n){var t=n||"/",e="",a="",o=t.indexOf("#");-1!==o&&(a=t.substr(o),t=t.substr(0,o));var r=t.indexOf("?");return-1!==r&&(e=t.substr(r),t=t.substr(0,r)),{pathname:t,search:"?"===e?"":e,hash:"#"===a?"":a}}function createPath(n){var t=n.pathname,e=n.search,a=n.hash,o=t||"/";return e&&"?"!==e&&(o+="?"===e.charAt(0)?e:"?"+e),a&&"#"!==a&&(o+="#"===a.charAt(0)?a:"#"+a),o}function createLocation(n,t,e,a){var o;"string"==typeof n?(o=parsePath(n)).state=t:(void 0===(o=_extends({},n)).pathname&&(o.pathname=""),o.search?"?"!==o.search.charAt(0)&&(o.search="?"+o.search):o.search="",o.hash?"#"!==o.hash.charAt(0)&&(o.hash="#"+o.hash):o.hash="",void 0!==t&&void 0===o.state&&(o.state=t));try{o.pathname=decodeURI(o.pathname)}catch(n){throw n instanceof URIError?new URIError('Pathname "'+o.pathname+'" could not be decoded. This is likely caused by an invalid percent-encoding.'):n}return e&&(o.key=e),a?o.pathname?"/"!==o.pathname.charAt(0)&&(o.pathname=resolvePathname(o.pathname,a.pathname)):o.pathname=a.pathname:o.pathname||(o.pathname="/"),o}function locationsAreEqual(n,t){return n.pathname===t.pathname&&n.search===t.search&&n.hash===t.hash&&n.key===t.key&&valueEqual(n.state,t.state)}function createTransitionManager(){var r=null;var a=[];return{setPrompt:function(n){return r=n,function(){r===n&&(r=null)}},confirmTransitionTo:function(n,t,e,a){if(null!=r){var o="function"==typeof r?r(n,t):r;"string"==typeof o?"function"==typeof e?e(o,a):a(!0):a(!1!==o)}else a(!0)},appendListener:function(n){var t=!0;function e(){t&&n.apply(void 0,arguments)}return a.push(e),function(){t=!1,a=a.filter(function(n){return n!==e})}},notifyListeners:function(){for(var n=arguments.length,t=new Array(n),e=0;e<n;e++)t[e]=arguments[e];a.forEach(function(n){return n.apply(void 0,t)})}}}var canUseDOM=!("undefined"==typeof window||!window.document||!window.document.createElement);function getConfirmation(n,t){t(window.confirm(n))}function supportsHistory(){var n=window.navigator.userAgent;return(-1===n.indexOf("Android 2.")&&-1===n.indexOf("Android 4.0")||-1===n.indexOf("Mobile Safari")||-1!==n.indexOf("Chrome")||-1!==n.indexOf("Windows Phone"))&&(window.history&&"pushState"in window.history)}function supportsPopStateOnHashChange(){return-1===window.navigator.userAgent.indexOf("Trident")}function supportsGoWithoutReloadUsingHash(){return-1===window.navigator.userAgent.indexOf("Firefox")}function isExtraneousPopstateEvent(n){void 0===n.state&&navigator.userAgent.indexOf("CriOS")}var PopStateEvent="popstate",HashChangeEvent="hashchange";function getHistoryState(){try{return window.history.state||{}}catch(n){return{}}}function createBrowserHistory(n){void 0===n&&(n={}),canUseDOM||invariant(!1);var c=window.history,s=supportsHistory(),t=!supportsPopStateOnHashChange(),e=n,a=e.forceRefresh,h=void 0!==a&&a,o=e.getUserConfirmation,u=void 0===o?getConfirmation:o,r=e.keyLength,i=void 0===r?6:r,f=n.basename?stripTrailingSlash(addLeadingSlash(n.basename)):"";function l(n){var t=n||{},e=t.key,a=t.state,o=window.location,r=o.pathname+o.search+o.hash;return f&&(r=stripBasename(r,f)),createLocation(r,a,e)}function d(){return Math.random().toString(36).substr(2,i)}var v=createTransitionManager();function p(n){_extends(T,n),T.length=c.length,v.notifyListeners(T.location,T.action)}function g(n){isExtraneousPopstateEvent(n)||w(l(n.state))}function P(){w(l(getHistoryState()))}var m=!1;function w(t){if(m)m=!1,p();else{v.confirmTransitionTo(t,"POP",u,function(n){n?p({action:"POP",location:t}):function(n){var t=T.location,e=H.indexOf(t.key);-1===e&&(e=0);var a=H.indexOf(n.key);-1===a&&(a=0);var o=e-a;o&&(m=!0,L(o))}(t)})}}var y=l(getHistoryState()),H=[y.key];function x(n){return f+createPath(n)}function L(n){c.go(n)}var O=0;function E(n){1===(O+=n)&&1===n?(window.addEventListener(PopStateEvent,g),t&&window.addEventListener(HashChangeEvent,P)):0===O&&(window.removeEventListener(PopStateEvent,g),t&&window.removeEventListener(HashChangeEvent,P))}var S=!1;var T={length:c.length,action:"POP",location:y,createHref:x,push:function(n,t){var i=createLocation(n,t,d(),T.location);v.confirmTransitionTo(i,"PUSH",u,function(n){if(n){var t=x(i),e=i.key,a=i.state;if(s)if(c.pushState({key:e,state:a},null,t),h)window.location.href=t;else{var o=H.indexOf(T.location.key),r=H.slice(0,-1===o?0:o+1);r.push(i.key),H=r,p({action:"PUSH",location:i})}else window.location.href=t}})},replace:function(n,t){var r="REPLACE",i=createLocation(n,t,d(),T.location);v.confirmTransitionTo(i,r,u,function(n){if(n){var t=x(i),e=i.key,a=i.state;if(s)if(c.replaceState({key:e,state:a},null,t),h)window.location.replace(t);else{var o=H.indexOf(T.location.key);-1!==o&&(H[o]=i.key),p({action:r,location:i})}else window.location.replace(t)}})},go:L,goBack:function(){L(-1)},goForward:function(){L(1)},block:function(n){void 0===n&&(n=!1);var t=v.setPrompt(n);return S||(E(1),S=!0),function(){return S&&(S=!1,E(-1)),t()}},listen:function(n){var t=v.appendListener(n);return E(1),function(){E(-1),t()}}};return T}var HashChangeEvent$1="hashchange",HashPathCoders={hashbang:{encodePath:function(n){return"!"===n.charAt(0)?n:"!/"+stripLeadingSlash(n)},decodePath:function(n){return"!"===n.charAt(0)?n.substr(1):n}},noslash:{encodePath:stripLeadingSlash,decodePath:addLeadingSlash},slash:{encodePath:addLeadingSlash,decodePath:addLeadingSlash}};function getHashPath(){var n=window.location.href,t=n.indexOf("#");return-1===t?"":n.substring(t+1)}function pushHashPath(n){window.location.hash=n}function replaceHashPath(n){var t=window.location.href.indexOf("#");window.location.replace(window.location.href.slice(0,0<=t?t:0)+"#"+n)}function createHashHistory(n){void 0===n&&(n={}),canUseDOM||invariant(!1);var t=window.history,e=(supportsGoWithoutReloadUsingHash(),n),a=e.getUserConfirmation,i=void 0===a?getConfirmation:a,o=e.hashType,r=void 0===o?"slash":o,c=n.basename?stripTrailingSlash(addLeadingSlash(n.basename)):"",s=HashPathCoders[r],h=s.encodePath,u=s.decodePath;function f(){var n=u(getHashPath());return c&&(n=stripBasename(n,c)),createLocation(n)}var l=createTransitionManager();function d(n){_extends(E,n),E.length=t.length,l.notifyListeners(E.location,E.action)}var v=!1,p=null;function g(){var n=getHashPath(),t=h(n);if(n!==t)replaceHashPath(t);else{var e=f(),a=E.location;if(!v&&locationsAreEqual(a,e))return;if(p===createPath(e))return;p=null,function(t){if(v)v=!1,d();else{l.confirmTransitionTo(t,"POP",i,function(n){n?d({action:"POP",location:t}):function(n){var t=E.location,e=y.lastIndexOf(createPath(t));-1===e&&(e=0);var a=y.lastIndexOf(createPath(n));-1===a&&(a=0);var o=e-a;o&&(v=!0,H(o))}(t)})}}(e)}}var P=getHashPath(),m=h(P);P!==m&&replaceHashPath(m);var w=f(),y=[createPath(w)];function H(n){t.go(n)}var x=0;function L(n){1===(x+=n)&&1===n?window.addEventListener(HashChangeEvent$1,g):0===x&&window.removeEventListener(HashChangeEvent$1,g)}var O=!1;var E={length:t.length,action:"POP",location:w,createHref:function(n){return"#"+h(c+createPath(n))},push:function(n,t){var r=createLocation(n,void 0,void 0,E.location);l.confirmTransitionTo(r,"PUSH",i,function(n){if(n){var t=createPath(r),e=h(c+t);if(getHashPath()!==e){p=t,pushHashPath(e);var a=y.lastIndexOf(createPath(E.location)),o=y.slice(0,-1===a?0:a+1);o.push(t),y=o,d({action:"PUSH",location:r})}else d()}})},replace:function(n,t){var o="REPLACE",r=createLocation(n,void 0,void 0,E.location);l.confirmTransitionTo(r,o,i,function(n){if(n){var t=createPath(r),e=h(c+t);getHashPath()!==e&&(p=t,replaceHashPath(e));var a=y.indexOf(createPath(E.location));-1!==a&&(y[a]=t),d({action:o,location:r})}})},go:H,goBack:function(){H(-1)},goForward:function(){H(1)},block:function(n){void 0===n&&(n=!1);var t=l.setPrompt(n);return O||(L(1),O=!0),function(){return O&&(O=!1,L(-1)),t()}},listen:function(n){var t=l.appendListener(n);return L(1),function(){L(-1),t()}}};return E}function clamp(n,t,e){return Math.min(Math.max(n,t),e)}function createMemoryHistory(n){void 0===n&&(n={});var t=n,o=t.getUserConfirmation,e=t.initialEntries,a=void 0===e?["/"]:e,r=t.initialIndex,i=void 0===r?0:r,c=t.keyLength,s=void 0===c?6:c,h=createTransitionManager();function u(n){_extends(g,n),g.length=g.entries.length,h.notifyListeners(g.location,g.action)}function f(){return Math.random().toString(36).substr(2,s)}var l=clamp(i,0,a.length-1),d=a.map(function(n){return createLocation(n,void 0,"string"==typeof n?f():n.key||f())}),v=createPath;function p(n){var t=clamp(g.index+n,0,g.entries.length-1),e=g.entries[t];h.confirmTransitionTo(e,"POP",o,function(n){n?u({action:"POP",location:e,index:t}):u()})}var g={length:d.length,action:"POP",location:d[l],index:l,entries:d,createHref:v,push:function(n,t){var a=createLocation(n,t,f(),g.location);h.confirmTransitionTo(a,"PUSH",o,function(n){if(n){var t=g.index+1,e=g.entries.slice(0);e.length>t?e.splice(t,e.length-t,a):e.push(a),u({action:"PUSH",location:a,index:t,entries:e})}})},replace:function(n,t){var e="REPLACE",a=createLocation(n,t,f(),g.location);h.confirmTransitionTo(a,e,o,function(n){n&&(g.entries[g.index]=a,u({action:e,location:a}))})},go:p,goBack:function(){p(-1)},goForward:function(){p(1)},canGo:function(n){var t=g.index+n;return 0<=t&&t<g.entries.length},block:function(n){return void 0===n&&(n=!1),h.setPrompt(n)},listen:function(n){return h.appendListener(n)}};return g}exports.createBrowserHistory=createBrowserHistory,exports.createHashHistory=createHashHistory,exports.createMemoryHistory=createMemoryHistory,exports.createLocation=createLocation,exports.locationsAreEqual=locationsAreEqual,exports.parsePath=parsePath,exports.createPath=createPath;
 
-},{"resolve-pathname":281,"tiny-invariant":299,"tiny-warning":300,"value-equal":301}],167:[function(require,module,exports){
+},{"resolve-pathname":305,"tiny-invariant":323,"tiny-warning":324,"value-equal":325}],184:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -13996,7 +15482,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 }).call(this,require('_process'))
-},{"./cjs/history.js":165,"./cjs/history.min.js":166,"_process":1}],168:[function(require,module,exports){
+},{"./cjs/history.js":182,"./cjs/history.min.js":183,"_process":1}],185:[function(require,module,exports){
 'use strict';
 
 /**
@@ -14101,7 +15587,7 @@ function hoistNonReactStatics(targetComponent, sourceComponent, blacklist) {
 
 module.exports = hoistNonReactStatics;
 
-},{"react-is":246}],169:[function(require,module,exports){
+},{"react-is":263}],186:[function(require,module,exports){
 'use strict';
 
 /* eslint-disable no-var, prefer-template */
@@ -14124,7 +15610,7 @@ function hyphenateStyleName(name) {
 
 module.exports = hyphenateStyleName;
 
-},{}],170:[function(require,module,exports){
+},{}],187:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -14136,7 +15622,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 var isBrowser = exports.isBrowser = (typeof window === "undefined" ? "undefined" : _typeof(window)) === "object" && (typeof document === "undefined" ? "undefined" : _typeof(document)) === 'object' && document.nodeType === 9;
 
 exports.default = isBrowser;
-},{}],171:[function(require,module,exports){
+},{}],188:[function(require,module,exports){
 /*!
  * is-plain-object <https://github.com/jonschlinkert/is-plain-object>
  *
@@ -14175,14 +15661,14 @@ module.exports = function isPlainObject(o) {
   return true;
 };
 
-},{"isobject":173}],172:[function(require,module,exports){
+},{"isobject":190}],189:[function(require,module,exports){
 module.exports = isPromise;
 
 function isPromise(obj) {
   return !!obj && (typeof obj === 'object' || typeof obj === 'function') && typeof obj.then === 'function';
 }
 
-},{}],173:[function(require,module,exports){
+},{}],190:[function(require,module,exports){
 /*!
  * isobject <https://github.com/jonschlinkert/isobject>
  *
@@ -14196,7 +15682,7 @@ module.exports = function isObject(val) {
   return val != null && typeof val === 'object' && Array.isArray(val) === false;
 };
 
-},{}],174:[function(require,module,exports){
+},{}],191:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -14262,7 +15748,7 @@ function camelCase() {
 
   return { onProcessStyle: onProcessStyle, onChangeValue: onChangeValue };
 }
-},{"hyphenate-style-name":169}],175:[function(require,module,exports){
+},{"hyphenate-style-name":186}],192:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -14380,7 +15866,7 @@ exports['default'] = {
   'text-shadow-y': 'px',
   'text-shadow-blur': 'px'
 };
-},{}],176:[function(require,module,exports){
+},{}],193:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -14484,7 +15970,7 @@ function defaultUnit() {
 
   return { onProcessStyle: onProcessStyle, onChangeValue: onChangeValue };
 }
-},{"./defaultUnits":175}],177:[function(require,module,exports){
+},{"./defaultUnits":192}],194:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -14676,7 +16162,7 @@ function jssGlobal() {
 
   return { onCreateRule: onCreateRule, onProcessRule: onProcessRule };
 }
-},{"jss":188}],178:[function(require,module,exports){
+},{"jss":205}],195:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -14788,7 +16274,7 @@ function jssNested() {
 
   return { onProcessStyle: onProcessStyle };
 }
-},{"warning":179}],179:[function(require,module,exports){
+},{"warning":196}],196:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2014-2015, Facebook, Inc.
@@ -14852,7 +16338,7 @@ if (process.env.NODE_ENV !== 'production') {
 module.exports = warning;
 
 }).call(this,require('_process'))
-},{"_process":1}],180:[function(require,module,exports){
+},{"_process":1}],197:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -14880,7 +16366,7 @@ function jssPropsSort() {
 
   return { onProcessStyle: onProcessStyle };
 }
-},{}],181:[function(require,module,exports){
+},{}],198:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -14936,7 +16422,7 @@ function jssVendorPrefixer() {
 
   return { onProcessRule: onProcessRule, onProcessStyle: onProcessStyle, onChangeValue: onChangeValue };
 }
-},{"css-vendor":143}],182:[function(require,module,exports){
+},{"css-vendor":159}],199:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -15148,7 +16634,7 @@ var Jss = function () {
 }();
 
 exports['default'] = Jss;
-},{"./PluginsRegistry":183,"./StyleSheet":187,"./plugins/functions":189,"./plugins/observables":190,"./plugins/rules":191,"./renderers/DomRenderer":192,"./renderers/VirtualRenderer":193,"./rules/StyleRule":198,"./sheets":200,"./utils/createGenerateClassName":202,"./utils/createRule":203,"is-in-browser":170}],183:[function(require,module,exports){
+},{"./PluginsRegistry":200,"./StyleSheet":204,"./plugins/functions":206,"./plugins/observables":207,"./plugins/rules":208,"./renderers/DomRenderer":209,"./renderers/VirtualRenderer":210,"./rules/StyleRule":215,"./sheets":217,"./utils/createGenerateClassName":219,"./utils/createRule":220,"is-in-browser":187}],200:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -15285,7 +16771,7 @@ var PluginsRegistry = function () {
 }();
 
 exports['default'] = PluginsRegistry;
-},{"warning":211}],184:[function(require,module,exports){
+},{"warning":228}],201:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -15533,7 +17019,7 @@ var RuleList = function () {
 }();
 
 exports['default'] = RuleList;
-},{"./rules/StyleRule":198,"./utils/createRule":203,"./utils/escape":204,"./utils/linkRule":207}],185:[function(require,module,exports){
+},{"./rules/StyleRule":215,"./utils/createRule":220,"./utils/escape":221,"./utils/linkRule":224}],202:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -15621,7 +17107,7 @@ var SheetsManager = function () {
 }();
 
 exports['default'] = SheetsManager;
-},{"warning":211}],186:[function(require,module,exports){
+},{"warning":228}],203:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -15720,7 +17206,7 @@ var SheetsRegistry = function () {
 }();
 
 exports['default'] = SheetsRegistry;
-},{}],187:[function(require,module,exports){
+},{}],204:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -15961,7 +17447,7 @@ var StyleSheet = function () {
 }();
 
 exports['default'] = StyleSheet;
-},{"./RuleList":184,"./utils/linkRule":207}],188:[function(require,module,exports){
+},{"./RuleList":201,"./utils/linkRule":224}],205:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -16049,7 +17535,7 @@ var create = exports.create = function create(options) {
  * A global Jss instance.
  */
 exports['default'] = create();
-},{"./Jss":182,"./RuleList":184,"./SheetsManager":185,"./SheetsRegistry":186,"./sheets":200,"./utils/createGenerateClassName":202,"./utils/getDynamicStyles":205,"./utils/toCssValue":210}],189:[function(require,module,exports){
+},{"./Jss":199,"./RuleList":201,"./SheetsManager":202,"./SheetsRegistry":203,"./sheets":217,"./utils/createGenerateClassName":219,"./utils/getDynamicStyles":222,"./utils/toCssValue":227}],206:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -16126,7 +17612,7 @@ exports['default'] = {
     }
   }
 };
-},{"../RuleList":184,"../rules/StyleRule":198,"../utils/createRule":203}],190:[function(require,module,exports){
+},{"../RuleList":201,"../rules/StyleRule":215,"../utils/createRule":220}],207:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -16190,7 +17676,7 @@ exports['default'] = {
     }
   }
 };
-},{"../rules/StyleRule":198,"../utils/createRule":203,"../utils/isObservable":206}],191:[function(require,module,exports){
+},{"../rules/StyleRule":215,"../utils/createRule":220,"../utils/isObservable":223}],208:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -16245,7 +17731,7 @@ var plugins = Object.keys(classes).map(function (key) {
 });
 
 exports['default'] = plugins;
-},{"../rules/ConditionalRule":194,"../rules/FontFaceRule":195,"../rules/KeyframesRule":196,"../rules/SimpleRule":197,"../rules/ViewportRule":199}],192:[function(require,module,exports){
+},{"../rules/ConditionalRule":211,"../rules/FontFaceRule":212,"../rules/KeyframesRule":213,"../rules/SimpleRule":214,"../rules/ViewportRule":216}],209:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -16702,7 +18188,7 @@ var DomRenderer = function () {
 }();
 
 exports['default'] = DomRenderer;
-},{"../rules/StyleRule":198,"../sheets":200,"../utils/toCssValue":210,"warning":211}],193:[function(require,module,exports){
+},{"../rules/StyleRule":215,"../sheets":217,"../utils/toCssValue":227,"warning":228}],210:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -16784,7 +18270,7 @@ var VirtualRenderer = function () {
 }();
 
 exports['default'] = VirtualRenderer;
-},{}],194:[function(require,module,exports){
+},{}],211:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -16875,7 +18361,7 @@ var ConditionalRule = function () {
 }();
 
 exports['default'] = ConditionalRule;
-},{"../RuleList":184}],195:[function(require,module,exports){
+},{"../RuleList":201}],212:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -16929,7 +18415,7 @@ var FontFaceRule = function () {
 }();
 
 exports['default'] = FontFaceRule;
-},{"../utils/toCss":209}],196:[function(require,module,exports){
+},{"../utils/toCss":226}],213:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -16992,7 +18478,7 @@ var KeyframesRule = function () {
 }();
 
 exports['default'] = KeyframesRule;
-},{"../RuleList":184}],197:[function(require,module,exports){
+},{"../RuleList":201}],214:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -17041,7 +18527,7 @@ var SimpleRule = function () {
 }();
 
 exports['default'] = SimpleRule;
-},{}],198:[function(require,module,exports){
+},{}],215:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -17209,7 +18695,7 @@ var StyleRule = function () {
 }();
 
 exports['default'] = StyleRule;
-},{"../utils/toCss":209,"../utils/toCssValue":210,"warning":211}],199:[function(require,module,exports){
+},{"../utils/toCss":226,"../utils/toCssValue":227,"warning":228}],216:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -17254,7 +18740,7 @@ var ViewportRule = function () {
 }();
 
 exports['default'] = ViewportRule;
-},{"../utils/toCss":209}],200:[function(require,module,exports){
+},{"../utils/toCss":226}],217:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -17274,7 +18760,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'd
  * each request in order to not leak sheets across requests.
  */
 exports['default'] = new _SheetsRegistry2['default']();
-},{"./SheetsRegistry":186}],201:[function(require,module,exports){
+},{"./SheetsRegistry":203}],218:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -17322,7 +18808,7 @@ function cloneStyle(style) {
 
   return newStyle;
 }
-},{"./isObservable":206}],202:[function(require,module,exports){
+},{"./isObservable":223}],219:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -17382,7 +18868,7 @@ exports['default'] = function () {
   };
 };
 }).call(this,require('_process'))
-},{"../StyleSheet":187,"./moduleId":208,"_process":1,"warning":211}],203:[function(require,module,exports){
+},{"../StyleSheet":204,"./moduleId":225,"_process":1,"warning":228}],220:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -17425,7 +18911,7 @@ function createRule() {
 
   return new _StyleRule2['default'](name, declCopy, options);
 }
-},{"../rules/StyleRule":198,"../utils/cloneStyle":201,"warning":211}],204:[function(require,module,exports){
+},{"../rules/StyleRule":215,"../utils/cloneStyle":218,"warning":228}],221:[function(require,module,exports){
 (function (process,global){
 'use strict';
 
@@ -17450,7 +18936,7 @@ exports['default'] = function (str) {
   return CSS.escape(str);
 };
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"_process":1}],205:[function(require,module,exports){
+},{"_process":1}],222:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -17484,7 +18970,7 @@ function getDynamicStyles(styles) {
 
   return to;
 }
-},{}],206:[function(require,module,exports){
+},{}],223:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -17500,7 +18986,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'd
 exports['default'] = function (value) {
   return value && value[_symbolObservable2['default']] && value === value[_symbolObservable2['default']]();
 };
-},{"symbol-observable":297}],207:[function(require,module,exports){
+},{"symbol-observable":321}],224:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -17514,7 +19000,7 @@ function linkRule(rule, cssRule) {
   rule.renderable = cssRule;
   if (rule.rules && cssRule.cssRules) rule.rules.link(cssRule.cssRules);
 }
-},{}],208:[function(require,module,exports){
+},{}],225:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -17530,7 +19016,7 @@ if (global[ns] == null) global[ns] = 0;
 // the module.
 exports['default'] = global[ns]++;
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],209:[function(require,module,exports){
+},{}],226:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -17612,7 +19098,7 @@ function toCss(selector, style) {
 
   return result;
 }
-},{"./toCssValue":210}],210:[function(require,module,exports){
+},{"./toCssValue":227}],227:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -17661,9 +19147,9 @@ function toCssValue(value) {
 
   return cssValue;
 }
-},{}],211:[function(require,module,exports){
-arguments[4][179][0].apply(exports,arguments)
-},{"_process":1,"dup":179}],212:[function(require,module,exports){
+},{}],228:[function(require,module,exports){
+arguments[4][196][0].apply(exports,arguments)
+},{"_process":1,"dup":196}],229:[function(require,module,exports){
 (function (global){
 /**
  * @license
@@ -34774,7 +36260,7 @@ arguments[4][179][0].apply(exports,arguments)
 }.call(this));
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],213:[function(require,module,exports){
+},{}],230:[function(require,module,exports){
 'use strict';
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -34799,7 +36285,7 @@ var Base = function Base(source) {
 };
 
 module.exports = Base;
-},{"./_stringify":215}],214:[function(require,module,exports){
+},{"./_stringify":232}],231:[function(require,module,exports){
 'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -34844,14 +36330,14 @@ var LocalStorage = function (_Base) {
 }(Base);
 
 module.exports = LocalStorage;
-},{"./Base":213}],215:[function(require,module,exports){
+},{"./Base":230}],232:[function(require,module,exports){
 "use strict";
 
 // Pretty stringify
 module.exports = function stringify(obj) {
   return JSON.stringify(obj, null, 2);
 };
-},{}],216:[function(require,module,exports){
+},{}],233:[function(require,module,exports){
 'use strict';
 
 var lodash = require('lodash');
@@ -34904,7 +36390,7 @@ module.exports = function (adapter) {
 
   return db.read();
 };
-},{"is-promise":172,"lodash":212}],217:[function(require,module,exports){
+},{"is-promise":189,"lodash":229}],234:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -34918,7 +36404,7 @@ var _createIcon2 = _interopRequireDefault(_createIcon);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = (0, _createIcon2.default)('M12,2C6.48,2 2,6.48 2,12C2,17.52 6.48,22 12,22C17.52,22 22,17.52 22,12C22,6.48 17.52,2 12,2M7.07,18.28C7.5,17.38 10.12,16.5 12,16.5C13.88,16.5 16.5,17.38 16.93,18.28C15.57,19.36 13.86,20 12,20C10.14,20 8.43,19.36 7.07,18.28M18.36,16.83C16.93,15.09 13.46,14.5 12,14.5C10.54,14.5 7.07,15.09 5.64,16.83C4.62,15.5 4,13.82 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,13.82 19.38,15.5 18.36,16.83M12,6C10.06,6 8.5,7.56 8.5,9.5C8.5,11.44 10.06,13 12,13C13.94,13 15.5,11.44 15.5,9.5C15.5,7.56 13.94,6 12,6M12,11C11.17,11 10.5,10.33 10.5,9.5C10.5,8.67 11.17,8 12,8C12.83,8 13.5,8.67 13.5,9.5C13.5,10.33 12.83,11 12,11Z');
-},{"./util/createIcon":230}],218:[function(require,module,exports){
+},{"./util/createIcon":247}],235:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -34932,7 +36418,7 @@ var _createIcon2 = _interopRequireDefault(_createIcon);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = (0, _createIcon2.default)('M12,6C10.34,6 9,7.34 9,9C9,10.66 10.34,12 12,12C13.66,12 15,10.66 15,9C15,7.34 13.66,6 12,6M6,8.17C4.62,8.17 3.5,9.29 3.5,10.67C3.5,12.05 4.62,13.17 6,13.17C6.88,13.17 7.65,12.71 8.09,12.03C7.42,11.18 7,10.15 7,9C7,8.8 7,8.6 7.04,8.4C6.72,8.25 6.37,8.17 6,8.17M18,8.17C17.63,8.17 17.28,8.25 16.96,8.4C17,8.6 17,8.8 17,9C17,10.15 16.58,11.18 15.91,12.03C16.35,12.71 17.12,13.17 18,13.17C19.38,13.17 20.5,12.05 20.5,10.67C20.5,9.29 19.38,8.17 18,8.17M12,14C10,14 6,15 6,17V19H18V17C18,15 14,14 12,14M4.67,14.97C3,15.26 1,16.04 1,17.33V19H4V17C4,16.22 4.29,15.53 4.67,14.97M19.33,14.97C19.71,15.53 20,16.22 20,17V19H23V17.33C23,16.04 21,15.26 19.33,14.97Z');
-},{"./util/createIcon":230}],219:[function(require,module,exports){
+},{"./util/createIcon":247}],236:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -34946,7 +36432,7 @@ var _createIcon2 = _interopRequireDefault(_createIcon);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = (0, _createIcon2.default)('M11.5,11L17.88,16.37L17,16.55L16.36,16.67C15.73,16.8 15.37,17.5 15.65,18.07L15.92,18.65L17.28,21.59L15.86,22.25L14.5,19.32L14.24,18.74C13.97,18.15 13.22,17.97 12.72,18.38L12.21,18.78L11.5,19.35V11M10.76,8.69C10.34,8.69 10,9.03 10,9.45V20.9C10,21.32 10.34,21.66 10.76,21.66C10.95,21.66 11.11,21.6 11.24,21.5L13.15,19.95L14.81,23.57C14.94,23.84 15.21,24 15.5,24C15.61,24 15.72,24 15.83,23.92L18.59,22.64C18.97,22.46 19.15,22 18.95,21.63L17.28,18L19.69,17.55C19.85,17.5 20,17.43 20.12,17.29C20.39,16.97 20.35,16.5 20,16.21L11.26,8.86L11.25,8.87C11.12,8.76 10.95,8.69 10.76,8.69M15,10V8H20V10H15M13.83,4.76L16.66,1.93L18.07,3.34L15.24,6.17L13.83,4.76M10,0H12V5H10V0M3.93,14.66L6.76,11.83L8.17,13.24L5.34,16.07L3.93,14.66M3.93,3.34L5.34,1.93L8.17,4.76L6.76,6.17L3.93,3.34M7,10H2V8H7V10');
-},{"./util/createIcon":230}],220:[function(require,module,exports){
+},{"./util/createIcon":247}],237:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -34960,7 +36446,7 @@ var _createIcon2 = _interopRequireDefault(_createIcon);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = (0, _createIcon2.default)('M23,2H1C0.45,2 0,2.45 0,3V21C0,21.55 0.45,22 1,22H23C23.55,22 24,21.55 24,21V3C24,2.45 23.55,2 23,2M22,20H20V19H15V20H2V4H22V20M10.29,9.71C10.29,8.77 11.06,8 12,8C12.95,8 13.71,8.77 13.71,9.71C13.71,10.66 12.95,11.43 12,11.43C11.05,11.43 10.29,10.66 10.29,9.71M5.71,11.29C5.71,10.58 6.29,10 7,10C7.71,10 8.29,10.58 8.29,11.29C8.29,12 7.71,12.57 7,12.57C6.29,12.57 5.71,12 5.71,11.29M15.71,11.29C15.71,10.58 16.29,10 17,10C17.71,10 18.29,10.58 18.29,11.29C18.29,12 17.71,12.57 17,12.57C16.29,12.57 15.71,12 15.71,11.29M20,15.14V16H16L14,16H10L8,16H4V15.14C4,14.2 5.55,13.43 7,13.43C7.55,13.43 8.11,13.54 8.6,13.73C9.35,13.04 10.7,12.57 12,12.57C13.3,12.57 14.65,13.04 15.4,13.73C15.89,13.54 16.45,13.43 17,13.43C18.45,13.43 20,14.2 20,15.14Z');
-},{"./util/createIcon":230}],221:[function(require,module,exports){
+},{"./util/createIcon":247}],238:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -34974,7 +36460,7 @@ var _createIcon2 = _interopRequireDefault(_createIcon);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = (0, _createIcon2.default)('M11,9H13V7H11M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2C6.48,2 2,6.48 2,12C2,17.52 6.48,22 12,22C17.52,22 22,17.52 22,12C22,6.48 17.52,2 12,2M11,17H13V11H11V17Z');
-},{"./util/createIcon":230}],222:[function(require,module,exports){
+},{"./util/createIcon":247}],239:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -34988,7 +36474,7 @@ var _createIcon2 = _interopRequireDefault(_createIcon);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = (0, _createIcon2.default)('M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z');
-},{"./util/createIcon":230}],223:[function(require,module,exports){
+},{"./util/createIcon":247}],240:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -35002,7 +36488,7 @@ var _createIcon2 = _interopRequireDefault(_createIcon);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = (0, _createIcon2.default)('M14,10H19.5L14,4.5V10M5,3H15L21,9V19C21,20.1 20.1,21 19,21H5C3.89,21 3,20.1 3,19V5C3,3.89 3.89,3 5,3M5,5V19H19V12H12V5H5Z');
-},{"./util/createIcon":230}],224:[function(require,module,exports){
+},{"./util/createIcon":247}],241:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -35016,7 +36502,7 @@ var _createIcon2 = _interopRequireDefault(_createIcon);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = (0, _createIcon2.default)('M12,12L19.07,19.07C15.17,23 8.83,23 4.93,19.07C1,15.17 1,8.84 4.93,4.93C8.83,1 15.16,1 19.07,4.93L12,12M19,10C17.9,10 17,10.9 17,12C17,13.1 17.9,14 19,14C20.1,14 21,13.1 21,12C21,10.9 20.1,10 19,10Z');
-},{"./util/createIcon":230}],225:[function(require,module,exports){
+},{"./util/createIcon":247}],242:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -35030,7 +36516,7 @@ var _createIcon2 = _interopRequireDefault(_createIcon);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = (0, _createIcon2.default)('M17.5,12C16.67,12 16,11.33 16,10.5C16,9.67 16.67,9 17.5,9C18.33,9 19,9.67 19,10.5C19,11.33 18.33,12 17.5,12M14.5,8C13.67,8 13,7.33 13,6.5C13,5.67 13.67,5 14.5,5C15.33,5 16,5.67 16,6.5C16,7.33 15.33,8 14.5,8M9.5,8C8.67,8 8,7.33 8,6.5C8,5.67 8.67,5 9.5,5C10.33,5 11,5.67 11,6.5C11,7.33 10.33,8 9.5,8M6.5,12C5.67,12 5,11.33 5,10.5C5,9.67 5.67,9 6.5,9C7.33,9 8,9.67 8,10.5C8,11.33 7.33,12 6.5,12M12,3C7.03,3 3,7.03 3,12C3,16.97 7.03,21 12,21C12.83,21 13.5,20.33 13.5,19.5C13.5,19.11 13.35,18.76 13.11,18.5C12.88,18.23 12.73,17.88 12.73,17.5C12.73,16.67 13.4,16 14.23,16H16C18.76,16 21,13.76 21,11C21,6.58 16.97,3 12,3Z');
-},{"./util/createIcon":230}],226:[function(require,module,exports){
+},{"./util/createIcon":247}],243:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -35044,7 +36530,7 @@ var _createIcon2 = _interopRequireDefault(_createIcon);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = (0, _createIcon2.default)('M19.43,12.97L21.54,14.63C21.73,14.78 21.78,15.05 21.66,15.27L19.66,18.73C19.54,18.95 19.27,19.03 19.05,18.95L16.56,17.94C16.04,18.34 15.5,18.67 14.87,18.93L14.5,21.58C14.46,21.82 14.25,22 14,22H10C9.75,22 9.54,21.82 9.5,21.58L9.13,18.93C8.5,18.68 7.96,18.34 7.44,17.94L4.95,18.95C4.73,19.03 4.46,18.95 4.34,18.73L2.34,15.27C2.21,15.05 2.27,14.78 2.46,14.63L4.57,12.97L4.5,12L4.57,11L2.46,9.37C2.27,9.22 2.21,8.95 2.34,8.73L4.34,5.27C4.46,5.05 4.73,4.96 4.95,5.05L7.44,6.05C7.96,5.66 8.5,5.32 9.13,5.07L9.5,2.42C9.54,2.18 9.75,2 10,2H14C14.25,2 14.46,2.18 14.5,2.42L14.87,5.07C15.5,5.32 16.04,5.66 16.56,6.05L19.05,5.05C19.27,4.96 19.54,5.05 19.66,5.27L21.66,8.73C21.78,8.95 21.73,9.22 21.54,9.37L19.43,11L19.5,12L19.43,12.97M6.5,12C6.5,12.58 6.59,13.13 6.75,13.66L4.68,15.36L5.43,16.66L7.95,15.72C8.69,16.53 9.68,17.12 10.8,17.37L11.24,20H12.74L13.18,17.37C14.3,17.13 15.3,16.54 16.05,15.73L18.56,16.67L19.31,15.37L17.24,13.67C17.41,13.14 17.5,12.58 17.5,12C17.5,11.43 17.41,10.87 17.25,10.35L19.31,8.66L18.56,7.36L16.06,8.29C15.31,7.47 14.31,6.88 13.19,6.63L12.75,4H11.25L10.81,6.63C9.69,6.88 8.69,7.47 7.94,8.29L5.44,7.35L4.69,8.65L6.75,10.35C6.59,10.87 6.5,11.43 6.5,12M12,8.5C13.93,8.5 15.5,10.07 15.5,12C15.5,13.93 13.93,15.5 12,15.5C10.07,15.5 8.5,13.93 8.5,12C8.5,10.07 10.07,8.5 12,8.5M12,10.5C11.17,10.5 10.5,11.17 10.5,12C10.5,12.83 11.17,13.5 12,13.5C12.83,13.5 13.5,12.83 13.5,12C13.5,11.17 12.83,10.5 12,10.5Z');
-},{"./util/createIcon":230}],227:[function(require,module,exports){
+},{"./util/createIcon":247}],244:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -35058,7 +36544,7 @@ var _createIcon2 = _interopRequireDefault(_createIcon);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = (0, _createIcon2.default)('M12,2C6.48,2 2,6.48 2,12C2,17.52 6.48,22 12,22C17.52,22 22,17.52 22,12C22,6.48 17.52,2 12,2M12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4M9,9V15H15V9');
-},{"./util/createIcon":230}],228:[function(require,module,exports){
+},{"./util/createIcon":247}],245:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -35072,7 +36558,7 @@ var _createIcon2 = _interopRequireDefault(_createIcon);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = (0, _createIcon2.default)('M4,3H20C21.1,3 22,3.9 22,5V20C22,21.1 21.1,22 20,22H4C2.9,22 2,21.1 2,20V5C2,3.9 2.9,3 4,3M4,7V10H8V7H4M10,7V10H14V7H10M20,10V7H16V10H20M4,12V15H8V12H4M4,20H8V17H4V20M10,12V15H14V12H10M10,20H14V17H10V20M20,20V17H16V20H20M20,12H16V15H20V12Z');
-},{"./util/createIcon":230}],229:[function(require,module,exports){
+},{"./util/createIcon":247}],246:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -35086,7 +36572,7 @@ var _createIcon2 = _interopRequireDefault(_createIcon);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = (0, _createIcon2.default)('M7,2V4H2V11C2,12 3,13 4,13H7.2C7.6,14.9 8.6,16.6 11,16.9V19C8,19.2 8,20.3 8,21.6V22H16V21.7C16,20.4 16,19.3 13,19.1V17C15.5,16.7 16.5,15 16.8,13.1H20C21,13.1 22,12.1 22,11.1V4H17V2H7M9,4H15V12C15,13.66 13.66,15 12,15C10,15 9,13.66 9,12V4M4,6H7V8L7,11H4V6M17,6H20V11H17V6Z');
-},{"./util/createIcon":230}],230:[function(require,module,exports){
+},{"./util/createIcon":247}],247:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -35114,7 +36600,7 @@ exports.default = function (path) {
   Icon.muiName = 'SvgIcon';
   return Icon;
 };
-},{"@material-ui/core/SvgIcon":92,"react":260}],231:[function(require,module,exports){
+},{"@material-ui/core/SvgIcon":103,"react":277}],248:[function(require,module,exports){
 /**
  * Secure random string generator with custom alphabet.
  *
@@ -35166,7 +36652,7 @@ module.exports = function (random, alphabet, size) {
  * @return {number[]} Random bytes.
  */
 
-},{}],232:[function(require,module,exports){
+},{}],249:[function(require,module,exports){
 /*
 object-assign
 (c) Sindre Sorhus
@@ -35258,7 +36744,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 	return to;
 };
 
-},{}],233:[function(require,module,exports){
+},{}],250:[function(require,module,exports){
 var isarray = require('isarray')
 
 /**
@@ -35686,12 +37172,12 @@ function pathToRegexp (path, keys, options) {
   return stringToRegexp(/** @type {string} */ (path), /** @type {!Array} */ (keys), options)
 }
 
-},{"isarray":234}],234:[function(require,module,exports){
+},{"isarray":251}],251:[function(require,module,exports){
 module.exports = Array.isArray || function (arr) {
   return Object.prototype.toString.call(arr) == '[object Array]';
 };
 
-},{}],235:[function(require,module,exports){
+},{}],252:[function(require,module,exports){
 (function (process){
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
@@ -35797,7 +37283,7 @@ checkPropTypes.resetWarningCache = function() {
 module.exports = checkPropTypes;
 
 }).call(this,require('_process'))
-},{"./lib/ReactPropTypesSecret":239,"_process":1}],236:[function(require,module,exports){
+},{"./lib/ReactPropTypesSecret":256,"_process":1}],253:[function(require,module,exports){
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
  *
@@ -35863,7 +37349,7 @@ module.exports = function() {
   return ReactPropTypes;
 };
 
-},{"./lib/ReactPropTypesSecret":239}],237:[function(require,module,exports){
+},{"./lib/ReactPropTypesSecret":256}],254:[function(require,module,exports){
 (function (process){
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
@@ -36458,7 +37944,7 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
 };
 
 }).call(this,require('_process'))
-},{"./checkPropTypes":235,"./lib/ReactPropTypesSecret":239,"_process":1,"object-assign":232,"react-is":246}],238:[function(require,module,exports){
+},{"./checkPropTypes":252,"./lib/ReactPropTypesSecret":256,"_process":1,"object-assign":249,"react-is":263}],255:[function(require,module,exports){
 (function (process){
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
@@ -36481,7 +37967,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 }).call(this,require('_process'))
-},{"./factoryWithThrowingShims":236,"./factoryWithTypeCheckers":237,"_process":1,"react-is":246}],239:[function(require,module,exports){
+},{"./factoryWithThrowingShims":253,"./factoryWithTypeCheckers":254,"_process":1,"react-is":263}],256:[function(require,module,exports){
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
  *
@@ -36495,7 +37981,7 @@ var ReactPropTypesSecret = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
 
 module.exports = ReactPropTypesSecret;
 
-},{}],240:[function(require,module,exports){
+},{}],257:[function(require,module,exports){
 (function (process){
 /** @license React v16.8.6
  * react-dom.development.js
@@ -57777,7 +59263,7 @@ module.exports = reactDom;
 }
 
 }).call(this,require('_process'))
-},{"_process":1,"object-assign":232,"prop-types/checkPropTypes":235,"react":260,"scheduler":286,"scheduler/tracing":287}],241:[function(require,module,exports){
+},{"_process":1,"object-assign":249,"prop-types/checkPropTypes":252,"react":277,"scheduler":310,"scheduler/tracing":311}],258:[function(require,module,exports){
 /** @license React v16.8.6
  * react-dom.production.min.js
  *
@@ -58048,7 +59534,7 @@ x("38"):void 0;return Si(a,b,c,!1,d)},unmountComponentAtNode:function(a){Qi(a)?v
 X;X=!0;try{ki(a)}finally{(X=b)||W||Yh(1073741823,!1)}},__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED:{Events:[Ia,Ja,Ka,Ba.injectEventPluginsByName,pa,Qa,function(a){ya(a,Pa)},Eb,Fb,Dd,Da]}};function Ui(a,b){Qi(a)?void 0:x("299","unstable_createRoot");return new Pi(a,!0,null!=b&&!0===b.hydrate)}
 (function(a){var b=a.findFiberByHostInstance;return Te(n({},a,{overrideProps:null,currentDispatcherRef:Tb.ReactCurrentDispatcher,findHostInstanceByFiber:function(a){a=hd(a);return null===a?null:a.stateNode},findFiberByHostInstance:function(a){return b?b(a):null}}))})({findFiberByHostInstance:Ha,bundleType:0,version:"16.8.6",rendererPackageName:"react-dom"});var Wi={default:Vi},Xi=Wi&&Vi||Wi;module.exports=Xi.default||Xi;
 
-},{"object-assign":232,"react":260,"scheduler":286}],242:[function(require,module,exports){
+},{"object-assign":249,"react":277,"scheduler":310}],259:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -58090,7 +59576,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 }).call(this,require('_process'))
-},{"./cjs/react-dom.development.js":240,"./cjs/react-dom.production.min.js":241,"_process":1}],243:[function(require,module,exports){
+},{"./cjs/react-dom.development.js":257,"./cjs/react-dom.production.min.js":258,"_process":1}],260:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -58276,7 +59762,7 @@ exports.withOptions = withOptions;
 exports.default = EventListener;
 
 }).call(this,require('_process'))
-},{"@babel/runtime/helpers/classCallCheck":4,"@babel/runtime/helpers/createClass":5,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/getPrototypeOf":8,"@babel/runtime/helpers/inherits":9,"@babel/runtime/helpers/objectWithoutProperties":14,"@babel/runtime/helpers/possibleConstructorReturn":16,"@babel/runtime/helpers/typeof":19,"_process":1,"prop-types":238,"react":260,"warning":302}],244:[function(require,module,exports){
+},{"@babel/runtime/helpers/classCallCheck":4,"@babel/runtime/helpers/createClass":5,"@babel/runtime/helpers/extends":7,"@babel/runtime/helpers/getPrototypeOf":8,"@babel/runtime/helpers/inherits":9,"@babel/runtime/helpers/objectWithoutProperties":15,"@babel/runtime/helpers/possibleConstructorReturn":17,"@babel/runtime/helpers/typeof":20,"_process":1,"prop-types":255,"react":277,"warning":326}],261:[function(require,module,exports){
 (function (process){
 /** @license React v16.8.6
  * react-is.development.js
@@ -58507,7 +59993,7 @@ exports.isSuspense = isSuspense;
 }
 
 }).call(this,require('_process'))
-},{"_process":1}],245:[function(require,module,exports){
+},{"_process":1}],262:[function(require,module,exports){
 /** @license React v16.8.6
  * react-is.production.min.js
  *
@@ -58524,7 +60010,7 @@ exports.Fragment=e;exports.Lazy=r;exports.Memo=q;exports.Portal=d;exports.Profil
 exports.isContextProvider=function(a){return t(a)===h};exports.isElement=function(a){return"object"===typeof a&&null!==a&&a.$$typeof===c};exports.isForwardRef=function(a){return t(a)===n};exports.isFragment=function(a){return t(a)===e};exports.isLazy=function(a){return t(a)===r};exports.isMemo=function(a){return t(a)===q};exports.isPortal=function(a){return t(a)===d};exports.isProfiler=function(a){return t(a)===g};exports.isStrictMode=function(a){return t(a)===f};
 exports.isSuspense=function(a){return t(a)===p};
 
-},{}],246:[function(require,module,exports){
+},{}],263:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -58535,7 +60021,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 }).call(this,require('_process'))
-},{"./cjs/react-is.development.js":244,"./cjs/react-is.production.min.js":245,"_process":1}],247:[function(require,module,exports){
+},{"./cjs/react-is.development.js":261,"./cjs/react-is.production.min.js":262,"_process":1}],264:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', { value: true });
@@ -58699,7 +60185,7 @@ function polyfill(Component) {
 
 exports.polyfill = polyfill;
 
-},{}],248:[function(require,module,exports){
+},{}],265:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', { value: true });
@@ -58993,10 +60479,10 @@ exports.HashRouter = HashRouter;
 exports.Link = Link;
 exports.NavLink = NavLink;
 
-},{"history":167,"prop-types":238,"react":260,"react-router":253,"tiny-invariant":299,"tiny-warning":300}],249:[function(require,module,exports){
+},{"history":184,"prop-types":255,"react":277,"react-router":270,"tiny-invariant":323,"tiny-warning":324}],266:[function(require,module,exports){
 "use strict";function _interopDefault(t){return t&&"object"==typeof t&&"default"in t?t.default:t}Object.defineProperty(exports,"__esModule",{value:!0});var React=_interopDefault(require("react")),reactRouter=require("react-router"),history=require("history");require("prop-types"),require("tiny-warning");var invariant=_interopDefault(require("tiny-invariant"));function _extends(){return(_extends=Object.assign||function(t){for(var e=1;e<arguments.length;e++){var r=arguments[e];for(var o in r)Object.prototype.hasOwnProperty.call(r,o)&&(t[o]=r[o])}return t}).apply(this,arguments)}function _inheritsLoose(t,e){t.prototype=Object.create(e.prototype),(t.prototype.constructor=t).__proto__=e}function _objectWithoutPropertiesLoose(t,e){if(null==t)return{};var r,o,n={},i=Object.keys(t);for(o=0;o<i.length;o++)r=i[o],0<=e.indexOf(r)||(n[r]=t[r]);return n}var BrowserRouter=function(n){function t(){for(var t,e=arguments.length,r=new Array(e),o=0;o<e;o++)r[o]=arguments[o];return(t=n.call.apply(n,[this].concat(r))||this).history=history.createBrowserHistory(t.props),t}return _inheritsLoose(t,n),t.prototype.render=function(){return React.createElement(reactRouter.Router,{history:this.history,children:this.props.children})},t}(React.Component),HashRouter=function(n){function t(){for(var t,e=arguments.length,r=new Array(e),o=0;o<e;o++)r[o]=arguments[o];return(t=n.call.apply(n,[this].concat(r))||this).history=history.createHashHistory(t.props),t}return _inheritsLoose(t,n),t.prototype.render=function(){return React.createElement(reactRouter.Router,{history:this.history,children:this.props.children})},t}(React.Component);function isModifiedEvent(t){return!!(t.metaKey||t.altKey||t.ctrlKey||t.shiftKey)}var Link=function(t){function e(){return t.apply(this,arguments)||this}_inheritsLoose(e,t);var r=e.prototype;return r.handleClick=function(t,e){(this.props.onClick&&this.props.onClick(t),t.defaultPrevented||0!==t.button||this.props.target&&"_self"!==this.props.target||isModifiedEvent(t))||(t.preventDefault(),(this.props.replace?e.replace:e.push)(this.props.to))},r.render=function(){var o=this,t=this.props,n=t.innerRef,i=(t.replace,t.to),a=_objectWithoutPropertiesLoose(t,["innerRef","replace","to"]);return React.createElement(reactRouter.__RouterContext.Consumer,null,function(e){e||invariant(!1);var t="string"==typeof i?history.createLocation(i,null,null,e.location):i,r=t?e.history.createHref(t):"";return React.createElement("a",_extends({},a,{onClick:function(t){return o.handleClick(t,e.history)},href:r,ref:n}))})},e}(React.Component);function joinClassnames(){for(var t=arguments.length,e=new Array(t),r=0;r<t;r++)e[r]=arguments[r];return e.filter(function(t){return t}).join(" ")}function NavLink(t){var e=t["aria-current"],a=void 0===e?"page":e,r=t.activeClassName,s=void 0===r?"active":r,c=t.activeStyle,u=t.className,o=t.exact,l=t.isActive,n=t.location,i=t.strict,p=t.style,h=t.to,f=_objectWithoutPropertiesLoose(t,["aria-current","activeClassName","activeStyle","className","exact","isActive","location","strict","style","to"]),y="object"==typeof h?h.pathname:h,v=y&&y.replace(/([.+*?=^!:${}()[\]|/\\])/g,"\\$1");return React.createElement(reactRouter.Route,{path:v,exact:o,strict:i,location:n,children:function(t){var e=t.location,r=t.match,o=!!(l?l(r,e):r),n=o?joinClassnames(u,s):u,i=o?_extends({},p,c):p;return React.createElement(Link,_extends({"aria-current":o&&a||null,className:n,style:i,to:h},f))}})}Object.keys(reactRouter).forEach(function(t){exports[t]=reactRouter[t]}),exports.BrowserRouter=BrowserRouter,exports.HashRouter=HashRouter,exports.Link=Link,exports.NavLink=NavLink;
 
-},{"history":167,"prop-types":238,"react":260,"react-router":253,"tiny-invariant":299,"tiny-warning":300}],250:[function(require,module,exports){
+},{"history":184,"prop-types":255,"react":277,"react-router":270,"tiny-invariant":323,"tiny-warning":324}],267:[function(require,module,exports){
 (function (process){
 "use strict";
 
@@ -59007,7 +60493,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 }).call(this,require('_process'))
-},{"./cjs/react-router-dom.js":248,"./cjs/react-router-dom.min.js":249,"_process":1}],251:[function(require,module,exports){
+},{"./cjs/react-router-dom.js":265,"./cjs/react-router-dom.min.js":266,"_process":1}],268:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', { value: true });
@@ -59781,10 +61267,10 @@ exports.matchPath = matchPath;
 exports.withRouter = withRouter;
 exports.__RouterContext = context;
 
-},{"create-react-context":141,"history":167,"hoist-non-react-statics":168,"path-to-regexp":233,"prop-types":238,"react":260,"react-is":246,"tiny-invariant":299,"tiny-warning":300}],252:[function(require,module,exports){
+},{"create-react-context":157,"history":184,"hoist-non-react-statics":185,"path-to-regexp":250,"prop-types":255,"react":277,"react-is":263,"tiny-invariant":323,"tiny-warning":324}],269:[function(require,module,exports){
 "use strict";function _interopDefault(t){return t&&"object"==typeof t&&"default"in t?t.default:t}Object.defineProperty(exports,"__esModule",{value:!0});var createContext=_interopDefault(require("create-react-context")),React=_interopDefault(require("react"));require("prop-types"),require("tiny-warning");var history=require("history"),invariant=_interopDefault(require("tiny-invariant")),pathToRegexp=_interopDefault(require("path-to-regexp"));require("react-is");var hoistStatics=_interopDefault(require("hoist-non-react-statics"));function _extends(){return(_extends=Object.assign||function(t){for(var e=1;e<arguments.length;e++){var n=arguments[e];for(var o in n)Object.prototype.hasOwnProperty.call(n,o)&&(t[o]=n[o])}return t}).apply(this,arguments)}function _inheritsLoose(t,e){t.prototype=Object.create(e.prototype),(t.prototype.constructor=t).__proto__=e}function _objectWithoutPropertiesLoose(t,e){if(null==t)return{};var n,o,r={},a=Object.keys(t);for(o=0;o<a.length;o++)n=a[o],0<=e.indexOf(n)||(r[n]=t[n]);return r}var createNamedContext=function(t){var e=createContext();return e.Provider.displayName=t+".Provider",e.Consumer.displayName=t+".Consumer",e},context=createNamedContext("Router"),Router=function(n){function t(t){var e;return(e=n.call(this,t)||this).state={location:t.history.location},e._isMounted=!1,e._pendingLocation=null,t.staticContext||(e.unlisten=t.history.listen(function(t){e._isMounted?e.setState({location:t}):e._pendingLocation=t})),e}_inheritsLoose(t,n),t.computeRootMatch=function(t){return{path:"/",url:"/",params:{},isExact:"/"===t}};var e=t.prototype;return e.componentDidMount=function(){this._isMounted=!0,this._pendingLocation&&this.setState({location:this._pendingLocation})},e.componentWillUnmount=function(){this.unlisten&&this.unlisten()},e.render=function(){return React.createElement(context.Provider,{children:this.props.children||null,value:{history:this.props.history,location:this.state.location,match:t.computeRootMatch(this.state.location.pathname),staticContext:this.props.staticContext}})},t}(React.Component),MemoryRouter=function(r){function t(){for(var t,e=arguments.length,n=new Array(e),o=0;o<e;o++)n[o]=arguments[o];return(t=r.call.apply(r,[this].concat(n))||this).history=history.createMemoryHistory(t.props),t}return _inheritsLoose(t,r),t.prototype.render=function(){return React.createElement(Router,{history:this.history,children:this.props.children})},t}(React.Component),Lifecycle=function(t){function e(){return t.apply(this,arguments)||this}_inheritsLoose(e,t);var n=e.prototype;return n.componentDidMount=function(){this.props.onMount&&this.props.onMount.call(this,this)},n.componentDidUpdate=function(t){this.props.onUpdate&&this.props.onUpdate.call(this,this,t)},n.componentWillUnmount=function(){this.props.onUnmount&&this.props.onUnmount.call(this,this)},n.render=function(){return null},e}(React.Component);function Prompt(t){var o=t.message,e=t.when,r=void 0===e||e;return React.createElement(context.Consumer,null,function(t){if(t||invariant(!1),!r||t.staticContext)return null;var n=t.history.block;return React.createElement(Lifecycle,{onMount:function(t){t.release=n(o)},onUpdate:function(t,e){e.message!==o&&(t.release(),t.release=n(o))},onUnmount:function(t){t.release()},message:o})})}var cache={},cacheLimit=1e4,cacheCount=0;function compilePath(t){if(cache[t])return cache[t];var e=pathToRegexp.compile(t);return cacheCount<cacheLimit&&(cache[t]=e,cacheCount++),e}function generatePath(t,e){return void 0===t&&(t="/"),void 0===e&&(e={}),"/"===t?t:compilePath(t)(e,{pretty:!0})}function Redirect(t){var a=t.computedMatch,i=t.to,e=t.push,c=void 0!==e&&e;return React.createElement(context.Consumer,null,function(t){t||invariant(!1);var e=t.history,n=t.staticContext,o=c?e.push:e.replace,r=history.createLocation(a?"string"==typeof i?generatePath(i,a.params):_extends({},i,{pathname:generatePath(i.pathname,a.params)}):i);return n?(o(r),null):React.createElement(Lifecycle,{onMount:function(){o(r)},onUpdate:function(t,e){history.locationsAreEqual(e.to,r)||o(r)},to:i})})}var cache$1={},cacheLimit$1=1e4,cacheCount$1=0;function compilePath$1(t,e){var n=""+e.end+e.strict+e.sensitive,o=cache$1[n]||(cache$1[n]={});if(o[t])return o[t];var r=[],a={regexp:pathToRegexp(t,r,e),keys:r};return cacheCount$1<cacheLimit$1&&(o[t]=a,cacheCount$1++),a}function matchPath(u,t){void 0===t&&(t={}),"string"==typeof t&&(t={path:t});var e=t,n=e.path,o=e.exact,p=void 0!==o&&o,r=e.strict,h=void 0!==r&&r,a=e.sensitive,l=void 0!==a&&a;return[].concat(n).reduce(function(t,e){if(t)return t;var n=compilePath$1(e,{end:p,strict:h,sensitive:l}),o=n.regexp,r=n.keys,a=o.exec(u);if(!a)return null;var i=a[0],c=a.slice(1),s=u===i;return p&&!s?null:{path:e,url:"/"===e&&""===i?"/":i,isExact:s,params:r.reduce(function(t,e,n){return t[e.name]=c[n],t},{})}},null)}function isEmptyChildren(t){return 0===React.Children.count(t)}var Route=function(t){function e(){return t.apply(this,arguments)||this}return _inheritsLoose(e,t),e.prototype.render=function(){var c=this;return React.createElement(context.Consumer,null,function(t){t||invariant(!1);var e=c.props.location||t.location,n=_extends({},t,{location:e,match:c.props.computedMatch?c.props.computedMatch:c.props.path?matchPath(e.pathname,c.props):t.match}),o=c.props,r=o.children,a=o.component,i=o.render;return Array.isArray(r)&&0===r.length&&(r=null),"function"==typeof r&&void 0===(r=r(n))&&(r=null),React.createElement(context.Provider,{value:n},r&&!isEmptyChildren(r)?r:n.match?a?React.createElement(a,n):i?i(n):null:null)})},e}(React.Component);function addLeadingSlash(t){return"/"===t.charAt(0)?t:"/"+t}function addBasename(t,e){return t?_extends({},e,{pathname:addLeadingSlash(t)+e.pathname}):e}function stripBasename(t,e){if(!t)return e;var n=addLeadingSlash(t);return 0!==e.pathname.indexOf(n)?e:_extends({},e,{pathname:e.pathname.substr(n.length)})}function createURL(t){return"string"==typeof t?t:history.createPath(t)}function staticHandler(t){return function(){invariant(!1)}}function noop(){}var StaticRouter=function(r){function t(){for(var e,t=arguments.length,n=new Array(t),o=0;o<t;o++)n[o]=arguments[o];return(e=r.call.apply(r,[this].concat(n))||this).handlePush=function(t){return e.navigateTo(t,"PUSH")},e.handleReplace=function(t){return e.navigateTo(t,"REPLACE")},e.handleListen=function(){return noop},e.handleBlock=function(){return noop},e}_inheritsLoose(t,r);var e=t.prototype;return e.navigateTo=function(t,e){var n=this.props,o=n.basename,r=void 0===o?"":o,a=n.context;a.action=e,a.location=addBasename(r,history.createLocation(t)),a.url=createURL(a.location)},e.render=function(){var t=this.props,e=t.basename,n=void 0===e?"":e,o=t.context,r=void 0===o?{}:o,a=t.location,i=void 0===a?"/":a,c=_objectWithoutPropertiesLoose(t,["basename","context","location"]),s={createHref:function(t){return addLeadingSlash(n+createURL(t))},action:"POP",location:stripBasename(n,history.createLocation(i)),push:this.handlePush,replace:this.handleReplace,go:staticHandler("go"),goBack:staticHandler("goBack"),goForward:staticHandler("goForward"),listen:this.handleListen,block:this.handleBlock};return React.createElement(Router,_extends({},c,{history:s,staticContext:r}))},t}(React.Component),Switch=function(t){function e(){return t.apply(this,arguments)||this}return _inheritsLoose(e,t),e.prototype.render=function(){var t=this;return React.createElement(context.Consumer,null,function(n){n||invariant(!1);var o,r,a=t.props.location||n.location;return React.Children.forEach(t.props.children,function(t){if(null==r&&React.isValidElement(t)){var e=(o=t).props.path||t.props.from;r=e?matchPath(a.pathname,_extends({},t.props,{path:e})):n.match}}),r?React.cloneElement(o,{location:a,computedMatch:r}):null})},e}(React.Component);function withRouter(o){var t=function(t){var e=t.wrappedComponentRef,n=_objectWithoutPropertiesLoose(t,["wrappedComponentRef"]);return React.createElement(Route,{children:function(t){return React.createElement(o,_extends({},n,t,{ref:e}))}})};return t.displayName="withRouter("+(o.displayName||o.name)+")",t.WrappedComponent=o,hoistStatics(t,o)}exports.MemoryRouter=MemoryRouter,exports.Prompt=Prompt,exports.Redirect=Redirect,exports.Route=Route,exports.Router=Router,exports.StaticRouter=StaticRouter,exports.Switch=Switch,exports.generatePath=generatePath,exports.matchPath=matchPath,exports.withRouter=withRouter,exports.__RouterContext=context;
 
-},{"create-react-context":141,"history":167,"hoist-non-react-statics":168,"path-to-regexp":233,"prop-types":238,"react":260,"react-is":246,"tiny-invariant":299,"tiny-warning":300}],253:[function(require,module,exports){
+},{"create-react-context":157,"history":184,"hoist-non-react-statics":185,"path-to-regexp":250,"prop-types":255,"react":277,"react-is":263,"tiny-invariant":323,"tiny-warning":324}],270:[function(require,module,exports){
 (function (process){
 "use strict";
 
@@ -59795,7 +61281,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 }).call(this,require('_process'))
-},{"./cjs/react-router.js":251,"./cjs/react-router.min.js":252,"_process":1}],254:[function(require,module,exports){
+},{"./cjs/react-router.js":268,"./cjs/react-router.min.js":269,"_process":1}],271:[function(require,module,exports){
 (function (process){
 "use strict";
 
@@ -60407,7 +61893,7 @@ var _default = (0, _reactLifecyclesCompat.polyfill)(Transition);
 
 exports.default = _default;
 }).call(this,require('_process'))
-},{"./utils/PropTypes":257,"_process":1,"prop-types":238,"react":260,"react-dom":242,"react-lifecycles-compat":247}],255:[function(require,module,exports){
+},{"./utils/PropTypes":274,"_process":1,"prop-types":255,"react":277,"react-dom":259,"react-lifecycles-compat":264}],272:[function(require,module,exports){
 (function (process){
 "use strict";
 
@@ -60618,7 +62104,7 @@ var _default = (0, _reactLifecyclesCompat.polyfill)(TransitionGroup);
 exports.default = _default;
 module.exports = exports["default"];
 }).call(this,require('_process'))
-},{"./utils/ChildMapping":256,"_process":1,"prop-types":238,"react":260,"react-lifecycles-compat":247}],256:[function(require,module,exports){
+},{"./utils/ChildMapping":273,"_process":1,"prop-types":255,"react":277,"react-lifecycles-compat":264}],273:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -60769,7 +62255,7 @@ function getNextChildMapping(nextProps, prevChildMapping, onExited) {
   });
   return children;
 }
-},{"react":260}],257:[function(require,module,exports){
+},{"react":277}],274:[function(require,module,exports){
 (function (process){
 "use strict";
 
@@ -60800,7 +62286,7 @@ var classNamesShape = process.env.NODE_ENV !== 'production' ? _propTypes.default
 })]) : null;
 exports.classNamesShape = classNamesShape;
 }).call(this,require('_process'))
-},{"_process":1,"prop-types":238}],258:[function(require,module,exports){
+},{"_process":1,"prop-types":255}],275:[function(require,module,exports){
 (function (process){
 /** @license React v16.8.6
  * react.development.js
@@ -62705,7 +64191,7 @@ module.exports = react;
 }
 
 }).call(this,require('_process'))
-},{"_process":1,"object-assign":232,"prop-types/checkPropTypes":235}],259:[function(require,module,exports){
+},{"_process":1,"object-assign":249,"prop-types/checkPropTypes":252}],276:[function(require,module,exports){
 /** @license React v16.8.6
  * react.production.min.js
  *
@@ -62732,7 +64218,7 @@ b,d){return W().useImperativeHandle(a,b,d)},useDebugValue:function(){},useLayout
 b){void 0!==b.ref&&(h=b.ref,f=J.current);void 0!==b.key&&(g=""+b.key);var l=void 0;a.type&&a.type.defaultProps&&(l=a.type.defaultProps);for(c in b)K.call(b,c)&&!L.hasOwnProperty(c)&&(e[c]=void 0===b[c]&&void 0!==l?l[c]:b[c])}c=arguments.length-2;if(1===c)e.children=d;else if(1<c){l=Array(c);for(var m=0;m<c;m++)l[m]=arguments[m+2];e.children=l}return{$$typeof:p,type:a.type,key:g,ref:h,props:e,_owner:f}},createFactory:function(a){var b=M.bind(null,a);b.type=a;return b},isValidElement:N,version:"16.8.6",
 unstable_ConcurrentMode:x,unstable_Profiler:u,__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED:{ReactCurrentDispatcher:I,ReactCurrentOwner:J,assign:k}},Y={default:X},Z=Y&&X||Y;module.exports=Z.default||Z;
 
-},{"object-assign":232}],260:[function(require,module,exports){
+},{"object-assign":249}],277:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -62743,13 +64229,181 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 }).call(this,require('_process'))
-},{"./cjs/react.development.js":258,"./cjs/react.production.min.js":259,"_process":1}],261:[function(require,module,exports){
+},{"./cjs/react.development.js":275,"./cjs/react.production.min.js":276,"_process":1}],278:[function(require,module,exports){
+"use strict";
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var getDisplayName = function getDisplayName(Component) {
+  if (typeof Component === 'string') {
+    return Component;
+  }
+
+  if (!Component) {
+    return undefined;
+  }
+
+  return Component.displayName || Component.name || 'Component';
+};
+
+var _default = getDisplayName;
+exports.default = _default;
+},{}],279:[function(require,module,exports){
+(function (process){
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _shouldUpdate = _interopRequireDefault(require("./shouldUpdate"));
+
+var _shallowEqual = _interopRequireDefault(require("./shallowEqual"));
+
+var _setDisplayName = _interopRequireDefault(require("./setDisplayName"));
+
+var _wrapDisplayName = _interopRequireDefault(require("./wrapDisplayName"));
+
+var pure = function pure(BaseComponent) {
+  var hoc = (0, _shouldUpdate.default)(function (props, nextProps) {
+    return !(0, _shallowEqual.default)(props, nextProps);
+  });
+
+  if (process.env.NODE_ENV !== 'production') {
+    return (0, _setDisplayName.default)((0, _wrapDisplayName.default)(BaseComponent, 'pure'))(hoc(BaseComponent));
+  }
+
+  return hoc(BaseComponent);
+};
+
+var _default = pure;
+exports.default = _default;
+}).call(this,require('_process'))
+},{"./setDisplayName":280,"./shallowEqual":282,"./shouldUpdate":283,"./wrapDisplayName":284,"@babel/runtime/helpers/interopRequireDefault":11,"_process":1}],280:[function(require,module,exports){
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _setStatic = _interopRequireDefault(require("./setStatic"));
+
+var setDisplayName = function setDisplayName(displayName) {
+  return (0, _setStatic.default)('displayName', displayName);
+};
+
+var _default = setDisplayName;
+exports.default = _default;
+},{"./setStatic":281,"@babel/runtime/helpers/interopRequireDefault":11}],281:[function(require,module,exports){
+"use strict";
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var setStatic = function setStatic(key, value) {
+  return function (BaseComponent) {
+    /* eslint-disable no-param-reassign */
+    BaseComponent[key] = value;
+    /* eslint-enable no-param-reassign */
+
+    return BaseComponent;
+  };
+};
+
+var _default = setStatic;
+exports.default = _default;
+},{}],282:[function(require,module,exports){
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _shallowEqual = _interopRequireDefault(require("fbjs/lib/shallowEqual"));
+
+var _default = _shallowEqual.default;
+exports.default = _default;
+},{"@babel/runtime/helpers/interopRequireDefault":11,"fbjs/lib/shallowEqual":179}],283:[function(require,module,exports){
+(function (process){
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _inheritsLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/inheritsLoose"));
+
+var _react = require("react");
+
+var _setDisplayName = _interopRequireDefault(require("./setDisplayName"));
+
+var _wrapDisplayName = _interopRequireDefault(require("./wrapDisplayName"));
+
+var shouldUpdate = function shouldUpdate(test) {
+  return function (BaseComponent) {
+    var factory = (0, _react.createFactory)(BaseComponent);
+
+    var ShouldUpdate =
+    /*#__PURE__*/
+    function (_Component) {
+      (0, _inheritsLoose2.default)(ShouldUpdate, _Component);
+
+      function ShouldUpdate() {
+        return _Component.apply(this, arguments) || this;
+      }
+
+      var _proto = ShouldUpdate.prototype;
+
+      _proto.shouldComponentUpdate = function shouldComponentUpdate(nextProps) {
+        return test(this.props, nextProps);
+      };
+
+      _proto.render = function render() {
+        return factory(this.props);
+      };
+
+      return ShouldUpdate;
+    }(_react.Component);
+
+    if (process.env.NODE_ENV !== 'production') {
+      return (0, _setDisplayName.default)((0, _wrapDisplayName.default)(BaseComponent, 'shouldUpdate'))(ShouldUpdate);
+    }
+
+    return ShouldUpdate;
+  };
+};
+
+var _default = shouldUpdate;
+exports.default = _default;
+}).call(this,require('_process'))
+},{"./setDisplayName":280,"./wrapDisplayName":284,"@babel/runtime/helpers/inheritsLoose":10,"@babel/runtime/helpers/interopRequireDefault":11,"_process":1,"react":277}],284:[function(require,module,exports){
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _getDisplayName = _interopRequireDefault(require("./getDisplayName"));
+
+var wrapDisplayName = function wrapDisplayName(BaseComponent, hocName) {
+  return hocName + "(" + (0, _getDisplayName.default)(BaseComponent) + ")";
+};
+
+var _default = wrapDisplayName;
+exports.default = _default;
+},{"./getDisplayName":278,"@babel/runtime/helpers/interopRequireDefault":11}],285:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-},{}],262:[function(require,module,exports){
+},{}],286:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -62796,7 +64450,7 @@ exports.addAction = addAction;
 exports.createdStores = createdStores;
 exports.createdActions = createdActions;
 exports.reset = reset;
-},{}],263:[function(require,module,exports){
+},{}],287:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -63034,7 +64688,7 @@ var joinConcat = exports.joinConcat = (0, _joins.instanceJoinCreator)("all");
  * @returns {Object} A subscription obj where `stop` is an unsub function and `listenable` is an array of listenables
  */
 var joinStrict = exports.joinStrict = (0, _joins.instanceJoinCreator)("strict");
-},{"./joins":270,"./utils":272}],264:[function(require,module,exports){
+},{"./joins":294,"./utils":296}],288:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -63138,9 +64792,9 @@ var deferWith = exports.deferWith = function deferWith(callback) {
         callback.apply(ctx, [resolver].concat([].splice.call(arguments, 0)));
     };
 };
-},{"./utils":272}],265:[function(require,module,exports){
-arguments[4][261][0].apply(exports,arguments)
-},{"dup":261}],266:[function(require,module,exports){
+},{"./utils":296}],289:[function(require,module,exports){
+arguments[4][285][0].apply(exports,arguments)
+},{"dup":285}],290:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -63170,7 +64824,7 @@ function bindMethods(store, definition) {
 
     return store;
 }
-},{}],267:[function(require,module,exports){
+},{}],291:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -63260,7 +64914,7 @@ function createAction(definition) {
 
     return functor;
 }
-},{"./ActionMethods":261,"./Keep":262,"./PublisherMethods":264,"./utils":272}],268:[function(require,module,exports){
+},{"./ActionMethods":285,"./Keep":286,"./PublisherMethods":288,"./utils":296}],292:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -63347,7 +65001,7 @@ function createStore(definition) {
 
     return store;
 }
-},{"./Keep":262,"./ListenerMethods":263,"./PublisherMethods":264,"./StoreMethods":265,"./bindMethods":266,"./mixer":271,"./utils":272}],269:[function(require,module,exports){
+},{"./Keep":286,"./ListenerMethods":287,"./PublisherMethods":288,"./StoreMethods":289,"./bindMethods":290,"./mixer":295,"./utils":296}],293:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -63490,7 +65144,7 @@ Object.defineProperty(exports, "default", {
 if (!Function.prototype.bind) {
     console.error("Function.prototype.bind not available. " + "ES5 shim required. " + "https://github.com/spoike/refluxjs#es5");
 }
-},{"./ActionMethods":261,"./Keep":262,"./ListenerMethods":263,"./PublisherMethods":264,"./StoreMethods":265,"./createAction":267,"./createStore":268,"./joins":270,"./utils":272}],270:[function(require,module,exports){
+},{"./ActionMethods":285,"./Keep":286,"./ListenerMethods":287,"./PublisherMethods":288,"./StoreMethods":289,"./createAction":291,"./createStore":292,"./joins":294,"./utils":296}],294:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -63618,7 +65272,7 @@ function emitIfAllListenablesEmitted(join) {
     join.callback.apply(join.listener, join.args);
     reset(join);
 }
-},{"./createStore":268,"./utils":272}],271:[function(require,module,exports){
+},{"./createStore":292,"./utils":296}],295:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -63687,7 +65341,7 @@ function mix(def) {
 
     return updated;
 }
-},{"./utils":272}],272:[function(require,module,exports){
+},{"./utils":296}],296:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -63772,7 +65426,7 @@ function throwIf(val, msg) {
         throw Error(msg || val);
     }
 }
-},{"eventemitter3":161}],273:[function(require,module,exports){
+},{"eventemitter3":177}],297:[function(require,module,exports){
 var _ = require('reflux-core/lib/utils'),
     ListenerMethods = require('reflux-core/lib/ListenerMethods');
 
@@ -63791,7 +65445,7 @@ module.exports = _.extend({
 
 }, ListenerMethods);
 
-},{"reflux-core/lib/ListenerMethods":263,"reflux-core/lib/utils":272}],274:[function(require,module,exports){
+},{"reflux-core/lib/ListenerMethods":287,"reflux-core/lib/utils":296}],298:[function(require,module,exports){
 
 /* globals React: false */
 
@@ -63832,7 +65486,7 @@ if (typeof React !== 'undefined' && React) {
 	} catch (e) {}
 }
 
-},{"./defineReact":277,"react":260,"reflux-core":269}],275:[function(require,module,exports){
+},{"./defineReact":301,"react":277,"reflux-core":293}],299:[function(require,module,exports){
 var ListenerMethods = require('reflux-core/lib/ListenerMethods'),
     ListenerMixin = require('./ListenerMixin'),
     _ = require('reflux-core/lib/utils');
@@ -63862,7 +65516,7 @@ module.exports = function(listenable, key) {
     };
 };
 
-},{"./ListenerMixin":273,"reflux-core/lib/ListenerMethods":263,"reflux-core/lib/utils":272}],276:[function(require,module,exports){
+},{"./ListenerMixin":297,"reflux-core/lib/ListenerMethods":287,"reflux-core/lib/utils":296}],300:[function(require,module,exports){
 var ListenerMethods = require('reflux-core/lib/ListenerMethods'),
     ListenerMixin = require('./ListenerMixin'),
     _ = require('reflux-core/lib/utils');
@@ -63899,7 +65553,7 @@ module.exports = function(listenable, key, filterFunc) {
     };
 };
 
-},{"./ListenerMixin":273,"reflux-core/lib/ListenerMethods":263,"reflux-core/lib/utils":272}],277:[function(require,module,exports){
+},{"./ListenerMixin":297,"reflux-core/lib/ListenerMethods":287,"reflux-core/lib/utils":296}],301:[function(require,module,exports){
 /* globals React: false */
 
 var Reflux = require('reflux-core');
@@ -64373,7 +66027,7 @@ function clone(frm, to) {
 module.exports = defineReact;
 
 
-},{"reflux-core":269}],278:[function(require,module,exports){
+},{"reflux-core":293}],302:[function(require,module,exports){
 var Reflux = require('reflux-core');
 
 Reflux.serverMode = typeof window !== 'object';
@@ -64392,7 +66046,7 @@ require('./addES6');
 
 module.exports = Reflux;
 
-},{"./ListenerMixin":273,"./addES6":274,"./connect":275,"./connectFilter":276,"./listenTo":279,"./listenToMany":280,"reflux-core":269}],279:[function(require,module,exports){
+},{"./ListenerMixin":297,"./addES6":298,"./connect":299,"./connectFilter":300,"./listenTo":303,"./listenToMany":304,"reflux-core":293}],303:[function(require,module,exports){
 var ListenerMethods = require('reflux-core/lib/ListenerMethods');
 
 /**
@@ -64429,7 +66083,7 @@ module.exports = function(listenable,callback,initial){
     };
 };
 
-},{"reflux-core/lib/ListenerMethods":263}],280:[function(require,module,exports){
+},{"reflux-core/lib/ListenerMethods":287}],304:[function(require,module,exports){
 var ListenerMethods = require('reflux-core/lib/ListenerMethods');
 
 /**
@@ -64464,7 +66118,7 @@ module.exports = function(listenables){
     };
 };
 
-},{"reflux-core/lib/ListenerMethods":263}],281:[function(require,module,exports){
+},{"reflux-core/lib/ListenerMethods":287}],305:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -64539,7 +66193,7 @@ function resolvePathname(to) {
 
 exports.default = resolvePathname;
 module.exports = exports['default'];
-},{}],282:[function(require,module,exports){
+},{}],306:[function(require,module,exports){
 (function (process){
 /** @license React v0.13.6
  * scheduler-tracing.development.js
@@ -64966,7 +66620,7 @@ exports.unstable_unsubscribe = unstable_unsubscribe;
 }
 
 }).call(this,require('_process'))
-},{"_process":1}],283:[function(require,module,exports){
+},{"_process":1}],307:[function(require,module,exports){
 /** @license React v0.13.6
  * scheduler-tracing.production.min.js
  *
@@ -64978,7 +66632,7 @@ exports.unstable_unsubscribe = unstable_unsubscribe;
 
 'use strict';Object.defineProperty(exports,"__esModule",{value:!0});var b=0;exports.__interactionsRef=null;exports.__subscriberRef=null;exports.unstable_clear=function(a){return a()};exports.unstable_getCurrent=function(){return null};exports.unstable_getThreadID=function(){return++b};exports.unstable_trace=function(a,d,c){return c()};exports.unstable_wrap=function(a){return a};exports.unstable_subscribe=function(){};exports.unstable_unsubscribe=function(){};
 
-},{}],284:[function(require,module,exports){
+},{}],308:[function(require,module,exports){
 (function (process,global){
 /** @license React v0.13.6
  * scheduler.development.js
@@ -65681,7 +67335,7 @@ exports.unstable_getFirstCallbackNode = unstable_getFirstCallbackNode;
 }
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"_process":1}],285:[function(require,module,exports){
+},{"_process":1}],309:[function(require,module,exports){
 (function (global){
 /** @license React v0.13.6
  * scheduler.production.min.js
@@ -65706,7 +67360,7 @@ b=c.previous;b.next=c.previous=a;a.next=c;a.previous=b}return a};exports.unstabl
 exports.unstable_shouldYield=function(){return!e&&(null!==d&&d.expirationTime<l||w())};exports.unstable_continueExecution=function(){null!==d&&p()};exports.unstable_pauseExecution=function(){};exports.unstable_getFirstCallbackNode=function(){return d};
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],286:[function(require,module,exports){
+},{}],310:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -65717,7 +67371,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 }).call(this,require('_process'))
-},{"./cjs/scheduler.development.js":284,"./cjs/scheduler.production.min.js":285,"_process":1}],287:[function(require,module,exports){
+},{"./cjs/scheduler.development.js":308,"./cjs/scheduler.production.min.js":309,"_process":1}],311:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -65728,11 +67382,11 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 }).call(this,require('_process'))
-},{"./cjs/scheduler-tracing.development.js":282,"./cjs/scheduler-tracing.production.min.js":283,"_process":1}],288:[function(require,module,exports){
+},{"./cjs/scheduler-tracing.development.js":306,"./cjs/scheduler-tracing.production.min.js":307,"_process":1}],312:[function(require,module,exports){
 'use strict';
 module.exports = require('./lib/index');
 
-},{"./lib/index":292}],289:[function(require,module,exports){
+},{"./lib/index":316}],313:[function(require,module,exports){
 'use strict';
 
 var randomFromSeed = require('./random/random-from-seed');
@@ -65837,7 +67491,7 @@ module.exports = {
     shuffled: getShuffled
 };
 
-},{"./random/random-from-seed":295}],290:[function(require,module,exports){
+},{"./random/random-from-seed":319}],314:[function(require,module,exports){
 'use strict';
 
 var generate = require('./generate');
@@ -65885,7 +67539,7 @@ function build(clusterWorkerId) {
 
 module.exports = build;
 
-},{"./alphabet":289,"./generate":291}],291:[function(require,module,exports){
+},{"./alphabet":313,"./generate":315}],315:[function(require,module,exports){
 'use strict';
 
 var alphabet = require('./alphabet');
@@ -65908,7 +67562,7 @@ function generate(number) {
 
 module.exports = generate;
 
-},{"./alphabet":289,"./random/random-byte":294,"nanoid/format":231}],292:[function(require,module,exports){
+},{"./alphabet":313,"./random/random-byte":318,"nanoid/format":248}],316:[function(require,module,exports){
 'use strict';
 
 var alphabet = require('./alphabet');
@@ -65972,7 +67626,7 @@ module.exports.worker = worker;
 module.exports.characters = characters;
 module.exports.isValid = isValid;
 
-},{"./alphabet":289,"./build":290,"./is-valid":293,"./util/cluster-worker-id":296}],293:[function(require,module,exports){
+},{"./alphabet":313,"./build":314,"./is-valid":317,"./util/cluster-worker-id":320}],317:[function(require,module,exports){
 'use strict';
 var alphabet = require('./alphabet');
 
@@ -65989,7 +67643,7 @@ function isShortId(id) {
 
 module.exports = isShortId;
 
-},{"./alphabet":289}],294:[function(require,module,exports){
+},{"./alphabet":313}],318:[function(require,module,exports){
 'use strict';
 
 var crypto = typeof window === 'object' && (window.crypto || window.msCrypto); // IE 11 uses window.msCrypto
@@ -66012,7 +67666,7 @@ if (!crypto || !crypto.getRandomValues) {
 
 module.exports = randomByte;
 
-},{}],295:[function(require,module,exports){
+},{}],319:[function(require,module,exports){
 'use strict';
 
 // Found this seed-based random generator somewhere
@@ -66039,12 +67693,12 @@ module.exports = {
     seed: setSeed
 };
 
-},{}],296:[function(require,module,exports){
+},{}],320:[function(require,module,exports){
 'use strict';
 
 module.exports = 0;
 
-},{}],297:[function(require,module,exports){
+},{}],321:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -66076,7 +67730,7 @@ if (typeof self !== 'undefined') {
 var result = (0, _ponyfill2['default'])(root);
 exports['default'] = result;
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./ponyfill.js":298}],298:[function(require,module,exports){
+},{"./ponyfill.js":322}],322:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -66100,7 +67754,7 @@ function symbolObservablePonyfill(root) {
 
 	return result;
 };
-},{}],299:[function(require,module,exports){
+},{}],323:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -66121,7 +67775,7 @@ function invariant(condition, message) {
 module.exports = invariant;
 
 }).call(this,require('_process'))
-},{"_process":1}],300:[function(require,module,exports){
+},{"_process":1}],324:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -66147,7 +67801,7 @@ function warning(condition, message) {
 module.exports = warning;
 
 }).call(this,require('_process'))
-},{"_process":1}],301:[function(require,module,exports){
+},{"_process":1}],325:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -66191,7 +67845,7 @@ function valueEqual(a, b) {
 
 exports.default = valueEqual;
 module.exports = exports['default'];
-},{}],302:[function(require,module,exports){
+},{}],326:[function(require,module,exports){
 (function (process){
 /**
  * Copyright (c) 2014-present, Facebook, Inc.
@@ -66257,7 +67911,7 @@ if (__DEV__) {
 module.exports = warning;
 
 }).call(this,require('_process'))
-},{"_process":1}],303:[function(require,module,exports){
+},{"_process":1}],327:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -66288,14 +67942,14 @@ var _default = {
       dialog: _reflux.default.createActions(['toggleTo', 'reset']),
       fab: _reflux.default.createActions(['toggleTo', 'reset']),
       popupMessage: _reflux.default.createActions(['sendNewMessage', 'popupNewMessage']),
-      theme: _reflux.default.createActions(['togglePrimary', 'toggleSecondary']),
+      theme: _reflux.default.createActions(['togglePrimary', 'toggleSecondary', 'toggleMenuTheme']),
       language: _reflux.default.createActions(['toggleTo'])
     }
   }
 };
 exports.default = _default;
 
-},{"reflux":278}],304:[function(require,module,exports){
+},{"reflux":302}],328:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -66315,10 +67969,10 @@ db.defaults({}).write();
 var _default = db;
 exports.default = _default;
 
-},{"lowdb":216,"lowdb/adapters/LocalStorage":214}],305:[function(require,module,exports){
+},{"lowdb":233,"lowdb/adapters/LocalStorage":231}],329:[function(require,module,exports){
 "use strict";
 
-},{}],306:[function(require,module,exports){
+},{}],330:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -66357,7 +68011,7 @@ class Manager extends _reflux.default.Store {
 var _default = Manager;
 exports.default = _default;
 
-},{"../actions":303,"../database":304,"reflux":278}],307:[function(require,module,exports){
+},{"../actions":327,"../database":328,"reflux":302}],331:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -66402,7 +68056,7 @@ class Group extends _reflux.default.Store {
 var _default = Group;
 exports.default = _default;
 
-},{"../actions":303,"../database":304,"reflux":278}],308:[function(require,module,exports){
+},{"../actions":327,"../database":328,"reflux":302}],332:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -66455,7 +68109,7 @@ var _default = {
 };
 exports.default = _default;
 
-},{"./databaseStore/aClass":305,"./databaseStore/currentManager":306,"./databaseStore/group":307,"./viewStore/dialog":309,"./viewStore/fab":310,"./viewStore/language":311,"./viewStore/popupMessage":312,"./viewStore/tag":313,"./viewStore/theme":314}],309:[function(require,module,exports){
+},{"./databaseStore/aClass":329,"./databaseStore/currentManager":330,"./databaseStore/group":331,"./viewStore/dialog":333,"./viewStore/fab":334,"./viewStore/language":335,"./viewStore/popupMessage":336,"./viewStore/tag":337,"./viewStore/theme":338}],333:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -66498,7 +68152,7 @@ var _default = new Dialog();
 
 exports.default = _default;
 
-},{"../actions":303,"../database":304,"reflux":278}],310:[function(require,module,exports){
+},{"../actions":327,"../database":328,"reflux":302}],334:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -66533,7 +68187,7 @@ var _default = new Fab();
 
 exports.default = _default;
 
-},{"../actions":303,"../database":304,"reflux":278}],311:[function(require,module,exports){
+},{"../actions":327,"../database":328,"reflux":302}],335:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -66571,7 +68225,7 @@ var _default = new Language();
 
 exports.default = _default;
 
-},{"../actions":303,"../database":304,"reflux":278}],312:[function(require,module,exports){
+},{"../actions":327,"../database":328,"reflux":302}],336:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -66604,7 +68258,7 @@ var _default = new PopupMessage();
 
 exports.default = _default;
 
-},{"../actions":303,"../database":304,"reflux":278}],313:[function(require,module,exports){
+},{"../actions":327,"../database":328,"reflux":302}],337:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -66639,7 +68293,7 @@ var _default = new Tag();
 
 exports.default = _default;
 
-},{"../actions":303,"../database":304,"reflux":278}],314:[function(require,module,exports){
+},{"../actions":327,"../database":328,"reflux":302}],338:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -66660,7 +68314,9 @@ class Theme extends _reflux.default.Store {
     super();
     this.state = {
       primaryColor: '#39C5BB',
-      secondaryColor: '#66CCFF'
+      secondaryColor: '#66CCFF',
+      menuTheme: 'ios' // Android 版为左侧抽屉，ios 版为底部选择器
+
     };
     this.listenToMany(_actions.default.view.global.theme);
   }
@@ -66677,13 +68333,21 @@ class Theme extends _reflux.default.Store {
     });
   }
 
+  toggleMenuTheme(theme) {
+    console.log(theme);
+    if (theme != 'ios' && theme != 'android') throw new Error("未知的主题模式 " + theme);
+    this.setState({
+      menuTheme: theme
+    });
+  }
+
 }
 
 var _default = new Theme();
 
 exports.default = _default;
 
-},{"../actions":303,"../database":304,"reflux":278}],315:[function(require,module,exports){
+},{"../actions":327,"../database":328,"reflux":302}],339:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -66777,7 +68441,112 @@ var _default = (0, _styles.withStyles)(styles)(About);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":303,"../../resourceManager/stores":308,"@material-ui/core/Button":37,"@material-ui/core/Dialog":55,"@material-ui/core/DialogActions":47,"@material-ui/core/DialogContent":51,"@material-ui/core/DialogContentText":49,"@material-ui/core/DialogTitle":53,"@material-ui/core/Fade":61,"@material-ui/core/Grow":63,"@material-ui/core/Typography":96,"@material-ui/core/styles":113,"classnames":139,"prop-types":238,"react":260,"react-router":253,"reflux":278,"shortid":288}],316:[function(require,module,exports){
+},{"../../resourceManager/actions":327,"../../resourceManager/stores":332,"@material-ui/core/Button":38,"@material-ui/core/Dialog":56,"@material-ui/core/DialogActions":48,"@material-ui/core/DialogContent":52,"@material-ui/core/DialogContentText":50,"@material-ui/core/DialogTitle":54,"@material-ui/core/Fade":62,"@material-ui/core/Grow":70,"@material-ui/core/Typography":109,"@material-ui/core/styles":129,"classnames":155,"prop-types":255,"react":277,"react-router":270,"reflux":302,"shortid":312}],340:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _reflux = _interopRequireDefault(require("reflux"));
+
+var _reactRouter = require("react-router");
+
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
+var _classnames = _interopRequireDefault(require("classnames"));
+
+var _shortid = _interopRequireDefault(require("shortid"));
+
+var _styles = require("@material-ui/core/styles");
+
+var _Fade = _interopRequireDefault(require("@material-ui/core/Fade"));
+
+var _Grow = _interopRequireDefault(require("@material-ui/core/Grow"));
+
+var _Dialog = _interopRequireDefault(require("@material-ui/core/Dialog"));
+
+var _DialogActions = _interopRequireDefault(require("@material-ui/core/DialogActions"));
+
+var _DialogContent = _interopRequireDefault(require("@material-ui/core/DialogContent"));
+
+var _DialogTitle = _interopRequireDefault(require("@material-ui/core/DialogTitle"));
+
+var _Typography = _interopRequireDefault(require("@material-ui/core/Typography"));
+
+var _Button = _interopRequireDefault(require("@material-ui/core/Button"));
+
+var _FormGroup = _interopRequireDefault(require("@material-ui/core/FormGroup"));
+
+var _FormControlLabel = _interopRequireDefault(require("@material-ui/core/FormControlLabel"));
+
+var _Switch = _interopRequireDefault(require("@material-ui/core/Switch"));
+
+var _Radio = _interopRequireDefault(require("@material-ui/core/Radio"));
+
+var _RadioGroup = _interopRequireDefault(require("@material-ui/core/RadioGroup"));
+
+var _stores = _interopRequireDefault(require("../../resourceManager/stores"));
+
+var _actions = _interopRequireDefault(require("../../resourceManager/actions"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+const styles = theme => ({});
+
+class Setting extends _reflux.default.Component {
+  constructor(props) {
+    super(props);
+
+    _defineProperty(this, "handleCloseDialog", _actions.default.view.global.dialog.reset);
+
+    this.stores = [_stores.default.view.global.dialog, _stores.default.view.global.theme];
+  }
+
+  render() {
+    const {
+      classes,
+      theme
+    } = this.props;
+    return _react.default.createElement(_Dialog.default, {
+      open: this.state.show == 'setting',
+      onClose: this.handleCloseDialog,
+      scroll: "paper"
+    }, _react.default.createElement(_DialogTitle.default, null, "\u8BBE\u7F6E"), _react.default.createElement(_DialogContent.default, null, _react.default.createElement(_Typography.default, {
+      paragraph: true,
+      variant: "h5"
+    }, "\u5E38\u89C4"), _react.default.createElement(_FormGroup.default, null, _react.default.createElement(_RadioGroup.default, {
+      name: "\u4E3B\u9898",
+      value: this.state.menuTheme,
+      onChange: event => _actions.default.view.global.theme.toggleMenuTheme(event.target.value)
+    }, _react.default.createElement(_FormControlLabel.default, {
+      value: "android",
+      control: _react.default.createElement(_Radio.default, null),
+      label: "Android \u98CE\u683C"
+    }), _react.default.createElement(_FormControlLabel.default, {
+      value: "ios",
+      control: _react.default.createElement(_Radio.default, null),
+      label: "iOS \u98CE\u683C"
+    })))), _react.default.createElement(_DialogActions.default, null, _react.default.createElement(_Button.default, {
+      onClick: this.handleCloseDialog,
+      color: "primary"
+    }, "确定")));
+  }
+
+}
+
+var _default = (0, _styles.withStyles)(styles)(Setting);
+
+exports.default = _default;
+
+},{"../../resourceManager/actions":327,"../../resourceManager/stores":332,"@material-ui/core/Button":38,"@material-ui/core/Dialog":56,"@material-ui/core/DialogActions":48,"@material-ui/core/DialogContent":52,"@material-ui/core/DialogTitle":54,"@material-ui/core/Fade":62,"@material-ui/core/FormControlLabel":64,"@material-ui/core/FormGroup":68,"@material-ui/core/Grow":70,"@material-ui/core/Radio":97,"@material-ui/core/RadioGroup":95,"@material-ui/core/Switch":105,"@material-ui/core/Typography":109,"@material-ui/core/styles":129,"classnames":155,"prop-types":255,"react":277,"react-router":270,"reflux":302,"shortid":312}],341:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -66875,7 +68644,7 @@ var _default = (0, _styles.withStyles)(styles)(Root);
 
 exports.default = _default;
 
-},{"./pages/picker":318,"./views/appbar":319,"./views/fab":322,"./views/windowManager":323,"@material-ui/core/CssBaseline":45,"@material-ui/core/colors/red":101,"@material-ui/core/styles":113,"classnames":139,"prop-types":238,"react":260,"react-router-dom":250,"reflux":278,"shortid":288}],317:[function(require,module,exports){
+},{"./pages/picker":343,"./views/appbar":344,"./views/fab":347,"./views/windowManager":348,"@material-ui/core/CssBaseline":46,"@material-ui/core/colors/red":114,"@material-ui/core/styles":129,"classnames":155,"prop-types":255,"react":277,"react-router-dom":267,"reflux":302,"shortid":312}],342:[function(require,module,exports){
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -66888,7 +68657,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 _reactDom.default.render(_react.default.createElement(_mainView.default, null), document.querySelector('#content'));
 
-},{"./mainView":316,"react":260,"react-dom":242}],318:[function(require,module,exports){
+},{"./mainView":341,"react":277,"react-dom":259}],343:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -67007,7 +68776,7 @@ var _default = (0, _styles.withStyles)(styles)(Picker);
 
 exports.default = _default;
 
-},{"../../resourceManager/stores":308,"@material-ui/core/Button":37,"@material-ui/core/Card":43,"@material-ui/core/CardActions":39,"@material-ui/core/CardContent":41,"@material-ui/core/Typography":96,"@material-ui/core/styles":113,"classnames":139,"mdi-material-ui/PacMan":224,"mdi-material-ui/StopCircleOutline":227,"prop-types":238,"react":260,"react-router":253,"reflux":278,"shortid":288}],319:[function(require,module,exports){
+},{"../../resourceManager/stores":332,"@material-ui/core/Button":38,"@material-ui/core/Card":44,"@material-ui/core/CardActions":40,"@material-ui/core/CardContent":42,"@material-ui/core/Typography":109,"@material-ui/core/styles":129,"classnames":155,"mdi-material-ui/PacMan":241,"mdi-material-ui/StopCircleOutline":244,"prop-types":255,"react":277,"react-router":270,"reflux":302,"shortid":312}],344:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -67043,6 +68812,8 @@ var _drawer = _interopRequireDefault(require("./drawer"));
 
 var _bottomNavigation = _interopRequireDefault(require("./bottomNavigation"));
 
+var _stores = _interopRequireDefault(require("../../resourceManager/stores"));
+
 var _actions = _interopRequireDefault(require("../../resourceManager/actions"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -67063,14 +68834,12 @@ const styles = theme => ({
 });
 
 class MainAppbar extends _reflux.default.Component {
-  constructor(...args) {
-    super(...args);
+  constructor(props) {
+    super(props);
 
     _defineProperty(this, "state", {
       drawerOpen: false,
-      isDesktop: document.body.scrollWidth >= 600,
-      menuTheme: 'ios' // Android 版为左侧抽屉，ios 版为底部选择器
-
+      isDesktop: document.body.scrollWidth >= 600
     });
 
     _defineProperty(this, "handleResize", () => {
@@ -67084,6 +68853,8 @@ class MainAppbar extends _reflux.default.Component {
         drawerOpen: !this.state.drawerOpen
       });
     });
+
+    this.store = _stores.default.view.global.theme;
   }
 
   componentDidMount() {
@@ -67130,7 +68901,7 @@ var _default = (0, _styles.withStyles)(styles)(MainAppbar);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":303,"./bottomNavigation":320,"./drawer":321,"@material-ui/core/AppBar":21,"@material-ui/core/IconButton":65,"@material-ui/core/Toolbar":94,"@material-ui/core/Typography":96,"@material-ui/core/styles":113,"classnames":139,"mdi-material-ui/Menu":222,"mdi-material-ui/PacMan":224,"prop-types":238,"react":260,"reflux":278,"shortid":288}],320:[function(require,module,exports){
+},{"../../resourceManager/actions":327,"../../resourceManager/stores":332,"./bottomNavigation":345,"./drawer":346,"@material-ui/core/AppBar":22,"@material-ui/core/IconButton":72,"@material-ui/core/Toolbar":107,"@material-ui/core/Typography":109,"@material-ui/core/styles":129,"classnames":155,"mdi-material-ui/Menu":239,"mdi-material-ui/PacMan":241,"prop-types":255,"react":277,"reflux":302,"shortid":312}],345:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -67234,7 +69005,7 @@ var _default = (0, _styles.withStyles)(styles)(SimpleBottomNavigation);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":303,"@material-ui/core/BottomNavigation":29,"@material-ui/core/BottomNavigationAction":27,"@material-ui/core/styles":113,"classnames":139,"mdi-material-ui/AccountCircleOutline":217,"mdi-material-ui/CursorDefaultClickOutline":219,"mdi-material-ui/NoteOutline":223,"mdi-material-ui/TableLarge":228,"mdi-material-ui/TrophyVariantOutline":229,"prop-types":238,"react":260,"reflux":278,"shortid":288}],321:[function(require,module,exports){
+},{"../../resourceManager/actions":327,"@material-ui/core/BottomNavigation":30,"@material-ui/core/BottomNavigationAction":28,"@material-ui/core/styles":129,"classnames":155,"mdi-material-ui/AccountCircleOutline":234,"mdi-material-ui/CursorDefaultClickOutline":236,"mdi-material-ui/NoteOutline":240,"mdi-material-ui/TableLarge":245,"mdi-material-ui/TrophyVariantOutline":246,"prop-types":255,"react":277,"reflux":302,"shortid":312}],346:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -67384,7 +69155,8 @@ class MainDrawer extends _reflux.default.Component {
       inset: true,
       primary: "\u73ED\u7EA7\u7BA1\u7406"
     })), _react.default.createElement(_ListItem.default, {
-      button: true
+      button: true,
+      onClick: () => _actions.default.view.global.dialog.toggleTo('setting')
     }, _react.default.createElement(_ListItemIcon.default, null, _react.default.createElement(_SettingsOutline.default, null)), _react.default.createElement(_ListItemText.default, {
       inset: true,
       primary: "\u8BBE\u7F6E"
@@ -67414,9 +69186,9 @@ var _default = (0, _styles.withStyles)(styles)(MainDrawer);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":303,"@material-ui/core/Badge":25,"@material-ui/core/Divider":57,"@material-ui/core/Drawer":59,"@material-ui/core/IconButton":65,"@material-ui/core/List":75,"@material-ui/core/ListItem":72,"@material-ui/core/ListItemIcon":67,"@material-ui/core/ListItemText":69,"@material-ui/core/styles":113,"classnames":139,"mdi-material-ui/AccountCircleOutline":217,"mdi-material-ui/AccountGroup":218,"mdi-material-ui/CursorDefaultClickOutline":219,"mdi-material-ui/GoogleClassroom":220,"mdi-material-ui/InformationOutline":221,"mdi-material-ui/NoteOutline":223,"mdi-material-ui/Palette":225,"mdi-material-ui/SettingsOutline":226,"mdi-material-ui/TableLarge":228,"mdi-material-ui/TrophyVariantOutline":229,"prop-types":238,"react":260,"reflux":278,"shortid":288}],322:[function(require,module,exports){
-arguments[4][305][0].apply(exports,arguments)
-},{"dup":305}],323:[function(require,module,exports){
+},{"../../resourceManager/actions":327,"@material-ui/core/Badge":26,"@material-ui/core/Divider":58,"@material-ui/core/Drawer":60,"@material-ui/core/IconButton":72,"@material-ui/core/List":82,"@material-ui/core/ListItem":79,"@material-ui/core/ListItemIcon":74,"@material-ui/core/ListItemText":76,"@material-ui/core/styles":129,"classnames":155,"mdi-material-ui/AccountCircleOutline":234,"mdi-material-ui/AccountGroup":235,"mdi-material-ui/CursorDefaultClickOutline":236,"mdi-material-ui/GoogleClassroom":237,"mdi-material-ui/InformationOutline":238,"mdi-material-ui/NoteOutline":240,"mdi-material-ui/Palette":242,"mdi-material-ui/SettingsOutline":243,"mdi-material-ui/TableLarge":245,"mdi-material-ui/TrophyVariantOutline":246,"prop-types":255,"react":277,"reflux":302,"shortid":312}],347:[function(require,module,exports){
+arguments[4][329][0].apply(exports,arguments)
+},{"dup":329}],348:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -67442,6 +69214,8 @@ var _stores = _interopRequireDefault(require("../../resourceManager/stores"));
 
 var _about = _interopRequireDefault(require("../dialogs/about"));
 
+var _setting = _interopRequireDefault(require("../dialogs/setting"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
@@ -67457,7 +69231,7 @@ class MainWindowManager extends _reflux.default.Component {
       classes,
       theme
     } = this.props;
-    return _react.default.createElement("div", null, _react.default.createElement(_about.default, null));
+    return _react.default.createElement("div", null, _react.default.createElement(_about.default, null), _react.default.createElement(_setting.default, null));
   }
 
 }
@@ -67465,4 +69239,4 @@ class MainWindowManager extends _reflux.default.Component {
 var _default = MainWindowManager;
 exports.default = _default;
 
-},{"../../resourceManager/stores":308,"../dialogs/about":315,"@material-ui/core/styles":113,"classnames":139,"prop-types":238,"react":260,"react-router":253,"reflux":278,"shortid":288}]},{},[317]);
+},{"../../resourceManager/stores":332,"../dialogs/about":339,"../dialogs/setting":340,"@material-ui/core/styles":129,"classnames":155,"prop-types":255,"react":277,"react-router":270,"reflux":302,"shortid":312}]},{},[342]);

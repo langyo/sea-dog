@@ -55,7 +55,8 @@ export default {
             ]),
             theme: Reflux.createActions([
                 'togglePrimary',
-                'toggleSecondary'
+                'toggleSecondary',
+                'toggleMenuTheme'
             ]),
             language: Reflux.createActions([
                 'toggleTo',

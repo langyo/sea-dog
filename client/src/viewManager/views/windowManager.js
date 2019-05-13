@@ -10,6 +10,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Stores from '../../resourceManager/stores';
 
 import AboutDialog from '../dialogs/about';
+import SettingDialog from '../dialogs/setting';
 
 class MainWindowManager extends Reflux.Component {
   constructor(props) {
@@ -23,6 +24,7 @@ class MainWindowManager extends Reflux.Component {
     return (
       <div>
         <AboutDialog />
+        <SettingDialog />
       </div>
     );
   }

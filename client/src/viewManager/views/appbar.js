@@ -17,6 +17,7 @@ import PacManIcon from "mdi-material-ui/PacMan";
 import Drawer from "./drawer";
 import BottomNavigation from "./bottomNavigation";
 
+import Stores from '../../resourceManager/stores';
 import Actions from "../../resourceManager/actions";
 
 const styles = theme => ({
@@ -33,10 +34,15 @@ const styles = theme => ({
 });
 
 class MainAppbar extends Reflux.Component {
+    constructor(props) {
+        super(props);
+
+        this.store = Stores.view.global.theme;
+    }
+
     state = {
         drawerOpen: false,
-        isDesktop: document.body.scrollWidth >= 600,
-        menuTheme: 'ios'    // Android 版为左侧抽屉，ios 版为底部选择器
+        isDesktop: document.body.scrollWidth >= 600
     }
 
     componentDidMount() {
