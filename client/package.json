@@ -8,7 +8,7 @@
   "scripts": {
     "watch": "concurrently \"npm run watch:code\" \"npm run watch:server\"",
     "watch:code": "watchify ./src/viewManager/mainViewRender.js -t babelify -o ./public/bundle.js --release --verbose",
-    "watch:server": "http-server -p 9232",
+    "watch:server": "http-server -p 9200",
     "build": "browserify ./src/viewManager/mainViewRender.js -o ./public/bundle.js -t babelify",
     "test": "jest --watch"
   },

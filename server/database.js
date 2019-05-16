@@ -1,170 +1,96 @@
 const mongoose = require('mongoose');
-const ObjectId = mongoose.Types.ObjectId;
+const ObjectId = mongoose.Schema.Types.ObjectId;
 
 mongoose.connect('mongodb://localhost/test');
 let db = mongoose.connection;
 
 db.on('error', e => console.error(e));
-db.on('open', () => console.log("success"));
+db.on('open', () => console.log("连接成功"));
 
-var School = mongoose.model('School', mongoose.Schema({
-    classes: [Class],
-    accounts: [Account],
-    scoreTypes: [ScoreType],
-    userGroups: [UserGroup],
-    globalUserGroups: [{
-        name: String,
-        scoreExpression: ExpressionGroup,
-        userExpression: ExpressionGroup
-    }],
-    scoreGroups: [ScoreGroup],
-    classTables: [ClassTable],
-    subjectEnum: [String],
-    broadcasts: [Broadcast],
-    questionLibrary: [Question],
-    testLibrary: [Test],
-    log: [Log]
-}));
+// 主键列表：
+// classes: [Class],
+// accounts: [Account],
+// scoreTypes: [ScoreType],
+// userGroups: [UserGroup],
+// globalUserGroups: [GlobalUserGroup],
+// scoreGroups: [ScoreGroup],
+// classTables: [ClassTable],
+// subjectEnum: [String],
+// broadcasts: [Broadcast],
+// questionLibrary: [Question],
+// testLibrary: [Test],
+// log: [Log]
 
-var Class = mongoose.model('Class', mongoose.Schema({
-    groupTypes: [GroupType],
-    members: [{
-        account: ObjectId,    // -> School.accounts
-        scores: [Score]
-    }],
-    name: String,
-    scores: [Score],
-    state: ClassState,
-    classTable: ObjectId,
-    Theme: [Theme]
-}));
-
-var GroupType = mongoose.model('GroupType', mongoose.Schema({
-    userType: ObjectId,       // -> School.userGroups
-    group: [Group],
-    name: String,
-    groupScoreTransfer: GroupScoreWeight
-}));
-
-var GroupScoreWeight = mongoose.model('GroupScoreWeight', mongoose.Schema({
-    scoreType: ObjectId,     // -> School.scoreTypes
-    expression: String       // 为一个以 JavaScript 写的函数代码文本，具体内容需额外设计 API
-}))
-
-var Group = mongoose.model('Group', mongoose.Schema({
-    scores: [Score],
-    members: [{
-        account: ObjectId,  // -> School.accounts
-        log: [Log]
-    }]
-}));
-
-var Log = mongoose.model('Log', mongoose.Schema({
-    action: {
-        type: String,
-        enum: [
-            'scoreAdd',
-            'scoreRemove',
-            'scoreSet',
-            'memberAdd',
-            'memberRemove',
-            'memberSet'
-        ]
-    },
-    target: Path,
-    value: Number,
-    reason: String,
-    operator: ObjectId,     // -> School.accounts
-    time: Date
-}));
-
-var Path = mongoose.model('Path', mongoose.Schema({
+var PathSchema = mongoose.Schema({
     theClass: String,
     groupType: String,
     group: String,
     member: String
-}));
+});
 
-var Score = mongoose.model('Score', mongoose.Schema({
+var ScoreSchema = mongoose.Schema({
     at: ObjectId,
     value: Number
-}));
+});
 
-var Account = mongoose.model('Account', mongoose.Schema({
-    name: String,
-    password: String,       // MD5/SHA3
-    userGroup: [ObjectId],  // -> School.userGroups
-    scoreExpression: ExpressionGroup,
-    userExpression: ExpressionGroup,
-    classTable: ObjectId,   // -> School.classTables
-    theme: ObjectId,        // -> School.themes
-    config: Config,
-    accountHistory: AccountHistory
-}));
-
-var ExpressionGroup = mongoose.model('ExpressionGroup', mongoose.Schema({
-    read: [Expression],
-    write: [Expression],
-    add: [Expression],
-    remove: [Expression]
-}));
-
-var Expression = mongoose.model('Expression', mongoose.Schema({
-    path: Path,
+var ExpressionSchema = mongoose.Schema({
+    path: PathSchema,
     tag: Boolean
-}));
+});
 
-var ScoreType = mongoose.model('ScoreType', mongoose.Schema({
-    name: String,
-    description: String,
-    tradeRules: [TradeRule],
-    virtual: Boolean        // 默认为假；如果为真，这个分数的加减会带动其它与之相关联的分数的加减，也就是具有绑定性，加减规则直接使用 tradeRules 记录的信息
-}));
+var ExpressionGroupSchema = mongoose.Schema({
+    read: [ExpressionSchema],
+    write: [ExpressionSchema],
+    add: [ExpressionSchema],
+    minus: [ExpressionSchema]
+});
 
-var TradeRule = mongoose.model('TradeRule', mongoose.Schema({
+var TradeRuleSchema = mongoose.Schema({
     from: ObjectId,
     to: ObjectId,
     weight: {
-        from : Number,
+        from: Number,
         to: Number,
         decimalPartRule: {
             type: String,
             enum: ['toZero', 'toOne', 'nearly']     // 分别代表抹零、进一和四舍五入
         }
     }
-}));
+});
 
-var UserGroup = mongoose.model('UserGroup', mongoose.Schema({
-    extendBy: ObjectId,     // -> School.globalUserGroups
-    name: String,
-    scoreExpression: ExpressionGroup,
-    userExpression: ExporessionGroup
-}));
-
-var ScoreGroup = mongoose.model('ScoreGroup', mongoose.Schema({
+var ScoreTypeSchema = mongoose.Schema({
     name: String,
     description: String,
-    usingScoreTypes: [ObjectId]
-                            // -> School.scoreTypes
-}));
+    tradeRules: [TradeRuleSchema],
+    virtual: Boolean    // 默认为假；如果为真，这个分数的加减会带动其它与之相关联的分数的加减，也就是具有绑定性，加减规则直接使用 tradeRules 记录的信息
+});
 
-var ClassTable = mongoose.model('ClassTable', mongoose.Schema({
+var ScoreGroupSchema = mongoose.Schema({
+    name: String,
+    description: String,
+    usingScoreTypes: [{
+        type: ObjectId,
+        ref: 'ScoreType'
+    }]
+});
+
+var ClassTableItemSchema = mongoose.Schema({
+    form: Date,
+    to: Date,
+    subject: String
+});
+
+var ClassTableSchema = mongoose.Schema({
     description: String,
     name: String,
-    timeLine: [ClassTableItem],
+    timeLine: [ClassTableItemSchema],
     userType: {
         type: String,
         enum: ['student', 'teacher']
     }
-}));
+});
 
-var ClassTableItem = mongoose.model('ClassTableItem', mongoose.Schema({
-    form: Date,
-    to: Date,
-    subject: ObjectId       // -> School.subjectEnum
-}));
-
-var Config = mongoose.model('Config', mongoose.Schema({
+var ConfigSchema = mongoose.Schema({
     allow: [{
         type: String,
         enum: [
@@ -191,9 +117,9 @@ var Config = mongoose.model('Config', mongoose.Schema({
             'setTheme'
         ]
     }]
-}));
+});
 
-var ClassState = mongoose.model('ClassState', mongoose.Schema({
+var ClassStateSchema = mongoose.Schema({
     isHavingClass: {
         type: String,
         enum: [
@@ -202,12 +128,21 @@ var ClassState = mongoose.model('ClassState', mongoose.Schema({
             'continue'  // 拖堂
         ]
     },
-    nowTeacher: ObjectId    // -> School.accounts
-}));
+    nowTeacher: {
+        type: ObjectId,
+        ref: 'Account'
+    }
+});
 
-var Question = mongoose.model('Question', mongoose.Schema({
-    owner: ObjectId,        // -> School.accounts
-    forkFrom: ObjectId,     // -> School.questions
+var QuestionSchema = mongoose.Schema({
+    owner: {
+        type: ObjectId,
+        ref: 'Account'
+    },
+    forkFrom: {
+        type: ObjectId,
+        ref: 'Question'
+    },
     questionType: {
         type: String,
         enum: [
@@ -217,20 +152,29 @@ var Question = mongoose.model('Question', mongoose.Schema({
     },
     description: String,    // 允许使用 Markdown
     answer: [String],
-                            // 如果为客观题，则存储的是各个选项的编号，并且如果多于一个则成为多选题；
-                            // 如果为主观题，则存储的是候选答案，并且如果多于一个则该题答案不唯一；
-                            // 如果为空，则默认为由教师自行检阅
+    // 如果为客观题，则存储的是各个选项的编号，并且如果多于一个则成为多选题；
+    // 如果为主观题，则存储的是候选答案，并且如果多于一个则该题答案不唯一；
+    // 如果为空，则默认为由教师自行检阅
     createTime: Date,
     deleted: {
         type: Boolean,
         default: false
     }
-}));
+});
 
-var Test = mongoose.model('Test', mongoose.Schema({
-    owner: ObjectId,        // -> School.accounts
-    forkFrom: ObjectId,     // -> School.testLibrary
-    questions: [ObjectId],  // -> School.questionLibrary
+var TestSchema = mongoose.Schema({
+    owner: {
+        type: ObjectId,
+        ref: 'Account'
+    },
+    forkFrom: {
+        type: ObjectId,
+        ref: 'Test'
+    },
+    questions: [{
+        type: ObjectId,
+        ref: 'Question'
+    }],
     createTime: Date,
     beginAt: Date,
     endAt: Date,
@@ -238,19 +182,25 @@ var Test = mongoose.model('Test', mongoose.Schema({
         type: Boolean,
         default: false
     }
-}));
+});
 
-var AccountHistory = mongoose.model('AccountHistory', mongoose.Schema({
+var AccountHistorySchema = mongoose.Schema({
     practised: {
         questions: [{
-            at: ObjectId,   // -> School.questionLibrary
+            at: {
+                type: ObjectId,
+                ref: 'Question'
+            },
             timeLine: [{
                 time: Date,
                 answer: String
             }]
         }],
         test: [{
-            at: ObjectId,   // -> School.testLibrary
+            at: {
+                type: ObjectId,
+                ref: 'Test'
+            },
             timeLine: [{
                 time: Date,
                 answer: String
@@ -258,12 +208,15 @@ var AccountHistory = mongoose.model('AccountHistory', mongoose.Schema({
         }]
     },
     picked: [{
-        teacher: ObjectId,  // -> School.accounts,
+        teacher: {
+            type: ObjectId,
+            ref: 'Account'
+        },
         timeLine: [Date]
     }]
-}));
+});
 
-var Theme = mongoose.model('Theme', mongoose.Schema({
+var ThemeSchema = mongoose.Schema({
     picture: String,        // BASE64
     isVR: {
         type: Boolean,
@@ -279,13 +232,143 @@ var Theme = mongoose.model('Theme', mongoose.Schema({
             'ios'
         ]
     }
-}));
+});
 
-var Broadcast = mongoose.model('Broadcast', mongoose.Schema({
-    whoCanView: [ObjectId], // -> School.userGroups
-                            // 如果为空，则所有人都看得到
+var BroadcastSchema = mongoose.Schema({
+    whoCanView: [{
+        type: ObjectId,
+        ref: 'UserGroup'
+    }],                     // 如果为空，则所有人都看得到
     date: Date,
     message: String         // 允许使用 Markdown
-}));
+});
+
+var GlobalUserGroupSchema = mongoose.Schema({
+    name: String,
+    scoreExpression: ExpressionGroupSchema,
+    userExpression: ExpressionGroupSchema
+});
+
+var UserGroupSchema = mongoose.Schema({
+    extendBy: {
+        type: ObjectId,
+        ref: 'GlobalUserGroup'
+    },
+    name: String,
+    scoreExpression: ExpressionGroupSchema,
+    userExpression: ExpressionGroupSchema
+});
+
+var GroupScoreWeightSchema = mongoose.Schema({
+    scoreType: {
+        type: ObjectId,
+        ref: 'ScoreType'
+    },
+    expression: String       // 为一个以 JavaScript 写的函数代码文本，具体内容需额外设计 API
+});
+
+var GroupSchema = mongoose.Schema({
+    scores: [ScoreSchema],
+    members: [{
+        account: {
+            type: ObjectId,
+            ref: 'Account'
+        }
+    }]
+});
+
+var GroupTypeSchema = mongoose.Schema({
+    userType: {
+        type: ObjectId,
+        ref: 'UserGroup'
+    },
+    group: [GroupSchema],
+    name: String,
+    groupScoreTransfer: GroupScoreWeightSchema
+});
+
+var LogSchema = mongoose.Schema({
+    action: {
+        type: String,
+        enum: [
+            'scoreAdd',
+            'scoreRemove',
+            'scoreSet',
+            'memberAdd',
+            'memberRemove',
+            'memberSet'
+        ]
+    },
+    target: PathSchema,
+    value: Number,
+    reason: String,
+    operator: {
+        type: ObjectId,
+        ref: 'Account'
+    },
+    time: Date
+});
+
+var AccountSchema = mongoose.Schema({
+    name: String,
+    password: String,       // MD5/SHA3
+    userGroup: [{
+        type: ObjectId,
+        ref: 'UserGroup'
+    }],
+    scoreExpression: ExpressionGroupSchema,
+    userExpression: ExpressionGroupSchema,
+    classTable: {
+        type: ObjectId,
+        ref: 'ClassTable'
+    },
+    theme: {
+        type: ObjectId,
+        ref: 'Theme'
+    },
+    config: ConfigSchema,
+    accountHistory: AccountHistorySchema
+});
+
+var ClassSchema = mongoose.Schema({
+    groupTypes: [GroupTypeSchema],
+    members: [{
+        account: {
+            type: ObjectId,
+            ref: 'Account'
+        },
+        scores: [ScoreSchema]
+    }],
+    name: String,
+    scores: [ScoreSchema],
+    state: ClassStateSchema,
+    classTable: ObjectId,
+    Theme: [ThemeSchema]
+});
+
+mongoose.model('Class', ClassSchema);
+mongoose.model('GroupType', GroupTypeSchema);
+mongoose.model('GroupScoreWeight', GroupScoreWeightSchema);
+mongoose.model('Group', GroupSchema);
+mongoose.model('Log', LogSchema);
+mongoose.model('Path', PathSchema);
+mongoose.model('Score', ScoreSchema);
+mongoose.model('Account', AccountSchema);
+mongoose.model('ExpressionGroup', ExpressionGroupSchema);
+mongoose.model('Expression', ExpressionSchema);
+mongoose.model('ScoreType', ScoreTypeSchema);
+mongoose.model('TradeRule', TradeRuleSchema);
+mongoose.model('UserGroup', UserGroupSchema);
+mongoose.model('GlobalUserGroup', GlobalUserGroupSchema);
+mongoose.model('ScoreGroup', ScoreGroupSchema);
+mongoose.model('ClassTable', ClassTableSchema);
+mongoose.model('ClassTableItem', ClassTableItemSchema);
+mongoose.model('Config', ConfigSchema);
+mongoose.model('ClassState', ClassStateSchema);
+mongoose.model('Question', QuestionSchema);
+mongoose.model('Test', TestSchema);
+mongoose.model('AccountHistory', AccountHistorySchema);
+mongoose.model('Theme', ThemeSchema);
+mongoose.model('Broadcast', BroadcastSchema);
 
 console.log("数据库创建完毕");
