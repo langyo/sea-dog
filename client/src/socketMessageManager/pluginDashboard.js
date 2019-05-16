@@ -7,39 +7,52 @@ const diff = (from, to) => {
     return to;
 }
 
-export let PluginDashboard = {
-    register: function (obj) {
-        PluginDashboard.register = diff(obj, PluginDashboard.register);
-    },
-    receive: function (obj) {
-        PluginDashboard.receive = diff(obj, PluginDashboard.receive);
+export class PluginDashboard {
+    constructor(conn) {
+        this.connection = conn;
+        this.registerObject = {};
+        this.receiveObject = {};
+        conn.on('text', this._receiveMessage);
+
+        this.userId = null;
+    }
+
+    register(obj) {
+        PluginDashboard.registerObject = diff(obj, PluginDashboard.registerObject);
+    }
+
+    receive(obj) {
+        PluginDashboard.receiveObject = diff(obj, PluginDashboard.receiveObject);
+    }
+
+    _sendMessage(...args) {
+        let cmd = args.reduce((prev, next) => prev + ' ' + next);
+        let type = args.shift();
+
+        switch(type) {
+            case 'execute':
+            case 'data':
+                this.connection.sendText(cmd);
+                break;
+            default:
+                throw new Error("不合法的命令类型！");
+        }
+    }
+
+    _receiveMessage(cmd) {
+        let args = cmd.trim().split(' ');
+        let type = args.shift();
+    
+        let func = type == 'execute' ? PluginDashboard.register : PluginDashboard.receive;
+        let arg = args.shift();
+    
+        for (; typeof func[arg] == 'object'; console.log(typeof func[arg]), func = func[arg], arg = args.shift())
+            if(func === undefined) throw new Error("不存在这个对象！");
+    
+        if(func[arg] === undefined) throw new Error("不存在这个对象！");
+        func[arg].apply(null, args);
     }
 }
 
-// TEST
-// let clipboard = "";
-// PluginDashboard.register({
-//     'execute': () => console.log("execute"),
-//     'clipboard': {
-//         'set': (obj) => clipboard = obj,
-//         'get': () => console.log(clipboard)
-//     }
-// });
-// PluginDashboard.register({
-//     'data': () => console.log('data'),
-//     'execute': () => console.log("execute2")
-// });
+    
 
-export let getMessage = cmd => {
-    let args = cmd.trim().split(' ');
-    let type = args.shift();
-
-    let func = type == 'execute' ? PluginDashboard.register : PluginDashboard.receive;
-    let arg = args.shift();
-
-    for (; typeof func[arg] == 'object'; console.log(typeof func[arg]), func = func[arg], arg = args.shift())
-        if(func === undefined) throw new Error("不存在这个对象！");
-
-    if(func[arg] === undefined) throw new Error("不存在这个对象！");
-    func[arg].apply(null, args);
-}
