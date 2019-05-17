@@ -12,7 +12,7 @@ class Theme extends Reflux.Store {
 			secondaryColor: '#66CCFF',
 			menuTheme: 'ios'    // Android 版为左侧抽屉，ios 版为底部选择器
 		};
-		this.listenToMany(Actions.view.global.theme);
+		this.listenToMany(Actions.view.theme);
 	}
 
 	togglePrimary(color) {

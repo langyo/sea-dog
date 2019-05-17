@@ -112,13 +112,13 @@ class MainDrawer extends Reflux.Component {
 						</ListItemIcon>
 						<ListItemText inset primary="班级管理" />
 					</ListItem>
-					<ListItem button onClick={() => Actions.view.global.dialog.toggleTo('setting')}>
+					<ListItem button onClick={() => Actions.view.dialog.toggleTo('setting')}>
 						<ListItemIcon>
 							<SettingIcon />
 						</ListItemIcon>
 						<ListItemText inset primary="设置" />
 					</ListItem>
-					<ListItem button onClick={() => Actions.view.global.dialog.toggleTo('about')}>
+					<ListItem button onClick={() => Actions.view.dialog.toggleTo('about')}>
 						<ListItemIcon>
 							<InfoIcon />
 						</ListItemIcon>

@@ -26,10 +26,10 @@ const styles = theme => ({
 class About extends Reflux.Component {
     constructor(props) {
         super(props);
-        this.store = Stores.view.global.dialog;
+        this.store = Stores.view.dialog;
     }
 
-    handleCloseDialog = Actions.view.global.dialog.reset;
+    handleCloseDialog = Actions.view.dialog.reset;
 
     render() {
         const { classes, theme } = this.props;

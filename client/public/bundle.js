@@ -67940,25 +67940,25 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 let classes = {};
 var _default = {
   database: {
-    // 以下部分为单个的全局 Store
-    global: {
-      currentManager: _reflux.default.createActions(['addGroup', 'addMember', 'removeGroup', 'removeMember', 'updateGroup', 'updateMember'])
-    },
-    // 以下部分为用于创建 Store 的类
-    single: {
-      aClass: _reflux.default.createActions(['addGroup', 'addMember', 'removeGroup', 'removeMember', 'updateGroup', 'updateMember']),
-      group: _reflux.default.createActions(['addMember', 'removeMember', 'updateMember'])
-    }
+    classes: _reflux.default.createActions(['addGroup', 'addMember', 'removeGroup', 'removeMember', 'updateGroup', 'updateMember']),
+    group: _reflux.default.createActions(['addMember', 'removeMember', 'updateMember'])
   },
   view: {
-    global: {
-      tag: _reflux.default.createActions(['create', 'delete', 'toggleTo']),
-      dialog: _reflux.default.createActions(['toggleTo', 'reset']),
-      fab: _reflux.default.createActions(['toggleTo', 'reset']),
-      popupMessage: _reflux.default.createActions(['sendNewMessage', 'popupNewMessage']),
-      theme: _reflux.default.createActions(['togglePrimary', 'toggleSecondary', 'toggleMenuTheme']),
-      language: _reflux.default.createActions(['toggleTo'])
-    }
+    tag: _reflux.default.createActions(['create', 'delete', 'toggleTo']),
+    dialog: _reflux.default.createActions(['toggleTo', 'reset']),
+    fab: _reflux.default.createActions(['toggleTo', 'reset']),
+    popupMenu: _reflux.default.createActions(['toggleTo', 'reset']),
+    popupMessage: _reflux.default.createActions(['sendNewMessage', 'popupNewMessage']),
+    theme: _reflux.default.createActions(['togglePrimary', 'toggleSecondary', 'toggleMenuTheme']),
+    language: _reflux.default.createActions(['toggleTo'])
+  },
+  page: {
+    account: _reflux.default.createActions([]),
+    classTable: _reflux.default.createActions([]),
+    management: _reflux.default.createActions([]),
+    picker: _reflux.default.createActions([]),
+    practise: _reflux.default.createActions([]),
+    rank: _reflux.default.createActions([])
   }
 };
 exports.default = _default;
@@ -67987,6 +67987,18 @@ exports.default = _default;
 "use strict";
 
 },{}],331:[function(require,module,exports){
+arguments[4][330][0].apply(exports,arguments)
+},{"dup":330}],332:[function(require,module,exports){
+arguments[4][330][0].apply(exports,arguments)
+},{"dup":330}],333:[function(require,module,exports){
+arguments[4][330][0].apply(exports,arguments)
+},{"dup":330}],334:[function(require,module,exports){
+arguments[4][330][0].apply(exports,arguments)
+},{"dup":330}],335:[function(require,module,exports){
+arguments[4][330][0].apply(exports,arguments)
+},{"dup":330}],336:[function(require,module,exports){
+arguments[4][330][0].apply(exports,arguments)
+},{"dup":330}],337:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -67994,99 +68006,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _reflux = _interopRequireDefault(require("reflux"));
-
-var _database = _interopRequireDefault(require("../database"));
-
-var _actions = _interopRequireDefault(require("../actions"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-class Manager extends _reflux.default.Store {
-  constructor(id) {
-    super();
-    this.id = id;
-    this.state = {
-      classes: _database.default.get("classes[" + id + "]").value()
-    };
-    this.listenToMany(_actions.default.database.single.class(id));
-  }
-
-  addGroup(object) {
-    _database.default.set("classes[" + this.id + "].group", object).write();
-
-    this.setState({
-      posts: object
-    });
-  }
-
-}
-
-var _default = Manager;
-exports.default = _default;
-
-},{"../actions":328,"../database":329,"reflux":303}],332:[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _reflux = _interopRequireDefault(require("reflux"));
-
-var _database = _interopRequireDefault(require("../database"));
-
-var _actions = _interopRequireDefault(require("../actions"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-class Group extends _reflux.default.Store {
-  constructor(id) {
-    super();
-    this.id = id;
-    this.state = {
-      members: _database.default.get("classes[" + id + "]").value()
-    };
-    this.listenToMany(_actions.default.database.single.class(id));
-  }
-
-  updateMember(object) {
-    let members = _database.default.get("classes[" + id + "]").value();
-
-    members.push(object);
-
-    _database.default.set("classes[" + this.id + "].group", members).write();
-
-    this.setState({
-      members: members
-    });
-  }
-
-  removeMember(object) {}
-
-}
-
-var _default = Group;
-exports.default = _default;
-
-},{"../actions":328,"../database":329,"reflux":303}],333:[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _currentManager = _interopRequireDefault(require("./databaseStore/currentManager"));
-
-var _aClass = _interopRequireDefault(require("./databaseStore/aClass"));
-
-var _group = _interopRequireDefault(require("./databaseStore/group"));
+var _classes = _interopRequireDefault(require("./databaseStore/classes"));
 
 var _tag = _interopRequireDefault(require("./viewStore/tag"));
 
 var _dialog = _interopRequireDefault(require("./viewStore/dialog"));
+
+var _popupMenu = _interopRequireDefault(require("./viewStore/popupMenu"));
 
 var _popupMessage = _interopRequireDefault(require("./viewStore/popupMessage"));
 
@@ -68096,34 +68022,45 @@ var _fab = _interopRequireDefault(require("./viewStore/fab"));
 
 var _language = _interopRequireDefault(require("./viewStore/language"));
 
+var _account = _interopRequireDefault(require("./pageStore/account"));
+
+var _classTable = _interopRequireDefault(require("./pageStore/classTable"));
+
+var _management = _interopRequireDefault(require("./pageStore/management"));
+
+var _picker = _interopRequireDefault(require("./pageStore/picker"));
+
+var _practise = _interopRequireDefault(require("./pageStore/practise"));
+
+var _rank = _interopRequireDefault(require("./pageStore/rank"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var _default = {
   database: {
-    // 以下部分为单个的全局 Store
-    global: {
-      classes: _currentManager.default
-    },
-    // 以下部分为用于创建 Store 的类
-    single: {
-      aClass: _aClass.default,
-      group: _group.default
-    }
+    classes: _classes.default
   },
   view: {
-    global: {
-      tag: _tag.default,
-      dialog: _dialog.default,
-      popupMessage: _popupMessage.default,
-      theme: _theme.default,
-      fab: _fab.default,
-      language: _language.default
-    }
+    tag: _tag.default,
+    dialog: _dialog.default,
+    popupMenu: _popupMenu.default,
+    popupMessage: _popupMessage.default,
+    theme: _theme.default,
+    fab: _fab.default,
+    language: _language.default
+  },
+  page: {
+    account: _account.default,
+    classTable: _classTable.default,
+    management: _management.default,
+    picker: _picker.default,
+    practise: _practise.default,
+    rank: _rank.default
   }
 };
 exports.default = _default;
 
-},{"./databaseStore/aClass":330,"./databaseStore/currentManager":331,"./databaseStore/group":332,"./viewStore/dialog":334,"./viewStore/fab":335,"./viewStore/language":336,"./viewStore/popupMessage":337,"./viewStore/tag":338,"./viewStore/theme":339}],334:[function(require,module,exports){
+},{"./databaseStore/classes":330,"./pageStore/account":331,"./pageStore/classTable":332,"./pageStore/management":333,"./pageStore/picker":334,"./pageStore/practise":335,"./pageStore/rank":336,"./viewStore/dialog":338,"./viewStore/fab":339,"./viewStore/language":340,"./viewStore/popupMenu":341,"./viewStore/popupMessage":342,"./viewStore/tag":343,"./viewStore/theme":344}],338:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -68145,7 +68082,7 @@ class Dialog extends _reflux.default.Store {
     this.state = {
       show: ''
     };
-    this.listenToMany(_actions.default.view.global.dialog);
+    this.listenToMany(_actions.default.view.dialog);
   }
 
   toggleTo(name) {
@@ -68166,7 +68103,7 @@ var _default = new Dialog();
 
 exports.default = _default;
 
-},{"../actions":328,"../database":329,"reflux":303}],335:[function(require,module,exports){
+},{"../actions":328,"../database":329,"reflux":303}],339:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -68188,7 +68125,7 @@ class Fab extends _reflux.default.Store {
     this.state = {
       toggleTo: ''
     };
-    this.listenToMany(_actions.default.view.global.fab);
+    this.listenToMany(_actions.default.view.fab);
   }
 
   toggleTo(id) {}
@@ -68201,7 +68138,7 @@ var _default = new Fab();
 
 exports.default = _default;
 
-},{"../actions":328,"../database":329,"reflux":303}],336:[function(require,module,exports){
+},{"../actions":328,"../database":329,"reflux":303}],340:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -68224,7 +68161,7 @@ class Language extends _reflux.default.Store {
       language: 'zh-chs',
       pack: {}
     };
-    this.listenToMany(_actions.default.view.global.language);
+    this.listenToMany(_actions.default.view.language);
   }
 
   toggleTo(name) {
@@ -68239,7 +68176,50 @@ var _default = new Language();
 
 exports.default = _default;
 
-},{"../actions":328,"../database":329,"reflux":303}],337:[function(require,module,exports){
+},{"../actions":328,"../database":329,"reflux":303}],341:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _reflux = _interopRequireDefault(require("reflux"));
+
+var _database = _interopRequireDefault(require("../database"));
+
+var _actions = _interopRequireDefault(require("../actions"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+class PopupMenu extends _reflux.default.Store {
+  constructor() {
+    super();
+    this.state = {
+      show: ''
+    };
+    this.listenToMany(_actions.default.view.dialog);
+  }
+
+  toggleTo(name) {
+    this.setState({
+      show: name
+    });
+  }
+
+  reset() {
+    this.setState({
+      show: ''
+    });
+  }
+
+}
+
+var _default = new PopupMenu();
+
+exports.default = _default;
+
+},{"../actions":328,"../database":329,"reflux":303}],342:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -68259,7 +68239,7 @@ class PopupMessage extends _reflux.default.Store {
   constructor() {
     super();
     this.state = {};
-    this.listenToMany(_actions.default.view.global.popupMessage);
+    this.listenToMany(_actions.default.view.popupMessage);
   }
 
   sendNewMessage(message) {}
@@ -68272,7 +68252,7 @@ var _default = new PopupMessage();
 
 exports.default = _default;
 
-},{"../actions":328,"../database":329,"reflux":303}],338:[function(require,module,exports){
+},{"../actions":328,"../database":329,"reflux":303}],343:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -68292,7 +68272,7 @@ class Tag extends _reflux.default.Store {
   constructor() {
     super();
     this.state = {};
-    this.listenToMany(_actions.default.view.global.tag);
+    this.listenToMany(_actions.default.view.tag);
   }
 
   create() {}
@@ -68307,7 +68287,7 @@ var _default = new Tag();
 
 exports.default = _default;
 
-},{"../actions":328,"../database":329,"reflux":303}],339:[function(require,module,exports){
+},{"../actions":328,"../database":329,"reflux":303}],344:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -68332,7 +68312,7 @@ class Theme extends _reflux.default.Store {
       menuTheme: 'ios' // Android 版为左侧抽屉，ios 版为底部选择器
 
     };
-    this.listenToMany(_actions.default.view.global.theme);
+    this.listenToMany(_actions.default.view.theme);
   }
 
   togglePrimary(color) {
@@ -68361,7 +68341,7 @@ var _default = new Theme();
 
 exports.default = _default;
 
-},{"../actions":328,"../database":329,"reflux":303}],340:[function(require,module,exports){
+},{"../actions":328,"../database":329,"reflux":303}],345:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -68417,9 +68397,9 @@ class About extends _reflux.default.Component {
   constructor(props) {
     super(props);
 
-    _defineProperty(this, "handleCloseDialog", _actions.default.view.global.dialog.reset);
+    _defineProperty(this, "handleCloseDialog", _actions.default.view.dialog.reset);
 
-    this.store = _stores.default.view.global.dialog;
+    this.store = _stores.default.view.dialog;
   }
 
   render() {
@@ -68455,7 +68435,7 @@ var _default = (0, _styles.withStyles)(styles)(About);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":328,"../../resourceManager/stores":333,"@material-ui/core/Button":37,"@material-ui/core/Dialog":55,"@material-ui/core/DialogActions":47,"@material-ui/core/DialogContent":51,"@material-ui/core/DialogContentText":49,"@material-ui/core/DialogTitle":53,"@material-ui/core/Fade":61,"@material-ui/core/Grow":69,"@material-ui/core/Typography":108,"@material-ui/core/styles":128,"classnames":154,"prop-types":256,"react":278,"react-router":271,"reflux":303,"shortid":313}],341:[function(require,module,exports){
+},{"../../resourceManager/actions":328,"../../resourceManager/stores":337,"@material-ui/core/Button":37,"@material-ui/core/Dialog":55,"@material-ui/core/DialogActions":47,"@material-ui/core/DialogContent":51,"@material-ui/core/DialogContentText":49,"@material-ui/core/DialogTitle":53,"@material-ui/core/Fade":61,"@material-ui/core/Grow":69,"@material-ui/core/Typography":108,"@material-ui/core/styles":128,"classnames":154,"prop-types":256,"react":278,"react-router":271,"reflux":303,"shortid":313}],346:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -68519,9 +68499,9 @@ class Setting extends _reflux.default.Component {
   constructor(props) {
     super(props);
 
-    _defineProperty(this, "handleCloseDialog", _actions.default.view.global.dialog.reset);
+    _defineProperty(this, "handleCloseDialog", _actions.default.view.dialog.reset);
 
-    this.stores = [_stores.default.view.global.dialog, _stores.default.view.global.theme];
+    this.stores = [_stores.default.view.dialog, _stores.default.view.theme];
   }
 
   render() {
@@ -68539,7 +68519,7 @@ class Setting extends _reflux.default.Component {
     }, "\u5E38\u89C4"), _react.default.createElement(_FormGroup.default, null, _react.default.createElement(_RadioGroup.default, {
       name: "\u4E3B\u9898",
       value: this.state.menuTheme,
-      onChange: event => _actions.default.view.global.theme.toggleMenuTheme(event.target.value)
+      onChange: event => _actions.default.view.theme.toggleMenuTheme(event.target.value)
     }, _react.default.createElement(_FormControlLabel.default, {
       value: "android",
       control: _react.default.createElement(_Radio.default, null),
@@ -68560,7 +68540,7 @@ var _default = (0, _styles.withStyles)(styles)(Setting);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":328,"../../resourceManager/stores":333,"@material-ui/core/Button":37,"@material-ui/core/Dialog":55,"@material-ui/core/DialogActions":47,"@material-ui/core/DialogContent":51,"@material-ui/core/DialogTitle":53,"@material-ui/core/Fade":61,"@material-ui/core/FormControlLabel":63,"@material-ui/core/FormGroup":67,"@material-ui/core/Grow":69,"@material-ui/core/Radio":96,"@material-ui/core/RadioGroup":94,"@material-ui/core/Switch":104,"@material-ui/core/Typography":108,"@material-ui/core/styles":128,"classnames":154,"prop-types":256,"react":278,"react-router":271,"reflux":303,"shortid":313}],342:[function(require,module,exports){
+},{"../../resourceManager/actions":328,"../../resourceManager/stores":337,"@material-ui/core/Button":37,"@material-ui/core/Dialog":55,"@material-ui/core/DialogActions":47,"@material-ui/core/DialogContent":51,"@material-ui/core/DialogTitle":53,"@material-ui/core/Fade":61,"@material-ui/core/FormControlLabel":63,"@material-ui/core/FormGroup":67,"@material-ui/core/Grow":69,"@material-ui/core/Radio":96,"@material-ui/core/RadioGroup":94,"@material-ui/core/Switch":104,"@material-ui/core/Typography":108,"@material-ui/core/styles":128,"classnames":154,"prop-types":256,"react":278,"react-router":271,"reflux":303,"shortid":313}],347:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -68658,7 +68638,7 @@ var _default = (0, _styles.withStyles)(styles)(Root);
 
 exports.default = _default;
 
-},{"./pages/picker":344,"./views/appbar":345,"./views/fab":348,"./views/windowManager":349,"@material-ui/core/CssBaseline":45,"@material-ui/core/colors/red":113,"@material-ui/core/styles":128,"classnames":154,"prop-types":256,"react":278,"react-router-dom":268,"reflux":303,"shortid":313}],343:[function(require,module,exports){
+},{"./pages/picker":349,"./views/appbar":350,"./views/fab":353,"./views/windowManager":354,"@material-ui/core/CssBaseline":45,"@material-ui/core/colors/red":113,"@material-ui/core/styles":128,"classnames":154,"prop-types":256,"react":278,"react-router-dom":268,"reflux":303,"shortid":313}],348:[function(require,module,exports){
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -68671,7 +68651,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 _reactDom.default.render(_react.default.createElement(_mainView.default, null), document.querySelector('#content'));
 
-},{"./mainView":342,"react":278,"react-dom":260}],344:[function(require,module,exports){
+},{"./mainView":347,"react":278,"react-dom":260}],349:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -68806,7 +68786,7 @@ var _default = (0, _styles.withStyles)(styles)(Picker);
 
 exports.default = _default;
 
-},{"@material-ui/core/Button":37,"@material-ui/core/Card":43,"@material-ui/core/CardActions":39,"@material-ui/core/CardContent":41,"@material-ui/core/IconButton":71,"@material-ui/core/Typography":108,"@material-ui/core/styles":128,"classnames":154,"mdi-material-ui/DotsVertical":236,"mdi-material-ui/PacMan":241,"mdi-material-ui/StopCircleOutline":244,"prop-types":256,"react":278,"react-router":271,"reflux":303,"shortid":313}],345:[function(require,module,exports){
+},{"@material-ui/core/Button":37,"@material-ui/core/Card":43,"@material-ui/core/CardActions":39,"@material-ui/core/CardContent":41,"@material-ui/core/IconButton":71,"@material-ui/core/Typography":108,"@material-ui/core/styles":128,"classnames":154,"mdi-material-ui/DotsVertical":236,"mdi-material-ui/PacMan":241,"mdi-material-ui/StopCircleOutline":244,"prop-types":256,"react":278,"react-router":271,"reflux":303,"shortid":313}],350:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -68884,7 +68864,7 @@ class MainAppbar extends _reflux.default.Component {
       });
     });
 
-    this.store = _stores.default.view.global.theme;
+    this.store = _stores.default.view.theme;
   }
 
   componentDidMount() {
@@ -68931,7 +68911,7 @@ var _default = (0, _styles.withStyles)(styles)(MainAppbar);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":328,"../../resourceManager/stores":333,"./bottomNavigation":346,"./drawer":347,"@material-ui/core/AppBar":21,"@material-ui/core/IconButton":71,"@material-ui/core/Toolbar":106,"@material-ui/core/Typography":108,"@material-ui/core/styles":128,"classnames":154,"mdi-material-ui/Menu":239,"mdi-material-ui/PacMan":241,"prop-types":256,"react":278,"reflux":303,"shortid":313}],346:[function(require,module,exports){
+},{"../../resourceManager/actions":328,"../../resourceManager/stores":337,"./bottomNavigation":351,"./drawer":352,"@material-ui/core/AppBar":21,"@material-ui/core/IconButton":71,"@material-ui/core/Toolbar":106,"@material-ui/core/Typography":108,"@material-ui/core/styles":128,"classnames":154,"mdi-material-ui/Menu":239,"mdi-material-ui/PacMan":241,"prop-types":256,"react":278,"reflux":303,"shortid":313}],351:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -69035,7 +69015,7 @@ var _default = (0, _styles.withStyles)(styles)(SimpleBottomNavigation);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":328,"@material-ui/core/BottomNavigation":29,"@material-ui/core/BottomNavigationAction":27,"@material-ui/core/styles":128,"classnames":154,"mdi-material-ui/AccountCircleOutline":233,"mdi-material-ui/CursorDefaultClickOutline":235,"mdi-material-ui/NoteOutline":240,"mdi-material-ui/TableLarge":245,"mdi-material-ui/TrophyVariantOutline":246,"prop-types":256,"react":278,"reflux":303,"shortid":313}],347:[function(require,module,exports){
+},{"../../resourceManager/actions":328,"@material-ui/core/BottomNavigation":29,"@material-ui/core/BottomNavigationAction":27,"@material-ui/core/styles":128,"classnames":154,"mdi-material-ui/AccountCircleOutline":233,"mdi-material-ui/CursorDefaultClickOutline":235,"mdi-material-ui/NoteOutline":240,"mdi-material-ui/TableLarge":245,"mdi-material-ui/TrophyVariantOutline":246,"prop-types":256,"react":278,"reflux":303,"shortid":313}],352:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -69186,13 +69166,13 @@ class MainDrawer extends _reflux.default.Component {
       primary: "\u73ED\u7EA7\u7BA1\u7406"
     })), _react.default.createElement(_ListItem.default, {
       button: true,
-      onClick: () => _actions.default.view.global.dialog.toggleTo('setting')
+      onClick: () => _actions.default.view.dialog.toggleTo('setting')
     }, _react.default.createElement(_ListItemIcon.default, null, _react.default.createElement(_SettingsOutline.default, null)), _react.default.createElement(_ListItemText.default, {
       inset: true,
       primary: "\u8BBE\u7F6E"
     })), _react.default.createElement(_ListItem.default, {
       button: true,
-      onClick: () => _actions.default.view.global.dialog.toggleTo('about')
+      onClick: () => _actions.default.view.dialog.toggleTo('about')
     }, _react.default.createElement(_ListItemIcon.default, null, _react.default.createElement(_InformationOutline.default, null)), _react.default.createElement(_ListItemText.default, {
       primary: "\u5173\u4E8E"
     })), _react.default.createElement(_ListItem.default, {
@@ -69216,9 +69196,9 @@ var _default = (0, _styles.withStyles)(styles)(MainDrawer);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":328,"@material-ui/core/Badge":25,"@material-ui/core/Divider":57,"@material-ui/core/Drawer":59,"@material-ui/core/IconButton":71,"@material-ui/core/List":81,"@material-ui/core/ListItem":78,"@material-ui/core/ListItemIcon":73,"@material-ui/core/ListItemText":75,"@material-ui/core/styles":128,"classnames":154,"mdi-material-ui/AccountCircleOutline":233,"mdi-material-ui/AccountGroup":234,"mdi-material-ui/CursorDefaultClickOutline":235,"mdi-material-ui/GoogleClassroom":237,"mdi-material-ui/InformationOutline":238,"mdi-material-ui/NoteOutline":240,"mdi-material-ui/Palette":242,"mdi-material-ui/SettingsOutline":243,"mdi-material-ui/TableLarge":245,"mdi-material-ui/TrophyVariantOutline":246,"prop-types":256,"react":278,"reflux":303,"shortid":313}],348:[function(require,module,exports){
+},{"../../resourceManager/actions":328,"@material-ui/core/Badge":25,"@material-ui/core/Divider":57,"@material-ui/core/Drawer":59,"@material-ui/core/IconButton":71,"@material-ui/core/List":81,"@material-ui/core/ListItem":78,"@material-ui/core/ListItemIcon":73,"@material-ui/core/ListItemText":75,"@material-ui/core/styles":128,"classnames":154,"mdi-material-ui/AccountCircleOutline":233,"mdi-material-ui/AccountGroup":234,"mdi-material-ui/CursorDefaultClickOutline":235,"mdi-material-ui/GoogleClassroom":237,"mdi-material-ui/InformationOutline":238,"mdi-material-ui/NoteOutline":240,"mdi-material-ui/Palette":242,"mdi-material-ui/SettingsOutline":243,"mdi-material-ui/TableLarge":245,"mdi-material-ui/TrophyVariantOutline":246,"prop-types":256,"react":278,"reflux":303,"shortid":313}],353:[function(require,module,exports){
 arguments[4][330][0].apply(exports,arguments)
-},{"dup":330}],349:[function(require,module,exports){
+},{"dup":330}],354:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -69253,7 +69233,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 class MainWindowManager extends _reflux.default.Component {
   constructor(props) {
     super(props);
-    this.store = _stores.default.view.global.dialog;
+    this.store = _stores.default.view.dialog;
   }
 
   render() {
@@ -69269,4 +69249,4 @@ class MainWindowManager extends _reflux.default.Component {
 var _default = MainWindowManager;
 exports.default = _default;
 
-},{"../../resourceManager/stores":333,"../dialogs/about":340,"../dialogs/setting":341,"@material-ui/core/styles":128,"classnames":154,"prop-types":256,"react":278,"react-router":271,"reflux":303,"shortid":313}]},{},[343]);
+},{"../../resourceManager/stores":337,"../dialogs/about":345,"../dialogs/setting":346,"@material-ui/core/styles":128,"classnames":154,"prop-types":256,"react":278,"react-router":271,"reflux":303,"shortid":313}]},{},[348]);

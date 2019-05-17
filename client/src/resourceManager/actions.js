@@ -4,63 +4,71 @@ let classes = {};
 
 export default {
     database: {
-        // 以下部分为单个的全局 Store
-        global: {
-            currentManager: Reflux.createActions([
-                'addGroup',
-                'addMember',
-                'removeGroup',
-                'removeMember',
-                'updateGroup',
-                'updateMember'
-            ])
-        },
-
-        // 以下部分为用于创建 Store 的类
-        single: {
-            aClass: Reflux.createActions([
-                'addGroup',
-                'addMember',
-                'removeGroup',
-                'removeMember',
-                'updateGroup',
-                'updateMember'
-            ]),
-            group: Reflux.createActions([
-                'addMember',
-                'removeMember',
-                'updateMember'
-            ])
-        }
+        classes: Reflux.createActions([
+            'addGroup',
+            'addMember',
+            'removeGroup',
+            'removeMember',
+            'updateGroup',
+            'updateMember'
+        ]),
+        group: Reflux.createActions([
+            'addMember',
+            'removeMember',
+            'updateMember'
+        ])
     },
 
     view: {
-        global: {
-            tag: Reflux.createActions([
-                'create',
-                'delete',
-                'toggleTo'
-            ]),
-            dialog: Reflux.createActions([
-                'toggleTo',
-                'reset'
-            ]),
-            fab: Reflux.createActions([
-                'toggleTo',
-                'reset'
-            ]),
-            popupMessage: Reflux.createActions([
-                'sendNewMessage',
-                'popupNewMessage'
-            ]),
-            theme: Reflux.createActions([
-                'togglePrimary',
-                'toggleSecondary',
-                'toggleMenuTheme'
-            ]),
-            language: Reflux.createActions([
-                'toggleTo',
-            ])
-        }
+        tag: Reflux.createActions([
+            'create',
+            'delete',
+            'toggleTo'
+        ]),
+        dialog: Reflux.createActions([
+            'toggleTo',
+            'reset'
+        ]),
+        fab: Reflux.createActions([
+            'toggleTo',
+            'reset'
+        ]),
+        popupMenu: Reflux.createActions([
+            'toggleTo',
+            'reset'
+        ]),
+        popupMessage: Reflux.createActions([
+            'sendNewMessage',
+            'popupNewMessage'
+        ]),
+        theme: Reflux.createActions([
+            'togglePrimary',
+            'toggleSecondary',
+            'toggleMenuTheme'
+        ]),
+        language: Reflux.createActions([
+            'toggleTo',
+        ])
+    },
+
+    page:{
+        account: Reflux.createActions([
+
+        ]),
+        classTable: Reflux.createActions([
+
+        ]),
+        management: Reflux.createActions([
+
+        ]),
+        picker: Reflux.createActions([
+
+        ]),
+        practise: Reflux.createActions([
+
+        ]),
+        rank: Reflux.createActions([
+
+        ])
     }
 }

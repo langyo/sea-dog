@@ -4,7 +4,7 @@ import db from "../database";
 
 import Actions from "../actions";
 
-class Dialog extends Reflux.Store {
+class PopupMenu extends Reflux.Store {
 	constructor() {
 		super();
 		this.state = {
@@ -22,4 +22,4 @@ class Dialog extends Reflux.Store {
 	}
 }
 
-export default new Dialog();
+export default new PopupMenu();

@@ -31,11 +31,11 @@ class Setting extends Reflux.Component {
     constructor(props) {
         super(props);
         this.stores = [
-            Stores.view.global.dialog, Stores.view.global.theme
+            Stores.view.dialog, Stores.view.theme
         ];
     }
 
-    handleCloseDialog = Actions.view.global.dialog.reset;
+    handleCloseDialog = Actions.view.dialog.reset;
 
     render() {
         const { classes, theme } = this.props;
@@ -55,7 +55,7 @@ class Setting extends Reflux.Component {
                         <RadioGroup
                             name="主题"
                             value={this.state.menuTheme}
-                            onChange={event => Actions.view.global.theme.toggleMenuTheme(event.target.value)}
+                            onChange={event => Actions.view.theme.toggleMenuTheme(event.target.value)}
                         >
                             <FormControlLabel value="android" control={<Radio />} label="Android 风格" />
                             <FormControlLabel value="ios" control={<Radio />} label="iOS 风格" />

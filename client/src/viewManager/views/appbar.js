@@ -37,7 +37,7 @@ class MainAppbar extends Reflux.Component {
     constructor(props) {
         super(props);
 
-        this.store = Stores.view.global.theme;
+        this.store = Stores.view.theme;
     }
 
     state = {
