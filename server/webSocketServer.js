@@ -1,5 +1,5 @@
 import PluginDashboard from "./pluginDashboard";
-import WebSocket from "ws";
+let WebSocket = eval('require\("ws"\)');
 
 const server = new WebSocket.Server({ port: 9201 });
 

@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+let mongoose = eval('require\("mongoose"\)');
 const ObjectId = mongoose.Schema.Types.ObjectId;
 
 let db = mongoose.createConnection('mongodb://localhost/test');
