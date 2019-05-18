@@ -1,7 +1,7 @@
 import PluginDashboard from "./pluginDashboard";
 let WebSocket = eval('require\("ws"\)');
 
-const server = new WebSocket.Server({ port: 9201 });
+const server = new WebSocket.Server({ port: 9201 }, () => console.log("已创建服务器！"));
 
 let clients = {}
 
