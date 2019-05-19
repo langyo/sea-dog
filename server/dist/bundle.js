@@ -21,7 +21,10 @@ let PathSchema = _databaseInitializer.default.Schema({
 });
 
 let ScoreSchema = _databaseInitializer.default.Schema({
-  at: ObjectId,
+  at: {
+    type: ObjectId,
+    ref: "ScoreType"
+  },
   value: Number
 });
 
@@ -38,8 +41,14 @@ let ExpressionGroupSchema = _databaseInitializer.default.Schema({
 });
 
 let TradeRuleSchema = _databaseInitializer.default.Schema({
-  from: ObjectId,
-  to: ObjectId,
+  from: {
+    type: ObjectId,
+    ref: "ScoreType"
+  },
+  to: {
+    type: ObjectId,
+    ref: "ScoreType"
+  },
   weight: {
     from: Number,
     to: Number,
@@ -87,11 +96,11 @@ let ClassTableSchema = _databaseInitializer.default.Schema({
 let ConfigSchema = _databaseInitializer.default.Schema({
   allow: [{
     type: String,
-    enum: ['createQuestion', 'forkQuestion', 'de leteQuestion', 'createTest', 'watchTestResult', 'forkTest', 'de leteTest', 'setTheme']
+    enum: ['createQuestion', 'forkQuestion', 'deleteQuestion', 'createTest', 'watchTestResult', 'forkTest', 'deleteTest', 'setTheme', 'root']
   }],
   disallow: [{
     type: String,
-    enum: ['createQuestion', 'forkQuestion', 'de leteQuestion', 'createTest', 'watchTestResult', 'forkTest', 'de leteTest', 'setTheme']
+    enum: ['createQuestion', 'forkQuestion', 'deleteQuestion', 'createTest', 'watchTestResult', 'forkTest', 'deleteTest', 'setTheme', 'root']
   }]
 });
 
@@ -312,7 +321,10 @@ let ClassSchema = _databaseInitializer.default.Schema({
   name: String,
   scores: [ScoreSchema],
   state: ClassStateSchema,
-  classTable: ObjectId,
+  classTable: {
+    type: ObjectId,
+    ref: "ClassTable"
+  },
   Theme: [ThemeSchema]
 });
 

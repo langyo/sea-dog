@@ -16,7 +16,10 @@ let PathSchema = mongoose.Schema({
 });
 
 let ScoreSchema = mongoose.Schema({
-    at: ObjectId,
+    at: {
+        type: ObjectId,
+        ref: "ScoreType"
+    },
     value: Number
 });
 
@@ -33,8 +36,14 @@ let ExpressionGroupSchema = mongoose.Schema({
 });
 
 let TradeRuleSchema = mongoose.Schema({
-    from: ObjectId,
-    to: ObjectId,
+    from: {
+        type: ObjectId,
+        ref: "ScoreType"
+    },
+    to: {
+        type: ObjectId,
+        ref: "ScoreType"
+    },
     weight: {
         from: Number,
         to: Number,
@@ -83,12 +92,13 @@ let ConfigSchema = mongoose.Schema({
         enum: [
             'createQuestion',
             'forkQuestion',
-            'de leteQuestion',
+            'deleteQuestion',
             'createTest',
             'watchTestResult',
             'forkTest',
-            'de leteTest',
-            'setTheme'
+            'deleteTest',
+            'setTheme',
+            'root'
         ]
     }],
     disallow: [{
@@ -96,12 +106,13 @@ let ConfigSchema = mongoose.Schema({
         enum: [
             'createQuestion',
             'forkQuestion',
-            'de leteQuestion',
+            'deleteQuestion',
             'createTest',
             'watchTestResult',
             'forkTest',
-            'de leteTest',
-            'setTheme'
+            'deleteTest',
+            'setTheme',
+            'root'
         ]
     }]
 });
@@ -329,7 +340,10 @@ let ClassSchema = mongoose.Schema({
     name: String,
     scores: [ScoreSchema],
     state: ClassStateSchema,
-    classTable: ObjectId,
+    classTable: {
+        type: ObjectId,
+        ref: "ClassTable"
+    },
     Theme: [ThemeSchema]
 });
 
