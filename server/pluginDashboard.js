@@ -2,18 +2,11 @@ const diff = (from, to) => {
     for (let i of Object.keys(from)) {
         if (to[i] == undefined || typeof from[i] != 'object' && from[i] != to[i]) to[i] = from[i];
         else if (typeof from[i] != 'function' && typeof from[i] != 'object') {
-            console.log(from);
             throw new Error("只允许提供函数！");
         }
         else to[i] = diff(from[i], to[i]);
     }
     return to;
-}
-
-const toArray = (_args) => {
-    let ret = [];
-    for(let i = 0; i < _args.length; ++i) ret.push(_args[i]);
-    return ret;
 }
 
 export default class PluginDashboard {
@@ -47,7 +40,6 @@ export default class PluginDashboard {
 
     _sendMessage = (args) => {
         let cmd = args.reduce((prev, next) => prev + ' ' + next);
-        console.log(args);
         let type = args.shift();
 
         switch (type) {
@@ -62,6 +54,8 @@ export default class PluginDashboard {
     }
 
     _receiveMessage = (cmd) => {
+        console.log(cmd);
+        if(cmd[0] == '@') return;
         let args = cmd.trim().split(' ');
         let type = args.shift();
 
