@@ -25,6 +25,7 @@ import ManagementIcon from "mdi-material-ui/AccountGroup";
 import SettingIcon from "mdi-material-ui/SettingsOutline";
 import InfoIcon from "mdi-material-ui/InformationOutline";
 import ThemeIcon from "mdi-material-ui/Palette";
+import HomeIcon from "mdi-material-ui/Home";
 
 import Actions from "../../resourceManager/actions";
 
@@ -81,6 +82,12 @@ class MainDrawer extends Reflux.Component {
 						<ListItemText inset primary="未登录" secondary="当前教师" />
 					</ListItem>
 					<Divider className={classes.line}/>
+					<ListItem button>
+						<ListItemIcon>
+							<HomeIcon />
+						</ListItemIcon>
+						<ListItemText inset primary="主页" />
+					</ListItem>
 					<ListItem button selected>
 						<ListItemIcon>
 							<PickStudentIcon />

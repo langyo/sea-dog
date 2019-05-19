@@ -18,6 +18,10 @@ import PacManIcon from "mdi-material-ui/PacMan";
 import StopIcon from "mdi-material-ui/StopCircleOutline";
 import MoreVertIcon from "mdi-material-ui/DotsVertical";
 
+import Stores from '../../resourceManager/stores';
+import Actions from "../../resourceManager/actions";
+import actions from "../../resourceManager/actions";
+
 const styles = theme => ({
   button: {
     width: 150,
@@ -29,7 +33,7 @@ const styles = theme => ({
     marginRight: theme.spacing.unit
   },
   card: {
-    width: 280,
+    width: 300,
     opacity: 0.8,
     marginLeft: "auto",
     marginRight: "auto",
@@ -47,11 +51,10 @@ let randomNum = (minNum, maxNum) =>
   parseInt(Math.random() * (maxNum - minNum + 1) + minNum, 10);
 
 class Picker extends Reflux.Component {
-  state = {
-    rounding: false,
-
-    nowSelectedLuckyGuy: "点击开始"
-  };
+  constructor(props) {
+    super(props);
+    this.store = Stores.page.picker;
+  }
 
   handleRoundingToggle = () => {
     this.setState({ rounding: !this.state.rounding });
@@ -66,23 +69,33 @@ class Picker extends Reflux.Component {
       <Card className={classes.card}>
         <CardContent>
           <Typography variant="h4" gutterBottom>
-            {this.state.nowSelectedLuckyGuy}
+            {this.state.nowSelecting}
           </Typography>
           <Typography variant="caption" gutterBottom>
             当前正在抽取 ，共 人
           </Typography>
         </CardContent>
         <CardActions>
-          <Button className={classes.left} variant="outlined" color="primary">
+          <Button
+            className={classes.left}
+            variant="outlined"
+            color="primary"
+            onClick={Actions.page.picker.scoreRemoveOne}
+          >
             - 减分
           </Button>
           <Typography
             className={classNames(classes.left, classes.right)}
             variant="h2"
           >
-            0
+            {this.state.score}
           </Typography>
-          <Button className={classes.right} variant="outlined" color="primary">
+          <Button
+            className={classes.right}
+            variant="outlined"
+            color="primary"
+            onClick={Actions.page.picker.scoreAddOne}
+          >
             + 加分
           </Button>
         </CardActions>

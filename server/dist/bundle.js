@@ -118,6 +118,13 @@ let ClassStateSchema = _databaseInitializer.default.Schema({
   }
 });
 
+let ProvideSchema = _databaseInitializer.default.Schema({
+  classes: [{
+    type: ObjectId,
+    ref: "Class"
+  }]
+});
+
 let QuestionSchema = _databaseInitializer.default.Schema({
   owner: {
     type: ObjectId,
@@ -143,7 +150,8 @@ let QuestionSchema = _databaseInitializer.default.Schema({
   deleted: {
     type: Boolean,
     default: false
-  }
+  },
+  provideTo: ProvideSchema
 });
 
 let TestSchema = _databaseInitializer.default.Schema({
@@ -165,11 +173,12 @@ let TestSchema = _databaseInitializer.default.Schema({
   deleted: {
     type: Boolean,
     default: false
-  }
+  },
+  provideTo: ProvideSchema
 });
 
 let AccountHistorySchema = _databaseInitializer.default.Schema({
-  practised: {
+  practiced: {
     questions: [{
       at: {
         type: ObjectId,
@@ -254,6 +263,8 @@ let GroupScoreWeightSchema = _databaseInitializer.default.Schema({
 
 let GroupSchema = _databaseInitializer.default.Schema({
   scores: [ScoreSchema],
+  name: String,
+  description: String,
   members: [{
     account: {
       type: ObjectId,
@@ -267,7 +278,7 @@ let GroupTypeSchema = _databaseInitializer.default.Schema({
     type: ObjectId,
     ref: 'UserGroup'
   },
-  group: [GroupSchema],
+  groups: [GroupSchema],
   name: String,
   groupScoreTransfer: GroupScoreWeightSchema
 });
@@ -325,7 +336,7 @@ let ClassSchema = _databaseInitializer.default.Schema({
     type: ObjectId,
     ref: "ClassTable"
   },
-  Theme: [ThemeSchema]
+  theme: [ThemeSchema]
 });
 
 _databaseInitializer.default.model('Class', ClassSchema);
@@ -369,6 +380,8 @@ _databaseInitializer.default.model('ClassState', ClassStateSchema);
 _databaseInitializer.default.model('Question', QuestionSchema);
 
 _databaseInitializer.default.model('Test', TestSchema);
+
+_databaseInitializer.default.model('Provide', ProvideSchema);
 
 _databaseInitializer.default.model('AccountHistory', AccountHistorySchema);
 
@@ -958,14 +971,6 @@ const diff = (from, to) => {
   }
 
   return to;
-};
-
-const toArray = _args => {
-  let ret = [];
-
-  for (let i = 0; i < _args.length; ++i) ret.push(_args[i]);
-
-  return ret;
 };
 
 class PluginDashboard {

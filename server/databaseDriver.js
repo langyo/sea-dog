@@ -132,6 +132,13 @@ let ClassStateSchema = mongoose.Schema({
     }
 });
 
+let ProvideSchema = mongoose.Schema({
+    classes: [{
+        type: ObjectId,
+        ref: "Class"
+    }]
+});
+
 let QuestionSchema = mongoose.Schema({
     owner: {
         type: ObjectId,
@@ -157,7 +164,8 @@ let QuestionSchema = mongoose.Schema({
     deleted: {
         type: Boolean,
         default: false
-    }
+    },
+    provideTo: ProvideSchema
 });
 
 let TestSchema = mongoose.Schema({
@@ -179,11 +187,12 @@ let TestSchema = mongoose.Schema({
     deleted: {
         type: Boolean,
         default: false
-    }
+    },
+    provideTo: ProvideSchema
 });
 
 let AccountHistorySchema = mongoose.Schema({
-    practised: {
+    practiced: {
         questions: [{
             at: {
                 type: ObjectId,
@@ -267,6 +276,8 @@ let GroupScoreWeightSchema = mongoose.Schema({
 
 let GroupSchema = mongoose.Schema({
     scores: [ScoreSchema],
+    name: String,
+    description: String,
     members: [{
         account: {
             type: ObjectId,
@@ -280,7 +291,7 @@ let GroupTypeSchema = mongoose.Schema({
         type: ObjectId,
         ref: 'UserGroup'
     },
-    group: [GroupSchema],
+    groups: [GroupSchema],
     name: String,
     groupScoreTransfer: GroupScoreWeightSchema
 });
@@ -344,7 +355,7 @@ let ClassSchema = mongoose.Schema({
         type: ObjectId,
         ref: "ClassTable"
     },
-    Theme: [ThemeSchema]
+    theme: [ThemeSchema]
 });
 
 mongoose.model('Class', ClassSchema);
@@ -368,6 +379,7 @@ mongoose.model('Config', ConfigSchema);
 mongoose.model('ClassState', ClassStateSchema);
 mongoose.model('Question', QuestionSchema);
 mongoose.model('Test', TestSchema);
+mongoose.model('Provide', ProvideSchema);
 mongoose.model('AccountHistory', AccountHistorySchema);
 mongoose.model('Theme', ThemeSchema);
 mongoose.model('Broadcast', BroadcastSchema);

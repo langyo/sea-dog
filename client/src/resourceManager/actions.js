@@ -62,7 +62,8 @@ export default {
 
         ]),
         picker: Reflux.createActions([
-
+            'scoreAddOne',
+            'scoreRemoveOne'
         ]),
         practise: Reflux.createActions([
 
