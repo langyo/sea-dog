@@ -15,7 +15,15 @@ import Appbar from "./views/appbar";
 import WindowManager from "./views/windowManager";
 import FabView from "./views/fab";
 
+import Account from "./pages/account";
+import AccountMobile from "./pages/accountMobile";
+import ClassChoiceDesktop from "./pages/classChoiceDesktop";
+import ClassMap from "./pages/classMap";
+import ClassTable from "./pages/classTable";
+import Management from "./pages/management";
 import Picker from "./pages/picker";
+import Practise from "./pages/practise";
+import Rank from "./pages/rank";
 
 const theme = createMuiTheme({
     palette: {
@@ -58,9 +66,9 @@ class Root extends Reflux.Component {
                         <div className={classes.toolbar} />
 
                         <Switch>
-                            <Route exact path='/index' component={() => <Picker />} />
-                            <Route path='/another' component={() => <Picker />} />
-                            <Redirect path="/" to={{ pathname: '/index' }} />
+                            <Route exact path='/picker' component={() => <Picker />} />
+                            <Route path='/picker2' component={() => <Picker />} />
+                            <Redirect path="/" to={{ pathname: '/picker' }} />
                         </Switch>
                     </BrowserRouter>
 

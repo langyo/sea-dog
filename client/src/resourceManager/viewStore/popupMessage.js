@@ -20,7 +20,11 @@ class PopupMessage extends Reflux.Store {
     
     popupNewMessage(message){
 
-    }
+	}
+	
+	consoleError(type, info){
+		
+	}
 }
 
 export default new PopupMessage();

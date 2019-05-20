@@ -4,6 +4,12 @@ let classes = {};
 
 export default {
     database: {
+        accounts: Reflux.createActions([
+            'updateAccountByDatabase',
+            'login',
+            'logout',
+            'register'
+        ]),
         classes: Reflux.createActions([
             'addGroup',
             'addMember',
@@ -14,10 +20,13 @@ export default {
 
             'updateMembersByDatabase'
         ]),
-        group: Reflux.createActions([
+        groups: Reflux.createActions([
             'addMember',
             'removeMember',
-            'updateMember'
+            'updateMember',
+
+            'updateGroupTypeByDatabase',
+            'updateGroupByDatabase'
         ])
     },
 
@@ -41,7 +50,8 @@ export default {
         ]),
         popupMessage: Reflux.createActions([
             'sendNewMessage',
-            'popupNewMessage'
+            'popupNewMessage',
+            'consoleError'
         ]),
         theme: Reflux.createActions([
             'togglePrimary',
@@ -55,6 +65,12 @@ export default {
 
     page:{
         account: Reflux.createActions([
+
+        ]),
+        classChoice: Reflux.createActions([
+
+        ]),
+        classMap: Reflux.createActions([
 
         ]),
         classTable: Reflux.createActions([

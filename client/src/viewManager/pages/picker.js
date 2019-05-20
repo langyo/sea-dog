@@ -17,6 +17,8 @@ import IconButton from "@material-ui/core/IconButton";
 import PacManIcon from "mdi-material-ui/PacMan";
 import StopIcon from "mdi-material-ui/StopCircleOutline";
 import MoreVertIcon from "mdi-material-ui/DotsVertical";
+import PlusIcon from "mdi-material-ui/Plus";
+import MinusIcon from "mdi-material-ui/Minus";
 
 import Stores from '../../resourceManager/stores';
 import Actions from "../../resourceManager/actions";
@@ -27,7 +29,7 @@ const styles = theme => ({
     width: 150,
     marginLeft: "auto",
     marginRight: "auto",
-    transform: "translateX(36px)"
+    transform: "translateX(40px)"
   },
   extendedIcon: {
     marginRight: theme.spacing.unit
@@ -37,7 +39,8 @@ const styles = theme => ({
     opacity: 0.8,
     marginLeft: "auto",
     marginRight: "auto",
-    textAlign: "center"
+    textAlign: "center",
+    marginTop: 30
   },
   left: {
     marginRight: "auto"
@@ -71,28 +74,27 @@ class Picker extends Reflux.Component {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button
+          <IconButton
             className={classes.left}
-            variant="outlined"
             color="primary"
             onClick={Actions.page.picker.scoreRemoveOne}
           >
-            - 减分
-          </Button>
+            <MinusIcon />
+          </IconButton>
           <Typography
             className={classNames(classes.left, classes.right)}
             variant="h2"
           >
             {this.state.score}
           </Typography>
-          <Button
+          <IconButton
             className={classes.right}
             variant="outlined"
             color="primary"
             onClick={Actions.page.picker.scoreAddOne}
           >
-            + 加分
-          </Button>
+            <PlusIcon />
+          </IconButton>
         </CardActions>
         <CardActions>
           <Button
