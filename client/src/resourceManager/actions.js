@@ -10,7 +10,9 @@ export default {
             'removeGroup',
             'removeMember',
             'updateGroup',
-            'updateMember'
+            'updateMember',
+
+            'updateMembersByDatabase'
         ]),
         group: Reflux.createActions([
             'addMember',

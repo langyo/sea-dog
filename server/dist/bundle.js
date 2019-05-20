@@ -383,7 +383,7 @@ let ScoreType = _databaseInitializer.default.model('ScoreType', ScoreTypeSchema)
 
 let TradeRule = _databaseInitializer.default.model('TradeRule', TradeRuleSchema);
 
-let UserGroup = ongoose.model('UserGroup', UserGroupSchema);
+let UserGroup = _databaseInitializer.default.model('UserGroup', UserGroupSchema);
 
 let GlobalUserGroup = _databaseInitializer.default.model('GlobalUserGroup', GlobalUserGroupSchema);
 
@@ -421,9 +421,49 @@ _webSocketServer.connectionEvents.on('h5', conn => {
   console.log("开始注册 h5 的指令……");
   (0, _webSocketServer.register)("h5", {
     list: {
-      school: {
-        classes: () => "123123",
-        scoreTypes: (a, b) => a + b
+      "class": {
+        members: (className, limit, page = 0) => {
+          try {
+            if (limit == "count") {
+              let ret = "success " + className + " ";
+              (function* () {
+                Class.findOne({
+                  name: className
+                }).populate("Account").members.count().exec((err, result) => {
+                  if (err) {
+                    console.log(err);
+                    throw err;
+                  }
+
+                  ret += result;
+                  return;
+                });
+              })().next();
+              return ret;
+            } else if (limit) {
+              limit = 0 + limit;
+              page = 0 + page;
+              let ret = "success " + className + " ";
+              (function* () {
+                Class.findOne({
+                  name: className
+                }).populate("Account").members.limit(limit).skip(limit * page).select("name").exec((err, result) => {
+                  if (err) {
+                    console.log(err);
+                    throw err;
+                  }
+
+                  ret += result.reduce((prev, next) => prev + " " + next);
+                  return;
+                });
+              })().next();
+              return ret;
+            } else throw new Error("参数错误！", className, limit, page);
+          } catch (e) {
+            console.log("捕获到错误： ", e);
+            return "fail " + e;
+          }
+        }
       }
     }
   });

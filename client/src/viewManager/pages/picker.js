@@ -47,9 +47,6 @@ const styles = theme => ({
   }
 });
 
-let randomNum = (minNum, maxNum) =>
-  parseInt(Math.random() * (maxNum - minNum + 1) + minNum, 10);
-
 class Picker extends Reflux.Component {
   constructor(props) {
     super(props);
@@ -59,8 +56,6 @@ class Picker extends Reflux.Component {
   handleRoundingToggle = () => {
     this.setState({ rounding: !this.state.rounding });
   };
-
-  randomTimerObject = null;
 
   render() {
     const { classes } = this.props;

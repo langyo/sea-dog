@@ -67954,7 +67954,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 let classes = {};
 var _default = {
   database: {
-    classes: _reflux.default.createActions(['addGroup', 'addMember', 'removeGroup', 'removeMember', 'updateGroup', 'updateMember']),
+    classes: _reflux.default.createActions(['addGroup', 'addMember', 'removeGroup', 'removeMember', 'updateGroup', 'updateMember', 'updateMembersByDatabase']),
     group: _reflux.default.createActions(['addMember', 'removeMember', 'updateMember'])
   },
   view: {
@@ -68000,13 +68000,53 @@ exports.default = _default;
 },{"lowdb":232,"lowdb/adapters/LocalStorage":230}],331:[function(require,module,exports){
 "use strict";
 
-},{}],332:[function(require,module,exports){
-arguments[4][331][0].apply(exports,arguments)
-},{"dup":331}],333:[function(require,module,exports){
-arguments[4][331][0].apply(exports,arguments)
-},{"dup":331}],334:[function(require,module,exports){
-arguments[4][331][0].apply(exports,arguments)
-},{"dup":331}],335:[function(require,module,exports){
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _reflux = _interopRequireDefault(require("reflux"));
+
+var _database = _interopRequireDefault(require("../database"));
+
+var _actions = _interopRequireDefault(require("../actions"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+class Classes extends _reflux.default.Store {
+  constructor() {
+    super();
+    this.state = {
+      classes: []
+    };
+    this.listenToMany(_actions.default.database.classes);
+  }
+
+  updateMembersByDatabase(members) {
+    let className = members[0];
+    members = members.slice(1);
+    let diff = this.state.classes;
+    if (diff[className] == undefined) diff[className] = {};
+    diff[className].members = members.reduce((prev, next) => prev.indexOf(next) != -1 ? prev : prev.push(next));
+    this.setState({
+      classes: diff
+    });
+  }
+
+}
+
+var _default = new Classes();
+
+exports.default = _default;
+
+},{"../actions":329,"../database":330,"reflux":304}],332:[function(require,module,exports){
+"use strict";
+
+},{}],333:[function(require,module,exports){
+arguments[4][332][0].apply(exports,arguments)
+},{"dup":332}],334:[function(require,module,exports){
+arguments[4][332][0].apply(exports,arguments)
+},{"dup":332}],335:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -68051,10 +68091,10 @@ var _default = new Picker();
 exports.default = _default;
 
 },{"../actions":329,"../database":330,"reflux":304}],336:[function(require,module,exports){
-arguments[4][331][0].apply(exports,arguments)
-},{"dup":331}],337:[function(require,module,exports){
-arguments[4][331][0].apply(exports,arguments)
-},{"dup":331}],338:[function(require,module,exports){
+arguments[4][332][0].apply(exports,arguments)
+},{"dup":332}],337:[function(require,module,exports){
+arguments[4][332][0].apply(exports,arguments)
+},{"dup":332}],338:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -68782,8 +68822,6 @@ const styles = theme => ({
   }
 });
 
-let randomNum = (minNum, maxNum) => parseInt(Math.random() * (maxNum - minNum + 1) + minNum, 10);
-
 class Picker extends _reflux.default.Component {
   constructor(props) {
     super(props);
@@ -68793,8 +68831,6 @@ class Picker extends _reflux.default.Component {
         rounding: !this.state.rounding
       });
     });
-
-    _defineProperty(this, "randomTimerObject", null);
 
     this.store = _stores.default.page.picker;
   }
@@ -69263,8 +69299,8 @@ var _default = (0, _styles.withStyles)(styles)(MainDrawer);
 exports.default = _default;
 
 },{"../../resourceManager/actions":329,"@material-ui/core/Badge":25,"@material-ui/core/Divider":57,"@material-ui/core/Drawer":59,"@material-ui/core/IconButton":71,"@material-ui/core/List":81,"@material-ui/core/ListItem":78,"@material-ui/core/ListItemIcon":73,"@material-ui/core/ListItemText":75,"@material-ui/core/styles":128,"classnames":154,"mdi-material-ui/AccountCircleOutline":233,"mdi-material-ui/AccountGroup":234,"mdi-material-ui/CursorDefaultClickOutline":235,"mdi-material-ui/GoogleClassroom":237,"mdi-material-ui/Home":238,"mdi-material-ui/InformationOutline":239,"mdi-material-ui/NoteOutline":241,"mdi-material-ui/Palette":243,"mdi-material-ui/SettingsOutline":244,"mdi-material-ui/TableLarge":246,"mdi-material-ui/TrophyVariantOutline":247,"prop-types":257,"react":279,"reflux":304,"shortid":314}],354:[function(require,module,exports){
-arguments[4][331][0].apply(exports,arguments)
-},{"dup":331}],355:[function(require,module,exports){
+arguments[4][332][0].apply(exports,arguments)
+},{"dup":332}],355:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
