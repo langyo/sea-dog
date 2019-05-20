@@ -320,6 +320,25 @@ let AccountSchema = _databaseInitializer.default.Schema({
   accountHistory: AccountHistorySchema
 });
 
+let ClassMapRowSchema = _databaseInitializer.default.Schema({
+  columns: [{
+    type: ObjectId,
+    ref: "Account"
+  }]
+});
+
+let ClassMapBlockSchema = _databaseInitializer.default.Schema({
+  height: Number,
+  weight: Number,
+  rows: [ClassMapRowSchema]
+});
+
+let ClassMapSchema = _databaseInitializer.default.Schema({
+  height: Number,
+  weight: Number,
+  blocks: [ClassMapBlockSchema]
+});
+
 let ClassSchema = _databaseInitializer.default.Schema({
   groupTypes: [GroupTypeSchema],
   members: [{
@@ -336,58 +355,65 @@ let ClassSchema = _databaseInitializer.default.Schema({
     type: ObjectId,
     ref: "ClassTable"
   },
-  theme: [ThemeSchema]
+  theme: [ThemeSchema],
+  classMap: ClassMapSchema
 });
 
-_databaseInitializer.default.model('Class', ClassSchema);
+let Class = _databaseInitializer.default.model('Class', ClassSchema);
 
-_databaseInitializer.default.model('GroupType', GroupTypeSchema);
+let GroupType = _databaseInitializer.default.model('GroupType', GroupTypeSchema);
 
-_databaseInitializer.default.model('GroupScoreWeight', GroupScoreWeightSchema);
+let GroupScoreWeight = _databaseInitializer.default.model('GroupScoreWeight', GroupScoreWeightSchema);
 
-_databaseInitializer.default.model('Group', GroupSchema);
+let Group = _databaseInitializer.default.model('Group', GroupSchema);
 
-_databaseInitializer.default.model('Log', LogSchema);
+let Log = _databaseInitializer.default.model('Log', LogSchema);
 
-_databaseInitializer.default.model('Path', PathSchema);
+let Path = _databaseInitializer.default.model('Path', PathSchema);
 
-_databaseInitializer.default.model('Score', ScoreSchema);
+let Score = _databaseInitializer.default.model('Score', ScoreSchema);
 
-_databaseInitializer.default.model('Account', AccountSchema);
+let Account = _databaseInitializer.default.model('Account', AccountSchema);
 
-_databaseInitializer.default.model('ExpressionGroup', ExpressionGroupSchema);
+let ExpressionGroup = _databaseInitializer.default.model('ExpressionGroup', ExpressionGroupSchema);
 
-_databaseInitializer.default.model('Expression', ExpressionSchema);
+let Expression = _databaseInitializer.default.model('Expression', ExpressionSchema);
 
-_databaseInitializer.default.model('ScoreType', ScoreTypeSchema);
+let ScoreType = _databaseInitializer.default.model('ScoreType', ScoreTypeSchema);
 
-_databaseInitializer.default.model('TradeRule', TradeRuleSchema);
+let TradeRule = _databaseInitializer.default.model('TradeRule', TradeRuleSchema);
 
-_databaseInitializer.default.model('UserGroup', UserGroupSchema);
+let UserGroup = ongoose.model('UserGroup', UserGroupSchema);
 
-_databaseInitializer.default.model('GlobalUserGroup', GlobalUserGroupSchema);
+let GlobalUserGroup = _databaseInitializer.default.model('GlobalUserGroup', GlobalUserGroupSchema);
 
-_databaseInitializer.default.model('ScoreGroup', ScoreGroupSchema);
+let ScoreGroup = _databaseInitializer.default.model('ScoreGroup', ScoreGroupSchema);
 
-_databaseInitializer.default.model('ClassTable', ClassTableSchema);
+let ClassTable = _databaseInitializer.default.model('ClassTable', ClassTableSchema);
 
-_databaseInitializer.default.model('ClassTableItem', ClassTableItemSchema);
+let ClassTableItem = _databaseInitializer.default.model('ClassTableItem', ClassTableItemSchema);
 
-_databaseInitializer.default.model('Config', ConfigSchema);
+let Config = _databaseInitializer.default.model('Config', ConfigSchema);
 
-_databaseInitializer.default.model('ClassState', ClassStateSchema);
+let ClassState = _databaseInitializer.default.model('ClassState', ClassStateSchema);
 
-_databaseInitializer.default.model('Question', QuestionSchema);
+let Question = _databaseInitializer.default.model('Question', QuestionSchema);
 
-_databaseInitializer.default.model('Test', TestSchema);
+let Test = _databaseInitializer.default.model('Test', TestSchema);
 
-_databaseInitializer.default.model('Provide', ProvideSchema);
+let Provide = _databaseInitializer.default.model('Provide', ProvideSchema);
 
-_databaseInitializer.default.model('AccountHistory', AccountHistorySchema);
+let AccountHistory = _databaseInitializer.default.model('AccountHistory', AccountHistorySchema);
 
-_databaseInitializer.default.model('Theme', ThemeSchema);
+let Theme = _databaseInitializer.default.model('Theme', ThemeSchema);
 
-_databaseInitializer.default.model('Broadcast', BroadcastSchema);
+let BroadCast = _databaseInitializer.default.model('Broadcast', BroadcastSchema);
+
+let ClassMap = _databaseInitializer.default.model('ClassMap', ClassMapSchema);
+
+let ClassMapBlock = _databaseInitializer.default.model('ClassMapBlock', ClassMapBlockSchema);
+
+let ClassMapRow = _databaseInitializer.default.model('ClassMapRow', ClassMapRowSchema);
 
 console.log("数据库创建完成");
 

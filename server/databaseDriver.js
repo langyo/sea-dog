@@ -339,6 +339,25 @@ let AccountSchema = mongoose.Schema({
     accountHistory: AccountHistorySchema
 });
 
+let ClassMapRowSchema = mongoose.Schema({
+    columns: [{
+        type: ObjectId,
+        ref: "Account"
+    }]
+});
+
+let ClassMapBlockSchema = mongoose.Schema({
+    height: Number,
+    weight: Number,
+    rows: [ClassMapRowSchema]
+})
+
+let ClassMapSchema = mongoose.Schema({
+    height: Number,
+    weight: Number,
+    blocks: [ClassMapBlockSchema]
+});
+
 let ClassSchema = mongoose.Schema({
     groupTypes: [GroupTypeSchema],
     members: [{
@@ -355,34 +374,38 @@ let ClassSchema = mongoose.Schema({
         type: ObjectId,
         ref: "ClassTable"
     },
-    theme: [ThemeSchema]
+    theme: [ThemeSchema],
+    classMap: ClassMapSchema
 });
 
-mongoose.model('Class', ClassSchema);
-mongoose.model('GroupType', GroupTypeSchema);
-mongoose.model('GroupScoreWeight', GroupScoreWeightSchema);
-mongoose.model('Group', GroupSchema);
-mongoose.model('Log', LogSchema);
-mongoose.model('Path', PathSchema);
-mongoose.model('Score', ScoreSchema);
-mongoose.model('Account', AccountSchema);
-mongoose.model('ExpressionGroup', ExpressionGroupSchema);
-mongoose.model('Expression', ExpressionSchema);
-mongoose.model('ScoreType', ScoreTypeSchema);
-mongoose.model('TradeRule', TradeRuleSchema);
-mongoose.model('UserGroup', UserGroupSchema);
-mongoose.model('GlobalUserGroup', GlobalUserGroupSchema);
-mongoose.model('ScoreGroup', ScoreGroupSchema);
-mongoose.model('ClassTable', ClassTableSchema);
-mongoose.model('ClassTableItem', ClassTableItemSchema);
-mongoose.model('Config', ConfigSchema);
-mongoose.model('ClassState', ClassStateSchema);
-mongoose.model('Question', QuestionSchema);
-mongoose.model('Test', TestSchema);
-mongoose.model('Provide', ProvideSchema);
-mongoose.model('AccountHistory', AccountHistorySchema);
-mongoose.model('Theme', ThemeSchema);
-mongoose.model('Broadcast', BroadcastSchema);
+let Class = mongoose.model('Class', ClassSchema);
+let GroupType = mongoose.model('GroupType', GroupTypeSchema);
+let GroupScoreWeight = mongoose.model('GroupScoreWeight', GroupScoreWeightSchema);
+let Group = mongoose.model('Group', GroupSchema);
+let Log = mongoose.model('Log', LogSchema);
+let Path = mongoose.model('Path', PathSchema);
+let Score = mongoose.model('Score', ScoreSchema);
+let Account = mongoose.model('Account', AccountSchema);
+let ExpressionGroup = mongoose.model('ExpressionGroup', ExpressionGroupSchema);
+let Expression = mongoose.model('Expression', ExpressionSchema);
+let ScoreType = mongoose.model('ScoreType', ScoreTypeSchema);
+let TradeRule = mongoose.model('TradeRule', TradeRuleSchema);
+let UserGroup = ongoose.model('UserGroup', UserGroupSchema);
+let GlobalUserGroup = mongoose.model('GlobalUserGroup', GlobalUserGroupSchema);
+let ScoreGroup = mongoose.model('ScoreGroup', ScoreGroupSchema);
+let ClassTable = mongoose.model('ClassTable', ClassTableSchema);
+let ClassTableItem = mongoose.model('ClassTableItem', ClassTableItemSchema);
+let Config = mongoose.model('Config', ConfigSchema);
+let ClassState = mongoose.model('ClassState', ClassStateSchema);
+let Question = mongoose.model('Question', QuestionSchema);
+let Test = mongoose.model('Test', TestSchema);
+let Provide = mongoose.model('Provide', ProvideSchema);
+let AccountHistory = mongoose.model('AccountHistory', AccountHistorySchema);
+let Theme = mongoose.model('Theme', ThemeSchema);
+let BroadCast = mongoose.model('Broadcast', BroadcastSchema);
+let ClassMap = mongoose.model('ClassMap', ClassMapSchema);
+let ClassMapBlock = mongoose.model('ClassMapBlock', ClassMapBlockSchema);
+let ClassMapRow = mongoose.model('ClassMapRow', ClassMapRowSchema);
 
 console.log("数据库创建完成");
 
