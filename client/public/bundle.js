@@ -68915,6 +68915,7 @@ class Picker extends _reflux.default.Component {
       gutterBottom: true
     }, "\u5F53\u524D\u6B63\u5728\u62BD\u53D6 \uFF0C\u5171 \u4EBA")), _react.default.createElement(_CardActions.default, null, _react.default.createElement(_IconButton.default, {
       className: classes.left,
+      variant: "outlined",
       color: "primary",
       onClick: _actions.default.page.picker.scoreRemoveOne
     }, _react.default.createElement(_Minus.default, null)), _react.default.createElement(_Typography.default, {
@@ -68922,7 +68923,6 @@ class Picker extends _reflux.default.Component {
       variant: "h2"
     }, this.state.score), _react.default.createElement(_IconButton.default, {
       className: classes.right,
-      variant: "outlined",
       color: "primary",
       onClick: _actions.default.page.picker.scoreAddOne
     }, _react.default.createElement(_Plus.default, null))), _react.default.createElement(_CardActions.default, null, _react.default.createElement(_Button.default, {

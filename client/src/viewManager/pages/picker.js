@@ -76,6 +76,7 @@ class Picker extends Reflux.Component {
         <CardActions>
           <IconButton
             className={classes.left}
+            variant="outlined"
             color="primary"
             onClick={Actions.page.picker.scoreRemoveOne}
           >
@@ -89,7 +90,6 @@ class Picker extends Reflux.Component {
           </Typography>
           <IconButton
             className={classes.right}
-            variant="outlined"
             color="primary"
             onClick={Actions.page.picker.scoreAddOne}
           >

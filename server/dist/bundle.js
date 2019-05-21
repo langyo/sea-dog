@@ -429,14 +429,22 @@ _webSocketServer.connectionEvents.on('h5', conn => {
               (function* () {
                 Class.findOne({
                   name: className
-                }).populate("Account").members.count().exec((err, result) => {
+                }).populate("Account").exec((err, result) => {
                   if (err) {
                     console.log(err);
                     throw err;
                   }
 
-                  ret += result;
-                  return;
+                  result.members.count((err, result) => {
+                    if (err) {
+                      console.log(err);
+                      throw err;
+                    }
+
+                    console.log("数据库查询结果：", result);
+                    ret += result;
+                    return;
+                  });
                 });
               })().next();
               return ret;
@@ -447,14 +455,22 @@ _webSocketServer.connectionEvents.on('h5', conn => {
               (function* () {
                 Class.findOne({
                   name: className
-                }).populate("Account").members.limit(limit).skip(limit * page).select("name").exec((err, result) => {
+                }).populate("Account").exec((err, result) => {
                   if (err) {
                     console.log(err);
                     throw err;
                   }
 
-                  ret += result.reduce((prev, next) => prev + " " + next);
-                  return;
+                  result.members.limit(limit).skip(limit * page).exec((err, result) => {
+                    if (err) {
+                      console.log(err);
+                      throw err;
+                    }
+
+                    console.log("数据库查询结果：", result);
+                    ret += result.reduce((prev, next) => prev + " " + next);
+                    return;
+                  });
                 });
               })().next();
               return ret;
@@ -1057,6 +1073,7 @@ class PluginDashboard {
     });
 
     _defineProperty(this, "_sendMessage", args => {
+      console.log("即将发送：", args);
       let cmd = args.reduce((prev, next) => prev + ' ' + next);
       let type = args.shift();
 
@@ -1072,9 +1089,18 @@ class PluginDashboard {
       }
     });
 
+    _defineProperty(this, "_receiveMessagePre", str => {
+      if (str[0] == '@') return;
+      this.buffer += str + '\n';
+      let cmds = this.buffer.split('\n');
+      this.buffer = cmds.pop();
+      console.log("当前缓冲区：", this.buffer);
+      console.log("即将传入指令：", cmds);
+      cmds.forEach(n => this._receiveMessage(n));
+    });
+
     _defineProperty(this, "_receiveMessage", cmd => {
       console.log(cmd);
-      if (cmd[0] == '@') return;
       let args = cmd.trim().split(' ');
       let type = args.shift();
       let func = type == 'execute' ? this.registerObject : this.receiveObject;
@@ -1083,18 +1109,24 @@ class PluginDashboard {
 
       for (; typeof func[arg] == 'object'; func = func[arg], arg = args.shift(), cmds.push(arg)) if (func === undefined) throw new Error("不存在这个对象！");
 
-      if (type == 'execute' && func[arg] === undefined) throw new Error("不存在这个对象！"); // 开始根据解析出的参数列表调用对应的函数
+      if (type == 'execute' && func[arg] === undefined) throw new Error("不存在这个对象！");
 
-      let ret = func[arg].apply(null, args); // 如果对方为 execute，则说明是在请求数据，当 ret 非空时自动给对方一个反馈
+      try {
+        // 开始根据解析出的参数列表调用对应的函数
+        let ret = func[arg].apply(null, args); // 如果对方为 execute，则说明是在请求数据，当 ret 非空时自动给对方一个反馈
 
-      if (type == 'execute' && ret != null) this._sendMessage(['data'].concat(cmds).concat(ret.trim().split(' ')));
+        if (type == 'execute' && ret != null) this._sendMessage(['data'].concat(cmds).concat(ret.trim().split(' ')));
+      } catch (e) {
+        this._sendMessage(['data'].concat(cmds).push("fail 未注册的指令"));
+      }
     });
 
     this.connection = conn;
     this.registerObject = {};
     this.receiveObject = {};
-    conn.on('message', this._receiveMessage);
+    conn.on('message', this._receiveMessagePre);
     this.userId = null;
+    this.buffer = "";
   }
 
 }

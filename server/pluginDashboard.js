@@ -14,9 +14,10 @@ export default class PluginDashboard {
         this.connection = conn;
         this.registerObject = {};
         this.receiveObject = {};
-        conn.on('message', this._receiveMessage);
+        conn.on('message', this._receiveMessagePre);
 
         this.userId = null;
+        this.buffer = "";
     }
 
     register = (obj) => {
@@ -39,6 +40,7 @@ export default class PluginDashboard {
     }
 
     _sendMessage = (args) => {
+        console.log("即将发送：", args);
         let cmd = args.reduce((prev, next) => prev + ' ' + next);
         let type = args.shift();
 
@@ -53,9 +55,18 @@ export default class PluginDashboard {
         }
     }
 
+    _receiveMessagePre = (str) => {
+        if (str[0] == '@') return;
+        this.buffer += str + '\n';
+        let cmds = this.buffer.split('\n');
+        this.buffer = cmds.pop();
+        console.log("当前缓冲区：", this.buffer);
+        console.log("即将传入指令：", cmds);
+        cmds.forEach(n => this._receiveMessage(n));
+    }
+
     _receiveMessage = (cmd) => {
         console.log(cmd);
-        if(cmd[0] == '@') return;
         let args = cmd.trim().split(' ');
         let type = args.shift();
 
@@ -67,10 +78,14 @@ export default class PluginDashboard {
             if (func === undefined) throw new Error("不存在这个对象！");
 
         if (type == 'execute' && func[arg] === undefined) throw new Error("不存在这个对象！");
-        // 开始根据解析出的参数列表调用对应的函数
-        let ret = func[arg].apply(null, args);
-        // 如果对方为 execute，则说明是在请求数据，当 ret 非空时自动给对方一个反馈
-        if (type == 'execute' && ret != null) this._sendMessage(['data'].concat(cmds).concat(ret.trim().split(' ')));
+        try {
+            // 开始根据解析出的参数列表调用对应的函数
+            let ret = func[arg].apply(null, args);
+            // 如果对方为 execute，则说明是在请求数据，当 ret 非空时自动给对方一个反馈
+            if (type == 'execute' && ret != null) this._sendMessage(['data'].concat(cmds).concat(ret.trim().split(' ')));
+        } catch (e) {
+            this._sendMessage(['data'].concat(cmds).push("fail 未注册的指令"));
+        }
     }
 }
 

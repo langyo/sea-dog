@@ -419,14 +419,21 @@ connectionEvents.on('h5', conn => {
                         if (limit == "count") {
                             let ret = "success " + className + " ";
                             (function* () {
-                                Class.findOne({ name: className }).populate("Account").members.count().exec(
+                                Class.findOne({ name: className }).populate("Account").exec(
                                     (err, result) => {
                                         if (err) {
                                             console.log(err);
                                             throw err;
                                         }
-                                        ret += result;
-                                        return;
+                                        result.members.count((err, result) => {
+                                            if (err) {
+                                                console.log(err);
+                                                throw err;
+                                            }
+                                            console.log("数据库查询结果：", result);
+                                            ret += result;
+                                            return;
+                                        });
                                     }
                                 )
                             })().next();
@@ -437,14 +444,21 @@ connectionEvents.on('h5', conn => {
                             page = 0 + page;
                             let ret = "success " + className + " ";
                             (function* () {
-                                Class.findOne({ name: className }).populate("Account").members.limit(limit).skip(limit * page).select("name").exec(
+                                Class.findOne({ name: className }).populate("Account").exec(
                                     (err, result) => {
                                         if (err) {
                                             console.log(err);
                                             throw err;
                                         }
-                                        ret += result.reduce((prev, next) => prev + " " + next);
-                                        return;
+                                        result.members.limit(limit).skip(limit * page).exec((err, result) => {
+                                            if (err) {
+                                                console.log(err);
+                                                throw err;
+                                            }
+                                            console.log("数据库查询结果：", result);
+                                            ret += result.reduce((prev, next) => prev + " " + next);
+                                            return;
+                                        });
                                     }
                                 )
                             })().next();
