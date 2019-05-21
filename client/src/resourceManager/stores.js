@@ -12,6 +12,7 @@ import accountPage from "./pageStore/account";
 import classTablePage from "./pageStore/classTable";
 import managementPage from "./pageStore/management";
 import pickerPage from "./pageStore/picker";
+import randomizerPage from "./pageStore/randomizer";
 import practisePage from "./pageStore/practise";
 import rankPage from "./pageStore/rank";
 
@@ -35,6 +36,7 @@ export default {
         classTable: classTablePage,
         management: managementPage,
         picker: pickerPage,
+        randomizer: randomizerPage,
         practise: practisePage,
         rank: rankPage
     }

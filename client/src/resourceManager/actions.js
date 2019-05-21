@@ -83,6 +83,10 @@ export default {
             'scoreAddOne',
             'scoreRemoveOne'
         ]),
+        randomizer: Reflux.createActions([
+            'scoreAddOne',
+            'scoreRemoveOne'
+        ]),
         practise: Reflux.createActions([
 
         ]),

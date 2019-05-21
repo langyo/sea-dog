@@ -68002,6 +68002,7 @@ var _default = {
     classTable: _reflux.default.createActions([]),
     management: _reflux.default.createActions([]),
     picker: _reflux.default.createActions(['scoreAddOne', 'scoreRemoveOne']),
+    randomizer: _reflux.default.createActions(['scoreAddOne', 'scoreRemoveOne']),
     practise: _reflux.default.createActions([]),
     rank: _reflux.default.createActions([])
   }
@@ -68124,8 +68125,53 @@ exports.default = _default;
 },{"../actions":331,"../database":332,"reflux":306}],338:[function(require,module,exports){
 arguments[4][334][0].apply(exports,arguments)
 },{"dup":334}],339:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _reflux = _interopRequireDefault(require("reflux"));
+
+var _database = _interopRequireDefault(require("../database"));
+
+var _actions = _interopRequireDefault(require("../actions"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+class Randomizer extends _reflux.default.Store {
+  constructor() {
+    super();
+    this.state = {
+      score: [0],
+      list: ["点击开始"],
+      generateCount: 6
+    };
+    this.listenToMany(_actions.default.page.randomizer);
+  }
+
+  scoreAddOne(id) {
+    this.setState({
+      score: this.state.score[id] + 1
+    });
+  }
+
+  scoreRemoveOne(id) {
+    this.setState({
+      score: this.state.score[id] - 1
+    });
+  }
+
+}
+
+var _default = new Randomizer();
+
+exports.default = _default;
+
+},{"../actions":331,"../database":332,"reflux":306}],340:[function(require,module,exports){
 arguments[4][334][0].apply(exports,arguments)
-},{"dup":334}],340:[function(require,module,exports){
+},{"dup":334}],341:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -68157,6 +68203,8 @@ var _management = _interopRequireDefault(require("./pageStore/management"));
 
 var _picker = _interopRequireDefault(require("./pageStore/picker"));
 
+var _randomizer = _interopRequireDefault(require("./pageStore/randomizer"));
+
 var _practise = _interopRequireDefault(require("./pageStore/practise"));
 
 var _rank = _interopRequireDefault(require("./pageStore/rank"));
@@ -68181,13 +68229,14 @@ var _default = {
     classTable: _classTable.default,
     management: _management.default,
     picker: _picker.default,
+    randomizer: _randomizer.default,
     practise: _practise.default,
     rank: _rank.default
   }
 };
 exports.default = _default;
 
-},{"./databaseStore/classes":333,"./pageStore/account":334,"./pageStore/classTable":335,"./pageStore/management":336,"./pageStore/picker":337,"./pageStore/practise":338,"./pageStore/rank":339,"./viewStore/dialog":341,"./viewStore/fab":342,"./viewStore/language":343,"./viewStore/popupMenu":344,"./viewStore/popupMessage":345,"./viewStore/tag":346,"./viewStore/theme":347}],341:[function(require,module,exports){
+},{"./databaseStore/classes":333,"./pageStore/account":334,"./pageStore/classTable":335,"./pageStore/management":336,"./pageStore/picker":337,"./pageStore/practise":338,"./pageStore/randomizer":339,"./pageStore/rank":340,"./viewStore/dialog":342,"./viewStore/fab":343,"./viewStore/language":344,"./viewStore/popupMenu":345,"./viewStore/popupMessage":346,"./viewStore/tag":347,"./viewStore/theme":348}],342:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -68230,7 +68279,7 @@ var _default = new Dialog();
 
 exports.default = _default;
 
-},{"../actions":331,"../database":332,"reflux":306}],342:[function(require,module,exports){
+},{"../actions":331,"../database":332,"reflux":306}],343:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -68265,7 +68314,7 @@ var _default = new Fab();
 
 exports.default = _default;
 
-},{"../actions":331,"../database":332,"reflux":306}],343:[function(require,module,exports){
+},{"../actions":331,"../database":332,"reflux":306}],344:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -68303,7 +68352,7 @@ var _default = new Language();
 
 exports.default = _default;
 
-},{"../actions":331,"../database":332,"reflux":306}],344:[function(require,module,exports){
+},{"../actions":331,"../database":332,"reflux":306}],345:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -68346,7 +68395,7 @@ var _default = new PopupMenu();
 
 exports.default = _default;
 
-},{"../actions":331,"../database":332,"reflux":306}],345:[function(require,module,exports){
+},{"../actions":331,"../database":332,"reflux":306}],346:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -68381,7 +68430,7 @@ var _default = new PopupMessage();
 
 exports.default = _default;
 
-},{"../actions":331,"../database":332,"reflux":306}],346:[function(require,module,exports){
+},{"../actions":331,"../database":332,"reflux":306}],347:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -68416,7 +68465,7 @@ var _default = new Tag();
 
 exports.default = _default;
 
-},{"../actions":331,"../database":332,"reflux":306}],347:[function(require,module,exports){
+},{"../actions":331,"../database":332,"reflux":306}],348:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -68470,7 +68519,7 @@ var _default = new Theme();
 
 exports.default = _default;
 
-},{"../actions":331,"../database":332,"reflux":306}],348:[function(require,module,exports){
+},{"../actions":331,"../database":332,"reflux":306}],349:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -68564,7 +68613,7 @@ var _default = (0, _styles.withStyles)(styles)(About);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":331,"../../resourceManager/stores":340,"@material-ui/core/Button":37,"@material-ui/core/Dialog":55,"@material-ui/core/DialogActions":47,"@material-ui/core/DialogContent":51,"@material-ui/core/DialogContentText":49,"@material-ui/core/DialogTitle":53,"@material-ui/core/Fade":61,"@material-ui/core/Grow":69,"@material-ui/core/Typography":108,"@material-ui/core/styles":128,"classnames":154,"prop-types":259,"react":281,"react-router":274,"reflux":306,"shortid":316}],349:[function(require,module,exports){
+},{"../../resourceManager/actions":331,"../../resourceManager/stores":341,"@material-ui/core/Button":37,"@material-ui/core/Dialog":55,"@material-ui/core/DialogActions":47,"@material-ui/core/DialogContent":51,"@material-ui/core/DialogContentText":49,"@material-ui/core/DialogTitle":53,"@material-ui/core/Fade":61,"@material-ui/core/Grow":69,"@material-ui/core/Typography":108,"@material-ui/core/styles":128,"classnames":154,"prop-types":259,"react":281,"react-router":274,"reflux":306,"shortid":316}],350:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -68669,7 +68718,7 @@ var _default = (0, _styles.withStyles)(styles)(Setting);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":331,"../../resourceManager/stores":340,"@material-ui/core/Button":37,"@material-ui/core/Dialog":55,"@material-ui/core/DialogActions":47,"@material-ui/core/DialogContent":51,"@material-ui/core/DialogTitle":53,"@material-ui/core/Fade":61,"@material-ui/core/FormControlLabel":63,"@material-ui/core/FormGroup":67,"@material-ui/core/Grow":69,"@material-ui/core/Radio":96,"@material-ui/core/RadioGroup":94,"@material-ui/core/Switch":104,"@material-ui/core/Typography":108,"@material-ui/core/styles":128,"classnames":154,"prop-types":259,"react":281,"react-router":274,"reflux":306,"shortid":316}],350:[function(require,module,exports){
+},{"../../resourceManager/actions":331,"../../resourceManager/stores":341,"@material-ui/core/Button":37,"@material-ui/core/Dialog":55,"@material-ui/core/DialogActions":47,"@material-ui/core/DialogContent":51,"@material-ui/core/DialogTitle":53,"@material-ui/core/Fade":61,"@material-ui/core/FormControlLabel":63,"@material-ui/core/FormGroup":67,"@material-ui/core/Grow":69,"@material-ui/core/Radio":96,"@material-ui/core/RadioGroup":94,"@material-ui/core/Switch":104,"@material-ui/core/Typography":108,"@material-ui/core/styles":128,"classnames":154,"prop-types":259,"react":281,"react-router":274,"reflux":306,"shortid":316}],351:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -68783,7 +68832,7 @@ var _default = (0, _styles.withStyles)(styles)(Root);
 
 exports.default = _default;
 
-},{"./pages/account":352,"./pages/accountMobile":353,"./pages/classChoiceDesktop":354,"./pages/classMap":355,"./pages/classTable":356,"./pages/management":357,"./pages/picker":358,"./pages/practise":359,"./pages/rank":360,"./views/appbar":361,"./views/fab":364,"./views/windowManager":365,"@material-ui/core/CssBaseline":45,"@material-ui/core/colors/red":113,"@material-ui/core/styles":128,"classnames":154,"prop-types":259,"react":281,"react-router-dom":271,"reflux":306,"shortid":316}],351:[function(require,module,exports){
+},{"./pages/account":353,"./pages/accountMobile":354,"./pages/classChoiceDesktop":355,"./pages/classMap":356,"./pages/classTable":357,"./pages/management":358,"./pages/picker":359,"./pages/practise":360,"./pages/rank":361,"./views/appbar":362,"./views/fab":365,"./views/windowManager":366,"@material-ui/core/CssBaseline":45,"@material-ui/core/colors/red":113,"@material-ui/core/styles":128,"classnames":154,"prop-types":259,"react":281,"react-router-dom":271,"reflux":306,"shortid":316}],352:[function(require,module,exports){
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -68796,9 +68845,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 _reactDom.default.render(_react.default.createElement(_mainView.default, null), document.querySelector('#content'));
 
-},{"./mainView":350,"react":281,"react-dom":263}],352:[function(require,module,exports){
-arguments[4][334][0].apply(exports,arguments)
-},{"dup":334}],353:[function(require,module,exports){
+},{"./mainView":351,"react":281,"react-dom":263}],353:[function(require,module,exports){
 arguments[4][334][0].apply(exports,arguments)
 },{"dup":334}],354:[function(require,module,exports){
 arguments[4][334][0].apply(exports,arguments)
@@ -68809,6 +68856,8 @@ arguments[4][334][0].apply(exports,arguments)
 },{"dup":334}],357:[function(require,module,exports){
 arguments[4][334][0].apply(exports,arguments)
 },{"dup":334}],358:[function(require,module,exports){
+arguments[4][334][0].apply(exports,arguments)
+},{"dup":334}],359:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -68946,11 +68995,11 @@ var _default = (0, _styles.withStyles)(styles)(Picker);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":331,"../../resourceManager/stores":340,"@material-ui/core/Button":37,"@material-ui/core/Card":43,"@material-ui/core/CardActions":39,"@material-ui/core/CardContent":41,"@material-ui/core/IconButton":71,"@material-ui/core/Typography":108,"@material-ui/core/styles":128,"classnames":154,"mdi-material-ui/DotsVertical":236,"mdi-material-ui/Minus":241,"mdi-material-ui/PacMan":243,"mdi-material-ui/Plus":245,"mdi-material-ui/StopCircleOutline":247,"prop-types":259,"react":281,"react-router":274,"reflux":306,"shortid":316}],359:[function(require,module,exports){
-arguments[4][334][0].apply(exports,arguments)
-},{"dup":334}],360:[function(require,module,exports){
+},{"../../resourceManager/actions":331,"../../resourceManager/stores":341,"@material-ui/core/Button":37,"@material-ui/core/Card":43,"@material-ui/core/CardActions":39,"@material-ui/core/CardContent":41,"@material-ui/core/IconButton":71,"@material-ui/core/Typography":108,"@material-ui/core/styles":128,"classnames":154,"mdi-material-ui/DotsVertical":236,"mdi-material-ui/Minus":241,"mdi-material-ui/PacMan":243,"mdi-material-ui/Plus":245,"mdi-material-ui/StopCircleOutline":247,"prop-types":259,"react":281,"react-router":274,"reflux":306,"shortid":316}],360:[function(require,module,exports){
 arguments[4][334][0].apply(exports,arguments)
 },{"dup":334}],361:[function(require,module,exports){
+arguments[4][334][0].apply(exports,arguments)
+},{"dup":334}],362:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -69075,7 +69124,7 @@ var _default = (0, _styles.withStyles)(styles)(MainAppbar);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":331,"../../resourceManager/stores":340,"./bottomNavigation":362,"./drawer":363,"@material-ui/core/AppBar":21,"@material-ui/core/IconButton":71,"@material-ui/core/Toolbar":106,"@material-ui/core/Typography":108,"@material-ui/core/styles":128,"classnames":154,"mdi-material-ui/Menu":240,"mdi-material-ui/PacMan":243,"prop-types":259,"react":281,"reflux":306,"shortid":316}],362:[function(require,module,exports){
+},{"../../resourceManager/actions":331,"../../resourceManager/stores":341,"./bottomNavigation":363,"./drawer":364,"@material-ui/core/AppBar":21,"@material-ui/core/IconButton":71,"@material-ui/core/Toolbar":106,"@material-ui/core/Typography":108,"@material-ui/core/styles":128,"classnames":154,"mdi-material-ui/Menu":240,"mdi-material-ui/PacMan":243,"prop-types":259,"react":281,"reflux":306,"shortid":316}],363:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -69179,7 +69228,7 @@ var _default = (0, _styles.withStyles)(styles)(SimpleBottomNavigation);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":331,"@material-ui/core/BottomNavigation":29,"@material-ui/core/BottomNavigationAction":27,"@material-ui/core/styles":128,"classnames":154,"mdi-material-ui/AccountCircleOutline":233,"mdi-material-ui/CursorDefaultClickOutline":235,"mdi-material-ui/NoteOutline":242,"mdi-material-ui/TableLarge":248,"mdi-material-ui/TrophyVariantOutline":249,"prop-types":259,"react":281,"reflux":306,"shortid":316}],363:[function(require,module,exports){
+},{"../../resourceManager/actions":331,"@material-ui/core/BottomNavigation":29,"@material-ui/core/BottomNavigationAction":27,"@material-ui/core/styles":128,"classnames":154,"mdi-material-ui/AccountCircleOutline":233,"mdi-material-ui/CursorDefaultClickOutline":235,"mdi-material-ui/NoteOutline":242,"mdi-material-ui/TableLarge":248,"mdi-material-ui/TrophyVariantOutline":249,"prop-types":259,"react":281,"reflux":306,"shortid":316}],364:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -69367,9 +69416,9 @@ var _default = (0, _styles.withStyles)(styles)(MainDrawer);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":331,"@material-ui/core/Badge":25,"@material-ui/core/Divider":57,"@material-ui/core/Drawer":59,"@material-ui/core/IconButton":71,"@material-ui/core/List":81,"@material-ui/core/ListItem":78,"@material-ui/core/ListItemIcon":73,"@material-ui/core/ListItemText":75,"@material-ui/core/styles":128,"classnames":154,"mdi-material-ui/AccountCircleOutline":233,"mdi-material-ui/AccountGroup":234,"mdi-material-ui/CursorDefaultClickOutline":235,"mdi-material-ui/GoogleClassroom":237,"mdi-material-ui/Home":238,"mdi-material-ui/InformationOutline":239,"mdi-material-ui/NoteOutline":242,"mdi-material-ui/Palette":244,"mdi-material-ui/SettingsOutline":246,"mdi-material-ui/TableLarge":248,"mdi-material-ui/TrophyVariantOutline":249,"prop-types":259,"react":281,"reflux":306,"shortid":316}],364:[function(require,module,exports){
+},{"../../resourceManager/actions":331,"@material-ui/core/Badge":25,"@material-ui/core/Divider":57,"@material-ui/core/Drawer":59,"@material-ui/core/IconButton":71,"@material-ui/core/List":81,"@material-ui/core/ListItem":78,"@material-ui/core/ListItemIcon":73,"@material-ui/core/ListItemText":75,"@material-ui/core/styles":128,"classnames":154,"mdi-material-ui/AccountCircleOutline":233,"mdi-material-ui/AccountGroup":234,"mdi-material-ui/CursorDefaultClickOutline":235,"mdi-material-ui/GoogleClassroom":237,"mdi-material-ui/Home":238,"mdi-material-ui/InformationOutline":239,"mdi-material-ui/NoteOutline":242,"mdi-material-ui/Palette":244,"mdi-material-ui/SettingsOutline":246,"mdi-material-ui/TableLarge":248,"mdi-material-ui/TrophyVariantOutline":249,"prop-types":259,"react":281,"reflux":306,"shortid":316}],365:[function(require,module,exports){
 arguments[4][334][0].apply(exports,arguments)
-},{"dup":334}],365:[function(require,module,exports){
+},{"dup":334}],366:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -69420,4 +69469,4 @@ class MainWindowManager extends _reflux.default.Component {
 var _default = MainWindowManager;
 exports.default = _default;
 
-},{"../../resourceManager/stores":340,"../dialogs/about":348,"../dialogs/setting":349,"@material-ui/core/styles":128,"classnames":154,"prop-types":259,"react":281,"react-router":274,"reflux":306,"shortid":316}]},{},[351]);
+},{"../../resourceManager/stores":341,"../dialogs/about":349,"../dialogs/setting":350,"@material-ui/core/styles":128,"classnames":154,"prop-types":259,"react":281,"react-router":274,"reflux":306,"shortid":316}]},{},[352]);
