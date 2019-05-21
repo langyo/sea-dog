@@ -8,8 +8,8 @@ class Theme extends Reflux.Store {
 	constructor() {
 		super();
 		this.state = {
-            primaryColor: '#39C5BB',
-			secondaryColor: '#66CCFF',
+            primaryColor: '#006064',
+			secondaryColor: '#006064',
 			menuTheme: 'ios'    // Android 版为左侧抽屉，ios 版为底部选择器
 		};
 		this.listenToMany(Actions.view.theme);

@@ -37,11 +37,10 @@ class MainAppbar extends Reflux.Component {
     constructor(props) {
         super(props);
 
-        this.store = Stores.view.theme;
+        this.stores = [Stores.view.theme, Stores.view.drawer];
     }
 
     state = {
-        drawerOpen: false,
         isDesktop: document.body.scrollWidth >= 600
     }
 
@@ -57,12 +56,6 @@ class MainAppbar extends Reflux.Component {
         this.setState({isDesktop: document.body.scrollWidth >= 600});
     };
 
-    toggleDrawer = () => {
-        this.setState({
-            drawerOpen: !this.state.drawerOpen
-        });
-    };
-
     render() {
         const { classes } = this.props;
 
@@ -74,7 +67,7 @@ class MainAppbar extends Reflux.Component {
                             (!this.state.isDesktop && this.state.menuTheme == 'android') && (<IconButton
                                 color="inherit"
                                 aria-label="打开侧边栏"
-                                onClick={this.toggleDrawer}
+                                onClick={Actions.view.drawer.toggleDrawerOpen}
                                 className={classes.menuButton}
                             >
                                 <MenuIcon />
@@ -90,8 +83,6 @@ class MainAppbar extends Reflux.Component {
                 </AppBar>
                 {(this.state.menuTheme == 'android' || this.state.isDesktop) && <Drawer
                     className={classes.drawer}
-                    open={this.state.isDesktop || this.state.drawerOpen}
-                    onToggle={this.toggleDrawer}
                     isDesktop={this.state.isDesktop}
                 />}
                 {!this.state.isDesktop && this.state.menuTheme == 'ios' && <BottomNavigation />}

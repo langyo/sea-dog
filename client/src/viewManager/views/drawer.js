@@ -6,6 +6,8 @@ import shortid from "shortid";
 
 import { withStyles } from '@material-ui/core/styles';
 
+import { Link } from "react-router-dom";
+
 import Drawer from '@material-ui/core/Drawer';
 import IconButton from '@material-ui/core/IconButton';
 import List from '@material-ui/core/List';
@@ -27,6 +29,7 @@ import InfoIcon from "mdi-material-ui/InformationOutline";
 import ThemeIcon from "mdi-material-ui/Palette";
 import HomeIcon from "mdi-material-ui/Home";
 
+import Stores from '../../resourceManager/stores';
 import Actions from "../../resourceManager/actions";
 
 const styles = theme => ({
@@ -42,24 +45,18 @@ const styles = theme => ({
 });
 
 class MainDrawer extends Reflux.Component {
-	state = {
-		drawerOpen: false,
-		tag: "mainPage"
+	constructor(props) {
+		super(props);
+		this.store = Stores.view.drawer;
 	}
-
-	toggleDrawer = () => {
-		this.setState({
-			drawerOpen: !this.state.drawerOpen
-		});
-	};
 
 	render() {
 		const { classes } = this.props;
 
 		return (
 			<Drawer
-				open={this.props.open}
-				onClose={this.props.onToggle}
+				open={this.props.isDesktop || this.state.drawerOpen}
+				onClose={Actions.view.drawer.toggleDrawerOpen}
 				className={classes.list}
 				variant={this.props.isDesktop ? "permanent" : "temporary"}
 			>
@@ -88,7 +85,7 @@ class MainDrawer extends Reflux.Component {
 						</ListItemIcon>
 						<ListItemText inset primary="主页" />
 					</ListItem>
-					<ListItem button selected>
+					<ListItem button onClick={() => Actions.view.drawer.toggleTo("picker")}>
 						<ListItemIcon>
 							<PickStudentIcon />
 						</ListItemIcon>

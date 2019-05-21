@@ -31,6 +31,11 @@ export default {
     },
 
     view: {
+        drawer: Reflux.createActions([
+            'toggleTo',
+            'reset',
+            'toggleDrawerOpen'
+        ]),
         tag: Reflux.createActions([
             'create',
             'delete',

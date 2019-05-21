@@ -22,23 +22,12 @@ import ClassMap from "./pages/classMap";
 import ClassTable from "./pages/classTable";
 import Management from "./pages/management";
 import Picker from "./pages/picker";
+import Randomizer from "./pages/randomizer";
 import Practise from "./pages/practise";
 import Rank from "./pages/rank";
 
-const theme = createMuiTheme({
-    palette: {
-        primary: {
-            main: '#006064',
-        },
-        secondary: {
-            main: '#006064',
-        },
-        error: red
-    },
-    typography: {
-        useNextVariants: true,
-    }
-});
+import Stores from '../resourceManager/stores';
+import Actions from "../resourceManager/actions";
 
 const styles = theme => ({
     root: {
@@ -52,26 +41,37 @@ const styles = theme => ({
 });
 
 class Root extends Reflux.Component {
+    constructor(props) {
+        super(props);
+        this.stores = [Stores.view.drawer, Stores.view.theme];
+    }
     render() {
         const { classes } = this.props;
 
         return (
             <div className={classes.root}>
                 <CssBaseline />
-                <MuiThemeProvider theme={theme}>
-                    <BrowserRouter>
-                        <Appbar />
-                        <WindowManager />
+                <MuiThemeProvider theme={createMuiTheme({
+                    palette: {
+                        primary: {
+                            main: this.state.primaryColor
+                        },
+                        secondary: {
+                            main: this.state.secondaryColor
+                        },
+                        error: red
+                    },
+                    typography: {
+                        useNextVariants: true,
+                    }
+                })}>
+                    <Appbar />
+                    <WindowManager />
 
-                        <div className={classes.toolbar} />
+                    <div className={classes.toolbar} />
 
-                        <Switch>
-                            <Route exact path='/picker' component={() => <Picker />} />
-                            <Route path='/picker2' component={() => <Picker />} />
-                            <Redirect path="/" to={{ pathname: '/picker' }} />
-                        </Switch>
-                    </BrowserRouter>
-
+                    {this.state.show == "picker" && <Picker />}
+                    {this.state.show == "randomizer" && <Randomizer />}
                 </MuiThemeProvider>
             </div>
         );

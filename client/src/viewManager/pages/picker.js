@@ -22,7 +22,6 @@ import MinusIcon from "mdi-material-ui/Minus";
 
 import Stores from '../../resourceManager/stores';
 import Actions from "../../resourceManager/actions";
-import actions from "../../resourceManager/actions";
 
 const styles = theme => ({
   button: {

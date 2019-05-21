@@ -7,6 +7,7 @@ import popupMessage from "./viewStore/popupMessage";
 import theme from "./viewStore/theme";
 import fab from "./viewStore/fab";
 import language from "./viewStore/language";
+import drawer from "./viewStore/drawer";
 
 import accountPage from "./pageStore/account";
 import classTablePage from "./pageStore/classTable";
@@ -22,6 +23,7 @@ export default {
     },
 
     view: {
+        drawer: drawer,
         tag: tag,
         dialog: dialog,
         popupMenu: popupMenu,

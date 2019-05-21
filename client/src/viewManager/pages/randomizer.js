@@ -29,6 +29,9 @@ import PlusIcon from "mdi-material-ui/Plus";
 import MinusIcon from "mdi-material-ui/Minus";
 import KeyboardIcon from "mdi-material-ui/KeyboardOutline";
 
+import Stores from '../../resourceManager/stores';
+import Actions from "../../resourceManager/actions";
+
 const styles = theme => ({
   button: {
     width: 150,
