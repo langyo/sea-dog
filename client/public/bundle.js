@@ -71451,13 +71451,7 @@ class Root extends _reflux.default.Component {
       })
     }, _react.default.createElement(_appbar.default, null), _react.default.createElement(_windowManager.default, null), _react.default.createElement("div", {
       className: classes.toolbar
-    }), _react.default.createElement(_broadcasts.default, {
-      open: this.state.show == ""
-    }), _react.default.createElement(_picker.default, {
-      open: this.state.show == "picker"
-    }), _react.default.createElement(_randomizer.default, {
-      open: this.state.show == "randomizer"
-    })));
+    }), this.state.show == "" && _react.default.createElement(_broadcasts.default, null), this.state.show == "picker" && _react.default.createElement(_picker.default, null), this.state.show == "randomizer" && _react.default.createElement(_randomizer.default, null)));
   }
 
 }
@@ -71591,7 +71585,7 @@ class Picker extends _reflux.default.Component {
       classes
     } = this.props;
     return _react.default.createElement(_Fade.default, {
-      in: this.props.open
+      in: true
     }, _react.default.createElement("div", null, _react.default.createElement(_Card.default, {
       className: classes.card
     }, _react.default.createElement(_CardContent.default, null, this.state.broadcasts.map((n, index) => _react.default.createElement("div", {
@@ -71724,7 +71718,7 @@ class Picker extends _reflux.default.Component {
       classes
     } = this.props;
     return _react.default.createElement(_Fade.default, {
-      in: this.props.open
+      in: true
     }, _react.default.createElement("div", null, _react.default.createElement(_Card.default, {
       className: classes.card
     }, _react.default.createElement(_CardContent.default, null, _react.default.createElement(_Typography.default, {
@@ -72317,7 +72311,7 @@ class MainDrawer extends _reflux.default.Component {
     }), _react.default.createElement(_ListItem.default, {
       button: true,
       onClick: () => _actions.default.view.drawer.reset(),
-      selected: this.state.show == ''
+      selected: this.state.show == ""
     }, _react.default.createElement(_ListItemIcon.default, null, _react.default.createElement(_Home.default, null)), _react.default.createElement(_ListItemText.default, {
       inset: true,
       primary: "\u4E3B\u9875"

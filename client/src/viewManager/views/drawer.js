@@ -81,7 +81,7 @@ class MainDrawer extends Reflux.Component {
 					<Divider className={classes.line}/>
 					<ListItem button
 						onClick={() => Actions.view.drawer.reset()}
-						selected={this.state.show == ''}
+						selected={this.state.show == ""}
 					>
 						<ListItemIcon>
 							<HomeIcon />

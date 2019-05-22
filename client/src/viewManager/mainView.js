@@ -70,9 +70,9 @@ class Root extends Reflux.Component {
 
                     <div className={classes.toolbar} />
 
-                    <Broadcast open={this.state.show == ""} />
-                    <Picker open={this.state.show == "picker"} />
-                    <Randomizer open={this.state.show == "randomizer"} />
+                    {this.state.show == "" && <Broadcast />}
+                    {this.state.show == "picker" && <Picker />}
+                    {this.state.show == "randomizer" && <Randomizer />}
                 </MuiThemeProvider>
             </div>
         );

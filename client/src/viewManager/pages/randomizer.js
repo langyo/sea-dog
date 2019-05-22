@@ -90,7 +90,7 @@ class Randomizer extends Reflux.Component {
     const { classes } = this.props;
 
     return (
-      <Fade in={this.props.open}>
+      <Fade in={true}>
         <div>
           <Card className={classes.card}>
             <CardActions>
