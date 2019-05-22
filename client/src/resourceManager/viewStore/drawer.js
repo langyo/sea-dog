@@ -9,7 +9,7 @@ class Drawer extends Reflux.Store {
 	constructor() {
 		super();
 		this.state = {
-			show: "picker",
+			show: '',
 			drawerOpen: false
 		};
 		this.listenToMany(Actions.view.drawer);
@@ -20,7 +20,7 @@ class Drawer extends Reflux.Store {
 	}
 
 	reset() {
-		this.setState({ show: 'main' })
+		this.setState({ show: '' })
 	}
 
 	toggleDrawerOpen = () => {

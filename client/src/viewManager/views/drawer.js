@@ -79,13 +79,19 @@ class MainDrawer extends Reflux.Component {
 						<ListItemText inset primary="未登录" secondary="当前教师" />
 					</ListItem>
 					<Divider className={classes.line}/>
-					<ListItem button>
+					<ListItem button
+						onClick={() => Actions.view.drawer.reset()}
+						selected={this.state.show == ''}
+					>
 						<ListItemIcon>
 							<HomeIcon />
 						</ListItemIcon>
 						<ListItemText inset primary="主页" />
 					</ListItem>
-					<ListItem button onClick={() => Actions.view.drawer.toggleTo("picker")}>
+					<ListItem button
+						onClick={() => Actions.view.drawer.toggleTo("picker")}
+						selected={this.state.show in ['picker', 'randomizer']}
+					>
 						<ListItemIcon>
 							<PickStudentIcon />
 						</ListItemIcon>

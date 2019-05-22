@@ -1,11 +1,11 @@
 import React, { useCallback } from "react";
 import Reflux from "reflux";
-import { Router, Route, Link, IndexRoute, browserHistory } from "react-router";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import shortid from "shortid";
 
 import { withStyles } from "@material-ui/core/styles";
+import Fade from "@material-ui/core/Fade";
 
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -63,64 +63,104 @@ class Picker extends Reflux.Component {
     const { classes } = this.props;
 
     return (
-      <Card className={classes.card}>
-        <CardContent>
-          <Typography variant="h4" gutterBottom>
-            {this.state.nowSelecting}
-          </Typography>
-          <Typography variant="caption" gutterBottom>
-            当前正在抽取 ，共 人
-          </Typography>
-        </CardContent>
-        <CardActions>
-          <IconButton
-            className={classes.left}
-            variant="outlined"
-            color="primary"
-            onClick={Actions.page.picker.scoreRemoveOne}
-          >
-            <MinusIcon />
-          </IconButton>
-          <Typography
-            className={classNames(classes.left, classes.right)}
-            variant="h2"
-          >
-            {this.state.score}
-          </Typography>
-          <IconButton
-            className={classes.right}
-            color="primary"
-            onClick={Actions.page.picker.scoreAddOne}
-          >
-            <PlusIcon />
-          </IconButton>
-        </CardActions>
-        <CardActions>
-          <Button
-            className={classNames(classes.button)}
-            variant="contained"
-            color="primary"
-            onClick={this.handleRoundingToggle}
-            size="large"
-          >
-            {!this.state.rounding && (
-              <PacManIcon className={classes.extendedIcon} />
-            )}
-            {!this.state.rounding && "开始点名"}
-            {this.state.rounding && (
-              <StopIcon className={classes.extendedIcon} />
+      <Fade in={this.props.open}>
+        <div>
+          <Card className={classes.card}>
+            <CardContent>
+              <Typography variant="h4" gutterBottom>
+                {this.state.nowSelecting}
+              </Typography>
+              <Typography variant="caption" gutterBottom>
+                当前正在抽取 ，共 人
+              </Typography>
+            </CardContent>
+            <CardActions>
+              <Button
+                className={classNames(classes.button)}
+                variant="contained"
+                color="primary"
+                onClick={this.handleRoundingToggle}
+                size="large"
+              >
+                {!this.state.rounding && (
+                  <PacManIcon className={classes.extendedIcon} />
+                )}
+                {!this.state.rounding && "开始点名"}
+                {this.state.rounding && (
+                  <StopIcon className={classes.extendedIcon} />
 
-            )}
-            {this.state.rounding && "停！"}
-          </Button>
-          <IconButton className={classes.right}>
-            <MoreVertIcon />
-          </IconButton>
-          )}
+                )}
+                {this.state.rounding && "停！"}
+              </Button>
+              <IconButton className={classes.right}>
+                <MoreVertIcon />
+              </IconButton>
+              )}
         </CardActions>
-      </Card>
+          </Card>
+          <Card className={classes.card}>
+            <CardContent>
+              <Typography variant="h6">
+                当前个人分数
+              </Typography>
+            </CardContent>
+            <CardActions>
+              <IconButton
+                className={classes.left}
+                variant="outlined"
+                color="primary"
+                onClick={Actions.page.picker.scoreRemoveOne}
+              >
+                <MinusIcon />
+              </IconButton>
+              <Typography
+                className={classNames(classes.left, classes.right)}
+                variant="h2"
+              >
+                {this.state.score}
+              </Typography>
+              <IconButton
+                className={classes.right}
+                color="primary"
+                onClick={Actions.page.picker.scoreAddOne}
+              >
+                <PlusIcon />
+              </IconButton>
+            </CardActions>
+          </Card>
+          <Card className={classes.card}>
+            <CardContent>
+              <Typography variant="h6">
+                战绩
+              </Typography>
+              <Typography variant="body1">
+                本节课已获得：0
+              </Typography>
+              <Typography variant="body1">
+                今日已获得： 0
+              </Typography>
+              <Typography variant="body1">
+                本周已获得：0
+              </Typography>
+              <Typography variant="body1">
+                本月已获得：0
+              </Typography>
+              <Typography variant="body1">
+                所在小组总分：0
+              </Typography>
+              <Typography variant="body1">
+                所在小组排名：0
+              </Typography>
+            </CardContent>
+          </Card>
+        </div>
+      </Fade>
     );
   }
+}
+
+Picker.propTypes = {
+  open: PropTypes.bool
 }
 
 export default withStyles(styles)(Picker);

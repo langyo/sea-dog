@@ -9,6 +9,7 @@ import fab from "./viewStore/fab";
 import language from "./viewStore/language";
 import drawer from "./viewStore/drawer";
 
+import broadcastPage from "./pageStore/broadcasts";
 import accountPage from "./pageStore/account";
 import classTablePage from "./pageStore/classTable";
 import managementPage from "./pageStore/management";
@@ -34,6 +35,7 @@ export default {
     },
 
     page: {
+        broadcast: broadcastPage,
         account: accountPage,
         classTable: classTablePage,
         management: managementPage,

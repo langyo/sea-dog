@@ -69,6 +69,9 @@ export default {
     },
 
     page:{
+        broadcast: Reflux.createActions([
+            'update'
+        ]),
         account: Reflux.createActions([
 
         ]),

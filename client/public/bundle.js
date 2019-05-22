@@ -70511,6 +70511,7 @@ var _default = {
     language: _reflux.default.createActions(['toggleTo'])
   },
   page: {
+    broadcast: _reflux.default.createActions(['update']),
     account: _reflux.default.createActions([]),
     classChoice: _reflux.default.createActions([]),
     classMap: _reflux.default.createActions([]),
@@ -70590,10 +70591,68 @@ exports.default = _default;
 "use strict";
 
 },{}],353:[function(require,module,exports){
-arguments[4][352][0].apply(exports,arguments)
-},{"dup":352}],354:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _reflux = _interopRequireDefault(require("reflux"));
+
+var _database = _interopRequireDefault(require("../database"));
+
+var _stores = _interopRequireDefault(require("../../resourceManager/stores"));
+
+var _actions = _interopRequireDefault(require("../../resourceManager/actions"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+const getNowDate = () => {
+  var date = new Date();
+  var seperator1 = "/";
+  var seperator2 = ":";
+  var month = date.getMonth() + 1;
+  var strDate = date.getDate();
+
+  if (month >= 1 && month <= 9) {
+    month = "0" + month;
+  }
+
+  if (strDate >= 0 && strDate <= 9) {
+    strDate = "0" + strDate;
+  }
+
+  var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate + " " + date.getHours() + seperator2 + date.getMinutes() + seperator2 + date.getSeconds();
+  return currentdate;
+};
+
+class Drawer extends _reflux.default.Store {
+  constructor() {
+    super();
+    this.state = {
+      broadcasts: [{
+        title: "正在建设中",
+        date: getNowDate(),
+        description: "现在正在建设，请耐心等待……"
+      }]
+    };
+    this.listenToMany(_actions.default.view.drawer);
+  }
+
+  update(name) {}
+
+}
+
+var _default = new Drawer();
+
+exports.default = _default;
+
+},{"../../resourceManager/actions":349,"../../resourceManager/stores":360,"../database":350,"reflux":324}],354:[function(require,module,exports){
 arguments[4][352][0].apply(exports,arguments)
 },{"dup":352}],355:[function(require,module,exports){
+arguments[4][352][0].apply(exports,arguments)
+},{"dup":352}],356:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -70637,9 +70696,9 @@ var _default = new Picker();
 
 exports.default = _default;
 
-},{"../actions":349,"../database":350,"reflux":324}],356:[function(require,module,exports){
+},{"../actions":349,"../database":350,"reflux":324}],357:[function(require,module,exports){
 arguments[4][352][0].apply(exports,arguments)
-},{"dup":352}],357:[function(require,module,exports){
+},{"dup":352}],358:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -70684,9 +70743,9 @@ var _default = new Randomizer();
 
 exports.default = _default;
 
-},{"../actions":349,"../database":350,"reflux":324}],358:[function(require,module,exports){
+},{"../actions":349,"../database":350,"reflux":324}],359:[function(require,module,exports){
 arguments[4][352][0].apply(exports,arguments)
-},{"dup":352}],359:[function(require,module,exports){
+},{"dup":352}],360:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -70711,6 +70770,8 @@ var _fab = _interopRequireDefault(require("./viewStore/fab"));
 var _language = _interopRequireDefault(require("./viewStore/language"));
 
 var _drawer = _interopRequireDefault(require("./viewStore/drawer"));
+
+var _broadcasts = _interopRequireDefault(require("./pageStore/broadcasts"));
 
 var _account = _interopRequireDefault(require("./pageStore/account"));
 
@@ -70743,6 +70804,7 @@ var _default = {
     language: _language.default
   },
   page: {
+    broadcast: _broadcasts.default,
     account: _account.default,
     classTable: _classTable.default,
     management: _management.default,
@@ -70754,7 +70816,7 @@ var _default = {
 };
 exports.default = _default;
 
-},{"./databaseStore/classes":351,"./pageStore/account":352,"./pageStore/classTable":353,"./pageStore/management":354,"./pageStore/picker":355,"./pageStore/practise":356,"./pageStore/randomizer":357,"./pageStore/rank":358,"./viewStore/dialog":360,"./viewStore/drawer":361,"./viewStore/fab":362,"./viewStore/language":363,"./viewStore/popupMenu":364,"./viewStore/popupMessage":365,"./viewStore/tag":366,"./viewStore/theme":367}],360:[function(require,module,exports){
+},{"./databaseStore/classes":351,"./pageStore/account":352,"./pageStore/broadcasts":353,"./pageStore/classTable":354,"./pageStore/management":355,"./pageStore/picker":356,"./pageStore/practise":357,"./pageStore/randomizer":358,"./pageStore/rank":359,"./viewStore/dialog":361,"./viewStore/drawer":362,"./viewStore/fab":363,"./viewStore/language":364,"./viewStore/popupMenu":365,"./viewStore/popupMessage":366,"./viewStore/tag":367,"./viewStore/theme":368}],361:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -70797,7 +70859,7 @@ var _default = new Dialog();
 
 exports.default = _default;
 
-},{"../actions":349,"../database":350,"reflux":324}],361:[function(require,module,exports){
+},{"../actions":349,"../database":350,"reflux":324}],362:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -70828,7 +70890,7 @@ class Drawer extends _reflux.default.Store {
     });
 
     this.state = {
-      show: "picker",
+      show: '',
       drawerOpen: false
     };
     this.listenToMany(_actions.default.view.drawer);
@@ -70842,7 +70904,7 @@ class Drawer extends _reflux.default.Store {
 
   reset() {
     this.setState({
-      show: 'main'
+      show: ''
     });
   }
 
@@ -70852,7 +70914,7 @@ var _default = new Drawer();
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":349,"../../resourceManager/stores":359,"../database":350,"reflux":324}],362:[function(require,module,exports){
+},{"../../resourceManager/actions":349,"../../resourceManager/stores":360,"../database":350,"reflux":324}],363:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -70887,7 +70949,7 @@ var _default = new Fab();
 
 exports.default = _default;
 
-},{"../actions":349,"../database":350,"reflux":324}],363:[function(require,module,exports){
+},{"../actions":349,"../database":350,"reflux":324}],364:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -70925,7 +70987,7 @@ var _default = new Language();
 
 exports.default = _default;
 
-},{"../actions":349,"../database":350,"reflux":324}],364:[function(require,module,exports){
+},{"../actions":349,"../database":350,"reflux":324}],365:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -70968,7 +71030,7 @@ var _default = new PopupMenu();
 
 exports.default = _default;
 
-},{"../actions":349,"../database":350,"reflux":324}],365:[function(require,module,exports){
+},{"../actions":349,"../database":350,"reflux":324}],366:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -71003,7 +71065,7 @@ var _default = new PopupMessage();
 
 exports.default = _default;
 
-},{"../actions":349,"../database":350,"reflux":324}],366:[function(require,module,exports){
+},{"../actions":349,"../database":350,"reflux":324}],367:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -71038,7 +71100,7 @@ var _default = new Tag();
 
 exports.default = _default;
 
-},{"../actions":349,"../database":350,"reflux":324}],367:[function(require,module,exports){
+},{"../actions":349,"../database":350,"reflux":324}],368:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -71092,7 +71154,7 @@ var _default = new Theme();
 
 exports.default = _default;
 
-},{"../actions":349,"../database":350,"reflux":324}],368:[function(require,module,exports){
+},{"../actions":349,"../database":350,"reflux":324}],369:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -71186,7 +71248,7 @@ var _default = (0, _styles.withStyles)(styles)(About);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":349,"../../resourceManager/stores":359,"@material-ui/core/Button":37,"@material-ui/core/Dialog":55,"@material-ui/core/DialogActions":47,"@material-ui/core/DialogContent":51,"@material-ui/core/DialogContentText":49,"@material-ui/core/DialogTitle":53,"@material-ui/core/Fade":61,"@material-ui/core/Grow":76,"@material-ui/core/Typography":125,"@material-ui/core/styles":145,"classnames":171,"prop-types":277,"react":299,"react-router":292,"reflux":324,"shortid":334}],369:[function(require,module,exports){
+},{"../../resourceManager/actions":349,"../../resourceManager/stores":360,"@material-ui/core/Button":37,"@material-ui/core/Dialog":55,"@material-ui/core/DialogActions":47,"@material-ui/core/DialogContent":51,"@material-ui/core/DialogContentText":49,"@material-ui/core/DialogTitle":53,"@material-ui/core/Fade":61,"@material-ui/core/Grow":76,"@material-ui/core/Typography":125,"@material-ui/core/styles":145,"classnames":171,"prop-types":277,"react":299,"react-router":292,"reflux":324,"shortid":334}],370:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -71291,7 +71353,7 @@ var _default = (0, _styles.withStyles)(styles)(Setting);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":349,"../../resourceManager/stores":359,"@material-ui/core/Button":37,"@material-ui/core/Dialog":55,"@material-ui/core/DialogActions":47,"@material-ui/core/DialogContent":51,"@material-ui/core/DialogTitle":53,"@material-ui/core/Fade":61,"@material-ui/core/FormControlLabel":63,"@material-ui/core/FormGroup":70,"@material-ui/core/Grow":76,"@material-ui/core/Radio":113,"@material-ui/core/RadioGroup":111,"@material-ui/core/Switch":121,"@material-ui/core/Typography":125,"@material-ui/core/styles":145,"classnames":171,"prop-types":277,"react":299,"react-router":292,"reflux":324,"shortid":334}],370:[function(require,module,exports){
+},{"../../resourceManager/actions":349,"../../resourceManager/stores":360,"@material-ui/core/Button":37,"@material-ui/core/Dialog":55,"@material-ui/core/DialogActions":47,"@material-ui/core/DialogContent":51,"@material-ui/core/DialogTitle":53,"@material-ui/core/Fade":61,"@material-ui/core/FormControlLabel":63,"@material-ui/core/FormGroup":70,"@material-ui/core/Grow":76,"@material-ui/core/Radio":113,"@material-ui/core/RadioGroup":111,"@material-ui/core/Switch":121,"@material-ui/core/Typography":125,"@material-ui/core/styles":145,"classnames":171,"prop-types":277,"react":299,"react-router":292,"reflux":324,"shortid":334}],371:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -71302,8 +71364,6 @@ exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
 
 var _reflux = _interopRequireDefault(require("reflux"));
-
-var _reactRouterDom = require("react-router-dom");
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
@@ -71322,6 +71382,8 @@ var _appbar = _interopRequireDefault(require("./views/appbar"));
 var _windowManager = _interopRequireDefault(require("./views/windowManager"));
 
 var _fab = _interopRequireDefault(require("./views/fab"));
+
+var _broadcasts = _interopRequireDefault(require("./pages/broadcasts"));
 
 var _account = _interopRequireDefault(require("./pages/account"));
 
@@ -71389,7 +71451,13 @@ class Root extends _reflux.default.Component {
       })
     }, _react.default.createElement(_appbar.default, null), _react.default.createElement(_windowManager.default, null), _react.default.createElement("div", {
       className: classes.toolbar
-    }), this.state.show == "picker" && _react.default.createElement(_picker.default, null), this.state.show == "randomizer" && _react.default.createElement(_randomizer.default, null)));
+    }), _react.default.createElement(_broadcasts.default, {
+      open: this.state.show == ""
+    }), _react.default.createElement(_picker.default, {
+      open: this.state.show == "picker"
+    }), _react.default.createElement(_randomizer.default, {
+      open: this.state.show == "randomizer"
+    })));
   }
 
 }
@@ -71402,7 +71470,7 @@ var _default = (0, _styles.withStyles)(styles)(Root);
 
 exports.default = _default;
 
-},{"../resourceManager/actions":349,"../resourceManager/stores":359,"./pages/account":372,"./pages/accountMobile":373,"./pages/classChoiceDesktop":374,"./pages/classMap":375,"./pages/classTable":376,"./pages/management":377,"./pages/picker":378,"./pages/practise":379,"./pages/randomizer":380,"./pages/rank":381,"./views/appbar":382,"./views/fab":385,"./views/windowManager":386,"@material-ui/core/CssBaseline":45,"@material-ui/core/colors/red":130,"@material-ui/core/styles":145,"classnames":171,"prop-types":277,"react":299,"react-router-dom":289,"reflux":324,"shortid":334}],371:[function(require,module,exports){
+},{"../resourceManager/actions":349,"../resourceManager/stores":360,"./pages/account":373,"./pages/accountMobile":374,"./pages/broadcasts":375,"./pages/classChoiceDesktop":376,"./pages/classMap":377,"./pages/classTable":378,"./pages/management":379,"./pages/picker":380,"./pages/practise":381,"./pages/randomizer":382,"./pages/rank":383,"./views/appbar":384,"./views/fab":387,"./views/windowManager":388,"@material-ui/core/CssBaseline":45,"@material-ui/core/colors/red":130,"@material-ui/core/styles":145,"classnames":171,"prop-types":277,"react":299,"reflux":324,"shortid":334}],372:[function(require,module,exports){
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -71415,19 +71483,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 _reactDom.default.render(_react.default.createElement(_mainView.default, null), document.querySelector('#content'));
 
-},{"./mainView":370,"react":299,"react-dom":281}],372:[function(require,module,exports){
-arguments[4][352][0].apply(exports,arguments)
-},{"dup":352}],373:[function(require,module,exports){
+},{"./mainView":371,"react":299,"react-dom":281}],373:[function(require,module,exports){
 arguments[4][352][0].apply(exports,arguments)
 },{"dup":352}],374:[function(require,module,exports){
 arguments[4][352][0].apply(exports,arguments)
 },{"dup":352}],375:[function(require,module,exports){
-arguments[4][352][0].apply(exports,arguments)
-},{"dup":352}],376:[function(require,module,exports){
-arguments[4][352][0].apply(exports,arguments)
-},{"dup":352}],377:[function(require,module,exports){
-arguments[4][352][0].apply(exports,arguments)
-},{"dup":352}],378:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -71439,7 +71499,144 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _reflux = _interopRequireDefault(require("reflux"));
 
-var _reactRouter = require("react-router");
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
+var _classnames = _interopRequireDefault(require("classnames"));
+
+var _shortid = _interopRequireDefault(require("shortid"));
+
+var _styles = require("@material-ui/core/styles");
+
+var _Fade = _interopRequireDefault(require("@material-ui/core/Fade"));
+
+var _Card = _interopRequireDefault(require("@material-ui/core/Card"));
+
+var _CardContent = _interopRequireDefault(require("@material-ui/core/CardContent"));
+
+var _CardActions = _interopRequireDefault(require("@material-ui/core/CardActions"));
+
+var _Typography = _interopRequireDefault(require("@material-ui/core/Typography"));
+
+var _Button = _interopRequireDefault(require("@material-ui/core/Button"));
+
+var _IconButton = _interopRequireDefault(require("@material-ui/core/IconButton"));
+
+var _PacMan = _interopRequireDefault(require("mdi-material-ui/PacMan"));
+
+var _StopCircleOutline = _interopRequireDefault(require("mdi-material-ui/StopCircleOutline"));
+
+var _DotsVertical = _interopRequireDefault(require("mdi-material-ui/DotsVertical"));
+
+var _Plus = _interopRequireDefault(require("mdi-material-ui/Plus"));
+
+var _Minus = _interopRequireDefault(require("mdi-material-ui/Minus"));
+
+var _stores = _interopRequireDefault(require("../../resourceManager/stores"));
+
+var _actions = _interopRequireDefault(require("../../resourceManager/actions"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+const styles = theme => ({
+  button: {
+    width: 150,
+    marginLeft: "auto",
+    marginRight: "auto",
+    transform: "translateX(40px)"
+  },
+  extendedIcon: {
+    marginRight: theme.spacing.unit
+  },
+  card: {
+    width: 300,
+    opacity: 0.8,
+    marginLeft: "auto",
+    marginRight: "auto",
+    textAlign: "center",
+    marginTop: 30
+  },
+  left: {
+    marginRight: "auto"
+  },
+  right: {
+    marginLeft: "auto"
+  },
+  textLeft: {
+    textAlign: "left"
+  },
+  textRight: {
+    textAlign: "Right"
+  }
+});
+
+class Picker extends _reflux.default.Component {
+  constructor(props) {
+    super(props);
+
+    _defineProperty(this, "handleRoundingToggle", () => {
+      this.setState({
+        rounding: !this.state.rounding
+      });
+    });
+
+    this.store = _stores.default.page.broadcast;
+  }
+
+  render() {
+    const {
+      classes
+    } = this.props;
+    return _react.default.createElement(_Fade.default, {
+      in: this.props.open
+    }, _react.default.createElement("div", null, _react.default.createElement(_Card.default, {
+      className: classes.card
+    }, _react.default.createElement(_CardContent.default, null, this.state.broadcasts.map((n, index) => _react.default.createElement("div", {
+      key: index
+    }, _react.default.createElement(_Typography.default, {
+      variant: "h5",
+      className: classes.textLeft
+    }, n.title), _react.default.createElement(_Typography.default, {
+      variant: "caption",
+      className: classes.textLeft
+    }, n.date), _react.default.createElement(_Typography.default, {
+      variant: "body1",
+      className: classes.textLeft
+    }, n.description)))))));
+  }
+
+}
+
+Picker.propTypes = {
+  open: _propTypes.default.bool
+};
+
+var _default = (0, _styles.withStyles)(styles)(Picker);
+
+exports.default = _default;
+
+},{"../../resourceManager/actions":349,"../../resourceManager/stores":360,"@material-ui/core/Button":37,"@material-ui/core/Card":43,"@material-ui/core/CardActions":39,"@material-ui/core/CardContent":41,"@material-ui/core/Fade":61,"@material-ui/core/IconButton":78,"@material-ui/core/Typography":125,"@material-ui/core/styles":145,"classnames":171,"mdi-material-ui/DotsVertical":253,"mdi-material-ui/Minus":259,"mdi-material-ui/PacMan":261,"mdi-material-ui/Plus":263,"mdi-material-ui/StopCircleOutline":265,"prop-types":277,"react":299,"reflux":324,"shortid":334}],376:[function(require,module,exports){
+arguments[4][352][0].apply(exports,arguments)
+},{"dup":352}],377:[function(require,module,exports){
+arguments[4][352][0].apply(exports,arguments)
+},{"dup":352}],378:[function(require,module,exports){
+arguments[4][352][0].apply(exports,arguments)
+},{"dup":352}],379:[function(require,module,exports){
+arguments[4][352][0].apply(exports,arguments)
+},{"dup":352}],380:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _reflux = _interopRequireDefault(require("reflux"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
@@ -71448,6 +71645,8 @@ var _classnames = _interopRequireDefault(require("classnames"));
 var _shortid = _interopRequireDefault(require("shortid"));
 
 var _styles = require("@material-ui/core/styles");
+
+var _Fade = _interopRequireDefault(require("@material-ui/core/Fade"));
 
 var _Card = _interopRequireDefault(require("@material-ui/core/Card"));
 
@@ -71524,7 +71723,9 @@ class Picker extends _reflux.default.Component {
     const {
       classes
     } = this.props;
-    return _react.default.createElement(_Card.default, {
+    return _react.default.createElement(_Fade.default, {
+      in: this.props.open
+    }, _react.default.createElement("div", null, _react.default.createElement(_Card.default, {
       className: classes.card
     }, _react.default.createElement(_CardContent.default, null, _react.default.createElement(_Typography.default, {
       variant: "h4",
@@ -71532,19 +71733,7 @@ class Picker extends _reflux.default.Component {
     }, this.state.nowSelecting), _react.default.createElement(_Typography.default, {
       variant: "caption",
       gutterBottom: true
-    }, "\u5F53\u524D\u6B63\u5728\u62BD\u53D6 \uFF0C\u5171 \u4EBA")), _react.default.createElement(_CardActions.default, null, _react.default.createElement(_IconButton.default, {
-      className: classes.left,
-      variant: "outlined",
-      color: "primary",
-      onClick: _actions.default.page.picker.scoreRemoveOne
-    }, _react.default.createElement(_Minus.default, null)), _react.default.createElement(_Typography.default, {
-      className: (0, _classnames.default)(classes.left, classes.right),
-      variant: "h2"
-    }, this.state.score), _react.default.createElement(_IconButton.default, {
-      className: classes.right,
-      color: "primary",
-      onClick: _actions.default.page.picker.scoreAddOne
-    }, _react.default.createElement(_Plus.default, null))), _react.default.createElement(_CardActions.default, null, _react.default.createElement(_Button.default, {
+    }, "\u5F53\u524D\u6B63\u5728\u62BD\u53D6 \uFF0C\u5171 \u4EBA")), _react.default.createElement(_CardActions.default, null, _react.default.createElement(_Button.default, {
       className: (0, _classnames.default)(classes.button),
       variant: "contained",
       color: "primary",
@@ -71556,18 +71745,54 @@ class Picker extends _reflux.default.Component {
       className: classes.extendedIcon
     }), this.state.rounding && "停！"), _react.default.createElement(_IconButton.default, {
       className: classes.right
-    }, _react.default.createElement(_DotsVertical.default, null)), ")}"));
+    }, _react.default.createElement(_DotsVertical.default, null)), ")}")), _react.default.createElement(_Card.default, {
+      className: classes.card
+    }, _react.default.createElement(_CardContent.default, null, _react.default.createElement(_Typography.default, {
+      variant: "h6"
+    }, "\u5F53\u524D\u4E2A\u4EBA\u5206\u6570")), _react.default.createElement(_CardActions.default, null, _react.default.createElement(_IconButton.default, {
+      className: classes.left,
+      variant: "outlined",
+      color: "primary",
+      onClick: _actions.default.page.picker.scoreRemoveOne
+    }, _react.default.createElement(_Minus.default, null)), _react.default.createElement(_Typography.default, {
+      className: (0, _classnames.default)(classes.left, classes.right),
+      variant: "h2"
+    }, this.state.score), _react.default.createElement(_IconButton.default, {
+      className: classes.right,
+      color: "primary",
+      onClick: _actions.default.page.picker.scoreAddOne
+    }, _react.default.createElement(_Plus.default, null)))), _react.default.createElement(_Card.default, {
+      className: classes.card
+    }, _react.default.createElement(_CardContent.default, null, _react.default.createElement(_Typography.default, {
+      variant: "h6"
+    }, "\u6218\u7EE9"), _react.default.createElement(_Typography.default, {
+      variant: "body1"
+    }, "\u672C\u8282\u8BFE\u5DF2\u83B7\u5F97\uFF1A0"), _react.default.createElement(_Typography.default, {
+      variant: "body1"
+    }, "\u4ECA\u65E5\u5DF2\u83B7\u5F97\uFF1A 0"), _react.default.createElement(_Typography.default, {
+      variant: "body1"
+    }, "\u672C\u5468\u5DF2\u83B7\u5F97\uFF1A0"), _react.default.createElement(_Typography.default, {
+      variant: "body1"
+    }, "\u672C\u6708\u5DF2\u83B7\u5F97\uFF1A0"), _react.default.createElement(_Typography.default, {
+      variant: "body1"
+    }, "\u6240\u5728\u5C0F\u7EC4\u603B\u5206\uFF1A0"), _react.default.createElement(_Typography.default, {
+      variant: "body1"
+    }, "\u6240\u5728\u5C0F\u7EC4\u6392\u540D\uFF1A0")))));
   }
 
 }
+
+Picker.propTypes = {
+  open: _propTypes.default.bool
+};
 
 var _default = (0, _styles.withStyles)(styles)(Picker);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":349,"../../resourceManager/stores":359,"@material-ui/core/Button":37,"@material-ui/core/Card":43,"@material-ui/core/CardActions":39,"@material-ui/core/CardContent":41,"@material-ui/core/IconButton":78,"@material-ui/core/Typography":125,"@material-ui/core/styles":145,"classnames":171,"mdi-material-ui/DotsVertical":253,"mdi-material-ui/Minus":259,"mdi-material-ui/PacMan":261,"mdi-material-ui/Plus":263,"mdi-material-ui/StopCircleOutline":265,"prop-types":277,"react":299,"react-router":292,"reflux":324,"shortid":334}],379:[function(require,module,exports){
+},{"../../resourceManager/actions":349,"../../resourceManager/stores":360,"@material-ui/core/Button":37,"@material-ui/core/Card":43,"@material-ui/core/CardActions":39,"@material-ui/core/CardContent":41,"@material-ui/core/Fade":61,"@material-ui/core/IconButton":78,"@material-ui/core/Typography":125,"@material-ui/core/styles":145,"classnames":171,"mdi-material-ui/DotsVertical":253,"mdi-material-ui/Minus":259,"mdi-material-ui/PacMan":261,"mdi-material-ui/Plus":263,"mdi-material-ui/StopCircleOutline":265,"prop-types":277,"react":299,"reflux":324,"shortid":334}],381:[function(require,module,exports){
 arguments[4][352][0].apply(exports,arguments)
-},{"dup":352}],380:[function(require,module,exports){
+},{"dup":352}],382:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -71583,7 +71808,11 @@ var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _classnames = _interopRequireDefault(require("classnames"));
 
+var _shortid = _interopRequireDefault(require("shortid"));
+
 var _styles = require("@material-ui/core/styles");
+
+var _Fade = _interopRequireDefault(require("@material-ui/core/Fade"));
 
 var _Card = _interopRequireDefault(require("@material-ui/core/Card"));
 
@@ -71695,7 +71924,9 @@ class Randomizer extends _reflux.default.Component {
     const {
       classes
     } = this.props;
-    return _react.default.createElement(_Card.default, {
+    return _react.default.createElement(_Fade.default, {
+      in: this.props.open
+    }, _react.default.createElement("div", null, _react.default.createElement(_Card.default, {
       className: classes.card
     }, _react.default.createElement(_CardActions.default, null, !this.state.rounding && _react.default.createElement(_Button.default, {
       className: (0, _classnames.default)(classes.button),
@@ -71733,18 +71964,22 @@ class Randomizer extends _reflux.default.Component {
       variant: "h4"
     }, "0"), _react.default.createElement(_IconButton.default, {
       color: "primary"
-    }, _react.default.createElement(_Plus.default, null))))));
+    }, _react.default.createElement(_Plus.default, null))))))));
   }
 
 }
+
+Randomizer.propTypes = {
+  open: _propTypes.default.bool
+};
 
 var _default = (0, _styles.withStyles)(styles)(Randomizer);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":349,"../../resourceManager/stores":359,"@material-ui/core/Button":37,"@material-ui/core/Card":43,"@material-ui/core/CardActions":39,"@material-ui/core/CardContent":41,"@material-ui/core/FormControl":67,"@material-ui/core/FormHelperText":72,"@material-ui/core/IconButton":78,"@material-ui/core/Input":88,"@material-ui/core/InputAdornment":80,"@material-ui/core/InputLabel":86,"@material-ui/core/List":98,"@material-ui/core/ListItem":95,"@material-ui/core/ListItemText":92,"@material-ui/core/Typography":125,"@material-ui/core/styles":145,"classnames":171,"mdi-material-ui/DotsVertical":253,"mdi-material-ui/KeyboardOutline":257,"mdi-material-ui/Minus":259,"mdi-material-ui/PacMan":261,"mdi-material-ui/Plus":263,"mdi-material-ui/StopCircleOutline":265,"prop-types":277,"react":299,"reflux":324}],381:[function(require,module,exports){
+},{"../../resourceManager/actions":349,"../../resourceManager/stores":360,"@material-ui/core/Button":37,"@material-ui/core/Card":43,"@material-ui/core/CardActions":39,"@material-ui/core/CardContent":41,"@material-ui/core/Fade":61,"@material-ui/core/FormControl":67,"@material-ui/core/FormHelperText":72,"@material-ui/core/IconButton":78,"@material-ui/core/Input":88,"@material-ui/core/InputAdornment":80,"@material-ui/core/InputLabel":86,"@material-ui/core/List":98,"@material-ui/core/ListItem":95,"@material-ui/core/ListItemText":92,"@material-ui/core/Typography":125,"@material-ui/core/styles":145,"classnames":171,"mdi-material-ui/DotsVertical":253,"mdi-material-ui/KeyboardOutline":257,"mdi-material-ui/Minus":259,"mdi-material-ui/PacMan":261,"mdi-material-ui/Plus":263,"mdi-material-ui/StopCircleOutline":265,"prop-types":277,"react":299,"reflux":324,"shortid":334}],383:[function(require,module,exports){
 arguments[4][352][0].apply(exports,arguments)
-},{"dup":352}],382:[function(require,module,exports){
+},{"dup":352}],384:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -71860,7 +72095,7 @@ var _default = (0, _styles.withStyles)(styles)(MainAppbar);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":349,"../../resourceManager/stores":359,"./bottomNavigation":383,"./drawer":384,"@material-ui/core/AppBar":21,"@material-ui/core/IconButton":78,"@material-ui/core/Toolbar":123,"@material-ui/core/Typography":125,"@material-ui/core/styles":145,"classnames":171,"mdi-material-ui/Menu":258,"mdi-material-ui/PacMan":261,"prop-types":277,"react":299,"reflux":324,"shortid":334}],383:[function(require,module,exports){
+},{"../../resourceManager/actions":349,"../../resourceManager/stores":360,"./bottomNavigation":385,"./drawer":386,"@material-ui/core/AppBar":21,"@material-ui/core/IconButton":78,"@material-ui/core/Toolbar":123,"@material-ui/core/Typography":125,"@material-ui/core/styles":145,"classnames":171,"mdi-material-ui/Menu":258,"mdi-material-ui/PacMan":261,"prop-types":277,"react":299,"reflux":324,"shortid":334}],385:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -71964,7 +72199,7 @@ var _default = (0, _styles.withStyles)(styles)(SimpleBottomNavigation);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":349,"@material-ui/core/BottomNavigation":29,"@material-ui/core/BottomNavigationAction":27,"@material-ui/core/styles":145,"classnames":171,"mdi-material-ui/AccountCircleOutline":250,"mdi-material-ui/CursorDefaultClickOutline":252,"mdi-material-ui/NoteOutline":260,"mdi-material-ui/TableLarge":266,"mdi-material-ui/TrophyVariantOutline":267,"prop-types":277,"react":299,"reflux":324,"shortid":334}],384:[function(require,module,exports){
+},{"../../resourceManager/actions":349,"@material-ui/core/BottomNavigation":29,"@material-ui/core/BottomNavigationAction":27,"@material-ui/core/styles":145,"classnames":171,"mdi-material-ui/AccountCircleOutline":250,"mdi-material-ui/CursorDefaultClickOutline":252,"mdi-material-ui/NoteOutline":260,"mdi-material-ui/TableLarge":266,"mdi-material-ui/TrophyVariantOutline":267,"prop-types":277,"react":299,"reflux":324,"shortid":334}],386:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -72080,13 +72315,16 @@ class MainDrawer extends _reflux.default.Component {
     })), _react.default.createElement(_Divider.default, {
       className: classes.line
     }), _react.default.createElement(_ListItem.default, {
-      button: true
+      button: true,
+      onClick: () => _actions.default.view.drawer.reset(),
+      selected: this.state.show == ''
     }, _react.default.createElement(_ListItemIcon.default, null, _react.default.createElement(_Home.default, null)), _react.default.createElement(_ListItemText.default, {
       inset: true,
       primary: "\u4E3B\u9875"
     })), _react.default.createElement(_ListItem.default, {
       button: true,
-      onClick: () => _actions.default.view.drawer.toggleTo("picker")
+      onClick: () => _actions.default.view.drawer.toggleTo("picker"),
+      selected: this.state.show in ['picker', 'randomizer']
     }, _react.default.createElement(_ListItemIcon.default, null, _react.default.createElement(_CursorDefaultClickOutline.default, null)), _react.default.createElement(_ListItemText.default, {
       inset: true,
       primary: "\u70B9\u540D"
@@ -72144,9 +72382,9 @@ var _default = (0, _styles.withStyles)(styles)(MainDrawer);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":349,"../../resourceManager/stores":359,"@material-ui/core/Badge":25,"@material-ui/core/Divider":57,"@material-ui/core/Drawer":59,"@material-ui/core/IconButton":78,"@material-ui/core/List":98,"@material-ui/core/ListItem":95,"@material-ui/core/ListItemIcon":90,"@material-ui/core/ListItemText":92,"@material-ui/core/styles":145,"classnames":171,"mdi-material-ui/AccountCircleOutline":250,"mdi-material-ui/AccountGroup":251,"mdi-material-ui/CursorDefaultClickOutline":252,"mdi-material-ui/GoogleClassroom":254,"mdi-material-ui/Home":255,"mdi-material-ui/InformationOutline":256,"mdi-material-ui/NoteOutline":260,"mdi-material-ui/Palette":262,"mdi-material-ui/SettingsOutline":264,"mdi-material-ui/TableLarge":266,"mdi-material-ui/TrophyVariantOutline":267,"prop-types":277,"react":299,"react-router-dom":289,"reflux":324,"shortid":334}],385:[function(require,module,exports){
+},{"../../resourceManager/actions":349,"../../resourceManager/stores":360,"@material-ui/core/Badge":25,"@material-ui/core/Divider":57,"@material-ui/core/Drawer":59,"@material-ui/core/IconButton":78,"@material-ui/core/List":98,"@material-ui/core/ListItem":95,"@material-ui/core/ListItemIcon":90,"@material-ui/core/ListItemText":92,"@material-ui/core/styles":145,"classnames":171,"mdi-material-ui/AccountCircleOutline":250,"mdi-material-ui/AccountGroup":251,"mdi-material-ui/CursorDefaultClickOutline":252,"mdi-material-ui/GoogleClassroom":254,"mdi-material-ui/Home":255,"mdi-material-ui/InformationOutline":256,"mdi-material-ui/NoteOutline":260,"mdi-material-ui/Palette":262,"mdi-material-ui/SettingsOutline":264,"mdi-material-ui/TableLarge":266,"mdi-material-ui/TrophyVariantOutline":267,"prop-types":277,"react":299,"react-router-dom":289,"reflux":324,"shortid":334}],387:[function(require,module,exports){
 arguments[4][352][0].apply(exports,arguments)
-},{"dup":352}],386:[function(require,module,exports){
+},{"dup":352}],388:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -72197,4 +72435,4 @@ class MainWindowManager extends _reflux.default.Component {
 var _default = MainWindowManager;
 exports.default = _default;
 
-},{"../../resourceManager/stores":359,"../dialogs/about":368,"../dialogs/setting":369,"@material-ui/core/styles":145,"classnames":171,"prop-types":277,"react":299,"react-router":292,"reflux":324,"shortid":334}]},{},[371]);
+},{"../../resourceManager/stores":360,"../dialogs/about":369,"../dialogs/setting":370,"@material-ui/core/styles":145,"classnames":171,"prop-types":277,"react":299,"react-router":292,"reflux":324,"shortid":334}]},{},[372]);

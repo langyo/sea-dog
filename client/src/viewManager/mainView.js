@@ -1,6 +1,5 @@
 import React from "react";
 import Reflux from "reflux";
-import { BrowserRouter, Route, Switch, Link, Redirect } from 'react-router-dom'
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import shortid from "shortid";
@@ -15,6 +14,7 @@ import Appbar from "./views/appbar";
 import WindowManager from "./views/windowManager";
 import FabView from "./views/fab";
 
+import Broadcast from "./pages/broadcasts";
 import Account from "./pages/account";
 import AccountMobile from "./pages/accountMobile";
 import ClassChoiceDesktop from "./pages/classChoiceDesktop";
@@ -70,8 +70,9 @@ class Root extends Reflux.Component {
 
                     <div className={classes.toolbar} />
 
-                    {this.state.show == "picker" && <Picker />}
-                    {this.state.show == "randomizer" && <Randomizer />}
+                    <Broadcast open={this.state.show == ""} />
+                    <Picker open={this.state.show == "picker"} />
+                    <Randomizer open={this.state.show == "randomizer"} />
                 </MuiThemeProvider>
             </div>
         );

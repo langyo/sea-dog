@@ -1,11 +1,11 @@
 import React, { useCallback } from "react";
 import Reflux from "reflux";
-// import { Router, Route, Link, IndexRoute, browserHistory } from "react-router";
 import PropTypes from "prop-types";
 import classNames from "classnames";
-// import shortid from "shortid";
+import shortid from "shortid";
 
 import { withStyles } from "@material-ui/core/styles";
+import Fade from "@material-ui/core/Fade";
 
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -90,70 +90,78 @@ class Randomizer extends Reflux.Component {
     const { classes } = this.props;
 
     return (
-      <Card className={classes.card}>
-        <CardActions>
-          {!this.state.rounding && (
-            <Button
-              className={classNames(classes.button)}
-              variant="contained"
-              color="primary"
-              onClick={this.handleRoundingToggle}
-              size="large"
-            >
-              <PacManIcon className={classes.extendedIcon} />
-              开始点名
+      <Fade in={this.props.open}>
+        <div>
+          <Card className={classes.card}>
+            <CardActions>
+              {!this.state.rounding && (
+                <Button
+                  className={classNames(classes.button)}
+                  variant="contained"
+                  color="primary"
+                  onClick={this.handleRoundingToggle}
+                  size="large"
+                >
+                  <PacManIcon className={classes.extendedIcon} />
+                  开始点名
             </Button>
-          )}
-          {this.state.rounding && (
-            <Button
-              className={classNames(classes.button)}
-              variant="contained"
-              color="primary"
-              onClick={this.handleRoundingToggle}
-              size="large"
-            >
-              <StopIcon className={classes.extendedIcon} />
-              停！
+              )}
+              {this.state.rounding && (
+                <Button
+                  className={classNames(classes.button)}
+                  variant="contained"
+                  color="primary"
+                  onClick={this.handleRoundingToggle}
+                  size="large"
+                >
+                  <StopIcon className={classes.extendedIcon} />
+                  停！
             </Button>
-          )}
-          <FormControl>
-            <InputLabel htmlFor="memberCount">成员数</InputLabel>
-            <Input
-              id="memberCount"
-              type="text"
-              value={"0"}
-              color="primary"
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton>
-                    <KeyboardIcon />
+              )}
+              <FormControl>
+                <InputLabel htmlFor="memberCount">成员数</InputLabel>
+                <Input
+                  id="memberCount"
+                  type="text"
+                  value={"0"}
+                  color="primary"
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton>
+                        <KeyboardIcon />
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                />
+              </FormControl>
+            </CardActions>
+            <CardContent>
+              <List>
+                <ListItem>
+                  <Typography variant="h5" className={classes.peopleName}>
+                    测试用户
+              </Typography>
+                  <IconButton color="primary">
+                    <MinusIcon />
                   </IconButton>
-                </InputAdornment>
-              }
-            />
-          </FormControl>
-        </CardActions>
-        <CardContent>
-          <List>
-            <ListItem>
-              <Typography variant="h5" className={classes.peopleName}>
-                测试用户
+                  <Typography className={classes.scoreText} variant="h4">
+                    0
               </Typography>
-              <IconButton color="primary">
-                <MinusIcon />
-              </IconButton>
-              <Typography className={classes.scoreText} variant="h4">
-                0
-              </Typography>
-              <IconButton color="primary">
-                <PlusIcon />
-              </IconButton>
-            </ListItem>
-          </List>
-        </CardContent>
-      </Card>
+                  <IconButton color="primary">
+                    <PlusIcon />
+                  </IconButton>
+                </ListItem>
+              </List>
+            </CardContent>
+          </Card>
+        </div>
+      </Fade >
     );
   }
+}
+
+Randomizer.propTypes = {
+  open: PropTypes.bool
 }
 
 export default withStyles(styles)(Randomizer);
