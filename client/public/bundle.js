@@ -71919,7 +71919,7 @@ class Randomizer extends _reflux.default.Component {
       classes
     } = this.props;
     return _react.default.createElement(_Fade.default, {
-      in: this.props.open
+      in: true
     }, _react.default.createElement("div", null, _react.default.createElement(_Card.default, {
       className: classes.card
     }, _react.default.createElement(_CardActions.default, null, !this.state.rounding && _react.default.createElement(_Button.default, {

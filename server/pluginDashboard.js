@@ -9,6 +9,19 @@ const diff = (from, to) => {
     return to;
 }
 
+class ExecuterContext {
+    constructor(cmds, conn) {
+        this.cmdHead = ['data'].concat(cmds);
+        this.conn = conn;
+        this.userId = conn.userId;
+    }
+
+    callback = (...args) => {
+        let arr = this.cmdHead.concat(args);
+        this.conn._sendMessage(arr);
+    };
+}
+
 export default class PluginDashboard {
     constructor(conn) {
         this.connection = conn;
@@ -40,7 +53,7 @@ export default class PluginDashboard {
     }
 
     _sendMessage = (args) => {
-        console.log("即将发送：", args);
+        console.log("即将发送：", args, "，类型：", typeof args);
         let cmd = args.reduce((prev, next) => prev + ' ' + next);
         let type = args.shift();
 
@@ -74,17 +87,24 @@ export default class PluginDashboard {
         let arg = args.shift();
         let cmds = [arg];
 
-        for (; typeof func[arg] == 'object'; func = func[arg], arg = args.shift(), cmds.push(arg))
-            if (func === undefined) throw new Error("不存在这个对象！");
+        try {
+            for (; typeof func[arg] == 'object'; func = func[arg], arg = args.shift(), cmds.push(arg))
+             if (func === undefined) throw new Error("不存在这个对象！");
 
-        if (type == 'execute' && func[arg] === undefined) throw new Error("不存在这个对象！");
+            if (type == 'execute' && func[arg] === undefined) throw new Error("不存在这个对象！");
+        } catch (e) {
+            this._sendMessage(['data', 'system', 'fail', '未知路径']);
+        }
         try {
             // 开始根据解析出的参数列表调用对应的函数
-            let ret = func[arg].apply(null, args);
+            let ret = func[arg].apply(new ExecuterContext(cmds, this), args);
             // 如果对方为 execute，则说明是在请求数据，当 ret 非空时自动给对方一个反馈
             if (type == 'execute' && ret != null) this._sendMessage(['data'].concat(cmds).concat(ret.trim().split(' ')));
         } catch (e) {
-            this._sendMessage(['data'].concat(cmds).push("fail 未注册的指令"));
+            console.log(e);
+            let n = ['data'].concat(cmds);
+            n.push("fail 未注册的指令");
+            this._sendMessage(n);
         }
     }
 }

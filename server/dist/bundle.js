@@ -420,6 +420,12 @@ console.log("数据库创建完成");
 _webSocketServer.connectionEvents.on('h5', conn => {
   console.log("开始注册 h5 的指令……");
   (0, _webSocketServer.register)("h5", {
+    test: {
+      visit: function () {
+        console.log("已调用 test visit");
+        this.callback('ojbk');
+      }
+    },
     list: {
       "class": {
         members: (className, limit, page = 0) => {
@@ -1055,6 +1061,21 @@ const diff = (from, to) => {
   return to;
 };
 
+class ExecuterContext {
+  constructor(cmds, conn) {
+    _defineProperty(this, "callback", (...args) => {
+      let arr = this.cmdHead.concat(args);
+
+      this.conn._sendMessage(arr);
+    });
+
+    this.cmdHead = ['data'].concat(cmds);
+    this.conn = conn;
+    this.userId = conn.userId;
+  }
+
+}
+
 class PluginDashboard {
   constructor(conn) {
     _defineProperty(this, "register", obj => {
@@ -1073,7 +1094,7 @@ class PluginDashboard {
     });
 
     _defineProperty(this, "_sendMessage", args => {
-      console.log("即将发送：", args);
+      console.log("即将发送：", args, "，类型：", typeof args);
       let cmd = args.reduce((prev, next) => prev + ' ' + next);
       let type = args.shift();
 
@@ -1107,17 +1128,25 @@ class PluginDashboard {
       let arg = args.shift();
       let cmds = [arg];
 
-      for (; typeof func[arg] == 'object'; func = func[arg], arg = args.shift(), cmds.push(arg)) if (func === undefined) throw new Error("不存在这个对象！");
+      try {
+        for (; typeof func[arg] == 'object'; func = func[arg], arg = args.shift(), cmds.push(arg)) if (func === undefined) throw new Error("不存在这个对象！");
 
-      if (type == 'execute' && func[arg] === undefined) throw new Error("不存在这个对象！");
+        if (type == 'execute' && func[arg] === undefined) throw new Error("不存在这个对象！");
+      } catch (e) {
+        this._sendMessage(['data', 'system', 'fail', '未知路径']);
+      }
 
       try {
         // 开始根据解析出的参数列表调用对应的函数
-        let ret = func[arg].apply(null, args); // 如果对方为 execute，则说明是在请求数据，当 ret 非空时自动给对方一个反馈
+        let ret = func[arg].apply(new ExecuterContext(cmds, this), args); // 如果对方为 execute，则说明是在请求数据，当 ret 非空时自动给对方一个反馈
 
         if (type == 'execute' && ret != null) this._sendMessage(['data'].concat(cmds).concat(ret.trim().split(' ')));
       } catch (e) {
-        this._sendMessage(['data'].concat(cmds).push("fail 未注册的指令"));
+        console.log(e);
+        let n = ['data'].concat(cmds);
+        n.push("fail 未注册的指令");
+
+        this._sendMessage(n);
       }
     });
 

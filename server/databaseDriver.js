@@ -412,6 +412,12 @@ console.log("数据库创建完成");
 connectionEvents.on('h5', conn => {
     console.log("开始注册 h5 的指令……");
     register("h5", {
+        test: {
+            visit: function() {
+                console.log("已调用 test visit");
+                this.callback('ojbk');
+            }
+        },
         list: {
             "class": {
                 members: (className, limit, page = 0) => {
