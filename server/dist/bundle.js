@@ -10,429 +10,411 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 let db = _databaseInitializer.default.createConnection('mongodb://localhost/test');
 
 db.on('error', e => console.error(e));
-db.on('open', () => console.log("数据库连接成功"));
-const ObjectId = _databaseInitializer.default.Schema.Types.ObjectId;
+db.on('open', () => {
+  console.log("数据库连接成功");
+  const ObjectId = _databaseInitializer.default.Schema.Types.ObjectId;
 
-let PathSchema = _databaseInitializer.default.Schema({
-  theClass: String,
-  groupType: String,
-  group: String,
-  member: String
-});
+  let PathSchema = _databaseInitializer.default.Schema({
+    theClass: String,
+    groupType: String,
+    group: String,
+    member: String
+  });
 
-let ScoreSchema = _databaseInitializer.default.Schema({
-  at: {
-    type: ObjectId,
-    ref: "ScoreType"
-  },
-  value: Number
-});
-
-let ExpressionSchema = _databaseInitializer.default.Schema({
-  path: PathSchema,
-  tag: Boolean
-});
-
-let ExpressionGroupSchema = _databaseInitializer.default.Schema({
-  read: [ExpressionSchema],
-  write: [ExpressionSchema],
-  add: [ExpressionSchema],
-  minus: [ExpressionSchema]
-});
-
-let TradeRuleSchema = _databaseInitializer.default.Schema({
-  from: {
-    type: ObjectId,
-    ref: "ScoreType"
-  },
-  to: {
-    type: ObjectId,
-    ref: "ScoreType"
-  },
-  weight: {
-    from: Number,
-    to: Number,
-    decimalPartRule: {
-      type: String,
-      enum: ['toZero', 'toOne', 'nearly'] // 分别代表抹零、进一和四舍五入
-
-    }
-  }
-});
-
-let ScoreTypeSchema = _databaseInitializer.default.Schema({
-  name: String,
-  description: String,
-  tradeRules: [TradeRuleSchema],
-  virtual: Boolean // 默认为假；如果为真，这个分数的加减会带动其它与之相关联的分数的加减，也就是具有绑定性，加减规则直接使用 tradeRules 记录的信息
-
-});
-
-let ScoreGroupSchema = _databaseInitializer.default.Schema({
-  name: String,
-  description: String,
-  usingScoreTypes: [{
-    type: ObjectId,
-    ref: 'ScoreType'
-  }]
-});
-
-let ClassTableItemSchema = _databaseInitializer.default.Schema({
-  form: Date,
-  to: Date,
-  subject: String
-});
-
-let ClassTableSchema = _databaseInitializer.default.Schema({
-  description: String,
-  name: String,
-  timeLine: [ClassTableItemSchema],
-  userType: {
-    type: String,
-    enum: ['student', 'teacher']
-  }
-});
-
-let ConfigSchema = _databaseInitializer.default.Schema({
-  allow: [{
-    type: String,
-    enum: ['createQuestion', 'forkQuestion', 'deleteQuestion', 'createTest', 'watchTestResult', 'forkTest', 'deleteTest', 'setTheme', 'root']
-  }],
-  disallow: [{
-    type: String,
-    enum: ['createQuestion', 'forkQuestion', 'deleteQuestion', 'createTest', 'watchTestResult', 'forkTest', 'deleteTest', 'setTheme', 'root']
-  }]
-});
-
-let ClassStateSchema = _databaseInitializer.default.Schema({
-  isHavingClass: {
-    type: String,
-    enum: ['begin', // 正常上课
-    'over', // 下课
-    'continue' // 拖堂
-    ]
-  },
-  nowTeacher: {
-    type: ObjectId,
-    ref: 'Account'
-  }
-});
-
-let ProvideSchema = _databaseInitializer.default.Schema({
-  classes: [{
-    type: ObjectId,
-    ref: "Class"
-  }]
-});
-
-let QuestionSchema = _databaseInitializer.default.Schema({
-  owner: {
-    type: ObjectId,
-    ref: 'Account'
-  },
-  forkFrom: {
-    type: ObjectId,
-    ref: 'Question'
-  },
-  questionType: {
-    type: String,
-    enum: ['objective', // 客观题
-    'subjective' // 主观题
-    ]
-  },
-  description: String,
-  // 允许使用 Markdown
-  answer: [String],
-  // 如果为客观题，则存储的是各个选项的编号，并且如果多于一个则成为多选题；
-  // 如果为主观题，则存储的是候选答案，并且如果多于一个则该题答案不唯一；
-  // 如果为空，则默认为由教师自行检阅
-  createTime: Date,
-  deleted: {
-    type: Boolean,
-    default: false
-  },
-  provideTo: ProvideSchema
-});
-
-let TestSchema = _databaseInitializer.default.Schema({
-  owner: {
-    type: ObjectId,
-    ref: 'Account'
-  },
-  forkFrom: {
-    type: ObjectId,
-    ref: 'Test'
-  },
-  questions: [{
-    type: ObjectId,
-    ref: 'Question'
-  }],
-  createTime: Date,
-  beginAt: Date,
-  endAt: Date,
-  deleted: {
-    type: Boolean,
-    default: false
-  },
-  provideTo: ProvideSchema
-});
-
-let AccountHistorySchema = _databaseInitializer.default.Schema({
-  practiced: {
-    questions: [{
-      at: {
-        type: ObjectId,
-        ref: 'Question'
-      },
-      timeLine: [{
-        time: Date,
-        answer: String
-      }]
-    }],
-    test: [{
-      at: {
-        type: ObjectId,
-        ref: 'Test'
-      },
-      timeLine: [{
-        time: Date,
-        answer: String
-      }]
-    }]
-  },
-  picked: [{
-    teacher: {
+  let ScoreSchema = _databaseInitializer.default.Schema({
+    at: {
       type: ObjectId,
-      ref: 'Account'
+      ref: "ScoreType"
     },
-    timeLine: [Date]
-  }]
-});
+    value: Number
+  });
 
-let ThemeSchema = _databaseInitializer.default.Schema({
-  picture: String,
-  // BASE64
-  isVR: {
-    type: Boolean,
-    default: false
-  },
-  primaryColor: String,
-  secondaryColor: String,
-  opacity: Number,
-  mobileTheme: {
-    type: String,
-    enum: ['android', 'ios']
-  }
-});
+  let ExpressionSchema = _databaseInitializer.default.Schema({
+    path: PathSchema,
+    tag: Boolean
+  });
 
-let BroadcastSchema = _databaseInitializer.default.Schema({
-  whoCanView: [{
-    type: ObjectId,
-    ref: 'UserGroup'
-  }],
-  // 如果为空，则所有人都看得到
-  date: Date,
-  message: String // 允许使用 Markdown
+  let ExpressionGroupSchema = _databaseInitializer.default.Schema({
+    read: [ExpressionSchema],
+    write: [ExpressionSchema],
+    add: [ExpressionSchema],
+    minus: [ExpressionSchema]
+  });
 
-});
-
-let GlobalUserGroupSchema = _databaseInitializer.default.Schema({
-  name: String,
-  scoreExpression: ExpressionGroupSchema,
-  userExpression: ExpressionGroupSchema
-});
-
-let UserGroupSchema = _databaseInitializer.default.Schema({
-  extendBy: {
-    type: ObjectId,
-    ref: 'GlobalUserGroup'
-  },
-  name: String,
-  scoreExpression: ExpressionGroupSchema,
-  userExpression: ExpressionGroupSchema
-});
-
-let GroupScoreWeightSchema = _databaseInitializer.default.Schema({
-  scoreType: {
-    type: ObjectId,
-    ref: 'ScoreType'
-  },
-  expression: String // 为一个以 JavaScript 写的函数代码文本，具体内容需额外设计 API
-
-});
-
-let GroupSchema = _databaseInitializer.default.Schema({
-  scores: [ScoreSchema],
-  name: String,
-  description: String,
-  members: [{
-    account: {
+  let TradeRuleSchema = _databaseInitializer.default.Schema({
+    from: {
       type: ObjectId,
-      ref: 'Account'
-    }
-  }]
-});
-
-let GroupTypeSchema = _databaseInitializer.default.Schema({
-  userType: {
-    type: ObjectId,
-    ref: 'UserGroup'
-  },
-  groups: [GroupSchema],
-  name: String,
-  groupScoreTransfer: GroupScoreWeightSchema
-});
-
-let LogSchema = _databaseInitializer.default.Schema({
-  action: {
-    type: String,
-    enum: ['scoreAdd', 'scoreRemove', 'scoreSet', 'memberAdd', 'memberRemove', 'memberSet']
-  },
-  target: PathSchema,
-  value: Number,
-  reason: String,
-  operator: {
-    type: ObjectId,
-    ref: 'Account'
-  },
-  time: Date
-});
-
-let AccountSchema = _databaseInitializer.default.Schema({
-  name: String,
-  password: String,
-  // MD5/SHA3
-  userGroup: [{
-    type: ObjectId,
-    ref: 'UserGroup'
-  }],
-  scoreExpression: ExpressionGroupSchema,
-  userExpression: ExpressionGroupSchema,
-  classTable: {
-    type: ObjectId,
-    ref: 'ClassTable'
-  },
-  theme: {
-    type: ObjectId,
-    ref: 'Theme'
-  },
-  config: ConfigSchema,
-  accountHistory: AccountHistorySchema
-});
-
-let ClassMapRowSchema = _databaseInitializer.default.Schema({
-  columns: [{
-    type: ObjectId,
-    ref: "Account"
-  }]
-});
-
-let ClassMapBlockSchema = _databaseInitializer.default.Schema({
-  height: Number,
-  weight: Number,
-  rows: [ClassMapRowSchema]
-});
-
-let ClassMapSchema = _databaseInitializer.default.Schema({
-  height: Number,
-  weight: Number,
-  blocks: [ClassMapBlockSchema]
-});
-
-let ClassSchema = _databaseInitializer.default.Schema({
-  groupTypes: [GroupTypeSchema],
-  members: [{
-    account: {
-      type: ObjectId,
-      ref: 'Account'
+      ref: "ScoreType"
     },
-    scores: [ScoreSchema]
-  }],
-  name: String,
-  scores: [ScoreSchema],
-  state: ClassStateSchema,
-  classTable: {
-    type: ObjectId,
-    ref: "ClassTable"
-  },
-  theme: [ThemeSchema],
-  classMap: ClassMapSchema
-});
+    to: {
+      type: ObjectId,
+      ref: "ScoreType"
+    },
+    weight: {
+      from: Number,
+      to: Number,
+      decimalPartRule: {
+        type: String,
+        enum: ['toZero', 'toOne', 'nearly'] // 分别代表抹零、进一和四舍五入
 
-let Class = _databaseInitializer.default.model('Class', ClassSchema);
-
-let GroupType = _databaseInitializer.default.model('GroupType', GroupTypeSchema);
-
-let GroupScoreWeight = _databaseInitializer.default.model('GroupScoreWeight', GroupScoreWeightSchema);
-
-let Group = _databaseInitializer.default.model('Group', GroupSchema);
-
-let Log = _databaseInitializer.default.model('Log', LogSchema);
-
-let Path = _databaseInitializer.default.model('Path', PathSchema);
-
-let Score = _databaseInitializer.default.model('Score', ScoreSchema);
-
-let Account = _databaseInitializer.default.model('Account', AccountSchema);
-
-let ExpressionGroup = _databaseInitializer.default.model('ExpressionGroup', ExpressionGroupSchema);
-
-let Expression = _databaseInitializer.default.model('Expression', ExpressionSchema);
-
-let ScoreType = _databaseInitializer.default.model('ScoreType', ScoreTypeSchema);
-
-let TradeRule = _databaseInitializer.default.model('TradeRule', TradeRuleSchema);
-
-let UserGroup = _databaseInitializer.default.model('UserGroup', UserGroupSchema);
-
-let GlobalUserGroup = _databaseInitializer.default.model('GlobalUserGroup', GlobalUserGroupSchema);
-
-let ScoreGroup = _databaseInitializer.default.model('ScoreGroup', ScoreGroupSchema);
-
-let ClassTable = _databaseInitializer.default.model('ClassTable', ClassTableSchema);
-
-let ClassTableItem = _databaseInitializer.default.model('ClassTableItem', ClassTableItemSchema);
-
-let Config = _databaseInitializer.default.model('Config', ConfigSchema);
-
-let ClassState = _databaseInitializer.default.model('ClassState', ClassStateSchema);
-
-let Question = _databaseInitializer.default.model('Question', QuestionSchema);
-
-let Test = _databaseInitializer.default.model('Test', TestSchema);
-
-let Provide = _databaseInitializer.default.model('Provide', ProvideSchema);
-
-let AccountHistory = _databaseInitializer.default.model('AccountHistory', AccountHistorySchema);
-
-let Theme = _databaseInitializer.default.model('Theme', ThemeSchema);
-
-let BroadCast = _databaseInitializer.default.model('Broadcast', BroadcastSchema);
-
-let ClassMap = _databaseInitializer.default.model('ClassMap', ClassMapSchema);
-
-let ClassMapBlock = _databaseInitializer.default.model('ClassMapBlock', ClassMapBlockSchema);
-
-let ClassMapRow = _databaseInitializer.default.model('ClassMapRow', ClassMapRowSchema);
-
-console.log("数据库创建完成");
-
-_webSocketServer.connectionEvents.on('h5', conn => {
-  console.log("开始注册 h5 的指令……");
-  (0, _webSocketServer.register)("h5", {
-    test: {
-      visit: function () {
-        console.log("已调用 test visit");
-        this.callback('ojbk');
       }
+    }
+  });
+
+  let ScoreTypeSchema = _databaseInitializer.default.Schema({
+    name: String,
+    description: String,
+    tradeRules: [TradeRuleSchema],
+    virtual: Boolean // 默认为假；如果为真，这个分数的加减会带动其它与之相关联的分数的加减，也就是具有绑定性，加减规则直接使用 tradeRules 记录的信息
+
+  });
+
+  let ScoreGroupSchema = _databaseInitializer.default.Schema({
+    name: String,
+    description: String,
+    usingScoreTypes: [{
+      type: ObjectId,
+      ref: 'ScoreType'
+    }]
+  });
+
+  let ClassTableItemSchema = _databaseInitializer.default.Schema({
+    form: Date,
+    to: Date,
+    subject: String
+  });
+
+  let ClassTableSchema = _databaseInitializer.default.Schema({
+    description: String,
+    name: String,
+    timeLine: [ClassTableItemSchema],
+    userType: {
+      type: String,
+      enum: ['student', 'teacher']
+    }
+  });
+
+  let ConfigSchema = _databaseInitializer.default.Schema({
+    allow: [{
+      type: String,
+      enum: ['createQuestion', 'forkQuestion', 'deleteQuestion', 'createTest', 'watchTestResult', 'forkTest', 'deleteTest', 'setTheme', 'root']
+    }],
+    disallow: [{
+      type: String,
+      enum: ['createQuestion', 'forkQuestion', 'deleteQuestion', 'createTest', 'watchTestResult', 'forkTest', 'deleteTest', 'setTheme', 'root']
+    }]
+  });
+
+  let ClassStateSchema = _databaseInitializer.default.Schema({
+    isHavingClass: {
+      type: String,
+      enum: ['begin', // 正常上课
+      'over', // 下课
+      'continue' // 拖堂
+      ]
     },
-    list: {
-      "class": {
-        members: (className, limit, page = 0) => {
-          try {
-            if (limit == "count") {
-              let ret = "success " + className + " ";
-              (function* () {
+    nowTeacher: {
+      type: ObjectId,
+      ref: 'Account'
+    }
+  });
+
+  let ProvideSchema = _databaseInitializer.default.Schema({
+    classes: [{
+      type: ObjectId,
+      ref: "Class"
+    }]
+  });
+
+  let QuestionSchema = _databaseInitializer.default.Schema({
+    owner: {
+      type: ObjectId,
+      ref: 'Account'
+    },
+    forkFrom: {
+      type: ObjectId,
+      ref: 'Question'
+    },
+    questionType: {
+      type: String,
+      enum: ['objective', // 客观题
+      'subjective' // 主观题
+      ]
+    },
+    description: String,
+    // 允许使用 Markdown
+    answer: [String],
+    // 如果为客观题，则存储的是各个选项的编号，并且如果多于一个则成为多选题；
+    // 如果为主观题，则存储的是候选答案，并且如果多于一个则该题答案不唯一；
+    // 如果为空，则默认为由教师自行检阅
+    createTime: Date,
+    deleted: {
+      type: Boolean,
+      default: false
+    },
+    provideTo: ProvideSchema
+  });
+
+  let TestSchema = _databaseInitializer.default.Schema({
+    owner: {
+      type: ObjectId,
+      ref: 'Account'
+    },
+    forkFrom: {
+      type: ObjectId,
+      ref: 'Test'
+    },
+    questions: [{
+      type: ObjectId,
+      ref: 'Question'
+    }],
+    createTime: Date,
+    beginAt: Date,
+    endAt: Date,
+    deleted: {
+      type: Boolean,
+      default: false
+    },
+    provideTo: ProvideSchema
+  });
+
+  let AccountHistorySchema = _databaseInitializer.default.Schema({
+    practiced: {
+      questions: [{
+        at: {
+          type: ObjectId,
+          ref: 'Question'
+        },
+        timeLine: [{
+          time: Date,
+          answer: String
+        }]
+      }],
+      test: [{
+        at: {
+          type: ObjectId,
+          ref: 'Test'
+        },
+        timeLine: [{
+          time: Date,
+          answer: String
+        }]
+      }]
+    },
+    picked: [{
+      teacher: {
+        type: ObjectId,
+        ref: 'Account'
+      },
+      timeLine: [Date]
+    }]
+  });
+
+  let ThemeSchema = _databaseInitializer.default.Schema({
+    picture: String,
+    // BASE64
+    isVR: {
+      type: Boolean,
+      default: false
+    },
+    primaryColor: String,
+    secondaryColor: String,
+    opacity: Number,
+    mobileTheme: {
+      type: String,
+      enum: ['android', 'ios']
+    }
+  });
+
+  let BroadcastSchema = _databaseInitializer.default.Schema({
+    whoCanView: [{
+      type: ObjectId,
+      ref: 'UserGroup'
+    }],
+    // 如果为空，则所有人都看得到
+    date: Date,
+    message: String // 允许使用 Markdown
+
+  });
+
+  let GlobalUserGroupSchema = _databaseInitializer.default.Schema({
+    name: String,
+    scoreExpression: ExpressionGroupSchema,
+    userExpression: ExpressionGroupSchema
+  });
+
+  let UserGroupSchema = _databaseInitializer.default.Schema({
+    extendBy: {
+      type: ObjectId,
+      ref: 'GlobalUserGroup'
+    },
+    name: String,
+    scoreExpression: ExpressionGroupSchema,
+    userExpression: ExpressionGroupSchema
+  });
+
+  let GroupScoreWeightSchema = _databaseInitializer.default.Schema({
+    scoreType: {
+      type: ObjectId,
+      ref: 'ScoreType'
+    },
+    expression: String // 为一个以 JavaScript 写的函数代码文本，具体内容需额外设计 API
+
+  });
+
+  let GroupSchema = _databaseInitializer.default.Schema({
+    scores: [ScoreSchema],
+    name: String,
+    description: String,
+    members: [{
+      account: {
+        type: ObjectId,
+        ref: 'Account'
+      }
+    }]
+  });
+
+  let GroupTypeSchema = _databaseInitializer.default.Schema({
+    userType: {
+      type: ObjectId,
+      ref: 'UserGroup'
+    },
+    groups: [GroupSchema],
+    name: String,
+    groupScoreTransfer: GroupScoreWeightSchema
+  });
+
+  let LogSchema = _databaseInitializer.default.Schema({
+    action: {
+      type: String,
+      enum: ['scoreAdd', 'scoreRemove', 'scoreSet', 'memberAdd', 'memberRemove', 'memberSet']
+    },
+    target: PathSchema,
+    value: Number,
+    reason: String,
+    operator: {
+      type: ObjectId,
+      ref: 'Account'
+    },
+    time: Date
+  });
+
+  let AccountSchema = _databaseInitializer.default.Schema({
+    name: String,
+    password: String,
+    // MD5/SHA3
+    userGroup: [{
+      type: ObjectId,
+      ref: 'UserGroup'
+    }],
+    scoreExpression: ExpressionGroupSchema,
+    userExpression: ExpressionGroupSchema,
+    classTable: {
+      type: ObjectId,
+      ref: 'ClassTable'
+    },
+    theme: {
+      type: ObjectId,
+      ref: 'Theme'
+    },
+    config: ConfigSchema,
+    accountHistory: AccountHistorySchema
+  });
+
+  let ClassMapRowSchema = _databaseInitializer.default.Schema({
+    columns: [{
+      type: ObjectId,
+      ref: "Account"
+    }]
+  });
+
+  let ClassMapBlockSchema = _databaseInitializer.default.Schema({
+    height: Number,
+    weight: Number,
+    rows: [ClassMapRowSchema]
+  });
+
+  let ClassMapSchema = _databaseInitializer.default.Schema({
+    height: Number,
+    weight: Number,
+    blocks: [ClassMapBlockSchema]
+  });
+
+  let ClassSchema = _databaseInitializer.default.Schema({
+    groupTypes: [GroupTypeSchema],
+    members: [{
+      account: {
+        type: ObjectId,
+        ref: 'Account'
+      },
+      scores: [ScoreSchema]
+    }],
+    name: String,
+    scores: [ScoreSchema],
+    state: ClassStateSchema,
+    classTable: {
+      type: ObjectId,
+      ref: "ClassTable"
+    },
+    theme: [ThemeSchema],
+    classMap: ClassMapSchema
+  });
+
+  console.log("数据库表创建完成");
+  let Class = db.model('Class', ClassSchema);
+  let GroupType = db.model('GroupType', GroupTypeSchema);
+  let GroupScoreWeight = db.model('GroupScoreWeight', GroupScoreWeightSchema);
+  let Group = db.model('Group', GroupSchema);
+  let Log = db.model('Log', LogSchema);
+  let Path = db.model('Path', PathSchema);
+  let Score = db.model('Score', ScoreSchema);
+  let Account = db.model('Account', AccountSchema);
+  let ExpressionGroup = db.model('ExpressionGroup', ExpressionGroupSchema);
+  let Expression = db.model('Expression', ExpressionSchema);
+  let ScoreType = db.model('ScoreType', ScoreTypeSchema);
+  let TradeRule = db.model('TradeRule', TradeRuleSchema);
+  let UserGroup = db.model('UserGroup', UserGroupSchema);
+  let GlobalUserGroup = db.model('GlobalUserGroup', GlobalUserGroupSchema);
+  let ScoreGroup = db.model('ScoreGroup', ScoreGroupSchema);
+  let ClassTable = db.model('ClassTable', ClassTableSchema);
+  let ClassTableItem = db.model('ClassTableItem', ClassTableItemSchema);
+  let Config = db.model('Config', ConfigSchema);
+  let ClassState = db.model('ClassState', ClassStateSchema);
+  let Question = db.model('Question', QuestionSchema);
+  let Test = db.model('Test', TestSchema);
+  let Provide = db.model('Provide', ProvideSchema);
+  let AccountHistory = db.model('AccountHistory', AccountHistorySchema);
+  let Theme = db.model('Theme', ThemeSchema);
+  let BroadCast = db.model('Broadcast', BroadcastSchema);
+  let ClassMap = db.model('ClassMap', ClassMapSchema);
+  let ClassMapBlock = db.model('ClassMapBlock', ClassMapBlockSchema);
+  let ClassMapRow = db.model('ClassMapRow', ClassMapRowSchema);
+  console.log("数据库表格关联完毕");
+
+  _webSocketServer.connectionEvents.on('h5', conn => {
+    console.log("开始注册 h5 的指令……");
+    (0, _webSocketServer.register)("h5", {
+      test: {
+        visit: function () {
+          console.log("已调用 test visit");
+          this.callback('ojbk');
+        },
+        create: function (name) {
+          console.log("开始建表：", name);
+          let n = new Class({
+            name: name
+          });
+          n.save((err, res) => {
+            if (err) this.callback("建表失败！", "" + err);else this.callback("建表成功！");
+          });
+        }
+      },
+      list: {
+        "class": {
+          members: function (className, limit, page = 0) {
+            try {
+              if (limit == "count") {
+                let ret = "success " + className + " ";
                 Class.findOne({
                   name: className
                 }).populate("Account").exec((err, result) => {
@@ -449,16 +431,13 @@ _webSocketServer.connectionEvents.on('h5', conn => {
 
                     console.log("数据库查询结果：", result);
                     ret += result;
-                    return;
+                    this.callback(ret);
                   });
                 });
-              })().next();
-              return ret;
-            } else if (limit) {
-              limit = 0 + limit;
-              page = 0 + page;
-              let ret = "success " + className + " ";
-              (function* () {
+              } else if (limit) {
+                limit = 0 + limit;
+                page = 0 + page;
+                let ret = "success " + className + " ";
                 Class.findOne({
                   name: className
                 }).populate("Account").exec((err, result) => {
@@ -475,19 +454,18 @@ _webSocketServer.connectionEvents.on('h5', conn => {
 
                     console.log("数据库查询结果：", result);
                     ret += result.reduce((prev, next) => prev + " " + next);
-                    return;
+                    this.callback(ret);
                   });
                 });
-              })().next();
-              return ret;
-            } else throw new Error("参数错误！", className, limit, page);
-          } catch (e) {
-            console.log("捕获到错误： ", e);
-            return "fail " + e;
+              } else throw new Error("参数错误！", className, limit, page);
+            } catch (e) {
+              console.log("捕获到错误： ", e);
+              return "fail " + e;
+            }
           }
         }
       }
-    }
+    });
   });
 });
 
