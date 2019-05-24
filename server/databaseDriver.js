@@ -1,4 +1,4 @@
-import mongoose from "./databaseInitializer";
+const mongoose = eval('require\("mongoose"\)');
 import { send, register, receive, connectionEvents } from "./webSocketServer";
 
 let db = mongoose.createConnection('mongodb://localhost/test');
@@ -56,14 +56,20 @@ db.on('open', () => {
     });
 
     let ScoreTypeSchema = mongoose.Schema({
-        name: String,
+        name: {
+            type: String,
+            index: true
+        },
         description: String,
         tradeRules: [TradeRuleSchema],
         virtual: Boolean    // 默认为假；如果为真，这个分数的加减会带动其它与之相关联的分数的加减，也就是具有绑定性，加减规则直接使用 tradeRules 记录的信息
     });
 
     let ScoreGroupSchema = mongoose.Schema({
-        name: String,
+        name: {
+            type: String,
+            index: true
+        },
         description: String,
         usingScoreTypes: [{
             type: ObjectId,
@@ -72,14 +78,31 @@ db.on('open', () => {
     });
 
     let ClassTableItemSchema = mongoose.Schema({
-        form: Date,
-        to: Date,
-        subject: String
+        timeForm: Date,
+        timeTo: Date,
+        dateFrom: Date,
+        dateTo: Date,
+        subject: String,
+        repeatAt: {
+            type: String,
+            enum: [
+                'Mon',
+                'Tue',
+                'Wed',
+                'Thr',
+                'Fri',
+                'Sat',
+                'Sun'
+            ]
+        }
     });
 
     let ClassTableSchema = mongoose.Schema({
         description: String,
-        name: String,
+        name: {
+            type: String,
+            index: true
+        },
         timeLine: [ClassTableItemSchema],
         userType: {
             type: String,
@@ -134,16 +157,33 @@ db.on('open', () => {
     });
 
     let ProvideSchema = mongoose.Schema({
-        classes: [{
+        to: {
+            type: String,
+            enum: [
+                'class',
+                'group',
+                'member'
+            ]
+        },
+        atClass: {
             type: ObjectId,
-            ref: "Class"
-        }]
+            ref: 'Class'
+        },
+        atGroup: {
+            type: ObjectId,
+            ref: 'Group'
+        },
+        atMember: {
+            type: ObjectId,
+            ref: 'Account'
+        }
     });
 
     let QuestionSchema = mongoose.Schema({
         owner: {
             type: ObjectId,
-            ref: 'Account'
+            ref: 'Account',
+            index: true
         },
         forkFrom: {
             type: ObjectId,
@@ -166,7 +206,11 @@ db.on('open', () => {
             type: Boolean,
             default: false
         },
-        provideTo: ProvideSchema
+        provideTo: [{
+            type: ObjectId,
+            ref: 'Provide',
+            index: true
+        }]
     });
 
     let TestSchema = mongoose.Schema({
@@ -228,7 +272,8 @@ db.on('open', () => {
         picture: String,        // BASE64
         isVR: {
             type: Boolean,
-            default: false
+            default: false,
+            index: true
         },
         primaryColor: String,
         secondaryColor: String,
@@ -238,7 +283,8 @@ db.on('open', () => {
             enum: [
                 'android',
                 'ios'
-            ]
+            ],
+            index: true
         }
     });
 
@@ -247,12 +293,19 @@ db.on('open', () => {
             type: ObjectId,
             ref: 'UserGroup'
         }],                     // 如果为空，则所有人都看得到
-        date: Date,
-        message: String         // 允许使用 Markdown
+        date: {
+            type: Date,
+            index: true
+        },
+        message: String,        // 允许使用 Markdown
+        title: String
     });
 
     let GlobalUserGroupSchema = mongoose.Schema({
-        name: String,
+        name: {
+            type: String,
+            index: true
+        },
         scoreExpression: ExpressionGroupSchema,
         userExpression: ExpressionGroupSchema
     });
@@ -262,7 +315,10 @@ db.on('open', () => {
             type: ObjectId,
             ref: 'GlobalUserGroup'
         },
-        name: String,
+        name: {
+            type: String,
+            index: true
+        },
         scoreExpression: ExpressionGroupSchema,
         userExpression: ExpressionGroupSchema
     });
@@ -270,7 +326,8 @@ db.on('open', () => {
     let GroupScoreWeightSchema = mongoose.Schema({
         scoreType: {
             type: ObjectId,
-            ref: 'ScoreType'
+            ref: 'ScoreType',
+            index: true
         },
         expression: String       // 为一个以 JavaScript 写的函数代码文本，具体内容需额外设计 API
     });
@@ -320,11 +377,15 @@ db.on('open', () => {
     });
 
     let AccountSchema = mongoose.Schema({
-        name: String,
+        name: {
+            type: String,
+            index: true
+        },
         password: String,       // MD5/SHA3
         userGroup: [{
             type: ObjectId,
-            ref: 'UserGroup'
+            ref: 'UserGroup',
+            index: true
         }],
         scoreExpression: ExpressionGroupSchema,
         userExpression: ExpressionGroupSchema,
@@ -368,7 +429,10 @@ db.on('open', () => {
             },
             scores: [ScoreSchema]
         }],
-        name: String,
+        name: {
+            type: String,
+            index: true
+        },
         scores: [ScoreSchema],
         state: ClassStateSchema,
         classTable: {

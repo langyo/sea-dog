@@ -1,47 +1,38 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 "use strict";
 
-var _databaseInitializer = _interopRequireDefault(require("./databaseInitializer"));
-
 var _webSocketServer = require("./webSocketServer");
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-let db = _databaseInitializer.default.createConnection('mongodb://localhost/test');
-
+const mongoose = eval('require\("mongoose"\)');
+let db = mongoose.createConnection('mongodb://localhost/test');
 db.on('error', e => console.error(e));
 db.on('open', () => {
   console.log("数据库连接成功");
-  const ObjectId = _databaseInitializer.default.Schema.Types.ObjectId;
-
-  let PathSchema = _databaseInitializer.default.Schema({
+  const ObjectId = mongoose.Schema.Types.ObjectId;
+  let PathSchema = mongoose.Schema({
     theClass: String,
     groupType: String,
     group: String,
     member: String
   });
-
-  let ScoreSchema = _databaseInitializer.default.Schema({
+  let ScoreSchema = mongoose.Schema({
     at: {
       type: ObjectId,
       ref: "ScoreType"
     },
     value: Number
   });
-
-  let ExpressionSchema = _databaseInitializer.default.Schema({
+  let ExpressionSchema = mongoose.Schema({
     path: PathSchema,
     tag: Boolean
   });
-
-  let ExpressionGroupSchema = _databaseInitializer.default.Schema({
+  let ExpressionGroupSchema = mongoose.Schema({
     read: [ExpressionSchema],
     write: [ExpressionSchema],
     add: [ExpressionSchema],
     minus: [ExpressionSchema]
   });
-
-  let TradeRuleSchema = _databaseInitializer.default.Schema({
+  let TradeRuleSchema = mongoose.Schema({
     from: {
       type: ObjectId,
       ref: "ScoreType"
@@ -60,41 +51,51 @@ db.on('open', () => {
       }
     }
   });
-
-  let ScoreTypeSchema = _databaseInitializer.default.Schema({
-    name: String,
+  let ScoreTypeSchema = mongoose.Schema({
+    name: {
+      type: String,
+      index: true
+    },
     description: String,
     tradeRules: [TradeRuleSchema],
     virtual: Boolean // 默认为假；如果为真，这个分数的加减会带动其它与之相关联的分数的加减，也就是具有绑定性，加减规则直接使用 tradeRules 记录的信息
 
   });
-
-  let ScoreGroupSchema = _databaseInitializer.default.Schema({
-    name: String,
+  let ScoreGroupSchema = mongoose.Schema({
+    name: {
+      type: String,
+      index: true
+    },
     description: String,
     usingScoreTypes: [{
       type: ObjectId,
       ref: 'ScoreType'
     }]
   });
-
-  let ClassTableItemSchema = _databaseInitializer.default.Schema({
-    form: Date,
-    to: Date,
-    subject: String
+  let ClassTableItemSchema = mongoose.Schema({
+    timeForm: Date,
+    timeTo: Date,
+    dateFrom: Date,
+    dateTo: Date,
+    subject: String,
+    repeatAt: {
+      type: String,
+      enum: ['Mon', 'Tue', 'Wed', 'Thr', 'Fri', 'Sat', 'Sun']
+    }
   });
-
-  let ClassTableSchema = _databaseInitializer.default.Schema({
+  let ClassTableSchema = mongoose.Schema({
     description: String,
-    name: String,
+    name: {
+      type: String,
+      index: true
+    },
     timeLine: [ClassTableItemSchema],
     userType: {
       type: String,
       enum: ['student', 'teacher']
     }
   });
-
-  let ConfigSchema = _databaseInitializer.default.Schema({
+  let ConfigSchema = mongoose.Schema({
     allow: [{
       type: String,
       enum: ['createQuestion', 'forkQuestion', 'deleteQuestion', 'createTest', 'watchTestResult', 'forkTest', 'deleteTest', 'setTheme', 'root']
@@ -104,8 +105,7 @@ db.on('open', () => {
       enum: ['createQuestion', 'forkQuestion', 'deleteQuestion', 'createTest', 'watchTestResult', 'forkTest', 'deleteTest', 'setTheme', 'root']
     }]
   });
-
-  let ClassStateSchema = _databaseInitializer.default.Schema({
+  let ClassStateSchema = mongoose.Schema({
     isHavingClass: {
       type: String,
       enum: ['begin', // 正常上课
@@ -118,18 +118,29 @@ db.on('open', () => {
       ref: 'Account'
     }
   });
-
-  let ProvideSchema = _databaseInitializer.default.Schema({
-    classes: [{
+  let ProvideSchema = mongoose.Schema({
+    to: {
+      type: String,
+      enum: ['class', 'group', 'member']
+    },
+    atClass: {
       type: ObjectId,
-      ref: "Class"
-    }]
-  });
-
-  let QuestionSchema = _databaseInitializer.default.Schema({
-    owner: {
+      ref: 'Class'
+    },
+    atGroup: {
+      type: ObjectId,
+      ref: 'Group'
+    },
+    atMember: {
       type: ObjectId,
       ref: 'Account'
+    }
+  });
+  let QuestionSchema = mongoose.Schema({
+    owner: {
+      type: ObjectId,
+      ref: 'Account',
+      index: true
     },
     forkFrom: {
       type: ObjectId,
@@ -152,10 +163,13 @@ db.on('open', () => {
       type: Boolean,
       default: false
     },
-    provideTo: ProvideSchema
+    provideTo: [{
+      type: ObjectId,
+      ref: 'Provide',
+      index: true
+    }]
   });
-
-  let TestSchema = _databaseInitializer.default.Schema({
+  let TestSchema = mongoose.Schema({
     owner: {
       type: ObjectId,
       ref: 'Account'
@@ -177,8 +191,7 @@ db.on('open', () => {
     },
     provideTo: ProvideSchema
   });
-
-  let AccountHistorySchema = _databaseInitializer.default.Schema({
+  let AccountHistorySchema = mongoose.Schema({
     practiced: {
       questions: [{
         at: {
@@ -209,60 +222,67 @@ db.on('open', () => {
       timeLine: [Date]
     }]
   });
-
-  let ThemeSchema = _databaseInitializer.default.Schema({
+  let ThemeSchema = mongoose.Schema({
     picture: String,
     // BASE64
     isVR: {
       type: Boolean,
-      default: false
+      default: false,
+      index: true
     },
     primaryColor: String,
     secondaryColor: String,
     opacity: Number,
     mobileTheme: {
       type: String,
-      enum: ['android', 'ios']
+      enum: ['android', 'ios'],
+      index: true
     }
   });
-
-  let BroadcastSchema = _databaseInitializer.default.Schema({
+  let BroadcastSchema = mongoose.Schema({
     whoCanView: [{
       type: ObjectId,
       ref: 'UserGroup'
     }],
     // 如果为空，则所有人都看得到
-    date: Date,
-    message: String // 允许使用 Markdown
-
+    date: {
+      type: Date,
+      index: true
+    },
+    message: String,
+    // 允许使用 Markdown
+    title: String
   });
-
-  let GlobalUserGroupSchema = _databaseInitializer.default.Schema({
-    name: String,
+  let GlobalUserGroupSchema = mongoose.Schema({
+    name: {
+      type: String,
+      index: true
+    },
     scoreExpression: ExpressionGroupSchema,
     userExpression: ExpressionGroupSchema
   });
-
-  let UserGroupSchema = _databaseInitializer.default.Schema({
+  let UserGroupSchema = mongoose.Schema({
     extendBy: {
       type: ObjectId,
       ref: 'GlobalUserGroup'
     },
-    name: String,
+    name: {
+      type: String,
+      index: true
+    },
     scoreExpression: ExpressionGroupSchema,
     userExpression: ExpressionGroupSchema
   });
-
-  let GroupScoreWeightSchema = _databaseInitializer.default.Schema({
+  let GroupScoreWeightSchema = mongoose.Schema({
     scoreType: {
       type: ObjectId,
-      ref: 'ScoreType'
+      ref: 'ScoreType',
+      index: true
     },
     expression: String // 为一个以 JavaScript 写的函数代码文本，具体内容需额外设计 API
 
   });
-
-  let GroupSchema = _databaseInitializer.default.Schema({
+  let GroupSchema = mongoose.Schema({
     scores: [ScoreSchema],
     name: String,
     description: String,
@@ -273,8 +293,7 @@ db.on('open', () => {
       }
     }]
   });
-
-  let GroupTypeSchema = _databaseInitializer.default.Schema({
+  let GroupTypeSchema = mongoose.Schema({
     userType: {
       type: ObjectId,
       ref: 'UserGroup'
@@ -283,8 +302,7 @@ db.on('open', () => {
     name: String,
     groupScoreTransfer: GroupScoreWeightSchema
   });
-
-  let LogSchema = _databaseInitializer.default.Schema({
+  let LogSchema = mongoose.Schema({
     action: {
       type: String,
       enum: ['scoreAdd', 'scoreRemove', 'scoreSet', 'memberAdd', 'memberRemove', 'memberSet']
@@ -298,14 +316,17 @@ db.on('open', () => {
     },
     time: Date
   });
-
-  let AccountSchema = _databaseInitializer.default.Schema({
-    name: String,
+  let AccountSchema = mongoose.Schema({
+    name: {
+      type: String,
+      index: true
+    },
     password: String,
     // MD5/SHA3
     userGroup: [{
       type: ObjectId,
-      ref: 'UserGroup'
+      ref: 'UserGroup',
+      index: true
     }],
     scoreExpression: ExpressionGroupSchema,
     userExpression: ExpressionGroupSchema,
@@ -320,27 +341,23 @@ db.on('open', () => {
     config: ConfigSchema,
     accountHistory: AccountHistorySchema
   });
-
-  let ClassMapRowSchema = _databaseInitializer.default.Schema({
+  let ClassMapRowSchema = mongoose.Schema({
     columns: [{
       type: ObjectId,
       ref: "Account"
     }]
   });
-
-  let ClassMapBlockSchema = _databaseInitializer.default.Schema({
+  let ClassMapBlockSchema = mongoose.Schema({
     height: Number,
     weight: Number,
     rows: [ClassMapRowSchema]
   });
-
-  let ClassMapSchema = _databaseInitializer.default.Schema({
+  let ClassMapSchema = mongoose.Schema({
     height: Number,
     weight: Number,
     blocks: [ClassMapBlockSchema]
   });
-
-  let ClassSchema = _databaseInitializer.default.Schema({
+  let ClassSchema = mongoose.Schema({
     groupTypes: [GroupTypeSchema],
     members: [{
       account: {
@@ -349,7 +366,10 @@ db.on('open', () => {
       },
       scores: [ScoreSchema]
     }],
-    name: String,
+    name: {
+      type: String,
+      index: true
+    },
     scores: [ScoreSchema],
     state: ClassStateSchema,
     classTable: {
@@ -359,7 +379,6 @@ db.on('open', () => {
     theme: [ThemeSchema],
     classMap: ClassMapSchema
   });
-
   console.log("数据库表创建完成");
   let Class = db.model('Class', ClassSchema);
   let GroupType = db.model('GroupType', GroupTypeSchema);
@@ -469,32 +488,7 @@ db.on('open', () => {
   });
 });
 
-},{"./databaseInitializer":2,"./webSocketServer":5}],2:[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _default = eval('require\("mongoose"\)'); // 主键列表：
-// classes: [Class],
-// accounts: [Account],
-// scoreTypes: [ScoreType],
-// userGroups: [UserGroup],
-// globalUserGroups: [GlobalUserGroup],
-// scoreGroups: [ScoreGroup],
-// classTables: [ClassTable],
-// subjectEnum: [String],
-// broadcasts: [Broadcast],
-// questionLibrary: [Question],
-// testLibrary: [Test],
-// log: [Log]
-
-
-exports.default = _default;
-
-},{}],3:[function(require,module,exports){
+},{"./webSocketServer":4}],2:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -1019,7 +1013,7 @@ function functionBindPolyfill(context) {
   };
 }
 
-},{}],4:[function(require,module,exports){
+},{}],3:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1140,7 +1134,7 @@ class PluginDashboard {
 
 exports.default = PluginDashboard;
 
-},{}],5:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1194,4 +1188,4 @@ exports.receive = receive;
 let connectionEvents = clientConnectionEventEmitter;
 exports.connectionEvents = connectionEvents;
 
-},{"./pluginDashboard":4,"events":3}]},{},[1]);
+},{"./pluginDashboard":3,"events":2}]},{},[1]);
