@@ -413,74 +413,136 @@ db.on('open', () => {
   _webSocketServer.connectionEvents.on('h5', conn => {
     console.log("开始注册 h5 的指令……");
     (0, _webSocketServer.register)("h5", {
-      test: {
-        visit: function () {
-          console.log("已调用 test visit");
-          this.callback('ojbk');
-        },
-        create: function (name) {
-          console.log("开始建表：", name);
-          let n = new Class({
-            name: name
-          });
-          n.save((err, res) => {
-            if (err) this.callback("建表失败！", "" + err);else this.callback("建表成功！");
-          });
-        }
-      },
-      list: {
-        "class": {
-          members: function (className, limit, page = 0) {
-            try {
-              if (limit == "count") {
-                let ret = "success " + className + " ";
-                Class.findOne({
-                  name: className
-                }).populate("Account").exec((err, result) => {
-                  if (err) {
-                    console.log(err);
-                    throw err;
-                  }
+      database: {
+        at: function (...args) {
+          args = Array.prototype.slice.call(args);
 
-                  result.members.count((err, result) => {
+          const dfs = (args, doc) => {
+            if (args.length > 0) if (doc == undefined) {
+              // 从数据库直接检索
+              switch (args[0]) {
+                case 'class':
+                  // 格式： class <班级编号>
+                  Class.findOne({
+                    id: args[1]
+                  }).exec((err, res) => {
                     if (err) {
                       console.log(err);
-                      throw err;
+                      this.send('fail');
                     }
 
-                    console.log("数据库查询结果：", result);
-                    ret += result;
-                    this.callback(ret);
+                    dfs(args.slice(2), res);
                   });
-                });
-              } else if (limit) {
-                limit = 0 + limit;
-                page = 0 + page;
-                let ret = "success " + className + " ";
-                Class.findOne({
-                  name: className
-                }).populate("Account").exec((err, result) => {
-                  if (err) {
-                    console.log(err);
-                    throw err;
-                  }
+                  break;
 
-                  result.members.limit(limit).skip(limit * page).exec((err, result) => {
+                case 'account':
+                  // 格式： account <账户编号>
+                  Account.findOne({
+                    id: args[1]
+                  }).exec((err, res) => {
                     if (err) {
                       console.log(err);
-                      throw err;
+                      this.send('fail');
+                      return;
                     }
 
-                    console.log("数据库查询结果：", result);
-                    ret += result.reduce((prev, next) => prev + " " + next);
-                    this.callback(ret);
+                    dfs(args.slice(2), res);
                   });
-                });
-              } else throw new Error("参数错误！", className, limit, page);
-            } catch (e) {
-              console.log("捕获到错误： ", e);
-              return "fail " + e;
+                  break;
+
+                case 'test':
+                  // 格式： test <考试编号>
+                  Test.findOne({
+                    id: args[1]
+                  }).exec((err, res) => {
+                    if (err) {
+                      console.log(err);
+                      this.send('fail');
+                      return;
+                    }
+
+                    dfs(args.slice(2), res);
+                  });
+                  break;
+
+                case 'question':
+                  // 格式： question <题目编号>
+                  Question.findOne({
+                    id: args[1]
+                  }).exec((err, res) => {
+                    if (err) {
+                      console.log(err);
+                      this.send('fail');
+                      return;
+                    }
+
+                    dfs(args.slice(2), res);
+                  });
+                  break;
+
+                case 'broadcast':
+                  // 格式： broadcast <广播编号>
+                  BroadCast.findOne({
+                    id: args[1]
+                  }).exec((err, res) => {
+                    if (err) {
+                      console.log(err);
+                      this.send('fail');
+                      return;
+                    }
+
+                    dfs(args.slice(2), res);
+                  });
+                  break;
+              }
+            } else {
+              // 从已有的 doc 检索
+              switch (args[0]) {
+                case 'groupType':
+                  // 格式： groupType <名称>
+                  dfs(args.slice(2), doc.population('GroupType').groupTypes[args[1]]);
+              }
             }
+          };
+        },
+        list: function (name, cmd, ...args) {
+          switch (cmd) {
+            case 'count':
+              switch (name) {
+                case 'classes':
+                  Class.find({}).count((err, num) => {
+                    if (err) {
+                      console.log(err);
+                      this.send('fail');
+                      return;
+                    }
+
+                    this.send(num);
+                  });
+
+                case 'accounts':
+                  Account.find({}).count((err, num) => {
+                    if (err) {
+                      console.log(err);
+                      this.send('fail');
+                      return;
+                    }
+
+                    this.send(num);
+                  });
+
+                case 'broadcasts':
+                  BroadCast.find({}).count((err, num) => {
+                    if (err) {
+                      console.log(err);
+                      this.send('fail');
+                      return;
+                    }
+
+                    this.send(num);
+                  });
+              }
+
           }
         }
       }
@@ -1035,7 +1097,7 @@ const diff = (from, to) => {
 
 class ExecuterContext {
   constructor(cmds, conn) {
-    _defineProperty(this, "callback", (...args) => {
+    _defineProperty(this, "send", (...args) => {
       let arr = this.cmdHead.concat(args);
 
       this.conn._sendMessage(arr);
