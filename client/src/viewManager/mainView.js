@@ -21,10 +21,10 @@ import ClassChoiceDesktop from "./pages/classChoiceDesktop";
 import ClassMap from "./pages/classMap";
 import ClassTable from "./pages/classTable";
 import Management from "./pages/management";
-import Picker from "./pages/picker";
-import Randomizer from "./pages/randomizer";
 import Practise from "./pages/practise";
 import Rank from "./pages/rank";
+
+import Picker from "./views/pageTypes/picker";
 
 import Stores from '../resourceManager/stores';
 import Actions from "../resourceManager/actions";
@@ -72,7 +72,6 @@ class Root extends Reflux.Component {
 
                     {this.state.show == "" && <Broadcast />}
                     {this.state.show == "picker" && <Picker />}
-                    {this.state.show == "randomizer" && <Randomizer />}
                 </MuiThemeProvider>
             </div>
         );

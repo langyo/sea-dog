@@ -42,7 +42,7 @@ const styles = theme => ({
     marginRight: theme.spacing.unit
   },
   card: {
-    width: 600,
+    width: 500,
     opacity: 0.8,
     marginLeft: "auto",
     marginRight: "auto",
@@ -74,17 +74,9 @@ class Randomizer extends Reflux.Component {
     this.store = Stores.page.randomizer;
   }
 
-  state = {
-    rounding: false,
-
-    nowSelectedLuckyGuy: ["点击开始"]
-  };
-
   handleRoundingToggle = () => {
     this.setState({ rounding: !this.state.rounding });
   };
-
-  randomTimerObject = null;
 
   render() {
     const { classes } = this.props;
@@ -92,6 +84,7 @@ class Randomizer extends Reflux.Component {
     return (
       <Fade in={true}>
         <div>
+
           <Card className={classes.card}>
             <CardActions>
               {!this.state.rounding && (
@@ -155,7 +148,7 @@ class Randomizer extends Reflux.Component {
             </CardContent>
           </Card>
         </div>
-      </Fade >
+      </Fade>
     );
   }
 }
