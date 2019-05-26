@@ -40327,7 +40327,7 @@ var _createIcon2 = _interopRequireDefault(_createIcon);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = (0, _createIcon2.default)('M19.43,12.97L21.54,14.63C21.73,14.78 21.78,15.05 21.66,15.27L19.66,18.73C19.54,18.95 19.27,19.03 19.05,18.95L16.56,17.94C16.04,18.34 15.5,18.67 14.87,18.93L14.5,21.58C14.46,21.82 14.25,22 14,22H10C9.75,22 9.54,21.82 9.5,21.58L9.13,18.93C8.5,18.68 7.96,18.34 7.44,17.94L4.95,18.95C4.73,19.03 4.46,18.95 4.34,18.73L2.34,15.27C2.21,15.05 2.27,14.78 2.46,14.63L4.57,12.97L4.5,12L4.57,11L2.46,9.37C2.27,9.22 2.21,8.95 2.34,8.73L4.34,5.27C4.46,5.05 4.73,4.96 4.95,5.05L7.44,6.05C7.96,5.66 8.5,5.32 9.13,5.07L9.5,2.42C9.54,2.18 9.75,2 10,2H14C14.25,2 14.46,2.18 14.5,2.42L14.87,5.07C15.5,5.32 16.04,5.66 16.56,6.05L19.05,5.05C19.27,4.96 19.54,5.05 19.66,5.27L21.66,8.73C21.78,8.95 21.73,9.22 21.54,9.37L19.43,11L19.5,12L19.43,12.97M6.5,12C6.5,12.58 6.59,13.13 6.75,13.66L4.68,15.36L5.43,16.66L7.95,15.72C8.69,16.53 9.68,17.12 10.8,17.37L11.24,20H12.74L13.18,17.37C14.3,17.13 15.3,16.54 16.05,15.73L18.56,16.67L19.31,15.37L17.24,13.67C17.41,13.14 17.5,12.58 17.5,12C17.5,11.43 17.41,10.87 17.25,10.35L19.31,8.66L18.56,7.36L16.06,8.29C15.31,7.47 14.31,6.88 13.19,6.63L12.75,4H11.25L10.81,6.63C9.69,6.88 8.69,7.47 7.94,8.29L5.44,7.35L4.69,8.65L6.75,10.35C6.59,10.87 6.5,11.43 6.5,12M12,8.5C13.93,8.5 15.5,10.07 15.5,12C15.5,13.93 13.93,15.5 12,15.5C10.07,15.5 8.5,13.93 8.5,12C8.5,10.07 10.07,8.5 12,8.5M12,10.5C11.17,10.5 10.5,11.17 10.5,12C10.5,12.83 11.17,13.5 12,13.5C12.83,13.5 13.5,12.83 13.5,12C13.5,11.17 12.83,10.5 12,10.5Z');
+exports.default = (0, _createIcon2.default)('M12,8C14.21,8 16,9.79 16,12C16,14.21 14.21,16 12,16C9.79,16 8,14.21 8,12C8,9.79 9.79,8 12,8M12,10C10.9,10 10,10.9 10,12C10,13.1 10.9,14 12,14C13.1,14 14,13.1 14,12C14,10.9 13.1,10 12,10M10,22C9.75,22 9.54,21.82 9.5,21.58L9.13,18.93C8.5,18.68 7.96,18.34 7.44,17.94L4.95,18.95C4.73,19.03 4.46,18.95 4.34,18.73L2.34,15.27C2.21,15.05 2.27,14.78 2.46,14.63L4.57,12.97L4.5,12L4.57,11L2.46,9.37C2.27,9.22 2.21,8.95 2.34,8.73L4.34,5.27C4.46,5.05 4.73,4.96 4.95,5.05L7.44,6.05C7.96,5.66 8.5,5.32 9.13,5.07L9.5,2.42C9.54,2.18 9.75,2 10,2H14C14.25,2 14.46,2.18 14.5,2.42L14.87,5.07C15.5,5.32 16.04,5.66 16.56,6.05L19.05,5.05C19.27,4.96 19.54,5.05 19.66,5.27L21.66,8.73C21.79,8.95 21.73,9.22 21.54,9.37L19.43,11L19.5,12L19.43,13L21.54,14.63C21.73,14.78 21.79,15.05 21.66,15.27L19.66,18.73C19.54,18.95 19.27,19.04 19.05,18.95L16.56,17.95C16.04,18.34 15.5,18.68 14.87,18.93L14.5,21.58C14.46,21.82 14.25,22 14,22H10M11.25,4L10.88,6.61C9.68,6.86 8.62,7.5 7.85,8.39L5.44,7.35L4.69,8.65L6.8,10.2C6.4,11.37 6.4,12.64 6.8,13.8L4.68,15.36L5.43,16.66L7.86,15.62C8.63,16.5 9.68,17.14 10.87,17.38L11.24,20H12.76L13.13,17.39C14.32,17.14 15.37,16.5 16.14,15.62L18.57,16.66L19.32,15.36L17.2,13.81C17.6,12.64 17.6,11.37 17.2,10.2L19.31,8.65L18.56,7.35L16.15,8.39C15.38,7.5 14.32,6.86 13.12,6.62L12.75,4H11.25Z');
 },{"./util/createIcon":279}],276:[function(require,module,exports){
 'use strict';
 
@@ -40430,6 +40430,7 @@ exports.default = function (path) {
 module.exports = function (random, alphabet, size) {
   var mask = (2 << Math.log(alphabet.length - 1) / Math.LN2) - 1
   var step = Math.ceil(1.6 * mask * size / alphabet.length)
+  size = +size
 
   var id = ''
   while (true) {
@@ -72877,8 +72878,6 @@ var _CssBaseline = _interopRequireDefault(require("@material-ui/core/CssBaseline
 
 var _red = _interopRequireDefault(require("@material-ui/core/colors/red"));
 
-var _Fade = _interopRequireDefault(require("@material-ui/core/Fade"));
-
 var _appbar = _interopRequireDefault(require("./views/appbar"));
 
 var _windowManager = _interopRequireDefault(require("./views/windowManager"));
@@ -72899,13 +72898,11 @@ var _classTable = _interopRequireDefault(require("./pages/classTable"));
 
 var _management = _interopRequireDefault(require("./pages/management"));
 
-var _picker = _interopRequireDefault(require("./views/pageTypes/picker"));
-
-var _randomizer = _interopRequireDefault(require("./pages/randomizer"));
-
 var _practise = _interopRequireDefault(require("./pages/practise"));
 
 var _rank = _interopRequireDefault(require("./pages/rank"));
+
+var _picker = _interopRequireDefault(require("./views/pageTypes/picker"));
 
 var _stores = _interopRequireDefault(require("../resourceManager/stores"));
 
@@ -72913,7 +72910,6 @@ var _actions = _interopRequireDefault(require("../resourceManager/actions"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// import Picker from "./pages/picker";
 const styles = theme => ({
   root: {
     height: '100%',
@@ -72954,11 +72950,7 @@ class Root extends _reflux.default.Component {
       })
     }, _react.default.createElement(_appbar.default, null), _react.default.createElement(_windowManager.default, null), _react.default.createElement("div", {
       className: classes.toolbar
-    }), this.state.show == "" && _react.default.createElement(_Fade.default, {
-      in: true
-    }, _react.default.createElement(_broadcasts.default, null)), this.state.show == "picker" && _react.default.createElement(_Fade.default, {
-      in: true
-    }, _react.default.createElement(_picker.default, null))));
+    }), this.state.show == "" && _react.default.createElement(_broadcasts.default, null), this.state.show == "picker" && _react.default.createElement(_picker.default, null)));
   }
 
 }
@@ -72971,7 +72963,7 @@ var _default = (0, _styles.withStyles)(styles)(Root);
 
 exports.default = _default;
 
-},{"../resourceManager/actions":361,"../resourceManager/stores":372,"./pages/account":385,"./pages/accountMobile":386,"./pages/broadcasts":387,"./pages/classChoiceDesktop":388,"./pages/classMap":389,"./pages/classTable":390,"./pages/management":392,"./pages/practise":394,"./pages/randomizer":395,"./pages/rank":396,"./views/appbar":397,"./views/fab":400,"./views/pageTypes/picker":401,"./views/windowManager":402,"@material-ui/core/CssBaseline":45,"@material-ui/core/Fade":61,"@material-ui/core/colors/red":137,"@material-ui/core/styles":155,"classnames":182,"prop-types":289,"react":311,"reflux":336,"shortid":346}],384:[function(require,module,exports){
+},{"../resourceManager/actions":361,"../resourceManager/stores":372,"./pages/account":385,"./pages/accountMobile":386,"./pages/broadcasts":387,"./pages/classChoiceDesktop":388,"./pages/classMap":389,"./pages/classTable":390,"./pages/management":392,"./pages/practise":394,"./pages/rank":396,"./views/appbar":397,"./views/fab":400,"./views/pageTypes/picker":401,"./views/windowManager":402,"@material-ui/core/CssBaseline":45,"@material-ui/core/colors/red":137,"@material-ui/core/styles":155,"classnames":182,"prop-types":289,"react":311,"reflux":336,"shortid":346}],384:[function(require,module,exports){
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -72985,10 +72977,186 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 _reactDom.default.render(_react.default.createElement(_mainView.default, null), document.querySelector('#content'));
 
 },{"./mainView":383,"react":311,"react-dom":293}],385:[function(require,module,exports){
-arguments[4][364][0].apply(exports,arguments)
-},{"dup":364}],386:[function(require,module,exports){
-arguments[4][364][0].apply(exports,arguments)
-},{"dup":364}],387:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _reflux = _interopRequireDefault(require("reflux"));
+
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
+var _classnames = _interopRequireDefault(require("classnames"));
+
+var _shortid = _interopRequireDefault(require("shortid"));
+
+var _styles = require("@material-ui/core/styles");
+
+var _Fade = _interopRequireDefault(require("@material-ui/core/Fade"));
+
+var _Card = _interopRequireDefault(require("@material-ui/core/Card"));
+
+var _CardContent = _interopRequireDefault(require("@material-ui/core/CardContent"));
+
+var _CardActions = _interopRequireDefault(require("@material-ui/core/CardActions"));
+
+var _Typography = _interopRequireDefault(require("@material-ui/core/Typography"));
+
+var _PacMan = _interopRequireDefault(require("mdi-material-ui/PacMan"));
+
+var _StopCircleOutline = _interopRequireDefault(require("mdi-material-ui/StopCircleOutline"));
+
+var _DotsVertical = _interopRequireDefault(require("mdi-material-ui/DotsVertical"));
+
+var _Plus = _interopRequireDefault(require("mdi-material-ui/Plus"));
+
+var _Minus = _interopRequireDefault(require("mdi-material-ui/Minus"));
+
+var _KeyboardOutline = _interopRequireDefault(require("mdi-material-ui/KeyboardOutline"));
+
+var _stores = _interopRequireDefault(require("../../resourceManager/stores"));
+
+var _actions = _interopRequireDefault(require("../../resourceManager/actions"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+const styles = theme => ({
+  card: {
+    width: 500,
+    opacity: 0.8,
+    marginLeft: "auto",
+    marginRight: "auto",
+    textAlign: "center",
+    marginTop: 30
+  }
+});
+
+class Account extends _reflux.default.Component {
+  constructor(props) {
+    super(props);
+    this.store = _stores.default.page.randomizer;
+  }
+
+  render() {
+    const {
+      classes
+    } = this.props;
+    return _react.default.createElement(_Fade.default, {
+      in: true
+    }, _react.default.createElement("div", null, _react.default.createElement(_Card.default, {
+      className: classes.card
+    }, _react.default.createElement(_CardContent.default, null, _react.default.createElement(_Typography.default, {
+      variant: "h5"
+    }, "\u5F00\u53D1\u4E2D\uFF0C\u5C3D\u60C5\u671F\u5F85")))));
+  }
+
+}
+
+Account.propTypes = {
+  open: _propTypes.default.bool
+};
+
+var _default = (0, _styles.withStyles)(styles)(Account);
+
+exports.default = _default;
+
+},{"../../resourceManager/actions":361,"../../resourceManager/stores":372,"@material-ui/core/Card":43,"@material-ui/core/CardActions":39,"@material-ui/core/CardContent":41,"@material-ui/core/Fade":61,"@material-ui/core/Typography":132,"@material-ui/core/styles":155,"classnames":182,"mdi-material-ui/DotsVertical":264,"mdi-material-ui/KeyboardOutline":268,"mdi-material-ui/Minus":270,"mdi-material-ui/PacMan":272,"mdi-material-ui/Plus":274,"mdi-material-ui/StopCircleOutline":276,"prop-types":289,"react":311,"reflux":336,"shortid":346}],386:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _reflux = _interopRequireDefault(require("reflux"));
+
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
+var _classnames = _interopRequireDefault(require("classnames"));
+
+var _shortid = _interopRequireDefault(require("shortid"));
+
+var _styles = require("@material-ui/core/styles");
+
+var _Fade = _interopRequireDefault(require("@material-ui/core/Fade"));
+
+var _Card = _interopRequireDefault(require("@material-ui/core/Card"));
+
+var _CardContent = _interopRequireDefault(require("@material-ui/core/CardContent"));
+
+var _CardActions = _interopRequireDefault(require("@material-ui/core/CardActions"));
+
+var _Typography = _interopRequireDefault(require("@material-ui/core/Typography"));
+
+var _PacMan = _interopRequireDefault(require("mdi-material-ui/PacMan"));
+
+var _StopCircleOutline = _interopRequireDefault(require("mdi-material-ui/StopCircleOutline"));
+
+var _DotsVertical = _interopRequireDefault(require("mdi-material-ui/DotsVertical"));
+
+var _Plus = _interopRequireDefault(require("mdi-material-ui/Plus"));
+
+var _Minus = _interopRequireDefault(require("mdi-material-ui/Minus"));
+
+var _KeyboardOutline = _interopRequireDefault(require("mdi-material-ui/KeyboardOutline"));
+
+var _stores = _interopRequireDefault(require("../../resourceManager/stores"));
+
+var _actions = _interopRequireDefault(require("../../resourceManager/actions"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+const styles = theme => ({
+  card: {
+    width: 500,
+    opacity: 0.8,
+    marginLeft: "auto",
+    marginRight: "auto",
+    textAlign: "center",
+    marginTop: 30
+  }
+});
+
+class AccountMobile extends _reflux.default.Component {
+  constructor(props) {
+    super(props);
+    this.store = _stores.default.page.randomizer;
+  }
+
+  render() {
+    const {
+      classes
+    } = this.props;
+    return _react.default.createElement(_Fade.default, {
+      in: true
+    }, _react.default.createElement("div", null, _react.default.createElement(_Card.default, {
+      className: classes.card
+    }, _react.default.createElement(_CardContent.default, null, _react.default.createElement(_Typography.default, {
+      variant: "h5"
+    }, "\u5F00\u53D1\u4E2D\uFF0C\u5C3D\u60C5\u671F\u5F85")))));
+  }
+
+}
+
+AccountMobile.propTypes = {
+  open: _propTypes.default.bool
+};
+
+var _default = (0, _styles.withStyles)(styles)(AccountMobile);
+
+exports.default = _default;
+
+},{"../../resourceManager/actions":361,"../../resourceManager/stores":372,"@material-ui/core/Card":43,"@material-ui/core/CardActions":39,"@material-ui/core/CardContent":41,"@material-ui/core/Fade":61,"@material-ui/core/Typography":132,"@material-ui/core/styles":155,"classnames":182,"mdi-material-ui/DotsVertical":264,"mdi-material-ui/KeyboardOutline":268,"mdi-material-ui/Minus":270,"mdi-material-ui/PacMan":272,"mdi-material-ui/Plus":274,"mdi-material-ui/StopCircleOutline":276,"prop-types":289,"react":311,"reflux":336,"shortid":346}],387:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -73120,12 +73288,6 @@ var _default = (0, _styles.withStyles)(styles)(Picker);
 exports.default = _default;
 
 },{"../../resourceManager/actions":361,"../../resourceManager/stores":372,"@material-ui/core/Button":37,"@material-ui/core/Card":43,"@material-ui/core/CardActions":39,"@material-ui/core/CardContent":41,"@material-ui/core/Fade":61,"@material-ui/core/IconButton":78,"@material-ui/core/Typography":132,"@material-ui/core/styles":155,"classnames":182,"mdi-material-ui/DotsVertical":264,"mdi-material-ui/Minus":270,"mdi-material-ui/PacMan":272,"mdi-material-ui/Plus":274,"mdi-material-ui/StopCircleOutline":276,"prop-types":289,"react":311,"reflux":336,"shortid":346}],388:[function(require,module,exports){
-arguments[4][364][0].apply(exports,arguments)
-},{"dup":364}],389:[function(require,module,exports){
-arguments[4][364][0].apply(exports,arguments)
-},{"dup":364}],390:[function(require,module,exports){
-arguments[4][364][0].apply(exports,arguments)
-},{"dup":364}],391:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -73155,25 +73317,95 @@ var _CardActions = _interopRequireDefault(require("@material-ui/core/CardActions
 
 var _Typography = _interopRequireDefault(require("@material-ui/core/Typography"));
 
-var _Button = _interopRequireDefault(require("@material-ui/core/Button"));
+var _PacMan = _interopRequireDefault(require("mdi-material-ui/PacMan"));
 
-var _IconButton = _interopRequireDefault(require("@material-ui/core/IconButton"));
+var _StopCircleOutline = _interopRequireDefault(require("mdi-material-ui/StopCircleOutline"));
 
-var _Input = _interopRequireDefault(require("@material-ui/core/Input"));
+var _DotsVertical = _interopRequireDefault(require("mdi-material-ui/DotsVertical"));
 
-var _InputLabel = _interopRequireDefault(require("@material-ui/core/InputLabel"));
+var _Plus = _interopRequireDefault(require("mdi-material-ui/Plus"));
 
-var _InputAdornment = _interopRequireDefault(require("@material-ui/core/InputAdornment"));
+var _Minus = _interopRequireDefault(require("mdi-material-ui/Minus"));
 
-var _FormHelperText = _interopRequireDefault(require("@material-ui/core/FormHelperText"));
+var _KeyboardOutline = _interopRequireDefault(require("mdi-material-ui/KeyboardOutline"));
 
-var _FormControl = _interopRequireDefault(require("@material-ui/core/FormControl"));
+var _stores = _interopRequireDefault(require("../../resourceManager/stores"));
 
-var _List = _interopRequireDefault(require("@material-ui/core/List"));
+var _actions = _interopRequireDefault(require("../../resourceManager/actions"));
 
-var _ListItem = _interopRequireDefault(require("@material-ui/core/ListItem"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var _ListItemText = _interopRequireDefault(require("@material-ui/core/ListItemText"));
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+const styles = theme => ({
+  card: {
+    width: 500,
+    opacity: 0.8,
+    marginLeft: "auto",
+    marginRight: "auto",
+    textAlign: "center",
+    marginTop: 30
+  }
+});
+
+class ClassChoiceDesktop extends _reflux.default.Component {
+  constructor(props) {
+    super(props);
+    this.store = _stores.default.page.randomizer;
+  }
+
+  render() {
+    const {
+      classes
+    } = this.props;
+    return _react.default.createElement(_Fade.default, {
+      in: true
+    }, _react.default.createElement("div", null, _react.default.createElement(_Card.default, {
+      className: classes.card
+    }, _react.default.createElement(_CardContent.default, null, _react.default.createElement(_Typography.default, {
+      variant: "h5"
+    }, "\u5F00\u53D1\u4E2D\uFF0C\u5C3D\u60C5\u671F\u5F85")))));
+  }
+
+}
+
+ClassChoiceDesktop.propTypes = {
+  open: _propTypes.default.bool
+};
+
+var _default = (0, _styles.withStyles)(styles)(ClassChoiceDesktop);
+
+exports.default = _default;
+
+},{"../../resourceManager/actions":361,"../../resourceManager/stores":372,"@material-ui/core/Card":43,"@material-ui/core/CardActions":39,"@material-ui/core/CardContent":41,"@material-ui/core/Fade":61,"@material-ui/core/Typography":132,"@material-ui/core/styles":155,"classnames":182,"mdi-material-ui/DotsVertical":264,"mdi-material-ui/KeyboardOutline":268,"mdi-material-ui/Minus":270,"mdi-material-ui/PacMan":272,"mdi-material-ui/Plus":274,"mdi-material-ui/StopCircleOutline":276,"prop-types":289,"react":311,"reflux":336,"shortid":346}],389:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _reflux = _interopRequireDefault(require("reflux"));
+
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
+var _classnames = _interopRequireDefault(require("classnames"));
+
+var _shortid = _interopRequireDefault(require("shortid"));
+
+var _styles = require("@material-ui/core/styles");
+
+var _Fade = _interopRequireDefault(require("@material-ui/core/Fade"));
+
+var _Card = _interopRequireDefault(require("@material-ui/core/Card"));
+
+var _CardContent = _interopRequireDefault(require("@material-ui/core/CardContent"));
+
+var _CardActions = _interopRequireDefault(require("@material-ui/core/CardActions"));
+
+var _Typography = _interopRequireDefault(require("@material-ui/core/Typography"));
 
 var _PacMan = _interopRequireDefault(require("mdi-material-ui/PacMan"));
 
@@ -73195,7 +73427,95 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+const styles = theme => ({
+  card: {
+    width: 500,
+    opacity: 0.8,
+    marginLeft: "auto",
+    marginRight: "auto",
+    textAlign: "center",
+    marginTop: 30
+  }
+});
+
+class ClassMap extends _reflux.default.Component {
+  constructor(props) {
+    super(props);
+    this.store = _stores.default.page.randomizer;
+  }
+
+  render() {
+    const {
+      classes
+    } = this.props;
+    return _react.default.createElement(_Fade.default, {
+      in: true
+    }, _react.default.createElement("div", null, _react.default.createElement(_Card.default, {
+      className: classes.card
+    }, _react.default.createElement(_CardContent.default, null, _react.default.createElement(_Typography.default, {
+      variant: "h5"
+    }, "\u5F00\u53D1\u4E2D\uFF0C\u5C3D\u60C5\u671F\u5F85")))));
+  }
+
+}
+
+ClassMap.propTypes = {
+  open: _propTypes.default.bool
+};
+
+var _default = (0, _styles.withStyles)(styles)(ClassMap);
+
+exports.default = _default;
+
+},{"../../resourceManager/actions":361,"../../resourceManager/stores":372,"@material-ui/core/Card":43,"@material-ui/core/CardActions":39,"@material-ui/core/CardContent":41,"@material-ui/core/Fade":61,"@material-ui/core/Typography":132,"@material-ui/core/styles":155,"classnames":182,"mdi-material-ui/DotsVertical":264,"mdi-material-ui/KeyboardOutline":268,"mdi-material-ui/Minus":270,"mdi-material-ui/PacMan":272,"mdi-material-ui/Plus":274,"mdi-material-ui/StopCircleOutline":276,"prop-types":289,"react":311,"reflux":336,"shortid":346}],390:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _reflux = _interopRequireDefault(require("reflux"));
+
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
+var _classnames = _interopRequireDefault(require("classnames"));
+
+var _shortid = _interopRequireDefault(require("shortid"));
+
+var _styles = require("@material-ui/core/styles");
+
+var _Fade = _interopRequireDefault(require("@material-ui/core/Fade"));
+
+var _Card = _interopRequireDefault(require("@material-ui/core/Card"));
+
+var _CardContent = _interopRequireDefault(require("@material-ui/core/CardContent"));
+
+var _CardActions = _interopRequireDefault(require("@material-ui/core/CardActions"));
+
+var _Typography = _interopRequireDefault(require("@material-ui/core/Typography"));
+
+var _PacMan = _interopRequireDefault(require("mdi-material-ui/PacMan"));
+
+var _StopCircleOutline = _interopRequireDefault(require("mdi-material-ui/StopCircleOutline"));
+
+var _DotsVertical = _interopRequireDefault(require("mdi-material-ui/DotsVertical"));
+
+var _Plus = _interopRequireDefault(require("mdi-material-ui/Plus"));
+
+var _Minus = _interopRequireDefault(require("mdi-material-ui/Minus"));
+
+var _KeyboardOutline = _interopRequireDefault(require("mdi-material-ui/KeyboardOutline"));
+
+var _stores = _interopRequireDefault(require("../../resourceManager/stores"));
+
+var _actions = _interopRequireDefault(require("../../resourceManager/actions"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
 const styles = theme => ({
   card: {
@@ -73208,16 +73528,9 @@ const styles = theme => ({
   }
 });
 
-class Randomizer extends _reflux.default.Component {
+class ClassTable extends _reflux.default.Component {
   constructor(props) {
     super(props);
-
-    _defineProperty(this, "handleRoundingToggle", () => {
-      this.setState({
-        rounding: !this.state.rounding
-      });
-    });
-
     this.store = _stores.default.page.randomizer;
   }
 
@@ -73229,24 +73542,202 @@ class Randomizer extends _reflux.default.Component {
       in: true
     }, _react.default.createElement("div", null, _react.default.createElement(_Card.default, {
       className: classes.card
-    }, _react.default.createElement(_CardContent.default, null, _react.default.createElement(_List.default, null, _react.default.createElement(_ListItem.default, null, _react.default.createElement(_Typography.default, {
+    }, _react.default.createElement(_CardContent.default, null, _react.default.createElement(_Typography.default, {
       variant: "h5"
-    }, "\u5F00\u53D1\u4E2D\uFF0C\u5C3D\u60C5\u671F\u5F85")))))));
+    }, "\u5F00\u53D1\u4E2D\uFF0C\u5C3D\u60C5\u671F\u5F85")))));
   }
 
 }
 
-Randomizer.propTypes = {
+ClassTable.propTypes = {
   open: _propTypes.default.bool
 };
 
-var _default = (0, _styles.withStyles)(styles)(Randomizer);
+var _default = (0, _styles.withStyles)(styles)(ClassTable);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":361,"../../resourceManager/stores":372,"@material-ui/core/Button":37,"@material-ui/core/Card":43,"@material-ui/core/CardActions":39,"@material-ui/core/CardContent":41,"@material-ui/core/Fade":61,"@material-ui/core/FormControl":67,"@material-ui/core/FormHelperText":72,"@material-ui/core/IconButton":78,"@material-ui/core/Input":88,"@material-ui/core/InputAdornment":80,"@material-ui/core/InputLabel":86,"@material-ui/core/List":98,"@material-ui/core/ListItem":95,"@material-ui/core/ListItemText":92,"@material-ui/core/Typography":132,"@material-ui/core/styles":155,"classnames":182,"mdi-material-ui/DotsVertical":264,"mdi-material-ui/KeyboardOutline":268,"mdi-material-ui/Minus":270,"mdi-material-ui/PacMan":272,"mdi-material-ui/Plus":274,"mdi-material-ui/StopCircleOutline":276,"prop-types":289,"react":311,"reflux":336,"shortid":346}],392:[function(require,module,exports){
-arguments[4][364][0].apply(exports,arguments)
-},{"dup":364}],393:[function(require,module,exports){
+},{"../../resourceManager/actions":361,"../../resourceManager/stores":372,"@material-ui/core/Card":43,"@material-ui/core/CardActions":39,"@material-ui/core/CardContent":41,"@material-ui/core/Fade":61,"@material-ui/core/Typography":132,"@material-ui/core/styles":155,"classnames":182,"mdi-material-ui/DotsVertical":264,"mdi-material-ui/KeyboardOutline":268,"mdi-material-ui/Minus":270,"mdi-material-ui/PacMan":272,"mdi-material-ui/Plus":274,"mdi-material-ui/StopCircleOutline":276,"prop-types":289,"react":311,"reflux":336,"shortid":346}],391:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _reflux = _interopRequireDefault(require("reflux"));
+
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
+var _classnames = _interopRequireDefault(require("classnames"));
+
+var _shortid = _interopRequireDefault(require("shortid"));
+
+var _styles = require("@material-ui/core/styles");
+
+var _Fade = _interopRequireDefault(require("@material-ui/core/Fade"));
+
+var _Card = _interopRequireDefault(require("@material-ui/core/Card"));
+
+var _CardContent = _interopRequireDefault(require("@material-ui/core/CardContent"));
+
+var _CardActions = _interopRequireDefault(require("@material-ui/core/CardActions"));
+
+var _Typography = _interopRequireDefault(require("@material-ui/core/Typography"));
+
+var _PacMan = _interopRequireDefault(require("mdi-material-ui/PacMan"));
+
+var _StopCircleOutline = _interopRequireDefault(require("mdi-material-ui/StopCircleOutline"));
+
+var _DotsVertical = _interopRequireDefault(require("mdi-material-ui/DotsVertical"));
+
+var _Plus = _interopRequireDefault(require("mdi-material-ui/Plus"));
+
+var _Minus = _interopRequireDefault(require("mdi-material-ui/Minus"));
+
+var _KeyboardOutline = _interopRequireDefault(require("mdi-material-ui/KeyboardOutline"));
+
+var _stores = _interopRequireDefault(require("../../resourceManager/stores"));
+
+var _actions = _interopRequireDefault(require("../../resourceManager/actions"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+const styles = theme => ({
+  card: {
+    width: 500,
+    opacity: 0.8,
+    marginLeft: "auto",
+    marginRight: "auto",
+    textAlign: "center",
+    marginTop: 30
+  }
+});
+
+class GroupPicker extends _reflux.default.Component {
+  constructor(props) {
+    super(props);
+    this.store = _stores.default.page.randomizer;
+  }
+
+  render() {
+    const {
+      classes
+    } = this.props;
+    return _react.default.createElement(_Fade.default, {
+      in: true
+    }, _react.default.createElement("div", null, _react.default.createElement(_Card.default, {
+      className: classes.card
+    }, _react.default.createElement(_CardContent.default, null, _react.default.createElement(_Typography.default, {
+      variant: "h5"
+    }, "\u5F00\u53D1\u4E2D\uFF0C\u5C3D\u60C5\u671F\u5F85")))));
+  }
+
+}
+
+GroupPicker.propTypes = {
+  open: _propTypes.default.bool
+};
+
+var _default = (0, _styles.withStyles)(styles)(GroupPicker);
+
+exports.default = _default;
+
+},{"../../resourceManager/actions":361,"../../resourceManager/stores":372,"@material-ui/core/Card":43,"@material-ui/core/CardActions":39,"@material-ui/core/CardContent":41,"@material-ui/core/Fade":61,"@material-ui/core/Typography":132,"@material-ui/core/styles":155,"classnames":182,"mdi-material-ui/DotsVertical":264,"mdi-material-ui/KeyboardOutline":268,"mdi-material-ui/Minus":270,"mdi-material-ui/PacMan":272,"mdi-material-ui/Plus":274,"mdi-material-ui/StopCircleOutline":276,"prop-types":289,"react":311,"reflux":336,"shortid":346}],392:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _reflux = _interopRequireDefault(require("reflux"));
+
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
+var _classnames = _interopRequireDefault(require("classnames"));
+
+var _shortid = _interopRequireDefault(require("shortid"));
+
+var _styles = require("@material-ui/core/styles");
+
+var _Fade = _interopRequireDefault(require("@material-ui/core/Fade"));
+
+var _Card = _interopRequireDefault(require("@material-ui/core/Card"));
+
+var _CardContent = _interopRequireDefault(require("@material-ui/core/CardContent"));
+
+var _CardActions = _interopRequireDefault(require("@material-ui/core/CardActions"));
+
+var _Typography = _interopRequireDefault(require("@material-ui/core/Typography"));
+
+var _PacMan = _interopRequireDefault(require("mdi-material-ui/PacMan"));
+
+var _StopCircleOutline = _interopRequireDefault(require("mdi-material-ui/StopCircleOutline"));
+
+var _DotsVertical = _interopRequireDefault(require("mdi-material-ui/DotsVertical"));
+
+var _Plus = _interopRequireDefault(require("mdi-material-ui/Plus"));
+
+var _Minus = _interopRequireDefault(require("mdi-material-ui/Minus"));
+
+var _KeyboardOutline = _interopRequireDefault(require("mdi-material-ui/KeyboardOutline"));
+
+var _stores = _interopRequireDefault(require("../../resourceManager/stores"));
+
+var _actions = _interopRequireDefault(require("../../resourceManager/actions"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+const styles = theme => ({
+  card: {
+    width: 500,
+    opacity: 0.8,
+    marginLeft: "auto",
+    marginRight: "auto",
+    textAlign: "center",
+    marginTop: 30
+  }
+});
+
+class Management extends _reflux.default.Component {
+  constructor(props) {
+    super(props);
+    this.store = _stores.default.page.randomizer;
+  }
+
+  render() {
+    const {
+      classes
+    } = this.props;
+    return _react.default.createElement(_Fade.default, {
+      in: true
+    }, _react.default.createElement("div", null, _react.default.createElement(_Card.default, {
+      className: classes.card
+    }, _react.default.createElement(_CardContent.default, null, _react.default.createElement(_Typography.default, {
+      variant: "h5"
+    }, "\u5F00\u53D1\u4E2D\uFF0C\u5C3D\u60C5\u671F\u5F85")))));
+  }
+
+}
+
+Management.propTypes = {
+  open: _propTypes.default.bool
+};
+
+var _default = (0, _styles.withStyles)(styles)(Management);
+
+exports.default = _default;
+
+},{"../../resourceManager/actions":361,"../../resourceManager/stores":372,"@material-ui/core/Card":43,"@material-ui/core/CardActions":39,"@material-ui/core/CardContent":41,"@material-ui/core/Fade":61,"@material-ui/core/Typography":132,"@material-ui/core/styles":155,"classnames":182,"mdi-material-ui/DotsVertical":264,"mdi-material-ui/KeyboardOutline":268,"mdi-material-ui/Minus":270,"mdi-material-ui/PacMan":272,"mdi-material-ui/Plus":274,"mdi-material-ui/StopCircleOutline":276,"prop-types":289,"react":311,"reflux":336,"shortid":346}],393:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -73411,8 +73902,96 @@ var _default = (0, _styles.withStyles)(styles)(Picker);
 exports.default = _default;
 
 },{"../../resourceManager/actions":361,"../../resourceManager/stores":372,"@material-ui/core/Button":37,"@material-ui/core/Card":43,"@material-ui/core/CardActions":39,"@material-ui/core/CardContent":41,"@material-ui/core/Fade":61,"@material-ui/core/IconButton":78,"@material-ui/core/Typography":132,"@material-ui/core/styles":155,"classnames":182,"mdi-material-ui/DotsVertical":264,"mdi-material-ui/Minus":270,"mdi-material-ui/PacMan":272,"mdi-material-ui/Plus":274,"mdi-material-ui/StopCircleOutline":276,"prop-types":289,"react":311,"reflux":336,"shortid":346}],394:[function(require,module,exports){
-arguments[4][364][0].apply(exports,arguments)
-},{"dup":364}],395:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _reflux = _interopRequireDefault(require("reflux"));
+
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
+var _classnames = _interopRequireDefault(require("classnames"));
+
+var _shortid = _interopRequireDefault(require("shortid"));
+
+var _styles = require("@material-ui/core/styles");
+
+var _Fade = _interopRequireDefault(require("@material-ui/core/Fade"));
+
+var _Card = _interopRequireDefault(require("@material-ui/core/Card"));
+
+var _CardContent = _interopRequireDefault(require("@material-ui/core/CardContent"));
+
+var _CardActions = _interopRequireDefault(require("@material-ui/core/CardActions"));
+
+var _Typography = _interopRequireDefault(require("@material-ui/core/Typography"));
+
+var _PacMan = _interopRequireDefault(require("mdi-material-ui/PacMan"));
+
+var _StopCircleOutline = _interopRequireDefault(require("mdi-material-ui/StopCircleOutline"));
+
+var _DotsVertical = _interopRequireDefault(require("mdi-material-ui/DotsVertical"));
+
+var _Plus = _interopRequireDefault(require("mdi-material-ui/Plus"));
+
+var _Minus = _interopRequireDefault(require("mdi-material-ui/Minus"));
+
+var _KeyboardOutline = _interopRequireDefault(require("mdi-material-ui/KeyboardOutline"));
+
+var _stores = _interopRequireDefault(require("../../resourceManager/stores"));
+
+var _actions = _interopRequireDefault(require("../../resourceManager/actions"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+const styles = theme => ({
+  card: {
+    width: 500,
+    opacity: 0.8,
+    marginLeft: "auto",
+    marginRight: "auto",
+    textAlign: "center",
+    marginTop: 30
+  }
+});
+
+class Practise extends _reflux.default.Component {
+  constructor(props) {
+    super(props);
+    this.store = _stores.default.page.randomizer;
+  }
+
+  render() {
+    const {
+      classes
+    } = this.props;
+    return _react.default.createElement(_Fade.default, {
+      in: true
+    }, _react.default.createElement("div", null, _react.default.createElement(_Card.default, {
+      className: classes.card
+    }, _react.default.createElement(_CardContent.default, null, _react.default.createElement(_Typography.default, {
+      variant: "h5"
+    }, "\u5F00\u53D1\u4E2D\uFF0C\u5C3D\u60C5\u671F\u5F85")))));
+  }
+
+}
+
+Practise.propTypes = {
+  open: _propTypes.default.bool
+};
+
+var _default = (0, _styles.withStyles)(styles)(Practise);
+
+exports.default = _default;
+
+},{"../../resourceManager/actions":361,"../../resourceManager/stores":372,"@material-ui/core/Card":43,"@material-ui/core/CardActions":39,"@material-ui/core/CardContent":41,"@material-ui/core/Fade":61,"@material-ui/core/Typography":132,"@material-ui/core/styles":155,"classnames":182,"mdi-material-ui/DotsVertical":264,"mdi-material-ui/KeyboardOutline":268,"mdi-material-ui/Minus":270,"mdi-material-ui/PacMan":272,"mdi-material-ui/Plus":274,"mdi-material-ui/StopCircleOutline":276,"prop-types":289,"react":311,"reflux":336,"shortid":346}],395:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -73482,8 +74061,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 const styles = theme => ({
   button: {
     width: 150,
@@ -73523,13 +74100,6 @@ const styles = theme => ({
 class Randomizer extends _reflux.default.Component {
   constructor(props) {
     super(props);
-
-    _defineProperty(this, "handleRoundingToggle", () => {
-      this.setState({
-        rounding: !this.state.rounding
-      });
-    });
-
     this.store = _stores.default.page.randomizer;
   }
 
@@ -73541,7 +74111,7 @@ class Randomizer extends _reflux.default.Component {
       in: true
     }, _react.default.createElement("div", null, _react.default.createElement(_Card.default, {
       className: classes.card
-    }, _react.default.createElement(_CardActions.default, null, !this.state.rounding && _react.default.createElement(_Button.default, {
+    }, _react.default.createElement(_CardActions.default, null, _react.default.createElement(_Button.default, {
       className: (0, _classnames.default)(classes.button),
       variant: "contained",
       color: "primary",
@@ -73549,15 +74119,7 @@ class Randomizer extends _reflux.default.Component {
       size: "large"
     }, _react.default.createElement(_PacMan.default, {
       className: classes.extendedIcon
-    }), "\u5F00\u59CB\u70B9\u540D"), this.state.rounding && _react.default.createElement(_Button.default, {
-      className: (0, _classnames.default)(classes.button),
-      variant: "contained",
-      color: "primary",
-      onClick: this.handleRoundingToggle,
-      size: "large"
-    }, _react.default.createElement(_StopCircleOutline.default, {
-      className: classes.extendedIcon
-    }), "\u505C\uFF01"), _react.default.createElement(_FormControl.default, null, _react.default.createElement(_InputLabel.default, {
+    }), "\u751F\u6210\u540D\u5355"), _react.default.createElement(_FormControl.default, null, _react.default.createElement(_InputLabel.default, {
       htmlFor: "memberCount"
     }, "\u6210\u5458\u6570"), _react.default.createElement(_Input.default, {
       id: "memberCount",
@@ -73591,8 +74153,96 @@ var _default = (0, _styles.withStyles)(styles)(Randomizer);
 exports.default = _default;
 
 },{"../../resourceManager/actions":361,"../../resourceManager/stores":372,"@material-ui/core/Button":37,"@material-ui/core/Card":43,"@material-ui/core/CardActions":39,"@material-ui/core/CardContent":41,"@material-ui/core/Fade":61,"@material-ui/core/FormControl":67,"@material-ui/core/FormHelperText":72,"@material-ui/core/IconButton":78,"@material-ui/core/Input":88,"@material-ui/core/InputAdornment":80,"@material-ui/core/InputLabel":86,"@material-ui/core/List":98,"@material-ui/core/ListItem":95,"@material-ui/core/ListItemText":92,"@material-ui/core/Typography":132,"@material-ui/core/styles":155,"classnames":182,"mdi-material-ui/DotsVertical":264,"mdi-material-ui/KeyboardOutline":268,"mdi-material-ui/Minus":270,"mdi-material-ui/PacMan":272,"mdi-material-ui/Plus":274,"mdi-material-ui/StopCircleOutline":276,"prop-types":289,"react":311,"reflux":336,"shortid":346}],396:[function(require,module,exports){
-arguments[4][364][0].apply(exports,arguments)
-},{"dup":364}],397:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _reflux = _interopRequireDefault(require("reflux"));
+
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
+var _classnames = _interopRequireDefault(require("classnames"));
+
+var _shortid = _interopRequireDefault(require("shortid"));
+
+var _styles = require("@material-ui/core/styles");
+
+var _Fade = _interopRequireDefault(require("@material-ui/core/Fade"));
+
+var _Card = _interopRequireDefault(require("@material-ui/core/Card"));
+
+var _CardContent = _interopRequireDefault(require("@material-ui/core/CardContent"));
+
+var _CardActions = _interopRequireDefault(require("@material-ui/core/CardActions"));
+
+var _Typography = _interopRequireDefault(require("@material-ui/core/Typography"));
+
+var _PacMan = _interopRequireDefault(require("mdi-material-ui/PacMan"));
+
+var _StopCircleOutline = _interopRequireDefault(require("mdi-material-ui/StopCircleOutline"));
+
+var _DotsVertical = _interopRequireDefault(require("mdi-material-ui/DotsVertical"));
+
+var _Plus = _interopRequireDefault(require("mdi-material-ui/Plus"));
+
+var _Minus = _interopRequireDefault(require("mdi-material-ui/Minus"));
+
+var _KeyboardOutline = _interopRequireDefault(require("mdi-material-ui/KeyboardOutline"));
+
+var _stores = _interopRequireDefault(require("../../resourceManager/stores"));
+
+var _actions = _interopRequireDefault(require("../../resourceManager/actions"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+const styles = theme => ({
+  card: {
+    width: 500,
+    opacity: 0.8,
+    marginLeft: "auto",
+    marginRight: "auto",
+    textAlign: "center",
+    marginTop: 30
+  }
+});
+
+class Rank extends _reflux.default.Component {
+  constructor(props) {
+    super(props);
+    this.store = _stores.default.page.randomizer;
+  }
+
+  render() {
+    const {
+      classes
+    } = this.props;
+    return _react.default.createElement(_Fade.default, {
+      in: true
+    }, _react.default.createElement("div", null, _react.default.createElement(_Card.default, {
+      className: classes.card
+    }, _react.default.createElement(_CardContent.default, null, _react.default.createElement(_Typography.default, {
+      variant: "h5"
+    }, "\u5F00\u53D1\u4E2D\uFF0C\u5C3D\u60C5\u671F\u5F85")))));
+  }
+
+}
+
+Rank.propTypes = {
+  open: _propTypes.default.bool
+};
+
+var _default = (0, _styles.withStyles)(styles)(Rank);
+
+exports.default = _default;
+
+},{"../../resourceManager/actions":361,"../../resourceManager/stores":372,"@material-ui/core/Card":43,"@material-ui/core/CardActions":39,"@material-ui/core/CardContent":41,"@material-ui/core/Fade":61,"@material-ui/core/Typography":132,"@material-ui/core/styles":155,"classnames":182,"mdi-material-ui/DotsVertical":264,"mdi-material-ui/KeyboardOutline":268,"mdi-material-ui/Minus":270,"mdi-material-ui/PacMan":272,"mdi-material-ui/Plus":274,"mdi-material-ui/StopCircleOutline":276,"prop-types":289,"react":311,"reflux":336,"shortid":346}],397:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -74034,7 +74684,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 const styles = theme => ({
   tab: {
     background: "rgba(255, 255, 255, 0.7)",
-    maxWidth: 550,
+    maxWidth: 500,
     marginLeft: "auto",
     marginRight: "auto"
   }

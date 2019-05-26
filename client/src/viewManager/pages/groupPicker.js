@@ -11,16 +11,6 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
-import Input from "@material-ui/core/Input";
-import InputLabel from "@material-ui/core/InputLabel";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import FormControl from "@material-ui/core/FormControl";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
 
 import PacManIcon from "mdi-material-ui/PacMan";
 import StopIcon from "mdi-material-ui/StopCircleOutline";
@@ -43,15 +33,11 @@ const styles = theme => ({
   }
 });
 
-class Randomizer extends Reflux.Component {
+class GroupPicker extends Reflux.Component {
   constructor(props) {
     super(props);
     this.store = Stores.page.randomizer;
   }
-
-  handleRoundingToggle = () => {
-    this.setState({ rounding: !this.state.rounding });
-  };
 
   render() {
     const { classes } = this.props;
@@ -59,16 +45,11 @@ class Randomizer extends Reflux.Component {
     return (
       <Fade in={true}>
         <div>
-
           <Card className={classes.card}>
             <CardContent>
-              <List>
-                <ListItem>
-                  <Typography variant="h5">
-                    开发中，尽情期待
-                  </Typography>
-                </ListItem>
-              </List>
+              <Typography variant="h5">
+                开发中，尽情期待
+              </Typography>
             </CardContent>
           </Card>
         </div>
@@ -77,8 +58,8 @@ class Randomizer extends Reflux.Component {
   }
 }
 
-Randomizer.propTypes = {
+GroupPicker.propTypes = {
   open: PropTypes.bool
 }
 
-export default withStyles(styles)(Randomizer);
+export default withStyles(styles)(GroupPicker);

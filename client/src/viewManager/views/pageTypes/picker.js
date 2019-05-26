@@ -14,7 +14,7 @@ import GroupPicker from "../../pages/groupPicker";
 const styles = theme => ({
   tab: {
     background: "rgba(255, 255, 255, 0.7)",
-    maxWidth: 550,
+    maxWidth: 500,
     marginLeft: "auto",
     marginRight: "auto"
   }

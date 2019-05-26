@@ -74,20 +74,14 @@ class Randomizer extends Reflux.Component {
     this.store = Stores.page.randomizer;
   }
 
-  handleRoundingToggle = () => {
-    this.setState({ rounding: !this.state.rounding });
-  };
-
   render() {
     const { classes } = this.props;
 
     return (
       <Fade in={true}>
         <div>
-
           <Card className={classes.card}>
             <CardActions>
-              {!this.state.rounding && (
                 <Button
                   className={classNames(classes.button)}
                   variant="contained"
@@ -96,21 +90,8 @@ class Randomizer extends Reflux.Component {
                   size="large"
                 >
                   <PacManIcon className={classes.extendedIcon} />
-                  开始点名
-            </Button>
-              )}
-              {this.state.rounding && (
-                <Button
-                  className={classNames(classes.button)}
-                  variant="contained"
-                  color="primary"
-                  onClick={this.handleRoundingToggle}
-                  size="large"
-                >
-                  <StopIcon className={classes.extendedIcon} />
-                  停！
-            </Button>
-              )}
+                  生成名单
+                </Button>
               <FormControl>
                 <InputLabel htmlFor="memberCount">成员数</InputLabel>
                 <Input
