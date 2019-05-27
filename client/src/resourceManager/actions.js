@@ -61,7 +61,8 @@ export default {
         theme: Reflux.createActions([
             'togglePrimary',
             'toggleSecondary',
-            'toggleMenuTheme'
+            'toggleMenuTheme',
+            'handleResize'
         ]),
         language: Reflux.createActions([
             'toggleTo',

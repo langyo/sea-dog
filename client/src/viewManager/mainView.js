@@ -14,17 +14,14 @@ import Appbar from "./views/appbar";
 import WindowManager from "./views/windowManager";
 import FabView from "./views/fab";
 
-import Broadcast from "./pages/broadcasts";
-import Account from "./pages/account";
-import AccountMobile from "./pages/accountMobile";
-import ClassChoiceDesktop from "./pages/classChoiceDesktop";
-import ClassMap from "./pages/classMap";
-import ClassTable from "./pages/classTable";
-import Management from "./pages/management";
-import Practise from "./pages/practise";
-import Rank from "./pages/rank";
-
-import Picker from "./views/pageTypes/picker";
+import AccountDashboard from "./views/routeDesktop/accountDashboard";
+import DeviceDashboard from "./views/routeDesktop/deviceDashboard";
+import MainPage from "./views/routeDesktop/mainPage";
+import Picker from "./views/routeDesktop/picker";
+import ClassTable from "./views/routeDesktop/classTable";
+import Practise from "./views/routeDesktop/practise";
+import RankList from "./views/routeDesktop/rankList";
+import Manager from "./views/routeDesktop/management";
 
 import Stores from '../resourceManager/stores';
 import Actions from "../resourceManager/actions";
@@ -45,6 +42,18 @@ class Root extends Reflux.Component {
         super(props);
         this.stores = [Stores.view.drawer, Stores.view.theme];
     }
+
+    componentDidMount() {
+        window.addEventListener('resize', this.handleResize);
+        console.log(this.state.isDesktop);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.handleResize);
+    }
+
+    handleResize = () => Actions.view.theme.handleResize(document.body.scrollWidth >= 600);
+
     render() {
         const { classes } = this.props;
 
@@ -70,8 +79,19 @@ class Root extends Reflux.Component {
 
                     <div className={classes.toolbar} />
 
-                    {this.state.show == "" && <Broadcast />}
-                    {this.state.show == "picker" && <Picker />}
+                    {this.state.isDesktop && <div>
+                        {console.log("存在性检测", this.state.show in [""])}
+                        {console.log("当前的 show", this.state.show)}
+                        {[""].indexOf(this.state.show) != -1 && <MainPage />}
+                        {["picker", "randomizer", "groupPicker"].indexOf(this.state.show) != -1 && <Picker />}
+                        {["classTable", "classMap"].indexOf(this.state.show) != -1 && <ClassTable />}
+                        {["tests", "questions", "test", "question"].indexOf(this.state.show) != -1 && <Practise />}
+                        {["rankGroup", "rankClass"].indexOf(this.state.show) != -1 && <RankList />}
+                    </div>}
+
+                    {!this.state.isDesktop && <div>
+                        {this.state.show in [""] && <MainPage />}
+                    </div>}
                 </MuiThemeProvider>
             </div>
         );

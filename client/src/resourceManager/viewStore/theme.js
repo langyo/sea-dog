@@ -10,24 +10,30 @@ class Theme extends Reflux.Store {
 		this.state = {
             primaryColor: '#006064',
 			secondaryColor: '#006064',
-			menuTheme: 'ios'    // Android 版为左侧抽屉，ios 版为底部选择器
+			menuTheme: 'ios',   // Android 版为左侧抽屉，ios 版为底部选择器,
+			isDesktop: document.body.scrollWidth >= 600
 		};
 		this.listenToMany(Actions.view.theme);
 	}
 
-	togglePrimary(color) {
+	togglePrimary = (color) => {
 		this.setState({ primaryColor: color });
-	}
+	};
 
-	toggleSecondary(color) {
+	toggleSecondary = (color) => {
 		this.setState({ secondaryColor: color })
-	}
+	};
 
-	toggleMenuTheme(theme) {
+	toggleMenuTheme = (theme) => {
 		console.log(theme);
 		if(theme != 'ios' && theme != 'android') throw new Error("未知的主题模式 " + theme);
 		this.setState({ menuTheme: theme });
-	}
+	};
+
+	handleResize = (isDes) => {
+		console.log("resized, and the 'isDesktop' is", isDes);
+        this.setState({isDesktop: isDes});
+    };
 }
 
 export default new Theme();

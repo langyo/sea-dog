@@ -21,78 +21,62 @@ import Stores from '../../resourceManager/stores';
 import Actions from "../../resourceManager/actions";
 
 const styles = theme => ({
-    menuButton: {
-        marginRight: theme.spacing.unit * 2
-    },
-    appbar: {
-        zIndex: theme.zIndex.drawer + 1
-    },
-    drawer: {
-        width: 250,
-        flexShrink: 0
-    },
+  menuButton: {
+    marginRight: theme.spacing.unit * 2
+  },
+  appbar: {
+    zIndex: theme.zIndex.drawer + 1
+  },
+  drawer: {
+    width: 250,
+    flexShrink: 0
+  },
 });
 
 class MainAppbar extends Reflux.Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.stores = [Stores.view.theme, Stores.view.drawer];
-    }
+    this.stores = [Stores.view.theme, Stores.view.drawer];
+  }
 
-    state = {
-        isDesktop: document.body.scrollWidth >= 600
-    }
+  render() {
+    const { classes } = this.props;
 
-    componentDidMount() {
-        window.addEventListener('resize', this.handleResize);
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener('resize', this.handleResize);
-    }
-
-    handleResize = () => {
-        this.setState({isDesktop: document.body.scrollWidth >= 600});
-    };
-
-    render() {
-        const { classes } = this.props;
-
-        return (
-            <div>
-                <AppBar position="fixed" className={classes.appBar}>
-                    <Toolbar>
-                        {
-                            (!this.state.isDesktop && this.state.menuTheme == 'android') && (<IconButton
-                                color="inherit"
-                                aria-label="打开侧边栏"
-                                onClick={Actions.view.drawer.toggleDrawerOpen}
-                                className={classes.menuButton}
-                            >
-                                <MenuIcon />
-                            </IconButton>)
-                        }
-                        {
-                            (this.state.isDesktop || !this.state.isDesktop && this.state.menuTheme == 'ios') && <PacManIcon className={classes.menuButton} />
-                        }
-                        <Typography variant="h6" color="inherit" noWrap>
-                            海点
-                        </Typography>
-                    </Toolbar>
-                </AppBar>
-                {(this.state.menuTheme == 'android' || this.state.isDesktop) && <Drawer
-                    className={classes.drawer}
-                    isDesktop={this.state.isDesktop}
-                />}
-                {!this.state.isDesktop && this.state.menuTheme == 'ios' && <BottomNavigation />}
-            </div>
-        )
-    }
+    return (
+      <div>
+        <AppBar position="fixed" className={classes.appBar}>
+          <Toolbar>
+            {
+              (!this.state.isDesktop && this.state.menuTheme == 'android') && (<IconButton
+                color="inherit"
+                aria-label="打开侧边栏"
+                onClick={Actions.view.drawer.toggleDrawerOpen}
+                className={classes.menuButton}
+              >
+                <MenuIcon />
+              </IconButton>)
+            }
+            {
+              (this.state.isDesktop || !this.state.isDesktop && this.state.menuTheme == 'ios') && <PacManIcon className={classes.menuButton} />
+            }
+            <Typography variant="h6" color="inherit" noWrap>
+              海点
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        {(this.state.menuTheme == 'android' || this.state.isDesktop) && <Drawer
+          className={classes.drawer}
+          isDesktop={this.state.isDesktop}
+        />}
+        {!this.state.isDesktop && this.state.menuTheme == 'ios' && <BottomNavigation />}
+      </div>
+    )
+  }
 }
 
 MainAppbar.propTypes = {
-    classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(MainAppbar);
