@@ -27,79 +27,96 @@ import Stores from '../resourceManager/stores';
 import Actions from "../resourceManager/actions";
 
 const styles = theme => ({
-    root: {
-        height: '100%',
-        width: '100%',
-        margin: 0,
-        padding: 0,
-        border: 0
-    },
-    toolbar: theme.mixins.toolbar
+  root: {
+    height: '100%',
+    width: '100%',
+    margin: 0,
+    padding: 0,
+    border: 0
+  },
+  toolbar: theme.mixins.toolbar
 });
 
 class Root extends Reflux.Component {
-    constructor(props) {
-        super(props);
-        this.stores = [Stores.view.drawer, Stores.view.theme];
-    }
+  constructor(props) {
+    super(props);
+    this.stores = [Stores.view.drawer, Stores.view.theme];
+  }
 
-    componentDidMount() {
-        window.addEventListener('resize', this.handleResize);
-        console.log(this.state.isDesktop);
-    }
+  componentDidMount() {
+    window.addEventListener('resize', this.handleResize);
+    console.log(this.state.isDesktop);
+  }
 
-    componentWillUnmount() {
-        window.removeEventListener('resize', this.handleResize);
-    }
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleResize);
+  }
 
-    handleResize = () => Actions.view.theme.handleResize(document.body.scrollWidth >= 600);
+  handleResize = () => Actions.view.theme.handleResize(document.body.scrollWidth >= 600);
 
-    render() {
-        const { classes } = this.props;
+  render() {
+    const { classes } = this.props;
 
-        return (
-            <div className={classes.root}>
-                <CssBaseline />
-                <MuiThemeProvider theme={createMuiTheme({
-                    palette: {
-                        primary: {
-                            main: this.state.primaryColor
-                        },
-                        secondary: {
-                            main: this.state.secondaryColor
-                        },
-                        error: red
-                    },
-                    typography: {
-                        useNextVariants: true,
-                    }
-                })}>
-                    <Appbar />
-                    <WindowManager />
+    return (
+      <div className={classes.root}>
+        <CssBaseline />
+        <MuiThemeProvider theme={createMuiTheme({
+          palette: {
+            primary: {
+              main: this.state.primaryColor
+            },
+            secondary: {
+              main: this.state.secondaryColor
+            },
+            error: red
+          },
+          typography: {
+            useNextVariants: true,
+          }
+        })}>
+          <Appbar />
+          <WindowManager />
 
-                    <div className={classes.toolbar} />
+          <div className={classes.toolbar} />
 
-                    {this.state.isDesktop && <div>
-                        {console.log("存在性检测", this.state.show in [""])}
-                        {console.log("当前的 show", this.state.show)}
-                        {[""].indexOf(this.state.show) != -1 && <MainPage />}
-                        {["picker", "randomizer", "groupPicker"].indexOf(this.state.show) != -1 && <Picker />}
-                        {["classTable", "classMap"].indexOf(this.state.show) != -1 && <ClassTable />}
-                        {["tests", "questions", "test", "question"].indexOf(this.state.show) != -1 && <Practise />}
-                        {["rankGroup", "rankClass"].indexOf(this.state.show) != -1 && <RankList />}
-                    </div>}
+          {this.state.isDesktop && <div>
+            {
+              [""]
+                .indexOf(this.state.show) != -1
+              && <MainPage />
+            }
+            {
+              ["picker", "randomizer", "groupPicker"]
+                .indexOf(this.state.show) != -1
+              && <Picker />
+            }
+            {
+              ["classTable", "classMap"]
+                .indexOf(this.state.show) != -1
+              && <ClassTable />
+            }
+            {
+              ["rankGroup", "rankClass"]
+                .indexOf(this.state.show) != -1 && <RankList />
+            }
+            {
+              ["tests", "questions", "test", "question"]
+                .indexOf(this.state.show) != -1
+              && <Practise />
+            }
+          </div>}
 
-                    {!this.state.isDesktop && <div>
-                        {this.state.show in [""] && <MainPage />}
-                    </div>}
-                </MuiThemeProvider>
-            </div>
-        );
-    }
+          {!this.state.isDesktop && <div>
+            {this.state.show in [""] && <MainPage />}
+          </div>}
+        </MuiThemeProvider>
+      </div>
+    );
+  }
 }
 
 Root.propTypes = {
-    classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(Root);

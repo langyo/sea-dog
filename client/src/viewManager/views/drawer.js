@@ -81,7 +81,10 @@ class MainDrawer extends Reflux.Component {
           <Divider className={classes.line} />
           <ListItem button
             onClick={() => Actions.view.drawer.reset()}
-            selected={this.state.show == ""}
+            selected={
+              [""]
+                .indexOf(this.state.show) != -1
+            }
           >
             <ListItemIcon>
               <HomeIcon />
@@ -90,26 +93,47 @@ class MainDrawer extends Reflux.Component {
           </ListItem>
           <ListItem button
             onClick={() => Actions.view.drawer.toggleTo("picker")}
-            selected={this.state.show in ["picker", "randomizer", "groupPicker"]}
+            selected={
+              ["picker", "randomizer", "groupPicker"]
+                .indexOf(this.state.show) != -1
+            }
           >
             <ListItemIcon>
               <PickStudentIcon />
             </ListItemIcon>
             <ListItemText inset primary="点名" />
           </ListItem>
-          <ListItem button>
+          <ListItem button
+            onClick={() => Actions.view.drawer.toggleTo("classTable")}
+            selected={
+              ["classTable", "classMap"]
+                .indexOf(this.state.show) != -1
+            }
+          >
             <ListItemIcon>
               <TableIcon />
             </ListItemIcon>
             <ListItemText inset primary="座位表" />
           </ListItem>
-          <ListItem button>
+          <ListItem button
+            onClick={() => Actions.view.drawer.toggleTo("rankGroup")}
+            selected={
+              ["rankGroup", "rankClass"]
+                .indexOf(this.state.show) != -1
+            }
+          >
             <ListItemIcon>
               <RankIcon />
             </ListItemIcon>
             <ListItemText inset primary="排行榜" />
           </ListItem>
-          <ListItem button>
+          <ListItem button
+            onClick={() => Actions.view.drawer.toggleTo("tests")}
+            selected={
+              ["tests", "questions", "test", "question"]
+                .indexOf(this.state.show) != -1
+            }
+          >
             <ListItemIcon>
               <PaperIcon />
             </ListItemIcon>

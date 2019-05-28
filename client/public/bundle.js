@@ -72972,7 +72972,7 @@ class Root extends _reflux.default.Component {
       })
     }, _react.default.createElement(_appbar.default, null), _react.default.createElement(_windowManager.default, null), _react.default.createElement("div", {
       className: classes.toolbar
-    }), this.state.isDesktop && _react.default.createElement("div", null, console.log("存在性检测", this.state.show in [""]), console.log("当前的 show", this.state.show), [""].indexOf(this.state.show) != -1 && _react.default.createElement(_mainPage.default, null), ["picker", "randomizer", "groupPicker"].indexOf(this.state.show) != -1 && _react.default.createElement(_picker.default, null), ["classTable", "classMap"].indexOf(this.state.show) != -1 && _react.default.createElement(_classTable.default, null), ["tests", "questions", "test", "question"].indexOf(this.state.show) != -1 && _react.default.createElement(_practise.default, null), ["rankGroup", "rankClass"].indexOf(this.state.show) != -1 && _react.default.createElement(_rankList.default, null)), !this.state.isDesktop && _react.default.createElement("div", null, this.state.show in [""] && _react.default.createElement(_mainPage.default, null))));
+    }), this.state.isDesktop && _react.default.createElement("div", null, [""].indexOf(this.state.show) != -1 && _react.default.createElement(_mainPage.default, null), ["picker", "randomizer", "groupPicker"].indexOf(this.state.show) != -1 && _react.default.createElement(_picker.default, null), ["classTable", "classMap"].indexOf(this.state.show) != -1 && _react.default.createElement(_classTable.default, null), ["rankGroup", "rankClass"].indexOf(this.state.show) != -1 && _react.default.createElement(_rankList.default, null), ["tests", "questions", "test", "question"].indexOf(this.state.show) != -1 && _react.default.createElement(_practise.default, null)), !this.state.isDesktop && _react.default.createElement("div", null, this.state.show in [""] && _react.default.createElement(_mainPage.default, null))));
   }
 
 }
@@ -74491,29 +74491,35 @@ class MainDrawer extends _reflux.default.Component {
     }), _react.default.createElement(_ListItem.default, {
       button: true,
       onClick: () => _actions.default.view.drawer.reset(),
-      selected: this.state.show == ""
+      selected: [""].indexOf(this.state.show) != -1
     }, _react.default.createElement(_ListItemIcon.default, null, _react.default.createElement(_Home.default, null)), _react.default.createElement(_ListItemText.default, {
       inset: true,
       primary: "\u4E3B\u9875"
     })), _react.default.createElement(_ListItem.default, {
       button: true,
       onClick: () => _actions.default.view.drawer.toggleTo("picker"),
-      selected: this.state.show in ["picker", "randomizer", "groupPicker"]
+      selected: ["picker", "randomizer", "groupPicker"].indexOf(this.state.show) != -1
     }, _react.default.createElement(_ListItemIcon.default, null, _react.default.createElement(_CursorDefaultClickOutline.default, null)), _react.default.createElement(_ListItemText.default, {
       inset: true,
       primary: "\u70B9\u540D"
     })), _react.default.createElement(_ListItem.default, {
-      button: true
+      button: true,
+      onClick: () => _actions.default.view.drawer.toggleTo("classTable"),
+      selected: ["classTable", "classMap"].indexOf(this.state.show) != -1
     }, _react.default.createElement(_ListItemIcon.default, null, _react.default.createElement(_TableLarge.default, null)), _react.default.createElement(_ListItemText.default, {
       inset: true,
       primary: "\u5EA7\u4F4D\u8868"
     })), _react.default.createElement(_ListItem.default, {
-      button: true
+      button: true,
+      onClick: () => _actions.default.view.drawer.toggleTo("rankGroup"),
+      selected: ["rankGroup", "rankClass"].indexOf(this.state.show) != -1
     }, _react.default.createElement(_ListItemIcon.default, null, _react.default.createElement(_TrophyVariantOutline.default, null)), _react.default.createElement(_ListItemText.default, {
       inset: true,
       primary: "\u6392\u884C\u699C"
     })), _react.default.createElement(_ListItem.default, {
-      button: true
+      button: true,
+      onClick: () => _actions.default.view.drawer.toggleTo("tests"),
+      selected: ["tests", "questions", "test", "question"].indexOf(this.state.show) != -1
     }, _react.default.createElement(_ListItemIcon.default, null, _react.default.createElement(_NoteOutline.default, null)), _react.default.createElement(_ListItemText.default, {
       inset: true,
       primary: "\u8BFE\u5802\u5C0F\u7EC3"
@@ -74881,7 +74887,7 @@ class PickerTabs extends _reflux.default.Component {
       classes
     } = this.props;
     return _react.default.createElement("div", null, _react.default.createElement(_Tabs.default, {
-      value: this.state.value,
+      value: this.state.show,
       onChange: this.handleChange,
       indicatorColor: "primary",
       textColor: "secondary",

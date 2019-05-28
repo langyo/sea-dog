@@ -37,7 +37,7 @@ class PickerTabs extends Reflux.Component {
     return (
       <div>
         <Tabs
-          value={this.state.value}
+          value={this.state.show}
           onChange={this.handleChange}
           indicatorColor="primary"
           textColor="secondary"
