@@ -483,85 +483,89 @@ db.on('open', () => {
       database: {
         at: function (...args) {
           args = Array.prototype.slice.call(args);
-          const dfs = (args, doc) => {
-            if (args.length > 0)
-              if (doc == undefined) {
-                // 从数据库直接检索
-                switch (args[0]) {
-                  case 'class':
-                    // 格式： class <班级编号>
-                    Class.findOne({ id: args[1] }).exec(
-                      (err, res) => {
-                        if (err) {
-                          console.log(err);
-                          this.send('fail');
-                        }
-                        dfs(args.slice(2), res);
-                      }
-                    );
-                    break;
-                  case 'account':
-                    // 格式： account <账户编号>
-                    Account.findOne({ id: args[1] }).exec(
-                      (err, res) => {
-                        if (err) {
-                          console.log(err);
-                          this.send('fail');
-                          return;
-                        }
-                        dfs(args.slice(2), res);
-                      }
-                    );
-                    break;
-                  case 'test':
-                    // 格式： test <考试编号>
-                    Test.findOne({ id: args[1] }).exec(
-                      (err, res) => {
-                        if (err) {
-                          console.log(err);
-                          this.send('fail');
-                          return;
-                        }
-                        dfs(args.slice(2), res);
-                      }
-                    );
-                    break;
-                  case 'question':
-                    // 格式： question <题目编号>
-                    Question.findOne({ id: args[1] }).exec(
-                      (err, res) => {
-                        if (err) {
-                          console.log(err);
-                          this.send('fail');
-                          return;
-                        }
-                        dfs(args.slice(2), res);
-                      }
-                    );
-                    break;
-                  case 'broadcast':
-                    // 格式： broadcast <广播编号>
-                    BroadCast.findOne({ id: args[1] }).exec(
-                      (err, res) => {
-                        if (err) {
-                          console.log(err);
-                          this.send('fail');
-                          return;
-                        }
-                        dfs(args.slice(2), res);
-                      }
-                    );
-                    break;
-                }
-              } else {
-                // 从已有的 doc 检索
-                switch (args[0]) {
-                  case 'groupType':
-                    // 格式： groupType <名称>
-                    dfs(args.slice(2), doc.population('GroupType').groupTypes[args[1]]);
-                }
+
+          // selectors 与 evaluator 下的执行函数会被包装为 Promise
+          // 由于 Promise 无法传参，所以在新建 Promise 时会先调用外层的工厂函数，得到的内部函数才能交给 Promise 正常使用
+          const selectors = {
+            // 根表选择器
+            "class": {
+              argsCount: 1,
+              func: (db, name) => (resolve, reject) => {
+                console.log("看一下查询之后出的什么东西：", Class.findOne({ name: name }));
+                resolve(Class.findOne({ name: name }));
               }
+            },
+
+            // 子表选择器
+            "groupType": {
+              argsCount: 1,
+              func: (db, name) => (resolve, reject) => {
+                resolve(db.findOne({ name: name }).lean());
+              }
+            }
           }
+
+          const evaluators = {
+            "get": {
+              argsCount: 1,
+              func: (db, objName) => (resolve, reject) => {
+                db.exec((err, doc) => {
+                  if (doc[objName]) resolve(doc[objName]);
+                  else reject("没有这个值！");
+                })
+              }
+            },
+            "set": {
+              argsCount: 2,
+              func: (db, objName, value) => (resolve, reject) => {
+                console.log("查询后的 db：", db)
+                db.exec((err, doc) => {
+                  if (doc[objName]) doc[objName] = value;
+                  else return reject("数据库保存失败，理由是没有这个键：" + objName);
+                  db.save(err => {
+                    if (err) reject("数据库保存失败！（也许是没有权限？）");
+                    else resolve("ok");
+                  });
+                })
+              }
+            }
+          }
+
+          const run_evaluator = (db, args) => {
+            if (evaluators[args[0]]) {
+              new Promise(
+                evaluators[args[0]].func.apply(null, [db].concat(args.slice(1)))
+              ).then(
+                res => this.send("success", res)
+              ).catch(
+                err => console.log(err)
+              );
+            }
+            else this.send("不存在这个执行方法！", args[0]);
+          }
+
+          // 开始递归 selector
+          const dfs_selector = (db, args) => {
+            if (args[0] == "run"){
+              console.log("即将传入 evaluator 的指令：", args.slice(1));
+              return run_evaluator(db, args.slice(1));
+            };
+            if (selectors[args[0]]) {
+              new Promise(
+                selectors[args[0]].func.apply(null, [db].concat(args.slice(1, 1 + selectors[args[0]].argsCount)))
+              ).then(
+                res => {
+                  console.log("即将传入新一轮 selector 的指令：", args.slice(1 + selectors[args[0]].argsCount));
+                  dfs_selector(res, args.slice(1 + selectors[args[0]].argsCount));
+                }
+              ).catch(
+                err => console.log(err)
+              );
+            }
+            else this.send("不存在这个选择器！", args[0]);
+          }
+          dfs_selector(db, args);
+
         },
         list: function (name, cmd, ...args) {
           switch (cmd) {
