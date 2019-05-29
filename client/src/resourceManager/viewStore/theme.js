@@ -10,7 +10,7 @@ class Theme extends Reflux.Store {
 		this.state = {
             primaryColor: '#006064',
 			secondaryColor: '#006064',
-			menuTheme: 'ios',   // Android 版为左侧抽屉，ios 版为底部选择器,
+			menuTheme: 'android',   // Android 版为左侧抽屉，ios 版为底部选择器,
 			isDesktop: document.body.scrollWidth >= 600
 		};
 		this.listenToMany(Actions.view.theme);

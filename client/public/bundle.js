@@ -85669,14 +85669,16 @@ class Drawer extends _reflux.default.Store {
   toggleTo(name) {
     console.log("view toggle to", name);
     this.setState({
-      show: name
+      show: name,
+      drawerOpen: false
     });
   }
 
   reset() {
     console.log("reset view");
     this.setState({
-      show: ''
+      show: '',
+      drawerOpen: false
     });
   }
 
@@ -85924,7 +85926,7 @@ class Theme extends _reflux.default.Store {
     this.state = {
       primaryColor: '#006064',
       secondaryColor: '#006064',
-      menuTheme: 'ios',
+      menuTheme: 'android',
       // Android 版为左侧抽屉，ios 版为底部选择器,
       isDesktop: document.body.scrollWidth >= 600
     };
@@ -88605,7 +88607,7 @@ const styles = theme => ({
   }
 });
 
-class SimpleBottomNavigation extends _reflux.default.Component {
+class TheBottomNavigation extends _reflux.default.Component {
   constructor(...args) {
     super(...args);
 
@@ -88615,8 +88617,11 @@ class SimpleBottomNavigation extends _reflux.default.Component {
 
     _defineProperty(this, "handleChange", (event, value) => {
       this.setState({
-        value
+        value: value
       });
+      console.log("mobile toggle to", value);
+
+      _actions.default.view.drawer.toggleTo(value);
     });
   }
 
@@ -88624,39 +88629,41 @@ class SimpleBottomNavigation extends _reflux.default.Component {
     const {
       classes
     } = this.props;
-    const {
-      value
-    } = this.state;
     return _react.default.createElement(_BottomNavigation.default, {
-      value: value,
+      value: this.value,
       onChange: this.handleChange,
       showLabels: true,
       className: classes.root
     }, _react.default.createElement(_BottomNavigationAction.default, {
       label: "\u4E3B\u9875",
+      value: "",
       icon: _react.default.createElement(_Home.default, null)
     }), _react.default.createElement(_BottomNavigationAction.default, {
       label: "\u70B9\u540D",
+      value: "picker",
       icon: _react.default.createElement(_CursorDefaultClickOutline.default, null)
     }), _react.default.createElement(_BottomNavigationAction.default, {
       label: "\u6392\u884C\u699C",
+      value: "rankGroup",
       icon: _react.default.createElement(_TrophyVariantOutline.default, null)
     }), _react.default.createElement(_BottomNavigationAction.default, {
       label: "\u8BFE\u5802\u5C0F\u7EC3",
+      value: "tests",
       icon: _react.default.createElement(_NoteOutline.default, null)
     }), _react.default.createElement(_BottomNavigationAction.default, {
       label: "\u6211",
+      value: "me",
       icon: _react.default.createElement(_AccountCircleOutline.default, null)
     }));
   }
 
 }
 
-SimpleBottomNavigation.propTypes = {
+TheBottomNavigation.propTypes = {
   classes: _propTypes.default.object.isRequired
 };
 
-var _default = (0, _styles.withStyles)(styles)(SimpleBottomNavigation);
+var _default = (0, _styles.withStyles)(styles)(TheBottomNavigation);
 
 exports.default = _default;
 

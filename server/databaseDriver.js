@@ -1,7 +1,7 @@
 const mongoose = eval('require\("mongoose"\)');
 import { send, register, receive, connectionEvents } from "./webSocketServer";
 
-let db = mongoose.createConnection('mongodb://localhost/test');
+let db = mongoose.createConnection('mongodb://172.16.44.180/test');
 
 db.on('error', e => console.error(e));
 db.on('open', () => {

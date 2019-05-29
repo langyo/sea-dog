@@ -27,38 +27,39 @@ const styles = theme => ({
     }
 });
 
-class SimpleBottomNavigation extends Reflux.Component {
+class TheBottomNavigation extends Reflux.Component {
     state = {
       value: 0,
     };
   
     handleChange = (event, value) => {
-      this.setState({ value });
+      this.setState({ value: value });
+      console.log("mobile toggle to", value);
+      Actions.view.drawer.toggleTo(value);
     };
   
     render() {
       const { classes } = this.props;
-      const { value } = this.state;
   
       return (
         <BottomNavigation
-          value={value}
+          value={this.value}
           onChange={this.handleChange}
           showLabels
           className={classes.root}
         >
-          <BottomNavigationAction label="主页" icon={<HomeIcon />} />
-          <BottomNavigationAction label="点名" icon={<PickStudentIcon />} />
-          <BottomNavigationAction label="排行榜" icon={<RankIcon />} />
-          <BottomNavigationAction label="课堂小练" icon={<PaperIcon />} />
-          <BottomNavigationAction label="我" icon={<AccountIcon />} />
+          <BottomNavigationAction label="主页" value="" icon={<HomeIcon />} />
+          <BottomNavigationAction label="点名" value="picker" icon={<PickStudentIcon />} />
+          <BottomNavigationAction label="排行榜" value="rankGroup" icon={<RankIcon />} />
+          <BottomNavigationAction label="课堂小练" value="tests" icon={<PaperIcon />} />
+          <BottomNavigationAction label="我" value="me" icon={<AccountIcon />} />
         </BottomNavigation>
       );
     }
   }
   
-  SimpleBottomNavigation.propTypes = {
+  TheBottomNavigation.propTypes = {
     classes: PropTypes.object.isRequired,
   };
   
-  export default withStyles(styles)(SimpleBottomNavigation);
+  export default withStyles(styles)(TheBottomNavigation);

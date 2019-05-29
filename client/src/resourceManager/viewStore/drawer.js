@@ -17,12 +17,12 @@ class Drawer extends Reflux.Store {
 
 	toggleTo(name) {
 		console.log("view toggle to", name);
-		this.setState({ show: name });
+		this.setState({ show: name, drawerOpen: false });
 	}
 
 	reset() {
 		console.log("reset view");
-		this.setState({ show: '' })
+		this.setState({ show: '', drawerOpen: false })
 	}
 
 	toggleDrawerOpen = () => {

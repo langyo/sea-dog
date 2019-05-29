@@ -4,7 +4,7 @@
 var _webSocketServer = require("./webSocketServer");
 
 const mongoose = eval('require\("mongoose"\)');
-let db = mongoose.createConnection('mongodb://localhost/test');
+let db = mongoose.createConnection('mongodb://172.16.44.180/test');
 db.on('error', e => console.error(e));
 db.on('open', () => {
   console.log("数据库连接成功");
