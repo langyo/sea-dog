@@ -72972,7 +72972,7 @@ class Root extends _reflux.default.Component {
       })
     }, _react.default.createElement(_appbar.default, null), _react.default.createElement(_windowManager.default, null), _react.default.createElement("div", {
       className: classes.toolbar
-    }), this.state.isDesktop && _react.default.createElement("div", null, [""].indexOf(this.state.show) != -1 && _react.default.createElement(_mainPage.default, null), ["picker", "randomizer", "groupPicker"].indexOf(this.state.show) != -1 && _react.default.createElement(_picker.default, null), ["classTable", "classMap"].indexOf(this.state.show) != -1 && _react.default.createElement(_classTable.default, null), ["rankGroup", "rankClass"].indexOf(this.state.show) != -1 && _react.default.createElement(_rankList.default, null), ["tests", "questions", "test", "question"].indexOf(this.state.show) != -1 && _react.default.createElement(_practise.default, null)), !this.state.isDesktop && _react.default.createElement("div", null, this.state.show in [""] && _react.default.createElement(_mainPage.default, null))));
+    }), this.state.isDesktop && _react.default.createElement("div", null, [""].indexOf(this.state.show) != -1 && _react.default.createElement(_mainPage.default, null), ["picker", "randomizer", "groupPicker"].indexOf(this.state.show) != -1 && _react.default.createElement(_picker.default, null), ["classTable", "classMap"].indexOf(this.state.show) != -1 && _react.default.createElement(_classTable.default, null), ["rankGroup", "rankClass"].indexOf(this.state.show) != -1 && _react.default.createElement(_rankList.default, null), ["tests", "questions", "test", "question"].indexOf(this.state.show) != -1 && _react.default.createElement(_practise.default, null)), !this.state.isDesktop && _react.default.createElement("div", null, [""].indexOf(this.state.show) != -1 && _react.default.createElement(_mainPage.default, null), ["picker", "randomizer", "groupPicker"].indexOf(this.state.show) != -1 && _react.default.createElement(_picker.default, null), ["classTable", "classMap"].indexOf(this.state.show) != -1 && _react.default.createElement(_classTable.default, null), ["rankGroup", "rankClass"].indexOf(this.state.show) != -1 && _react.default.createElement(_rankList.default, null), ["tests", "questions", "test", "question"].indexOf(this.state.show) != -1 && _react.default.createElement(_practise.default, null))));
   }
 
 }
@@ -74293,15 +74293,17 @@ var _BottomNavigation = _interopRequireDefault(require("@material-ui/core/Bottom
 
 var _BottomNavigationAction = _interopRequireDefault(require("@material-ui/core/BottomNavigationAction"));
 
+var _Home = _interopRequireDefault(require("mdi-material-ui/Home"));
+
 var _AccountCircleOutline = _interopRequireDefault(require("mdi-material-ui/AccountCircleOutline"));
 
 var _CursorDefaultClickOutline = _interopRequireDefault(require("mdi-material-ui/CursorDefaultClickOutline"));
 
-var _TableLarge = _interopRequireDefault(require("mdi-material-ui/TableLarge"));
-
 var _TrophyVariantOutline = _interopRequireDefault(require("mdi-material-ui/TrophyVariantOutline"));
 
 var _NoteOutline = _interopRequireDefault(require("mdi-material-ui/NoteOutline"));
+
+var _stores = _interopRequireDefault(require("../../resourceManager/stores"));
 
 var _actions = _interopRequireDefault(require("../../resourceManager/actions"));
 
@@ -74346,11 +74348,11 @@ class SimpleBottomNavigation extends _reflux.default.Component {
       showLabels: true,
       className: classes.root
     }, _react.default.createElement(_BottomNavigationAction.default, {
+      label: "\u4E3B\u9875",
+      icon: _react.default.createElement(_Home.default, null)
+    }), _react.default.createElement(_BottomNavigationAction.default, {
       label: "\u70B9\u540D",
       icon: _react.default.createElement(_CursorDefaultClickOutline.default, null)
-    }), _react.default.createElement(_BottomNavigationAction.default, {
-      label: "\u5EA7\u4F4D\u8868",
-      icon: _react.default.createElement(_TableLarge.default, null)
     }), _react.default.createElement(_BottomNavigationAction.default, {
       label: "\u6392\u884C\u699C",
       icon: _react.default.createElement(_TrophyVariantOutline.default, null)
@@ -74373,7 +74375,7 @@ var _default = (0, _styles.withStyles)(styles)(SimpleBottomNavigation);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":361,"@material-ui/core/BottomNavigation":29,"@material-ui/core/BottomNavigationAction":27,"@material-ui/core/styles":155,"classnames":182,"mdi-material-ui/AccountCircleOutline":261,"mdi-material-ui/CursorDefaultClickOutline":263,"mdi-material-ui/NoteOutline":271,"mdi-material-ui/TableLarge":277,"mdi-material-ui/TrophyVariantOutline":278,"prop-types":289,"react":311,"reflux":336,"shortid":346}],398:[function(require,module,exports){
+},{"../../resourceManager/actions":361,"../../resourceManager/stores":372,"@material-ui/core/BottomNavigation":29,"@material-ui/core/BottomNavigationAction":27,"@material-ui/core/styles":155,"classnames":182,"mdi-material-ui/AccountCircleOutline":261,"mdi-material-ui/CursorDefaultClickOutline":263,"mdi-material-ui/Home":266,"mdi-material-ui/NoteOutline":271,"mdi-material-ui/TrophyVariantOutline":278,"prop-types":289,"react":311,"reflux":336,"shortid":346}],398:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {

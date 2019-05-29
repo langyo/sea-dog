@@ -107,7 +107,30 @@ class Root extends Reflux.Component {
           </div>}
 
           {!this.state.isDesktop && <div>
-            {this.state.show in [""] && <MainPage />}
+            {
+              [""]
+                .indexOf(this.state.show) != -1
+              && <MainPage />
+            }
+            {
+              ["picker", "randomizer", "groupPicker"]
+                .indexOf(this.state.show) != -1
+              && <Picker />
+            }
+            {
+              ["classTable", "classMap"]
+                .indexOf(this.state.show) != -1
+              && <ClassTable />
+            }
+            {
+              ["rankGroup", "rankClass"]
+                .indexOf(this.state.show) != -1 && <RankList />
+            }
+            {
+              ["tests", "questions", "test", "question"]
+                .indexOf(this.state.show) != -1
+              && <Practise />
+            }
           </div>}
         </MuiThemeProvider>
       </div>

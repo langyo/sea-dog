@@ -9,12 +9,13 @@ import { withStyles } from '@material-ui/core/styles';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 
+import HomeIcon from "mdi-material-ui/Home";
 import AccountIcon from "mdi-material-ui/AccountCircleOutline";
 import PickStudentIcon from "mdi-material-ui/CursorDefaultClickOutline";
-import TableIcon from "mdi-material-ui/TableLarge";
 import RankIcon from "mdi-material-ui/TrophyVariantOutline";
 import PaperIcon from "mdi-material-ui/NoteOutline";
 
+import Stores from "../../resourceManager/stores";
 import Actions from "../../resourceManager/actions";
 
 const styles = theme => ({
@@ -46,8 +47,8 @@ class SimpleBottomNavigation extends Reflux.Component {
           showLabels
           className={classes.root}
         >
+          <BottomNavigationAction label="主页" icon={<HomeIcon />} />
           <BottomNavigationAction label="点名" icon={<PickStudentIcon />} />
-          <BottomNavigationAction label="座位表" icon={<TableIcon />} />
           <BottomNavigationAction label="排行榜" icon={<RankIcon />} />
           <BottomNavigationAction label="课堂小练" icon={<PaperIcon />} />
           <BottomNavigationAction label="我" icon={<AccountIcon />} />
