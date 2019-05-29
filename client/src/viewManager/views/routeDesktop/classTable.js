@@ -3,6 +3,10 @@ import Reflux from 'reflux';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
+import Typography from "@material-ui/core/Typography";
+
 import ClassTable from "../../pages/classTable";
 import ClassMap from "../../pages/classMap";
 
@@ -23,13 +27,27 @@ class ClassTableRouter extends Reflux.Component {
     super(props);
     this.stores = [Stores.view.drawer];
   }
+
+  handleChange = (n, value) => Actions.view.drawer.toggleTo(value);
   
   render() {
     const { classes } = this.props;
 
     return (
       <div>
-        <ClassTable />
+        <Tabs
+          value={this.state.show}
+          onChange={this.handleChange}
+          indicatorColor="primary"
+          textColor="secondary"
+          centered
+          className={classes.tab}>
+          <Tab value="classTable" label="座位表" />
+          <Tab value="classMap" label="课程表" />
+        </Tabs>
+
+        {this.state.show == "classTable" && <ClassTable />}
+        {this.state.show == "classMap" && <ClassMap />}
       </div>
     );
   }
