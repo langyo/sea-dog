@@ -12,7 +12,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 
 import MenuIcon from "mdi-material-ui/Menu";
-import PacManIcon from "mdi-material-ui/PacMan";
+import ReactSVG from "react-svg";
 
 import Drawer from "./drawer";
 import BottomNavigation from "./bottomNavigation";
@@ -31,6 +31,10 @@ const styles = theme => ({
     width: 250,
     flexShrink: 0
   },
+  svg: {
+    width: 36,
+    height: 36
+  }
 });
 
 class MainAppbar extends Reflux.Component {
@@ -58,7 +62,7 @@ class MainAppbar extends Reflux.Component {
               </IconButton>)
             }
             {
-              (this.state.isDesktop || !this.state.isDesktop && this.state.menuTheme == 'ios') && <PacManIcon className={classes.menuButton} />
+              (this.state.isDesktop || !this.state.isDesktop && this.state.menuTheme == 'ios') && <ReactSVG src="./logo.svg" className={classNames(classes.menuButton, classes.svg)} />
             }
             <Typography variant="h6" color="inherit" noWrap>
               海点

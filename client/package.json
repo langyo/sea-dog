@@ -33,6 +33,7 @@
     "react-dom": "^16.6.3",
     "react-route": "^1.0.3",
     "react-router-dom": "^5.0.0",
+    "react-svg": "^10.0.4",
     "react-swipeable-views": "^0.13.0",
     "react-swipeable-views-utils": "^0.13.0",
     "reflux": "^6.4.1",
