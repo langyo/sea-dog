@@ -80684,7 +80684,7 @@ var _default = {
     classTable: _reflux.default.createActions([]),
     management: _reflux.default.createActions([]),
     picker: _reflux.default.createActions(['scoreAddOne', 'scoreRemoveOne']),
-    randomizer: _reflux.default.createActions(['scoreAddOne', 'scoreRemoveOne', 'handleChangeGenerateCount', 'handlePushGenerateCount', 'handlePopGenerateCount']),
+    randomizer: _reflux.default.createActions(['scoreAddOne', 'scoreRemoveOne', 'handleChangeGenerateCountNumber', 'handlePushGenerateCountNumber', 'handlePopGenerateCountNumber']),
     practise: _reflux.default.createActions([]),
     rank: _reflux.default.createActions([])
   }
@@ -80903,21 +80903,22 @@ class Randomizer extends _reflux.default.Store {
     });
   }
 
-  handleChangeGenerateCount(n) {
+  handleChangeGenerateCountNumber(n) {
     this.setState({
       generateCount: n
     });
   }
 
   handlePushGenerateCountNumber(n) {
+    console.log(n);
     this.setState({
       generateCount: this.state.generateCount * 10 + n
     });
   }
 
-  handlePopGenerateCountNumber(n) {
+  handlePopGenerateCountNumber() {
     this.setState({
-      generateCount: this.state.generateCount / 10
+      generateCount: Math.floor(this.state.generateCount / 10)
     });
   }
 
@@ -81648,54 +81649,75 @@ class NumberDashboard extends _reflux.default.Component {
       id: "count",
       label: "\u4EBA\u6570",
       value: this.state.generateCount,
-      onChange: e => _actions.default.views.randomizer.handleChangeGenerateCount(e.target.value),
+      onChange: e => _actions.default.views.randomizer.handleChangeGenerateCountNumber(e.target.value),
       margin: "normal",
       variant: "outlined",
       className: classes.textField
     })), _react.default.createElement(_Grid.default, {
       item: true,
       xs: 3
-    }, _react.default.createElement(_IconButton.default, null, _react.default.createElement(_Avatar.default, null, "1"))), _react.default.createElement(_Grid.default, {
+    }, _react.default.createElement(_IconButton.default, {
+      onClick: () => _actions.default.page.randomizer.handlePushGenerateCountNumber(1)
+    }, _react.default.createElement(_Avatar.default, null, "1"))), _react.default.createElement(_Grid.default, {
       item: true,
       xs: 3
-    }, _react.default.createElement(_IconButton.default, null, _react.default.createElement(_Avatar.default, null, "2"))), _react.default.createElement(_Grid.default, {
+    }, _react.default.createElement(_IconButton.default, {
+      onClick: () => _actions.default.page.randomizer.handlePushGenerateCountNumber(2)
+    }, _react.default.createElement(_Avatar.default, null, "2"))), _react.default.createElement(_Grid.default, {
       item: true,
       xs: 3
-    }, _react.default.createElement(_IconButton.default, null, _react.default.createElement(_Avatar.default, null, "3"))), _react.default.createElement(_Grid.default, {
+    }, _react.default.createElement(_IconButton.default, {
+      onClick: () => _actions.default.page.randomizer.handlePushGenerateCountNumber(3)
+    }, _react.default.createElement(_Avatar.default, null, "3"))), _react.default.createElement(_Grid.default, {
       item: true,
       xs: 3
-    }, _react.default.createElement(_IconButton.default, null, _react.default.createElement(_Avatar.default, {
+    }, _react.default.createElement(_IconButton.default, {
+      onClick: () => _actions.default.page.randomizer.handlePopGenerateCountNumber()
+    }, _react.default.createElement(_Avatar.default, {
       className: classes.redButton
     }, "<"))), _react.default.createElement(_Grid.default, {
       item: true,
       xs: 3
-    }, _react.default.createElement(_IconButton.default, null, _react.default.createElement(_Avatar.default, null, "4"))), _react.default.createElement(_Grid.default, {
+    }, _react.default.createElement(_IconButton.default, {
+      onClick: () => _actions.default.page.randomizer.handlePushGenerateCountNumber(4)
+    }, _react.default.createElement(_Avatar.default, null, "4"))), _react.default.createElement(_Grid.default, {
       item: true,
       xs: 3
-    }, _react.default.createElement(_IconButton.default, null, _react.default.createElement(_Avatar.default, null, "5"))), _react.default.createElement(_Grid.default, {
+    }, _react.default.createElement(_IconButton.default, {
+      onClick: () => _actions.default.page.randomizer.handlePushGenerateCountNumber(5)
+    }, _react.default.createElement(_Avatar.default, null, "5"))), _react.default.createElement(_Grid.default, {
       item: true,
       xs: 3
-    }, _react.default.createElement(_IconButton.default, null, _react.default.createElement(_Avatar.default, null, "6"))), _react.default.createElement(_Grid.default, {
+    }, _react.default.createElement(_IconButton.default, {
+      onClick: () => _actions.default.page.randomizer.handlePushGenerateCountNumber(6)
+    }, _react.default.createElement(_Avatar.default, null, "6"))), _react.default.createElement(_Grid.default, {
       item: true,
       xs: 3
-    }, _react.default.createElement(_IconButton.default, null, _react.default.createElement(_Avatar.default, null, "0"))), _react.default.createElement(_Grid.default, {
+    }, _react.default.createElement(_IconButton.default, {
+      onClick: () => _actions.default.page.randomizer.handlePushGenerateCountNumber(0)
+    }, _react.default.createElement(_Avatar.default, null, "0"))), _react.default.createElement(_Grid.default, {
       item: true,
       xs: 3
-    }, _react.default.createElement(_IconButton.default, null, _react.default.createElement(_Avatar.default, null, "7"))), _react.default.createElement(_Grid.default, {
+    }, _react.default.createElement(_IconButton.default, {
+      onClick: () => _actions.default.page.randomizer.handlePushGenerateCountNumber(7)
+    }, _react.default.createElement(_Avatar.default, null, "7"))), _react.default.createElement(_Grid.default, {
       item: true,
       xs: 3
-    }, _react.default.createElement(_IconButton.default, null, _react.default.createElement(_Avatar.default, null, "8"))), _react.default.createElement(_Grid.default, {
+    }, _react.default.createElement(_IconButton.default, {
+      onClick: () => _actions.default.page.randomizer.handlePushGenerateCountNumber(8)
+    }, _react.default.createElement(_Avatar.default, null, "8"))), _react.default.createElement(_Grid.default, {
       item: true,
       xs: 3
-    }, _react.default.createElement(_IconButton.default, null, _react.default.createElement(_Avatar.default, null, "9"))), _react.default.createElement(_Grid.default, {
+    }, _react.default.createElement(_IconButton.default, {
+      onClick: () => _actions.default.page.randomizer.handlePushGenerateCountNumber(9)
+    }, _react.default.createElement(_Avatar.default, null, "9"))), _react.default.createElement(_Grid.default, {
       item: true,
       xs: 3
-    }, _react.default.createElement(_IconButton.default, null, _react.default.createElement(_Avatar.default, {
+    }, _react.default.createElement(_IconButton.default, {
+      onClick: this.handleCloseDialog
+    }, _react.default.createElement(_Avatar.default, {
       className: classes.greenButton
-    }, "\u2714"))))), _react.default.createElement(_DialogActions.default, null, _react.default.createElement(_Button.default, {
-      onClick: this.handleCloseDialog,
-      color: "primary"
-    }, "完成")));
+    }, "\u2714"))))));
   }
 
 }

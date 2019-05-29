@@ -95,9 +95,9 @@ export default {
         randomizer: Reflux.createActions([
             'scoreAddOne',
             'scoreRemoveOne',
-            'handleChangeGenerateCount',
-            'handlePushGenerateCount',
-            'handlePopGenerateCount'
+            'handleChangeGenerateCountNumber',
+            'handlePushGenerateCountNumber',
+            'handlePopGenerateCountNumber'
         ]),
         practise: Reflux.createActions([
 

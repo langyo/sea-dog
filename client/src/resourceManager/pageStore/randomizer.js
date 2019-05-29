@@ -23,16 +23,17 @@ class Randomizer extends Reflux.Store {
         this.setState({ score: this.state.score[id] - 1})
     }
 
-    handleChangeGenerateCount(n) {
+    handleChangeGenerateCountNumber(n) {
         this.setState({ generateCount: n });
     }
 
     handlePushGenerateCountNumber(n) {
+        console.log(n);
         this.setState({ generateCount: this.state.generateCount * 10 + n});
     }
 
-    handlePopGenerateCountNumber(n) {
-        this.setState({ generateCount: this.state.generateCount / 10 });
+    handlePopGenerateCountNumber() {
+        this.setState({ generateCount: Math.floor(this.state.generateCount / 10) });
     }
 }
 

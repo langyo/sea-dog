@@ -73,79 +73,74 @@ class NumberDashboard extends Reflux.Component {
                                 id="count"
                                 label="人数"
                                 value={this.state.generateCount}
-                                onChange={e => Actions.views.randomizer.handleChangeGenerateCount(e.target.value)}
+                                onChange={e => Actions.views.randomizer.handleChangeGenerateCountNumber(e.target.value)}
                                 margin="normal"
                                 variant="outlined"
                                 className={classes.textField}
                             />
                         </Grid>
                         <Grid item xs={3}>
-                            <IconButton>
+                            <IconButton onClick={() => Actions.page.randomizer.handlePushGenerateCountNumber(1)}>
                                 <Avatar>1</Avatar>
                             </IconButton>
                         </Grid>
                         <Grid item xs={3}>
-                            <IconButton>
+                            <IconButton onClick={() => Actions.page.randomizer.handlePushGenerateCountNumber(2)}>
                                 <Avatar>2</Avatar>
                             </IconButton>
                         </Grid>
                         <Grid item xs={3}>
-                            <IconButton>
+                            <IconButton onClick={() => Actions.page.randomizer.handlePushGenerateCountNumber(3)}>
                                 <Avatar>3</Avatar>
                             </IconButton>
                         </Grid>
                         <Grid item xs={3}>
-                            <IconButton>
+                            <IconButton onClick={() => Actions.page.randomizer.handlePopGenerateCountNumber()}>
                                 <Avatar className={classes.redButton}>{"<"}</Avatar>
                             </IconButton>
                         </Grid>
                         <Grid item xs={3}>
-                            <IconButton>
+                            <IconButton onClick={() => Actions.page.randomizer.handlePushGenerateCountNumber(4)}>
                                 <Avatar>4</Avatar>
                             </IconButton>
                         </Grid>
                         <Grid item xs={3}>
-                            <IconButton>
+                            <IconButton onClick={() => Actions.page.randomizer.handlePushGenerateCountNumber(5)}>
                                 <Avatar>5</Avatar>
                             </IconButton>
                         </Grid>
                         <Grid item xs={3}>
-                            <IconButton>
+                            <IconButton onClick={() => Actions.page.randomizer.handlePushGenerateCountNumber(6)}>
                                 <Avatar>6</Avatar>
                             </IconButton>
                         </Grid>
                         <Grid item xs={3}>
-                            <IconButton>
+                            <IconButton onClick={() => Actions.page.randomizer.handlePushGenerateCountNumber(0)}>
                                 <Avatar>0</Avatar>
                             </IconButton>
                         </Grid>
                         <Grid item xs={3}>
-                            <IconButton>
+                            <IconButton onClick={() => Actions.page.randomizer.handlePushGenerateCountNumber(7)}>
                                 <Avatar>7</Avatar>
                             </IconButton>
                         </Grid>
                         <Grid item xs={3}>
-                            <IconButton>
+                            <IconButton onClick={() => Actions.page.randomizer.handlePushGenerateCountNumber(8)}>
                                 <Avatar>8</Avatar>
                             </IconButton>
                         </Grid>
                         <Grid item xs={3}>
-                            <IconButton>
+                            <IconButton onClick={() => Actions.page.randomizer.handlePushGenerateCountNumber(9)}>
                                 <Avatar>9</Avatar>
                             </IconButton>
                         </Grid>
                         <Grid item xs={3}>
-                            <IconButton>
+                            <IconButton onClick={this.handleCloseDialog}>
                                 <Avatar className={classes.greenButton}>✔</Avatar>
                             </IconButton>
                         </Grid>
                     </Grid>
                 </DialogContent>
-                <DialogActions>
-                    <Button onClick={this.handleCloseDialog} color="primary">
-                        {"完成"}
-                    </Button>
-                </DialogActions>
             </Dialog>
         );
     }
