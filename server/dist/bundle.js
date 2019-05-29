@@ -422,23 +422,17 @@ db.on('open', () => {
             // 根表选择器
             "class": {
               argsCount: 1,
-              func: (db, name) => (resolve, reject) => {
-                console.log("看一下查询之后出的什么东西：", Class.findOne({
-                  name: name
-                }));
-                resolve(Class.findOne({
-                  name: name
-                }));
-              }
+              func: (db, name) => Class.findOne({
+                name: name
+              })
             },
             // 子表选择器
+            // class -> groupType
             "groupType": {
               argsCount: 1,
-              func: (db, name) => (resolve, reject) => {
-                resolve(db.findOne({
-                  name: name
-                }).lean());
-              }
+              func: (db, name) => db.findOne({
+                name: name
+              })
             }
           };
           const evaluators = {
@@ -446,18 +440,71 @@ db.on('open', () => {
               argsCount: 1,
               func: (db, objName) => (resolve, reject) => {
                 db.exec((err, doc) => {
-                  if (doc[objName]) resolve(doc[objName]);else reject("没有这个值！");
+                  if (err) this.send("fail", "" + err);
+                  if (doc && doc[objName]) resolve(doc[objName]);else reject("没有这个值！");
                 });
               }
             },
             "set": {
               argsCount: 2,
               func: (db, objName, value) => (resolve, reject) => {
-                console.log("查询后的 db：", db);
                 db.exec((err, doc) => {
-                  if (doc[objName]) doc[objName] = value;else return reject("数据库保存失败，理由是没有这个键：" + objName);
-                  db.save(err => {
-                    if (err) reject("数据库保存失败！（也许是没有权限？）");else resolve("ok");
+                  if (err) this.send("fail", "" + err);
+                  if (!doc) return reject("数据库保存失败，压根就没查到你要的表！");else if (!doc[objName]) return reject("数据库保存失败，理由是没有这个键：" + objName);else if (Array.isArray(doc[objName])) return reject("数据库保存失败，理由是 set 无法处理数组的操作：" + objName);
+                  doc[objName] = value;
+                  doc.save(err => {
+                    if (err) reject("数据库保存失败！（也许是没有权限？）：" + err);else resolve("ok");
+                  });
+                });
+              }
+            },
+            "add": {
+              argsCount: 2,
+              func: (db, objName, value) => (resolve, reject) => {
+                db.exec((err, doc) => {
+                  if (err) this.send("fail", "" + err);
+                  if (!doc) return reject("数据库保存失败，压根就没查到你要的表！");else if (!doc[objName]) return reject("数据库保存失败，理由是没有这个键：" + objName);else if (!Array.isArray(doc[objName])) return reject("数据库保存失败，理由是 add 无法处理非数组的操作：" + objName);
+                  if (!doc.indexOf(objName)) doc[objName].push(value);else reject("已经有这个元素了！");
+                  doc.save(err => {
+                    if (err) reject("数据库保存失败！（也许是没有权限？）：" + err);else resolve("ok");
+                  });
+                });
+              }
+            },
+            "remove": {
+              argsCount: 2,
+              func: (db, objName, value) => (resolve, reject) => {
+                db.exec((err, doc) => {
+                  if (err) this.send("fail", "" + err);
+                  if (!doc) return reject("数据库保存失败，压根就没查到你要的表！");else if (!doc[objName]) return reject("数据库保存失败，理由是没有这个键：" + objName);else if (!Array.isArray(doc[objName])) return reject("数据库保存失败，理由是 remove 无法处理非数组的操作：" + objName);
+                  doc[objName] = doc[objName].filter(n => n.id != value);
+                  console.log(doc[objName]);
+                  doc.save(err => {
+                    if (err) reject("数据库保存失败！（也许是没有权限？）：" + err);else resolve("ok");
+                  });
+                });
+              }
+            },
+            "list": {
+              argsCount: 3,
+              func: (db, objName, numberRound, selection) => (resolve, reject) => {
+                db.exec((err, doc) => {
+                  if (err) this.send("fail", "" + err);
+                  if (!doc) return reject("数据库保存失败，压根就没查到你要的表！");else if (!doc[objName]) return reject("数据库保存失败，理由是没有这个键：" + objName);else if (!Array.isArray(doc[objName])) return reject("数据库保存失败，理由是 list 无法处理非数组的操作：" + objName);
+                  doc.save(err => {
+                    if (err) reject("数据库保存失败！（也许是没有权限？）：" + err);else resolve("ok");
+                  });
+                });
+              }
+            },
+            "count": {
+              argsCount: 1,
+              func: (db, objName) => (resolve, reject) => {
+                db.exec((err, doc) => {
+                  if (err) this.send("fail", "" + err);
+                  if (!doc) return reject("数据库保存失败，压根就没查到你要的表！");else if (!doc[objName]) return reject("数据库保存失败，理由是没有这个键：" + objName);else if (!Array.isArray(doc[objName])) return reject("数据库保存失败，理由是 count 无法处理非数组的操作：" + objName);
+                  doc.save(err => {
+                    if (err) reject("数据库保存失败！（也许是没有权限？）：" + err);else resolve("ok");
                   });
                 });
               }
@@ -466,7 +513,7 @@ db.on('open', () => {
 
           const run_evaluator = (db, args) => {
             if (evaluators[args[0]]) {
-              new Promise(evaluators[args[0]].func.apply(null, [db].concat(args.slice(1)))).then(res => this.send("success", res)).catch(err => console.log(err));
+              new Promise(evaluators[args[0]].func.apply(null, [db].concat(args.slice(1)))).then(res => this.send("success", res)).catch(err => this.send("fail", "" + err));
             } else this.send("不存在这个执行方法！", args[0]);
           }; // 开始递归 selector
 
@@ -480,54 +527,12 @@ db.on('open', () => {
             ;
 
             if (selectors[args[0]]) {
-              new Promise(selectors[args[0]].func.apply(null, [db].concat(args.slice(1, 1 + selectors[args[0]].argsCount)))).then(res => {
-                console.log("即将传入新一轮 selector 的指令：", args.slice(1 + selectors[args[0]].argsCount));
-                dfs_selector(res, args.slice(1 + selectors[args[0]].argsCount));
-              }).catch(err => console.log(err));
+              console.log("即将传入新一轮 selector 的指令：", args.slice(1 + selectors[args[0]].argsCount));
+              dfs_selector(selectors[args[0]].func.apply(null, [db].concat(args.slice(1, 1 + selectors[args[0]].argsCount))), args.slice(1 + selectors[args[0]].argsCount));
             } else this.send("不存在这个选择器！", args[0]);
           };
 
           dfs_selector(db, args);
-        },
-        list: function (name, cmd, ...args) {
-          switch (cmd) {
-            case 'count':
-              switch (name) {
-                case 'classes':
-                  Class.find({}).count((err, num) => {
-                    if (err) {
-                      console.log(err);
-                      this.send('fail');
-                      return;
-                    }
-
-                    this.send(num);
-                  });
-
-                case 'accounts':
-                  Account.find({}).count((err, num) => {
-                    if (err) {
-                      console.log(err);
-                      this.send('fail');
-                      return;
-                    }
-
-                    this.send(num);
-                  });
-
-                case 'broadcasts':
-                  BroadCast.find({}).count((err, num) => {
-                    if (err) {
-                      console.log(err);
-                      this.send('fail');
-                      return;
-                    }
-
-                    this.send(num);
-                  });
-              }
-
-          }
         }
       }
     });
