@@ -11,6 +11,8 @@ import Stores from '../../resourceManager/stores';
 
 import AboutDialog from '../dialogs/about';
 import SettingDialog from '../dialogs/setting';
+import NumberDashboardDialog from "../dialogs/numberDashboard";
+import BindClassDesktopDialog from "../dialogs/bindClassDesktop";
 
 class MainWindowManager extends Reflux.Component {
   constructor(props) {
@@ -25,6 +27,8 @@ class MainWindowManager extends Reflux.Component {
       <div>
         <AboutDialog />
         <SettingDialog />
+        <NumberDashboardDialog />
+        <BindClassDesktopDialog />
       </div>
     );
   }

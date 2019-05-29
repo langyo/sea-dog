@@ -29,6 +29,9 @@ import PlusIcon from "mdi-material-ui/Plus";
 import MinusIcon from "mdi-material-ui/Minus";
 import KeyboardIcon from "mdi-material-ui/KeyboardOutline";
 
+import red from "@material-ui/core/colors/red";
+import green from "@material-ui/core/colors/green";
+
 import Stores from '../../resourceManager/stores';
 import Actions from "../../resourceManager/actions";
 
@@ -82,15 +85,15 @@ class Randomizer extends Reflux.Component {
         <div>
           <Card className={classes.card}>
             <CardActions>
-                <Button
-                  className={classNames(classes.button)}
-                  variant="contained"
-                  color="primary"
-                  onClick={this.handleRoundingToggle}
-                  size="large"
-                >
-                  <PacManIcon className={classes.extendedIcon} />
-                  生成名单
+              <Button
+                className={classNames(classes.button)}
+                variant="contained"
+                color="primary"
+                onClick={this.handleRoundingToggle}
+                size="large"
+              >
+                <PacManIcon className={classes.extendedIcon} />
+                生成名单
                 </Button>
               <FormControl>
                 <InputLabel htmlFor="memberCount">成员数</InputLabel>
@@ -101,7 +104,7 @@ class Randomizer extends Reflux.Component {
                   color="primary"
                   endAdornment={
                     <InputAdornment position="end">
-                      <IconButton>
+                      <IconButton onClick={() => Actions.view.dialog.toggleTo("numberDashboard")}>
                         <KeyboardIcon />
                       </IconButton>
                     </InputAdornment>
@@ -114,13 +117,13 @@ class Randomizer extends Reflux.Component {
                 <ListItem>
                   <Typography variant="h5" className={classes.peopleName}>
                     测试用户
-              </Typography>
+                  </Typography>
                   <IconButton color="primary">
                     <MinusIcon />
                   </IconButton>
                   <Typography className={classes.scoreText} variant="h4">
                     0
-              </Typography>
+                  </Typography>
                   <IconButton color="primary">
                     <PlusIcon />
                   </IconButton>

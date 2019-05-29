@@ -8,9 +8,9 @@ class Randomizer extends Reflux.Store {
 	constructor() {
 		super();
 		this.state = {
-            score: [0],
+            score: [0, 0, 0],
             list: ["点击开始"],
-            generateCount: 6
+            generateCount: 3
 		};
 		this.listenToMany(Actions.page.randomizer);
 	}
@@ -21,6 +21,18 @@ class Randomizer extends Reflux.Store {
 
     scoreRemoveOne(id) {
         this.setState({ score: this.state.score[id] - 1})
+    }
+
+    handleChangeGenerateCount(n) {
+        this.setState({ generateCount: n });
+    }
+
+    handlePushGenerateCountNumber(n) {
+        this.setState({ generateCount: this.state.generateCount * 10 + n});
+    }
+
+    handlePopGenerateCountNumber(n) {
+        this.setState({ generateCount: this.state.generateCount / 10 });
     }
 }
 
