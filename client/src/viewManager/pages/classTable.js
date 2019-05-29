@@ -60,7 +60,7 @@ class ClassTable extends Reflux.Component {
             <Card className={classes.card}>
               <CardContent>
                 <Grid container justify="center" alignItems="center">
-                  {["屌", "屌", "屌", "屌", "屌", "屌", "屌", "屌"].map(n => (
+                  {["喵", "喵", "喵", "喵", "喵", "喵", "喵", "喵"].map(n => (
                     <IconButton className={classes.avatarButton}>
                       <Avatar>{n}</Avatar>
                     </IconButton>
@@ -76,7 +76,7 @@ class ClassTable extends Reflux.Component {
             <Card className={classes.card}>
               <CardContent>
                 <Grid container justify="center" alignItems="center">
-                  {["屌", "屌", "屌", "屌", "屌", "屌", "屌", "屌"].map(n => (
+                  {["喵", "喵", "喵", "喵", "喵", "喵", "喵", "喵"].map(n => (
                     <IconButton className={classes.avatarButton}>
                       <Avatar>{n}</Avatar>
                     </IconButton>
@@ -92,7 +92,7 @@ class ClassTable extends Reflux.Component {
             <Card className={classes.card}>
               <CardContent>
                 <Grid container justify="center" alignItems="center">
-                  {["屌", "屌", "屌", "屌", "屌", "屌", "屌", "屌"].map(n => (
+                  {["喵", "喵", "喵", "喵", "喵", "喵", "喵", "喵"].map(n => (
                     <IconButton className={classes.avatarButton}>
                       <Avatar>{n}</Avatar>
                     </IconButton>

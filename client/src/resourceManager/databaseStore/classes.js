@@ -23,6 +23,30 @@ class Classes extends Reflux.Store {
         );
         this.setState({ classes: diff });
     }
+
+    addGroup() {
+
+    }
+
+    addMember() {
+
+    }
+
+    removeGroup() {
+
+    }
+
+    removeMember() {
+
+    }
+
+    updateGroup() {
+
+    }
+
+    updateMember() {
+        
+    }
 }
 
 export default new Classes();

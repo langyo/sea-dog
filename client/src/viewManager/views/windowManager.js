@@ -13,11 +13,13 @@ import AboutDialog from '../dialogs/about';
 import SettingDialog from '../dialogs/setting';
 import NumberDashboardDialog from "../dialogs/numberDashboard";
 import BindClassDesktopDialog from "../dialogs/bindClassDesktop";
+import AppendAccountDialog from "../dialogs/appendAccount";
+import AppendClassMemberDialog from "../dialogs/appendClassMember";
 
 class MainWindowManager extends Reflux.Component {
   constructor(props) {
     super(props);
-    this.store = Stores.view.dialog;
+    // this.store = Stores.view.dialog;
   }
 
   render() {
@@ -29,6 +31,8 @@ class MainWindowManager extends Reflux.Component {
         <SettingDialog />
         <NumberDashboardDialog />
         <BindClassDesktopDialog />
+        <AppendAccountDialog />
+        <AppendClassMemberDialog />
       </div>
     );
   }

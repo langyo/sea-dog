@@ -13,7 +13,21 @@ class Accounts extends Reflux.Store {
 		this.listenToMany(Actions.database.accounts);
 	}
 
-	
+	updateAccountByDatabase() {
+
+	}
+
+	login() {
+
+	}
+
+	logout() {
+
+	}
+
+	register() {
+		
+	}
 }
 
 export default new Accounts();

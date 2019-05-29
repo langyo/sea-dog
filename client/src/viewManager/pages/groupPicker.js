@@ -108,7 +108,7 @@ class GroupPicker extends Reflux.Component {
                 >
                   <PacManIcon className={classes.extendedIcon} />
                   开始点名
-            </Button>
+              </Button>
               )}
               {this.state.rounding && (
                 <Button
@@ -120,7 +120,7 @@ class GroupPicker extends Reflux.Component {
                 >
                   <StopIcon className={classes.extendedIcon} />
                   停！
-            </Button>
+              </Button>
               )}
               <FormControl variant="outlined" className={classes.formControl}>
                 <InputLabel htmlFor="group-type">选择小组分类方式</InputLabel>
@@ -141,16 +141,16 @@ class GroupPicker extends Reflux.Component {
                   <Switch className={classes.switch} color="primary" />
                   <Typography variant="h5" className={classes.peopleGroup}>
                     测试组名
-              </Typography>
+                  </Typography>
                   <Typography variant="h5" className={classes.peopleName}>
                     测试用户
-              </Typography>
+                  </Typography>
                   <IconButton color="primary">
                     <MinusIcon />
                   </IconButton>
                   <Typography className={classes.scoreText} variant="h4">
                     0
-              </Typography>
+                  </Typography>
                   <IconButton color="primary">
                     <PlusIcon />
                   </IconButton>

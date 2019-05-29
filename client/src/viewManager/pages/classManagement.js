@@ -44,10 +44,10 @@ const styles = theme => ({
   }
 });
 
-class Management extends Reflux.Component {
+class ClassManagement extends Reflux.Component {
   constructor(props) {
     super(props);
-    this.store = Stores.page.randomizer;
+    this.store = Stores.page.classManagement;
   }
 
   render() {
@@ -60,10 +60,10 @@ class Management extends Reflux.Component {
             <CardContent>
               <Toolbar>
                 <Typography variant="h6">
-                  班级管理
+                  班级成员管理
                 </Typography>
                 <Tooltip title="添加">
-                  <IconButton className={classes.marginLeft}>
+                  <IconButton className={classes.marginLeft} onClick={() => Actions.view.dialog.toggleTo("appendClassMember")}>
                     <AddIcon />
                   </IconButton>
                 </Tooltip>
@@ -80,9 +80,27 @@ class Management extends Reflux.Component {
                         姓名
                       </TableSortLabel>
                     </TableCell>
-                    <TableCell align="right">所属小组</TableCell>
-                    <TableCell align="right">个人分数</TableCell>
-                    <TableCell align="center">操作</TableCell>
+                    <TableCell align="right">
+                      <TableSortLabel
+                        active={true}
+                        direction={"asc"}
+                        onClick={() => null}
+                      >
+                        所属小组
+                      </TableSortLabel>
+                    </TableCell>
+                    <TableCell align="right">
+                      <TableSortLabel
+                        active={true}
+                        direction={"asc"}
+                        onClick={() => null}
+                      >
+                        个人分数
+                      </TableSortLabel>
+                    </TableCell>
+                    <TableCell align="center">
+                      操作
+                    </TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -117,8 +135,8 @@ class Management extends Reflux.Component {
   }
 }
 
-Management.propTypes = {
+ClassManagement.propTypes = {
   open: PropTypes.bool
 }
 
-export default withStyles(styles)(Management);
+export default withStyles(styles)(ClassManagement);

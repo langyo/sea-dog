@@ -86,7 +86,7 @@ export default {
 
         ]),
         classManagement: Reflux.createActions([
-
+            'appendNewMember'
         ]),
         schoolManagement: Reflux.createActions([
 

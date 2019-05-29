@@ -85193,7 +85193,7 @@ var _default = {
     classChoice: _reflux.default.createActions([]),
     classMap: _reflux.default.createActions([]),
     classTable: _reflux.default.createActions([]),
-    classManagement: _reflux.default.createActions([]),
+    classManagement: _reflux.default.createActions(['appendNewMember']),
     schoolManagement: _reflux.default.createActions([]),
     picker: _reflux.default.createActions(['scoreAddOne', 'scoreRemoveOne']),
     randomizer: _reflux.default.createActions(['scoreAddOne', 'scoreRemoveOne', 'handleChangeGenerateCountNumber', 'handlePushGenerateCountNumber', 'handlePopGenerateCountNumber']),
@@ -85258,6 +85258,18 @@ class Classes extends _reflux.default.Store {
       classes: diff
     });
   }
+
+  addGroup() {}
+
+  addMember() {}
+
+  removeGroup() {}
+
+  removeMember() {}
+
+  updateGroup() {}
+
+  updateMember() {}
 
 }
 
@@ -85348,6 +85360,8 @@ class ClassManagement extends _reflux.default.Store {
     this.state = {};
     this.listenToMany(_actions.default.page.classManagement);
   }
+
+  appendNewMember() {}
 
 }
 
@@ -86049,6 +86063,340 @@ var _DialogActions = _interopRequireDefault(require("@material-ui/core/DialogAct
 
 var _DialogContent = _interopRequireDefault(require("@material-ui/core/DialogContent"));
 
+var _DialogContentText = _interopRequireDefault(require("@material-ui/core/DialogContentText"));
+
+var _DialogTitle = _interopRequireDefault(require("@material-ui/core/DialogTitle"));
+
+var _Typography = _interopRequireDefault(require("@material-ui/core/Typography"));
+
+var _Button = _interopRequireDefault(require("@material-ui/core/Button"));
+
+var _Menu = _interopRequireDefault(require("@material-ui/core/Menu"));
+
+var _MenuItem = _interopRequireDefault(require("@material-ui/core/MenuItem"));
+
+var _Grid = _interopRequireDefault(require("@material-ui/core/Grid"));
+
+var _TextField = _interopRequireDefault(require("@material-ui/core/TextField"));
+
+var _FormControl = _interopRequireDefault(require("@material-ui/core/FormControl"));
+
+var _InputLabel = _interopRequireDefault(require("@material-ui/core/InputLabel"));
+
+var _Select = _interopRequireDefault(require("@material-ui/core/Select"));
+
+var _OutlinedInput = _interopRequireDefault(require("@material-ui/core/OutlinedInput"));
+
+var _red = _interopRequireDefault(require("@material-ui/core/colors/red"));
+
+var _green = _interopRequireDefault(require("@material-ui/core/colors/green"));
+
+var _stores = _interopRequireDefault(require("../../resourceManager/stores"));
+
+var _actions = _interopRequireDefault(require("../../resourceManager/actions"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+const styles = theme => ({
+  root: {
+    width: 600,
+    marginLeft: "auto",
+    marginRight: "auto"
+  },
+  textField: {
+    width: "100%"
+  },
+  formControl: {
+    width: "100%"
+  }
+});
+
+class AppendAccount extends _reflux.default.Component {
+  constructor(props) {
+    super(props);
+
+    _defineProperty(this, "handleCloseDialog", _actions.default.view.dialog.reset);
+
+    this.stores = [_stores.default.view.dialog];
+  }
+
+  render() {
+    const {
+      classes,
+      theme
+    } = this.props;
+    return _react.default.createElement(_Dialog.default, {
+      open: this.state.show == 'appendAccount',
+      onClose: this.handleCloseDialog,
+      scroll: "paper",
+      className: classes.root
+    }, _react.default.createElement(_DialogTitle.default, null, "\u6DFB\u52A0\u65B0\u7684\u8D26\u6237"), _react.default.createElement(_DialogContent.default, null, _react.default.createElement(_Grid.default, {
+      container: true,
+      justify: "center",
+      alignItems: "center"
+    }, _react.default.createElement(_Grid.default, {
+      item: true,
+      xs: 12
+    }, _react.default.createElement(_TextField.default, {
+      id: "list",
+      label: "\u8D26\u6237\u540D\u5355",
+      value: "",
+      onChange: e => e.target.value,
+      margin: "normal",
+      variant: "outlined",
+      className: classes.textField
+    })), _react.default.createElement(_Grid.default, {
+      item: true,
+      xs: 6
+    }, _react.default.createElement(_FormControl.default, {
+      variant: "outlined",
+      className: classes.formControl
+    }, _react.default.createElement(_InputLabel.default, {
+      htmlFor: "group-type"
+    }, "\u9009\u62E9\u7528\u6237\u7EC4\u7C7B\u522B"), _react.default.createElement(_Select.default, {
+      value: "",
+      onChange: this.handleChange,
+      input: _react.default.createElement(_OutlinedInput.default, {
+        labelWidth: 200,
+        name: "group",
+        id: "group-type"
+      })
+    }, _react.default.createElement(_MenuItem.default, {
+      value: 10
+    }, "Ten")))), _react.default.createElement(_Grid.default, {
+      item: true,
+      xs: 6
+    }, _react.default.createElement(_FormControl.default, {
+      variant: "outlined",
+      className: classes.formControl
+    }, _react.default.createElement(_InputLabel.default, {
+      htmlFor: "group-type"
+    }, "\u9009\u62E9\u7528\u6237\u7EC4"), _react.default.createElement(_Select.default, {
+      value: "",
+      onChange: this.handleChange,
+      input: _react.default.createElement(_OutlinedInput.default, {
+        labelWidth: 200,
+        name: "group",
+        id: "group-type"
+      })
+    }, _react.default.createElement(_MenuItem.default, {
+      value: 10
+    }, "Ten")))))), _react.default.createElement(_DialogActions.default, null, _react.default.createElement(_Button.default, {
+      onClick: this.handleCloseDialog,
+      color: "primary"
+    }, "确定")));
+  }
+
+}
+
+var _default = (0, _styles.withStyles)(styles)(AppendAccount);
+
+exports.default = _default;
+
+},{"../../resourceManager/actions":419,"../../resourceManager/stores":431,"@material-ui/core/Button":39,"@material-ui/core/Dialog":57,"@material-ui/core/DialogActions":49,"@material-ui/core/DialogContent":53,"@material-ui/core/DialogContentText":51,"@material-ui/core/DialogTitle":55,"@material-ui/core/Fade":63,"@material-ui/core/FormControl":71,"@material-ui/core/Grid":80,"@material-ui/core/Grow":82,"@material-ui/core/InputLabel":92,"@material-ui/core/Menu":110,"@material-ui/core/MenuItem":106,"@material-ui/core/OutlinedInput":122,"@material-ui/core/Select":139,"@material-ui/core/TextField":168,"@material-ui/core/Typography":174,"@material-ui/core/colors/green":176,"@material-ui/core/colors/red":180,"@material-ui/core/styles":200,"classnames":231,"prop-types":339,"react":369,"react-router":357,"reflux":394,"shortid":404}],442:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _reflux = _interopRequireDefault(require("reflux"));
+
+var _reactRouter = require("react-router");
+
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
+var _classnames = _interopRequireDefault(require("classnames"));
+
+var _shortid = _interopRequireDefault(require("shortid"));
+
+var _styles = require("@material-ui/core/styles");
+
+var _Fade = _interopRequireDefault(require("@material-ui/core/Fade"));
+
+var _Grow = _interopRequireDefault(require("@material-ui/core/Grow"));
+
+var _Dialog = _interopRequireDefault(require("@material-ui/core/Dialog"));
+
+var _DialogActions = _interopRequireDefault(require("@material-ui/core/DialogActions"));
+
+var _DialogContent = _interopRequireDefault(require("@material-ui/core/DialogContent"));
+
+var _DialogContentText = _interopRequireDefault(require("@material-ui/core/DialogContentText"));
+
+var _DialogTitle = _interopRequireDefault(require("@material-ui/core/DialogTitle"));
+
+var _Typography = _interopRequireDefault(require("@material-ui/core/Typography"));
+
+var _Button = _interopRequireDefault(require("@material-ui/core/Button"));
+
+var _Menu = _interopRequireDefault(require("@material-ui/core/Menu"));
+
+var _MenuItem = _interopRequireDefault(require("@material-ui/core/MenuItem"));
+
+var _Grid = _interopRequireDefault(require("@material-ui/core/Grid"));
+
+var _TextField = _interopRequireDefault(require("@material-ui/core/TextField"));
+
+var _FormControl = _interopRequireDefault(require("@material-ui/core/FormControl"));
+
+var _InputLabel = _interopRequireDefault(require("@material-ui/core/InputLabel"));
+
+var _Select = _interopRequireDefault(require("@material-ui/core/Select"));
+
+var _red = _interopRequireDefault(require("@material-ui/core/colors/red"));
+
+var _green = _interopRequireDefault(require("@material-ui/core/colors/green"));
+
+var _stores = _interopRequireDefault(require("../../resourceManager/stores"));
+
+var _actions = _interopRequireDefault(require("../../resourceManager/actions"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+const styles = theme => ({
+  root: {
+    width: 600,
+    marginLeft: "auto",
+    marginRight: "auto"
+  },
+  content: {
+    display: "flex",
+    flexWarp: "warp"
+  },
+  textField: {
+    width: 500
+  },
+  menu: {
+    width: 300
+  }
+});
+
+class AppendClassMember extends _reflux.default.Component {
+  constructor(props) {
+    super(props);
+
+    _defineProperty(this, "handleCloseDialog", _actions.default.view.dialog.reset);
+
+    this.stores = [_stores.default.view.dialog];
+  }
+
+  render() {
+    const {
+      classes,
+      theme
+    } = this.props;
+    return _react.default.createElement(_Dialog.default, {
+      open: this.state.show == 'appendClassMember',
+      onClose: this.handleCloseDialog,
+      scroll: "paper",
+      className: classes.root
+    }, _react.default.createElement(_DialogTitle.default, null, "\u6DFB\u52A0\u65B0\u7684\u6210\u5458"), _react.default.createElement(_DialogContent.default, {
+      className: classes.content
+    }, _react.default.createElement(_TextField.default, {
+      id: "list",
+      label: "\u6210\u5458\u540D\u5355",
+      value: "123",
+      onChange: e => _actions.default.page.classManagement.handleAddNewListInput(e.target.value),
+      margin: "normal",
+      variant: "outlined",
+      multiline: true,
+      rows: "4",
+      fullwidth: true,
+      className: classes.textField
+    }), _react.default.createElement(_TextField.default, {
+      id: "group-global",
+      select: true,
+      label: "\u9009\u62E9\u5C0F\u7EC4\u7C7B\u522B",
+      className: classes.textField,
+      value: 1,
+      onChange: null,
+      SelectProps: {
+        MenuProps: {
+          className: classes.menu
+        }
+      },
+      margin: "normal"
+    }, _react.default.createElement(_MenuItem.default, {
+      value: 1
+    }, "1"), _react.default.createElement(_MenuItem.default, {
+      value: 21
+    }, "21"), _react.default.createElement(_MenuItem.default, {
+      value: 31
+    }, "31")), _react.default.createElement(_TextField.default, {
+      id: "group-sub",
+      select: true,
+      label: "\u9009\u62E9\u5177\u4F53\u5C0F\u7EC4",
+      className: classes.textField,
+      value: 1,
+      onChange: null,
+      SelectProps: {
+        MenuProps: {
+          className: classes.menu
+        }
+      },
+      margin: "normal"
+    }, _react.default.createElement(_MenuItem.default, {
+      value: 1
+    }, "1"), _react.default.createElement(_MenuItem.default, {
+      value: 21
+    }, "21"), _react.default.createElement(_MenuItem.default, {
+      value: 31
+    }, "31"))), _react.default.createElement(_DialogActions.default, null, _react.default.createElement(_Button.default, {
+      onClick: this.handleCloseDialog,
+      color: "primary"
+    }, "确定")));
+  }
+
+}
+
+var _default = (0, _styles.withStyles)(styles)(AppendClassMember);
+
+exports.default = _default;
+
+},{"../../resourceManager/actions":419,"../../resourceManager/stores":431,"@material-ui/core/Button":39,"@material-ui/core/Dialog":57,"@material-ui/core/DialogActions":49,"@material-ui/core/DialogContent":53,"@material-ui/core/DialogContentText":51,"@material-ui/core/DialogTitle":55,"@material-ui/core/Fade":63,"@material-ui/core/FormControl":71,"@material-ui/core/Grid":80,"@material-ui/core/Grow":82,"@material-ui/core/InputLabel":92,"@material-ui/core/Menu":110,"@material-ui/core/MenuItem":106,"@material-ui/core/Select":139,"@material-ui/core/TextField":168,"@material-ui/core/Typography":174,"@material-ui/core/colors/green":176,"@material-ui/core/colors/red":180,"@material-ui/core/styles":200,"classnames":231,"prop-types":339,"react":369,"react-router":357,"reflux":394,"shortid":404}],443:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _reflux = _interopRequireDefault(require("reflux"));
+
+var _reactRouter = require("react-router");
+
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
+var _classnames = _interopRequireDefault(require("classnames"));
+
+var _shortid = _interopRequireDefault(require("shortid"));
+
+var _styles = require("@material-ui/core/styles");
+
+var _Fade = _interopRequireDefault(require("@material-ui/core/Fade"));
+
+var _Grow = _interopRequireDefault(require("@material-ui/core/Grow"));
+
+var _Dialog = _interopRequireDefault(require("@material-ui/core/Dialog"));
+
+var _DialogActions = _interopRequireDefault(require("@material-ui/core/DialogActions"));
+
+var _DialogContent = _interopRequireDefault(require("@material-ui/core/DialogContent"));
+
 var _DialogTitle = _interopRequireDefault(require("@material-ui/core/DialogTitle"));
 
 var _Typography = _interopRequireDefault(require("@material-ui/core/Typography"));
@@ -86107,7 +86455,7 @@ var _default = (0, _styles.withStyles)(styles)(BindClassDesktop);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":419,"../../resourceManager/stores":431,"@material-ui/core/Button":39,"@material-ui/core/Dialog":57,"@material-ui/core/DialogActions":49,"@material-ui/core/DialogContent":53,"@material-ui/core/DialogTitle":55,"@material-ui/core/Fade":63,"@material-ui/core/FormControlLabel":67,"@material-ui/core/FormGroup":74,"@material-ui/core/Grow":82,"@material-ui/core/Radio":134,"@material-ui/core/RadioGroup":132,"@material-ui/core/Switch":145,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"classnames":231,"prop-types":339,"react":369,"react-router":357,"reflux":394,"shortid":404}],442:[function(require,module,exports){
+},{"../../resourceManager/actions":419,"../../resourceManager/stores":431,"@material-ui/core/Button":39,"@material-ui/core/Dialog":57,"@material-ui/core/DialogActions":49,"@material-ui/core/DialogContent":53,"@material-ui/core/DialogTitle":55,"@material-ui/core/Fade":63,"@material-ui/core/FormControlLabel":67,"@material-ui/core/FormGroup":74,"@material-ui/core/Grow":82,"@material-ui/core/Radio":134,"@material-ui/core/RadioGroup":132,"@material-ui/core/Switch":145,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"classnames":231,"prop-types":339,"react":369,"react-router":357,"reflux":394,"shortid":404}],444:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -86297,7 +86645,7 @@ var _default = (0, _styles.withStyles)(styles)(NumberDashboard);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":419,"../../resourceManager/stores":431,"@material-ui/core/Avatar":23,"@material-ui/core/Button":39,"@material-ui/core/Dialog":57,"@material-ui/core/DialogActions":49,"@material-ui/core/DialogContent":53,"@material-ui/core/DialogContentText":51,"@material-ui/core/DialogTitle":55,"@material-ui/core/Fade":63,"@material-ui/core/Grid":80,"@material-ui/core/Grow":82,"@material-ui/core/IconButton":84,"@material-ui/core/Menu":110,"@material-ui/core/TextField":168,"@material-ui/core/Typography":174,"@material-ui/core/colors/green":176,"@material-ui/core/colors/red":180,"@material-ui/core/styles":200,"classnames":231,"prop-types":339,"react":369,"react-router":357,"reflux":394,"shortid":404}],443:[function(require,module,exports){
+},{"../../resourceManager/actions":419,"../../resourceManager/stores":431,"@material-ui/core/Avatar":23,"@material-ui/core/Button":39,"@material-ui/core/Dialog":57,"@material-ui/core/DialogActions":49,"@material-ui/core/DialogContent":53,"@material-ui/core/DialogContentText":51,"@material-ui/core/DialogTitle":55,"@material-ui/core/Fade":63,"@material-ui/core/Grid":80,"@material-ui/core/Grow":82,"@material-ui/core/IconButton":84,"@material-ui/core/Menu":110,"@material-ui/core/TextField":168,"@material-ui/core/Typography":174,"@material-ui/core/colors/green":176,"@material-ui/core/colors/red":180,"@material-ui/core/styles":200,"classnames":231,"prop-types":339,"react":369,"react-router":357,"reflux":394,"shortid":404}],445:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -86402,7 +86750,7 @@ var _default = (0, _styles.withStyles)(styles)(Setting);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":419,"../../resourceManager/stores":431,"@material-ui/core/Button":39,"@material-ui/core/Dialog":57,"@material-ui/core/DialogActions":49,"@material-ui/core/DialogContent":53,"@material-ui/core/DialogTitle":55,"@material-ui/core/Fade":63,"@material-ui/core/FormControlLabel":67,"@material-ui/core/FormGroup":74,"@material-ui/core/Grow":82,"@material-ui/core/Radio":134,"@material-ui/core/RadioGroup":132,"@material-ui/core/Switch":145,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"classnames":231,"prop-types":339,"react":369,"react-router":357,"reflux":394,"shortid":404}],444:[function(require,module,exports){
+},{"../../resourceManager/actions":419,"../../resourceManager/stores":431,"@material-ui/core/Button":39,"@material-ui/core/Dialog":57,"@material-ui/core/DialogActions":49,"@material-ui/core/DialogContent":53,"@material-ui/core/DialogTitle":55,"@material-ui/core/Fade":63,"@material-ui/core/FormControlLabel":67,"@material-ui/core/FormGroup":74,"@material-ui/core/Grow":82,"@material-ui/core/Radio":134,"@material-ui/core/RadioGroup":132,"@material-ui/core/Switch":145,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"classnames":231,"prop-types":339,"react":369,"react-router":357,"reflux":394,"shortid":404}],446:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -86521,7 +86869,7 @@ var _default = (0, _styles.withStyles)(styles)(Root);
 
 exports.default = _default;
 
-},{"../resourceManager/actions":419,"../resourceManager/stores":431,"./views/appbar":458,"./views/fab":461,"./views/routeDesktop/accountDashboard":462,"./views/routeDesktop/classTable":463,"./views/routeDesktop/deviceDashboard":464,"./views/routeDesktop/mainPage":465,"./views/routeDesktop/management":466,"./views/routeDesktop/picker":467,"./views/routeDesktop/practise":468,"./views/routeDesktop/rankList":469,"./views/windowManager":470,"@material-ui/core/CssBaseline":47,"@material-ui/core/colors/red":180,"@material-ui/core/styles":200,"classnames":231,"prop-types":339,"react":369,"reflux":394,"shortid":404}],445:[function(require,module,exports){
+},{"../resourceManager/actions":419,"../resourceManager/stores":431,"./views/appbar":460,"./views/fab":463,"./views/routeDesktop/accountDashboard":464,"./views/routeDesktop/classTable":465,"./views/routeDesktop/deviceDashboard":466,"./views/routeDesktop/mainPage":467,"./views/routeDesktop/management":468,"./views/routeDesktop/picker":469,"./views/routeDesktop/practise":470,"./views/routeDesktop/rankList":471,"./views/windowManager":472,"@material-ui/core/CssBaseline":47,"@material-ui/core/colors/red":180,"@material-ui/core/styles":200,"classnames":231,"prop-types":339,"react":369,"reflux":394,"shortid":404}],447:[function(require,module,exports){
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -86534,7 +86882,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 _reactDom.default.render(_react.default.createElement(_mainView.default, null), document.querySelector('#content'));
 
-},{"./mainView":444,"react":369,"react-dom":345}],446:[function(require,module,exports){
+},{"./mainView":446,"react":369,"react-dom":345}],448:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -86624,7 +86972,7 @@ var _default = (0, _styles.withStyles)(styles)(Account);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":419,"../../resourceManager/stores":431,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":63,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"classnames":231,"mdi-material-ui/DotsVertical":313,"mdi-material-ui/KeyboardOutline":317,"mdi-material-ui/Minus":319,"mdi-material-ui/PacMan":321,"mdi-material-ui/Plus":323,"mdi-material-ui/StopCircleOutline":325,"prop-types":339,"react":369,"reflux":394,"shortid":404}],447:[function(require,module,exports){
+},{"../../resourceManager/actions":419,"../../resourceManager/stores":431,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":63,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"classnames":231,"mdi-material-ui/DotsVertical":313,"mdi-material-ui/KeyboardOutline":317,"mdi-material-ui/Minus":319,"mdi-material-ui/PacMan":321,"mdi-material-ui/Plus":323,"mdi-material-ui/StopCircleOutline":325,"prop-types":339,"react":369,"reflux":394,"shortid":404}],449:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -86714,7 +87062,7 @@ var _default = (0, _styles.withStyles)(styles)(AccountMobile);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":419,"../../resourceManager/stores":431,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":63,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"classnames":231,"mdi-material-ui/DotsVertical":313,"mdi-material-ui/KeyboardOutline":317,"mdi-material-ui/Minus":319,"mdi-material-ui/PacMan":321,"mdi-material-ui/Plus":323,"mdi-material-ui/StopCircleOutline":325,"prop-types":339,"react":369,"reflux":394,"shortid":404}],448:[function(require,module,exports){
+},{"../../resourceManager/actions":419,"../../resourceManager/stores":431,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":63,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"classnames":231,"mdi-material-ui/DotsVertical":313,"mdi-material-ui/KeyboardOutline":317,"mdi-material-ui/Minus":319,"mdi-material-ui/PacMan":321,"mdi-material-ui/Plus":323,"mdi-material-ui/StopCircleOutline":325,"prop-types":339,"react":369,"reflux":394,"shortid":404}],450:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -86845,7 +87193,7 @@ var _default = (0, _styles.withStyles)(styles)(Picker);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":419,"../../resourceManager/stores":431,"@material-ui/core/Button":39,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":63,"@material-ui/core/IconButton":84,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"classnames":231,"mdi-material-ui/DotsVertical":313,"mdi-material-ui/Minus":319,"mdi-material-ui/PacMan":321,"mdi-material-ui/Plus":323,"mdi-material-ui/StopCircleOutline":325,"prop-types":339,"react":369,"reflux":394,"shortid":404}],449:[function(require,module,exports){
+},{"../../resourceManager/actions":419,"../../resourceManager/stores":431,"@material-ui/core/Button":39,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":63,"@material-ui/core/IconButton":84,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"classnames":231,"mdi-material-ui/DotsVertical":313,"mdi-material-ui/Minus":319,"mdi-material-ui/PacMan":321,"mdi-material-ui/Plus":323,"mdi-material-ui/StopCircleOutline":325,"prop-types":339,"react":369,"reflux":394,"shortid":404}],451:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -86935,7 +87283,7 @@ var _default = (0, _styles.withStyles)(styles)(ClassChoiceDesktop);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":419,"../../resourceManager/stores":431,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":63,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"classnames":231,"mdi-material-ui/DotsVertical":313,"mdi-material-ui/KeyboardOutline":317,"mdi-material-ui/Minus":319,"mdi-material-ui/PacMan":321,"mdi-material-ui/Plus":323,"mdi-material-ui/StopCircleOutline":325,"prop-types":339,"react":369,"reflux":394,"shortid":404}],450:[function(require,module,exports){
+},{"../../resourceManager/actions":419,"../../resourceManager/stores":431,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":63,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"classnames":231,"mdi-material-ui/DotsVertical":313,"mdi-material-ui/KeyboardOutline":317,"mdi-material-ui/Minus":319,"mdi-material-ui/PacMan":321,"mdi-material-ui/Plus":323,"mdi-material-ui/StopCircleOutline":325,"prop-types":339,"react":369,"reflux":394,"shortid":404}],452:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -87012,10 +87360,10 @@ const styles = theme => ({
   }
 });
 
-class Management extends _reflux.default.Component {
+class ClassManagement extends _reflux.default.Component {
   constructor(props) {
     super(props);
-    this.store = _stores.default.page.randomizer;
+    this.store = _stores.default.page.classManagement;
   }
 
   render() {
@@ -87028,10 +87376,11 @@ class Management extends _reflux.default.Component {
       className: classes.card
     }, _react.default.createElement(_CardContent.default, null, _react.default.createElement(_Toolbar.default, null, _react.default.createElement(_Typography.default, {
       variant: "h6"
-    }, "\u73ED\u7EA7\u7BA1\u7406"), _react.default.createElement(_Tooltip.default, {
+    }, "\u73ED\u7EA7\u6210\u5458\u7BA1\u7406"), _react.default.createElement(_Tooltip.default, {
       title: "\u6DFB\u52A0"
     }, _react.default.createElement(_IconButton.default, {
-      className: classes.marginLeft
+      className: classes.marginLeft,
+      onClick: () => _actions.default.view.dialog.toggleTo("appendClassMember")
     }, _react.default.createElement(_Plus.default, null)))), _react.default.createElement(_Table.default, {
       className: classes.table
     }, _react.default.createElement(_TableHead.default, null, _react.default.createElement(_TableRow.default, null, _react.default.createElement(_TableCell.default, null, _react.default.createElement(_TableSortLabel.default, {
@@ -87040,9 +87389,17 @@ class Management extends _reflux.default.Component {
       onClick: () => null
     }, "\u59D3\u540D")), _react.default.createElement(_TableCell.default, {
       align: "right"
-    }, "\u6240\u5C5E\u5C0F\u7EC4"), _react.default.createElement(_TableCell.default, {
+    }, _react.default.createElement(_TableSortLabel.default, {
+      active: true,
+      direction: "asc",
+      onClick: () => null
+    }, "\u6240\u5C5E\u5C0F\u7EC4")), _react.default.createElement(_TableCell.default, {
       align: "right"
-    }, "\u4E2A\u4EBA\u5206\u6570"), _react.default.createElement(_TableCell.default, {
+    }, _react.default.createElement(_TableSortLabel.default, {
+      active: true,
+      direction: "asc",
+      onClick: () => null
+    }, "\u4E2A\u4EBA\u5206\u6570")), _react.default.createElement(_TableCell.default, {
       align: "center"
     }, "\u64CD\u4F5C"))), _react.default.createElement(_TableBody.default, null, [{
       name: "张三",
@@ -87084,15 +87441,15 @@ class Management extends _reflux.default.Component {
 
 }
 
-Management.propTypes = {
+ClassManagement.propTypes = {
   open: _propTypes.default.bool
 };
 
-var _default = (0, _styles.withStyles)(styles)(Management);
+var _default = (0, _styles.withStyles)(styles)(ClassManagement);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":419,"../../resourceManager/stores":431,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":63,"@material-ui/core/IconButton":84,"@material-ui/core/Table":161,"@material-ui/core/TableBody":149,"@material-ui/core/TableCell":151,"@material-ui/core/TableHead":153,"@material-ui/core/TableRow":155,"@material-ui/core/TableSortLabel":157,"@material-ui/core/Toolbar":170,"@material-ui/core/Tooltip":172,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"classnames":231,"mdi-material-ui/DotsVertical":313,"mdi-material-ui/Plus":323,"prop-types":339,"react":369,"reflux":394,"shortid":404}],451:[function(require,module,exports){
+},{"../../resourceManager/actions":419,"../../resourceManager/stores":431,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":63,"@material-ui/core/IconButton":84,"@material-ui/core/Table":161,"@material-ui/core/TableBody":149,"@material-ui/core/TableCell":151,"@material-ui/core/TableHead":153,"@material-ui/core/TableRow":155,"@material-ui/core/TableSortLabel":157,"@material-ui/core/Toolbar":170,"@material-ui/core/Tooltip":172,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"classnames":231,"mdi-material-ui/DotsVertical":313,"mdi-material-ui/Plus":323,"prop-types":339,"react":369,"reflux":394,"shortid":404}],453:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -87182,7 +87539,7 @@ var _default = (0, _styles.withStyles)(styles)(ClassMap);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":419,"../../resourceManager/stores":431,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":63,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"classnames":231,"mdi-material-ui/DotsVertical":313,"mdi-material-ui/KeyboardOutline":317,"mdi-material-ui/Minus":319,"mdi-material-ui/PacMan":321,"mdi-material-ui/Plus":323,"mdi-material-ui/StopCircleOutline":325,"prop-types":339,"react":369,"reflux":394,"shortid":404}],452:[function(require,module,exports){
+},{"../../resourceManager/actions":419,"../../resourceManager/stores":431,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":63,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"classnames":231,"mdi-material-ui/DotsVertical":313,"mdi-material-ui/KeyboardOutline":317,"mdi-material-ui/Minus":319,"mdi-material-ui/PacMan":321,"mdi-material-ui/Plus":323,"mdi-material-ui/StopCircleOutline":325,"prop-types":339,"react":369,"reflux":394,"shortid":404}],454:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -87272,7 +87629,7 @@ class ClassTable extends _reflux.default.Component {
       container: true,
       justify: "center",
       alignItems: "center"
-    }, ["屌", "屌", "屌", "屌", "屌", "屌", "屌", "屌"].map(n => _react.default.createElement(_IconButton.default, {
+    }, ["喵", "喵", "喵", "喵", "喵", "喵", "喵", "喵"].map(n => _react.default.createElement(_IconButton.default, {
       className: classes.avatarButton
     }, _react.default.createElement(_Avatar.default, null, n))))), _react.default.createElement(_CardActions.default, null, _react.default.createElement(_IconButton.default, {
       className: classes.moreButton
@@ -87282,7 +87639,7 @@ class ClassTable extends _reflux.default.Component {
       container: true,
       justify: "center",
       alignItems: "center"
-    }, ["屌", "屌", "屌", "屌", "屌", "屌", "屌", "屌"].map(n => _react.default.createElement(_IconButton.default, {
+    }, ["喵", "喵", "喵", "喵", "喵", "喵", "喵", "喵"].map(n => _react.default.createElement(_IconButton.default, {
       className: classes.avatarButton
     }, _react.default.createElement(_Avatar.default, null, n))))), _react.default.createElement(_CardActions.default, null, _react.default.createElement(_IconButton.default, {
       className: classes.moreButton
@@ -87292,7 +87649,7 @@ class ClassTable extends _reflux.default.Component {
       container: true,
       justify: "center",
       alignItems: "center"
-    }, ["屌", "屌", "屌", "屌", "屌", "屌", "屌", "屌"].map(n => _react.default.createElement(_IconButton.default, {
+    }, ["喵", "喵", "喵", "喵", "喵", "喵", "喵", "喵"].map(n => _react.default.createElement(_IconButton.default, {
       className: classes.avatarButton
     }, _react.default.createElement(_Avatar.default, null, n))))), _react.default.createElement(_CardActions.default, null, _react.default.createElement(_IconButton.default, {
       className: classes.moreButton
@@ -87309,7 +87666,7 @@ var _default = (0, _styles.withStyles)(styles)(ClassTable);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":419,"../../resourceManager/stores":431,"@material-ui/core/Avatar":23,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":63,"@material-ui/core/Grid":80,"@material-ui/core/IconButton":84,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"classnames":231,"mdi-material-ui/DotsVertical":313,"prop-types":339,"react":369,"reflux":394,"shortid":404}],453:[function(require,module,exports){
+},{"../../resourceManager/actions":419,"../../resourceManager/stores":431,"@material-ui/core/Avatar":23,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":63,"@material-ui/core/Grid":80,"@material-ui/core/IconButton":84,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"classnames":231,"mdi-material-ui/DotsVertical":313,"prop-types":339,"react":369,"reflux":394,"shortid":404}],455:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -87510,7 +87867,7 @@ var _default = (0, _styles.withStyles)(styles)(GroupPicker);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":419,"../../resourceManager/stores":431,"@material-ui/core/Button":39,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":63,"@material-ui/core/FormControl":71,"@material-ui/core/FormHelperText":76,"@material-ui/core/IconButton":84,"@material-ui/core/Input":94,"@material-ui/core/InputAdornment":86,"@material-ui/core/InputLabel":92,"@material-ui/core/List":104,"@material-ui/core/ListItem":101,"@material-ui/core/ListItemText":98,"@material-ui/core/MenuItem":106,"@material-ui/core/OutlinedInput":122,"@material-ui/core/Select":139,"@material-ui/core/Switch":145,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"classnames":231,"mdi-material-ui/DotsVertical":313,"mdi-material-ui/KeyboardOutline":317,"mdi-material-ui/Minus":319,"mdi-material-ui/PacMan":321,"mdi-material-ui/Plus":323,"mdi-material-ui/StopCircleOutline":325,"prop-types":339,"react":369,"reflux":394,"shortid":404}],454:[function(require,module,exports){
+},{"../../resourceManager/actions":419,"../../resourceManager/stores":431,"@material-ui/core/Button":39,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":63,"@material-ui/core/FormControl":71,"@material-ui/core/FormHelperText":76,"@material-ui/core/IconButton":84,"@material-ui/core/Input":94,"@material-ui/core/InputAdornment":86,"@material-ui/core/InputLabel":92,"@material-ui/core/List":104,"@material-ui/core/ListItem":101,"@material-ui/core/ListItemText":98,"@material-ui/core/MenuItem":106,"@material-ui/core/OutlinedInput":122,"@material-ui/core/Select":139,"@material-ui/core/Switch":145,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"classnames":231,"mdi-material-ui/DotsVertical":313,"mdi-material-ui/KeyboardOutline":317,"mdi-material-ui/Minus":319,"mdi-material-ui/PacMan":321,"mdi-material-ui/Plus":323,"mdi-material-ui/StopCircleOutline":325,"prop-types":339,"react":369,"reflux":394,"shortid":404}],456:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -87674,7 +88031,7 @@ var _default = (0, _styles.withStyles)(styles)(Picker);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":419,"../../resourceManager/stores":431,"@material-ui/core/Button":39,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":63,"@material-ui/core/IconButton":84,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"classnames":231,"mdi-material-ui/DotsVertical":313,"mdi-material-ui/Minus":319,"mdi-material-ui/PacMan":321,"mdi-material-ui/Plus":323,"mdi-material-ui/StopCircleOutline":325,"prop-types":339,"react":369,"reflux":394,"shortid":404}],455:[function(require,module,exports){
+},{"../../resourceManager/actions":419,"../../resourceManager/stores":431,"@material-ui/core/Button":39,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":63,"@material-ui/core/IconButton":84,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"classnames":231,"mdi-material-ui/DotsVertical":313,"mdi-material-ui/Minus":319,"mdi-material-ui/PacMan":321,"mdi-material-ui/Plus":323,"mdi-material-ui/StopCircleOutline":325,"prop-types":339,"react":369,"reflux":394,"shortid":404}],457:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -87841,7 +88198,7 @@ var _default = (0, _styles.withStyles)(styles)(Randomizer);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":419,"../../resourceManager/stores":431,"@material-ui/core/Button":39,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":63,"@material-ui/core/FormControl":71,"@material-ui/core/FormHelperText":76,"@material-ui/core/IconButton":84,"@material-ui/core/Input":94,"@material-ui/core/InputAdornment":86,"@material-ui/core/InputLabel":92,"@material-ui/core/List":104,"@material-ui/core/ListItem":101,"@material-ui/core/ListItemText":98,"@material-ui/core/Typography":174,"@material-ui/core/colors/green":176,"@material-ui/core/colors/red":180,"@material-ui/core/styles":200,"classnames":231,"mdi-material-ui/DotsVertical":313,"mdi-material-ui/KeyboardOutline":317,"mdi-material-ui/Minus":319,"mdi-material-ui/PacMan":321,"mdi-material-ui/Plus":323,"mdi-material-ui/StopCircleOutline":325,"prop-types":339,"react":369,"reflux":394,"shortid":404}],456:[function(require,module,exports){
+},{"../../resourceManager/actions":419,"../../resourceManager/stores":431,"@material-ui/core/Button":39,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":63,"@material-ui/core/FormControl":71,"@material-ui/core/FormHelperText":76,"@material-ui/core/IconButton":84,"@material-ui/core/Input":94,"@material-ui/core/InputAdornment":86,"@material-ui/core/InputLabel":92,"@material-ui/core/List":104,"@material-ui/core/ListItem":101,"@material-ui/core/ListItemText":98,"@material-ui/core/Typography":174,"@material-ui/core/colors/green":176,"@material-ui/core/colors/red":180,"@material-ui/core/styles":200,"classnames":231,"mdi-material-ui/DotsVertical":313,"mdi-material-ui/KeyboardOutline":317,"mdi-material-ui/Minus":319,"mdi-material-ui/PacMan":321,"mdi-material-ui/Plus":323,"mdi-material-ui/StopCircleOutline":325,"prop-types":339,"react":369,"reflux":394,"shortid":404}],458:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -87931,7 +88288,7 @@ var _default = (0, _styles.withStyles)(styles)(Rank);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":419,"../../resourceManager/stores":431,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":63,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"classnames":231,"mdi-material-ui/DotsVertical":313,"mdi-material-ui/KeyboardOutline":317,"mdi-material-ui/Minus":319,"mdi-material-ui/PacMan":321,"mdi-material-ui/Plus":323,"mdi-material-ui/StopCircleOutline":325,"prop-types":339,"react":369,"reflux":394,"shortid":404}],457:[function(require,module,exports){
+},{"../../resourceManager/actions":419,"../../resourceManager/stores":431,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":63,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"classnames":231,"mdi-material-ui/DotsVertical":313,"mdi-material-ui/KeyboardOutline":317,"mdi-material-ui/Minus":319,"mdi-material-ui/PacMan":321,"mdi-material-ui/Plus":323,"mdi-material-ui/StopCircleOutline":325,"prop-types":339,"react":369,"reflux":394,"shortid":404}],459:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -87971,17 +88328,17 @@ var _TableHead = _interopRequireDefault(require("@material-ui/core/TableHead"));
 
 var _TableRow = _interopRequireDefault(require("@material-ui/core/TableRow"));
 
-var _PacMan = _interopRequireDefault(require("mdi-material-ui/PacMan"));
+var _TableSortLabel = _interopRequireDefault(require("@material-ui/core/TableSortLabel"));
 
-var _StopCircleOutline = _interopRequireDefault(require("mdi-material-ui/StopCircleOutline"));
+var _IconButton = _interopRequireDefault(require("@material-ui/core/IconButton"));
+
+var _Toolbar = _interopRequireDefault(require("@material-ui/core/Toolbar"));
+
+var _Tooltip = _interopRequireDefault(require("@material-ui/core/Tooltip"));
 
 var _DotsVertical = _interopRequireDefault(require("mdi-material-ui/DotsVertical"));
 
 var _Plus = _interopRequireDefault(require("mdi-material-ui/Plus"));
-
-var _Minus = _interopRequireDefault(require("mdi-material-ui/Minus"));
-
-var _KeyboardOutline = _interopRequireDefault(require("mdi-material-ui/KeyboardOutline"));
 
 var _stores = _interopRequireDefault(require("../../resourceManager/stores"));
 
@@ -87993,7 +88350,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 const styles = theme => ({
   card: {
-    width: 500,
+    width: 600,
     opacity: 0.8,
     marginLeft: "auto",
     marginRight: "auto",
@@ -88002,13 +88359,16 @@ const styles = theme => ({
   },
   table: {
     width: "100%"
+  },
+  marginLeft: {
+    marginLeft: "auto"
   }
 });
 
-class Management extends _reflux.default.Component {
+class SchoolManagement extends _reflux.default.Component {
   constructor(props) {
     super(props);
-    this.store = _stores.default.page.randomizer;
+    this.store = _stores.default.page.schoolManagement;
   }
 
   render() {
@@ -88019,35 +88379,56 @@ class Management extends _reflux.default.Component {
       in: true
     }, _react.default.createElement("div", null, _react.default.createElement(_Card.default, {
       className: classes.card
-    }, _react.default.createElement(_CardContent.default, null, _react.default.createElement(_Table.default, {
+    }, _react.default.createElement(_CardContent.default, null, _react.default.createElement(_Toolbar.default, null, _react.default.createElement(_Typography.default, {
+      variant: "h6"
+    }, "\u5E74\u7EA7\u8D26\u6237\u7BA1\u7406"), _react.default.createElement(_Tooltip.default, {
+      title: "\u6DFB\u52A0"
+    }, _react.default.createElement(_IconButton.default, {
+      className: classes.marginLeft,
+      onClick: () => _actions.default.view.dialog.toggleTo("appendAccount")
+    }, _react.default.createElement(_Plus.default, null)))), _react.default.createElement(_Table.default, {
       className: classes.table
-    }, _react.default.createElement(_TableHead.default, null, _react.default.createElement(_TableRow.default, null, _react.default.createElement(_TableCell.default, null, "\u8D26\u6237\u540D"), _react.default.createElement(_TableCell.default, {
+    }, _react.default.createElement(_TableHead.default, null, _react.default.createElement(_TableRow.default, null, _react.default.createElement(_TableCell.default, null, _react.default.createElement(_TableSortLabel.default, {
+      active: true,
+      direction: "asc",
+      onClick: () => null
+    }, "\u8D26\u6237\u540D")), _react.default.createElement(_TableCell.default, {
       align: "right"
-    }, "\u6240\u5C5E\u73ED\u7EA7"), _react.default.createElement(_TableCell.default, {
+    }, _react.default.createElement(_TableSortLabel.default, {
+      active: true,
+      direction: "asc",
+      onClick: () => null
+    }, "\u6240\u5C5E\u73ED\u7EA7")), _react.default.createElement(_TableCell.default, {
       align: "right"
-    }, "\u4E2A\u4EBA\u5206\u6570"))), _react.default.createElement(_TableBody.default, null, [{
+    }, _react.default.createElement(_TableSortLabel.default, {
+      active: true,
+      direction: "asc",
+      onClick: () => null
+    }, "\u4E2A\u4EBA\u5206\u6570")), _react.default.createElement(_TableCell.default, {
+      align: "center"
+    }, "\u64CD\u4F5C"))), _react.default.createElement(_TableBody.default, null, [{
       name: "张三",
-      group: "1",
+      className: "1",
       score: "32"
     }, {
       name: "张三",
-      group: "1",
+      className: "1",
       score: "32"
     }, {
       name: "张三",
-      group: "1",
+      className: "1",
       score: "32"
     }, {
       name: "张三",
-      group: "1",
+      className: "1",
       score: "32"
     }, {
       name: "张三",
-      group: "1",
+      className: "1",
       score: "32"
     }, {
       name: "张三",
-      group: "1",
+      className: "1",
       score: "32"
     }].map(row => _react.default.createElement(_TableRow.default, {
       key: row.name
@@ -88056,22 +88437,24 @@ class Management extends _reflux.default.Component {
       scope: "row"
     }, row.name), _react.default.createElement(_TableCell.default, {
       align: "right"
-    }, row.group), _react.default.createElement(_TableCell.default, {
+    }, row.className), _react.default.createElement(_TableCell.default, {
       align: "right"
-    }, row.score)))))))));
+    }, row.score), _react.default.createElement(_TableCell.default, {
+      align: "center"
+    }, _react.default.createElement(_IconButton.default, null, _react.default.createElement(_DotsVertical.default, null)))))))))));
   }
 
 }
 
-Management.propTypes = {
+SchoolManagement.propTypes = {
   open: _propTypes.default.bool
 };
 
-var _default = (0, _styles.withStyles)(styles)(Management);
+var _default = (0, _styles.withStyles)(styles)(SchoolManagement);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":419,"../../resourceManager/stores":431,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":63,"@material-ui/core/Table":161,"@material-ui/core/TableBody":149,"@material-ui/core/TableCell":151,"@material-ui/core/TableHead":153,"@material-ui/core/TableRow":155,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"classnames":231,"mdi-material-ui/DotsVertical":313,"mdi-material-ui/KeyboardOutline":317,"mdi-material-ui/Minus":319,"mdi-material-ui/PacMan":321,"mdi-material-ui/Plus":323,"mdi-material-ui/StopCircleOutline":325,"prop-types":339,"react":369,"reflux":394,"shortid":404}],458:[function(require,module,exports){
+},{"../../resourceManager/actions":419,"../../resourceManager/stores":431,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":63,"@material-ui/core/IconButton":84,"@material-ui/core/Table":161,"@material-ui/core/TableBody":149,"@material-ui/core/TableCell":151,"@material-ui/core/TableHead":153,"@material-ui/core/TableRow":155,"@material-ui/core/TableSortLabel":157,"@material-ui/core/Toolbar":170,"@material-ui/core/Tooltip":172,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"classnames":231,"mdi-material-ui/DotsVertical":313,"mdi-material-ui/Plus":323,"prop-types":339,"react":369,"reflux":394,"shortid":404}],460:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -88171,7 +88554,7 @@ var _default = (0, _styles.withStyles)(styles)(MainAppbar);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":419,"../../resourceManager/stores":431,"./bottomNavigation":459,"./drawer":460,"@material-ui/core/AppBar":21,"@material-ui/core/IconButton":84,"@material-ui/core/Toolbar":170,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"classnames":231,"mdi-material-ui/Menu":318,"prop-types":339,"react":369,"react-svg":358,"reflux":394,"shortid":404}],459:[function(require,module,exports){
+},{"../../resourceManager/actions":419,"../../resourceManager/stores":431,"./bottomNavigation":461,"./drawer":462,"@material-ui/core/AppBar":21,"@material-ui/core/IconButton":84,"@material-ui/core/Toolbar":170,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"classnames":231,"mdi-material-ui/Menu":318,"prop-types":339,"react":369,"react-svg":358,"reflux":394,"shortid":404}],461:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -88277,7 +88660,7 @@ var _default = (0, _styles.withStyles)(styles)(SimpleBottomNavigation);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":419,"../../resourceManager/stores":431,"@material-ui/core/BottomNavigation":31,"@material-ui/core/BottomNavigationAction":29,"@material-ui/core/styles":200,"classnames":231,"mdi-material-ui/AccountCircleOutline":310,"mdi-material-ui/CursorDefaultClickOutline":312,"mdi-material-ui/Home":315,"mdi-material-ui/NoteOutline":320,"mdi-material-ui/TrophyVariantOutline":327,"prop-types":339,"react":369,"reflux":394,"shortid":404}],460:[function(require,module,exports){
+},{"../../resourceManager/actions":419,"../../resourceManager/stores":431,"@material-ui/core/BottomNavigation":31,"@material-ui/core/BottomNavigationAction":29,"@material-ui/core/styles":200,"classnames":231,"mdi-material-ui/AccountCircleOutline":310,"mdi-material-ui/CursorDefaultClickOutline":312,"mdi-material-ui/Home":315,"mdi-material-ui/NoteOutline":320,"mdi-material-ui/TrophyVariantOutline":327,"prop-types":339,"react":369,"reflux":394,"shortid":404}],462:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -88468,9 +88851,9 @@ var _default = (0, _styles.withStyles)(styles)(MainDrawer);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":419,"../../resourceManager/stores":431,"@material-ui/core/Badge":27,"@material-ui/core/Divider":59,"@material-ui/core/Drawer":61,"@material-ui/core/IconButton":84,"@material-ui/core/List":104,"@material-ui/core/ListItem":101,"@material-ui/core/ListItemIcon":96,"@material-ui/core/ListItemText":98,"@material-ui/core/styles":200,"classnames":231,"mdi-material-ui/AccountCircleOutline":310,"mdi-material-ui/AccountGroup":311,"mdi-material-ui/CursorDefaultClickOutline":312,"mdi-material-ui/GoogleClassroom":314,"mdi-material-ui/Home":315,"mdi-material-ui/InformationOutline":316,"mdi-material-ui/NoteOutline":320,"mdi-material-ui/Palette":322,"mdi-material-ui/SettingsOutline":324,"mdi-material-ui/TableLarge":326,"mdi-material-ui/TrophyVariantOutline":327,"prop-types":339,"react":369,"react-router-dom":354,"reflux":394,"shortid":404}],461:[function(require,module,exports){
+},{"../../resourceManager/actions":419,"../../resourceManager/stores":431,"@material-ui/core/Badge":27,"@material-ui/core/Divider":59,"@material-ui/core/Drawer":61,"@material-ui/core/IconButton":84,"@material-ui/core/List":104,"@material-ui/core/ListItem":101,"@material-ui/core/ListItemIcon":96,"@material-ui/core/ListItemText":98,"@material-ui/core/styles":200,"classnames":231,"mdi-material-ui/AccountCircleOutline":310,"mdi-material-ui/AccountGroup":311,"mdi-material-ui/CursorDefaultClickOutline":312,"mdi-material-ui/GoogleClassroom":314,"mdi-material-ui/Home":315,"mdi-material-ui/InformationOutline":316,"mdi-material-ui/NoteOutline":320,"mdi-material-ui/Palette":322,"mdi-material-ui/SettingsOutline":324,"mdi-material-ui/TableLarge":326,"mdi-material-ui/TrophyVariantOutline":327,"prop-types":339,"react":369,"react-router-dom":354,"reflux":394,"shortid":404}],463:[function(require,module,exports){
 arguments[4][422][0].apply(exports,arguments)
-},{"dup":422}],462:[function(require,module,exports){
+},{"dup":422}],464:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -88524,7 +88907,7 @@ var _default = (0, _styles.withStyles)(styles)(AccountDashboard);
 
 exports.default = _default;
 
-},{"../../../resourceManager/actions":419,"../../../resourceManager/stores":431,"../../pages/account":446,"../../pages/accountMobile":447,"@material-ui/core/styles":200,"prop-types":339,"react":369,"reflux":394}],463:[function(require,module,exports){
+},{"../../../resourceManager/actions":419,"../../../resourceManager/stores":431,"../../pages/account":448,"../../pages/accountMobile":449,"@material-ui/core/styles":200,"prop-types":339,"react":369,"reflux":394}],465:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -88602,7 +88985,7 @@ var _default = (0, _styles.withStyles)(styles)(ClassTableRouter);
 
 exports.default = _default;
 
-},{"../../../resourceManager/actions":419,"../../../resourceManager/stores":431,"../../pages/classMap":451,"../../pages/classTable":452,"@material-ui/core/Tab":147,"@material-ui/core/Tabs":166,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"prop-types":339,"react":369,"reflux":394}],464:[function(require,module,exports){
+},{"../../../resourceManager/actions":419,"../../../resourceManager/stores":431,"../../pages/classMap":453,"../../pages/classTable":454,"@material-ui/core/Tab":147,"@material-ui/core/Tabs":166,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"prop-types":339,"react":369,"reflux":394}],466:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -88654,7 +89037,7 @@ var _default = (0, _styles.withStyles)(styles)(DeviceDashboard);
 
 exports.default = _default;
 
-},{"../../../resourceManager/actions":419,"../../../resourceManager/stores":431,"../../pages/classChoiceDesktop":449,"@material-ui/core/styles":200,"prop-types":339,"react":369,"reflux":394}],465:[function(require,module,exports){
+},{"../../../resourceManager/actions":419,"../../../resourceManager/stores":431,"../../pages/classChoiceDesktop":451,"@material-ui/core/styles":200,"prop-types":339,"react":369,"reflux":394}],467:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -88706,7 +89089,7 @@ var _default = (0, _styles.withStyles)(styles)(MainPage);
 
 exports.default = _default;
 
-},{"../../../resourceManager/actions":419,"../../../resourceManager/stores":431,"../../pages/broadcasts":448,"@material-ui/core/styles":200,"prop-types":339,"react":369,"reflux":394}],466:[function(require,module,exports){
+},{"../../../resourceManager/actions":419,"../../../resourceManager/stores":431,"../../pages/broadcasts":450,"@material-ui/core/styles":200,"prop-types":339,"react":369,"reflux":394}],468:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -88784,7 +89167,7 @@ var _default = (0, _styles.withStyles)(styles)(Management);
 
 exports.default = _default;
 
-},{"../../../resourceManager/actions":419,"../../../resourceManager/stores":431,"../../pages/classManagement":450,"../../pages/schoolManagement":457,"@material-ui/core/Tab":147,"@material-ui/core/Tabs":166,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"prop-types":339,"react":369,"reflux":394}],467:[function(require,module,exports){
+},{"../../../resourceManager/actions":419,"../../../resourceManager/stores":431,"../../pages/classManagement":452,"../../pages/schoolManagement":459,"@material-ui/core/Tab":147,"@material-ui/core/Tabs":166,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"prop-types":339,"react":369,"reflux":394}],469:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -88867,7 +89250,7 @@ var _default = (0, _styles.withStyles)(styles)(PickerTabs);
 
 exports.default = _default;
 
-},{"../../../resourceManager/actions":419,"../../../resourceManager/stores":431,"../../pages/groupPicker":453,"../../pages/picker":454,"../../pages/randomizer":455,"@material-ui/core/Tab":147,"@material-ui/core/Tabs":166,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"prop-types":339,"react":369,"reflux":394}],468:[function(require,module,exports){
+},{"../../../resourceManager/actions":419,"../../../resourceManager/stores":431,"../../pages/groupPicker":455,"../../pages/picker":456,"../../pages/randomizer":457,"@material-ui/core/Tab":147,"@material-ui/core/Tabs":166,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"prop-types":339,"react":369,"reflux":394}],470:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -88919,7 +89302,7 @@ var _default = (0, _styles.withStyles)(styles)(MainPage);
 
 exports.default = _default;
 
-},{"../../../resourceManager/actions":419,"../../../resourceManager/stores":431,"@material-ui/core/styles":200,"prop-types":339,"react":369,"reflux":394}],469:[function(require,module,exports){
+},{"../../../resourceManager/actions":419,"../../../resourceManager/stores":431,"@material-ui/core/styles":200,"prop-types":339,"react":369,"reflux":394}],471:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -88977,7 +89360,7 @@ var _default = (0, _styles.withStyles)(styles)(RankList);
 
 exports.default = _default;
 
-},{"../../../resourceManager/actions":419,"../../../resourceManager/stores":431,"../../pages/rank":456,"@material-ui/core/Tab":147,"@material-ui/core/Tabs":166,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"prop-types":339,"react":369,"reflux":394}],470:[function(require,module,exports){
+},{"../../../resourceManager/actions":419,"../../../resourceManager/stores":431,"../../pages/rank":458,"@material-ui/core/Tab":147,"@material-ui/core/Tabs":166,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"prop-types":339,"react":369,"reflux":394}],472:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -89009,14 +89392,17 @@ var _numberDashboard = _interopRequireDefault(require("../dialogs/numberDashboar
 
 var _bindClassDesktop = _interopRequireDefault(require("../dialogs/bindClassDesktop"));
 
+var _appendAccount = _interopRequireDefault(require("../dialogs/appendAccount"));
+
+var _appendClassMember = _interopRequireDefault(require("../dialogs/appendClassMember"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
 class MainWindowManager extends _reflux.default.Component {
   constructor(props) {
-    super(props);
-    this.store = _stores.default.view.dialog;
+    super(props); // this.store = Stores.view.dialog;
   }
 
   render() {
@@ -89024,7 +89410,7 @@ class MainWindowManager extends _reflux.default.Component {
       classes,
       theme
     } = this.props;
-    return _react.default.createElement("div", null, _react.default.createElement(_about.default, null), _react.default.createElement(_setting.default, null), _react.default.createElement(_numberDashboard.default, null), _react.default.createElement(_bindClassDesktop.default, null));
+    return _react.default.createElement("div", null, _react.default.createElement(_about.default, null), _react.default.createElement(_setting.default, null), _react.default.createElement(_numberDashboard.default, null), _react.default.createElement(_bindClassDesktop.default, null), _react.default.createElement(_appendAccount.default, null), _react.default.createElement(_appendClassMember.default, null));
   }
 
 }
@@ -89032,4 +89418,4 @@ class MainWindowManager extends _reflux.default.Component {
 var _default = MainWindowManager;
 exports.default = _default;
 
-},{"../../resourceManager/stores":431,"../dialogs/about":440,"../dialogs/bindClassDesktop":441,"../dialogs/numberDashboard":442,"../dialogs/setting":443,"@material-ui/core/styles":200,"classnames":231,"prop-types":339,"react":369,"react-router":357,"reflux":394,"shortid":404}]},{},[445]);
+},{"../../resourceManager/stores":431,"../dialogs/about":440,"../dialogs/appendAccount":441,"../dialogs/appendClassMember":442,"../dialogs/bindClassDesktop":443,"../dialogs/numberDashboard":444,"../dialogs/setting":445,"@material-ui/core/styles":200,"classnames":231,"prop-types":339,"react":369,"react-router":357,"reflux":394,"shortid":404}]},{},[447]);
