@@ -140,7 +140,13 @@ class MainDrawer extends Reflux.Component {
             <ListItemText inset primary="课堂小练" />
           </ListItem>
           <Divider className={classes.line} />
-          <ListItem button>
+          <ListItem button
+            onClick={() => Actions.view.drawer.toggleTo("classManagement")}
+            selected={
+              ["classManagement", "schoolManagement"]
+                .indexOf(this.state.show) != -1
+            }
+          >
             <ListItemIcon>
               <ManagementIcon />
             </ListItemIcon>

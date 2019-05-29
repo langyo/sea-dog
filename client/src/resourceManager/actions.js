@@ -85,7 +85,10 @@ export default {
         classTable: Reflux.createActions([
 
         ]),
-        management: Reflux.createActions([
+        classManagement: Reflux.createActions([
+
+        ]),
+        schoolManagement: Reflux.createActions([
 
         ]),
         picker: Reflux.createActions([

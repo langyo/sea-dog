@@ -11,6 +11,11 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import Typography from "@material-ui/core/Typography";
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
 
 import PacManIcon from "mdi-material-ui/PacMan";
 import StopIcon from "mdi-material-ui/StopCircleOutline";
@@ -30,6 +35,9 @@ const styles = theme => ({
     marginRight: "auto",
     textAlign: "center",
     marginTop: 30
+  },
+  table: {
+    width: "100%"
   }
 });
 
@@ -47,9 +55,33 @@ class Management extends Reflux.Component {
         <div>
           <Card className={classes.card}>
             <CardContent>
-              <Typography variant="h5">
-                开发中，尽情期待
-              </Typography>
+              <Table className={classes.table}>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>姓名</TableCell>
+                    <TableCell align="right">所属小组</TableCell>
+                    <TableCell align="right">个人分数</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {[
+                    { name: "张三", group: "1", score: "32"},
+                    { name: "张三", group: "1", score: "32"},
+                    { name: "张三", group: "1", score: "32"},
+                    { name: "张三", group: "1", score: "32"},
+                    { name: "张三", group: "1", score: "32"},
+                    { name: "张三", group: "1", score: "32"}
+                  ].map(row => (
+                    <TableRow key={row.name}>
+                      <TableCell component="th" scope="row">
+                        {row.name}
+                      </TableCell>
+                      <TableCell align="right">{row.group}</TableCell>
+                      <TableCell align="right">{row.score}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
             </CardContent>
           </Card>
         </div>

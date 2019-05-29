@@ -12,7 +12,8 @@ import drawer from "./viewStore/drawer";
 import broadcastPage from "./pageStore/broadcasts";
 import accountPage from "./pageStore/account";
 import classTablePage from "./pageStore/classTable";
-import managementPage from "./pageStore/management";
+import classManagementPage from "./pageStore/classManagement";
+import schoolManagementPage from "./pageStore/schoolManagement";
 import pickerPage from "./pageStore/picker";
 import randomizerPage from "./pageStore/randomizer";
 import practisePage from "./pageStore/practise";
@@ -38,7 +39,8 @@ export default {
         broadcast: broadcastPage,
         account: accountPage,
         classTable: classTablePage,
-        management: managementPage,
+        classManagement: classManagementPage,
+        schoolManagement: schoolManagementPage,
         picker: pickerPage,
         randomizer: randomizerPage,
         practise: practisePage,

@@ -21,7 +21,7 @@ import Picker from "./views/routeDesktop/picker";
 import ClassTable from "./views/routeDesktop/classTable";
 import Practise from "./views/routeDesktop/practise";
 import RankList from "./views/routeDesktop/rankList";
-import Manager from "./views/routeDesktop/management";
+import Management from "./views/routeDesktop/management";
 
 import Stores from '../resourceManager/stores';
 import Actions from "../resourceManager/actions";
@@ -103,6 +103,11 @@ class Root extends Reflux.Component {
               ["tests", "questions", "test", "question"]
                 .indexOf(this.state.show) != -1
               && <Practise />
+            }
+            {
+              ["classManagement", "schoolManagement"]
+                .indexOf(this.state.show) != -1
+              && <Management />
             }
           </div>}
 
