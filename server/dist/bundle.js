@@ -3,6 +3,8 @@
 
 var _webSocketServer = require("./webSocketServer");
 
+var _types = require("@jest/types");
+
 const mongoose = eval('require\("mongoose"\)');
 let db = mongoose.createConnection('mongodb://localhost/test');
 db.on('error', e => console.error(e));
@@ -422,16 +424,74 @@ db.on('open', () => {
             // 根表选择器
             "class": {
               argsCount: 1,
-              func: (db, name) => Class.findOne({
-                name: name
+              func: (db, id) => Class.findOne({
+                _id: id
               })
             },
-            // 子表选择器
-            // class -> groupType
-            "groupType": {
+            "account": {
               argsCount: 1,
-              func: (db, name) => db.findOne({
-                name: name
+              func: (db, id) => Account.findOne({
+                id: id
+              })
+            },
+            "broadcast": {
+              argsCount: 1,
+              func: (db, id) => BroadCast.findOne({
+                id: id
+              })
+            },
+            "classtable": {
+              argsCount: 1,
+              func: (db, id) => ClassTable.findOne({
+                id: id
+              })
+            },
+            "globalusergroup": {
+              argsCount: 1,
+              func: (db, id) => GlobalUserGroup.findOne({
+                id: id
+              })
+            },
+            "usergroup": {
+              argsCount: 1,
+              func: (db, id) => UserGroup.findOne({
+                id: id
+              })
+            },
+            "grouptype": {
+              argsCount: 1,
+              func: (db, id) => GroupType.findOne({
+                id: id
+              })
+            },
+            "theme": {
+              argsCount: 1,
+              func: (db, id) => Theme.findOne({
+                id: id
+              })
+            },
+            "question": {
+              argsCount: 1,
+              func: (db, id) => Question.findOne({
+                id: id
+              })
+            },
+            "test": {
+              argsCount: 1,
+              func: (db, id) => Test.findOne({
+                id: id
+              })
+            },
+            "scoregroup": {
+              argsCount: 1,
+              func: (db, id) => ScoreGroup.findOne({
+                id: id
+              })
+            },
+            "scoretype": {
+              argsCount: 1,
+              func: (db, id) => ScoreType.findOne({
+                id: id
               })
             }
           };
@@ -441,7 +501,7 @@ db.on('open', () => {
               func: (db, objName) => (resolve, reject) => {
                 db.exec((err, doc) => {
                   if (err) this.send("fail", "" + err);
-                  if (doc && doc[objName]) resolve(doc[objName]);else reject("没有这个值！");
+                  if (doc && doc[objName]) resolve(doc[objName]);else console.log(doc), reject("没有这个值！");
                 });
               }
             },
@@ -514,10 +574,120 @@ db.on('open', () => {
 
                   let str = list.reduce((prev, next) => prev + " " + next);
                   resolve(str);
-                  doc.save(err => {
-                    if (err) reject("数据库保存失败！（也许是没有权限？）：" + err);else resolve("ok");
-                  });
                 });
+              }
+            },
+            "count": {
+              argsCount: 1,
+              func: (db, objName) => (resolve, reject) => {
+                db.exec((err, doc) => {
+                  if (err) this.send("fail", "" + err);
+                  if (!doc) return reject("数据库保存失败，压根就没查到你要的表！");else if (!doc[objName]) return reject("数据库保存失败，理由是没有这个键：" + objName);else if (!Array.isArray(doc[objName])) return reject("数据库保存失败，理由是 count 无法处理非数组的操作：" + objName);
+                  resolve(doc[objName].length);
+                });
+              }
+            }
+          };
+
+          const run_evaluator = (db, args) => {
+            if (evaluators[args[0]]) {
+              new Promise(evaluators[args[0]].func.apply(null, [db].concat(args.slice(1)))).then(res => this.send("success", res)).catch(err => this.send("fail", "" + err));
+            } else this.send("不存在这个执行方法！", args[0]);
+          }; // 开始递归 selector
+
+
+          const dfs_selector = (db, args) => {
+            if (args[0] == "run") {
+              console.log("即将传入 evaluator 的指令：", args.slice(1));
+              return run_evaluator(db, args.slice(1));
+            }
+
+            ;
+
+            if (selectors[args[0]]) {
+              console.log("即将传入新一轮 selector 的指令：", args.slice(1 + selectors[args[0]].argsCount));
+              dfs_selector(selectors[args[0]].func.apply(null, [db].concat(args.slice(1, 1 + selectors[args[0]].argsCount))), args.slice(1 + selectors[args[0]].argsCount));
+            } else this.send("不存在这个选择器！", args[0]);
+          };
+
+          dfs_selector(db, args);
+        },
+        list: function (...args) {
+          args = Array.prototype.slice.call(args); // selectors 与 evaluator 下的执行函数会被包装为 Promise
+          // 由于 Promise 无法传参，所以在新建 Promise 时会先调用外层的工厂函数，得到的内部函数才能交给 Promise 正常使用
+
+          const selectors = {
+            // 根表选择器
+            "classes": {
+              argsCount: 0,
+              func: () => Class
+            },
+            "accounts": {
+              argsCount: 0,
+              func: () => Account
+            },
+            "broadcasts": {
+              argsCount: 0,
+              func: () => BroadCast
+            },
+            "classtables": {
+              argsCount: 0,
+              func: () => ClassTable
+            },
+            "globalusergroups": {
+              argsCount: 0,
+              func: () => GlobalUserGroup
+            },
+            "usergroups": {
+              argsCount: 0,
+              func: () => UserGroup
+            },
+            "grouptypes": {
+              argsCount: 0,
+              func: () => GroupType
+            },
+            "themes": {
+              argsCount: 0,
+              func: () => Theme
+            },
+            "questions": {
+              argsCount: 0,
+              func: () => Question
+            },
+            "tests": {
+              argsCount: 0,
+              func: () => Test
+            },
+            "scoregroups": {
+              argsCount: 0,
+              func: () => ScoreGroup
+            },
+            "scoretypes": {
+              argsCount: 0,
+              func: () => ScoreType
+            }
+          };
+          const evaluators = {
+            "list": {
+              argsCount: 1,
+              func: (db, numberRound) => (resolve, reject) => {
+                let match = /^([0-9]+)\.\.([0-9]*)$/.exec(numberRound);
+
+                if (match[2]) {
+                  db.skip(+match[1]).limit(+match[2] - match[1]).exec((err, doc) => {
+                    if (err) this.send("fail", "" + err);
+                    if (!doc) return reject("数据库查询失败，压根就没查到你要的表！");
+                    console.log("查询到的东西:", doc);
+                    resolve("ok");
+                  });
+                } else {
+                  db.skip(+match[1]).exec((err, doc) => {
+                    if (err) this.send("fail", "" + err);
+                    if (!doc) return reject("数据库查询失败，压根就没查到你要的表！");
+                    console.log("查询到的东西:", doc);
+                    resolve("ok");
+                  });
+                }
               }
             },
             "count": {
@@ -563,7 +733,59 @@ db.on('open', () => {
   });
 });
 
-},{"./webSocketServer":4}],2:[function(require,module,exports){
+},{"./webSocketServer":8,"@jest/types":5}],2:[function(require,module,exports){
+'use strict';
+
+},{}],3:[function(require,module,exports){
+arguments[4][2][0].apply(exports,arguments)
+},{"dup":2}],4:[function(require,module,exports){
+arguments[4][2][0].apply(exports,arguments)
+},{"dup":2}],5:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+exports.Global = exports.Config = exports.Circus = void 0;
+
+var Circus = _interopRequireWildcard(require('./Circus'));
+
+exports.Circus = Circus;
+
+var Config = _interopRequireWildcard(require('./Config'));
+
+exports.Config = Config;
+
+var Global = _interopRequireWildcard(require('./Global'));
+
+exports.Global = Global;
+
+function _interopRequireWildcard(obj) {
+  if (obj && obj.__esModule) {
+    return obj;
+  } else {
+    var newObj = {};
+    if (obj != null) {
+      for (var key in obj) {
+        if (Object.prototype.hasOwnProperty.call(obj, key)) {
+          var desc =
+            Object.defineProperty && Object.getOwnPropertyDescriptor
+              ? Object.getOwnPropertyDescriptor(obj, key)
+              : {};
+          if (desc.get || desc.set) {
+            Object.defineProperty(newObj, key, desc);
+          } else {
+            newObj[key] = obj[key];
+          }
+        }
+      }
+    }
+    newObj.default = obj;
+    return newObj;
+  }
+}
+
+},{"./Circus":2,"./Config":3,"./Global":4}],6:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -1088,7 +1310,7 @@ function functionBindPolyfill(context) {
   };
 }
 
-},{}],3:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1209,7 +1431,7 @@ class PluginDashboard {
 
 exports.default = PluginDashboard;
 
-},{}],4:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1263,4 +1485,4 @@ exports.receive = receive;
 let connectionEvents = clientConnectionEventEmitter;
 exports.connectionEvents = connectionEvents;
 
-},{"./pluginDashboard":3,"events":2}]},{},[1]);
+},{"./pluginDashboard":7,"events":6}]},{},[1]);
