@@ -593,7 +593,27 @@ db.on('open', () => {
                   else if (!Array.isArray(doc[objName]))
                    return reject("数据库保存失败，理由是 list 无法处理非数组的操作：" + objName);
 
+                  if(!numberRound || !selection)
+                   return reject("数据库操作失败，你传输的参数有问题！");
                   
+                  let match = /^([0-9]+)\.\.([0-9]*)$/.exec(numberRound);
+                  console.log("参数解析结果：", match);
+                  let list = selection == "id" ? doc[objName].map(n => {
+                    let str = "";
+                    n = n.toObject();
+                    for(let i = 0; i < 24; ++i) {
+                      str += n[i];
+                    }
+                    return str;
+                  }) : doc[objName].map(n => n[selection]);
+                  console.log("列表解析结果：", list);
+                  if(match[2]) {
+                    list = list.slice(+match[1], +match[2]);
+                  } else {
+                    list = list.slice(+match[1]);
+                  }
+                  let str = list.reduce((prev, next) => prev + " " + next);
+                  resolve(str);
                   
                   doc.save(err => {
                     if (err) reject("数据库保存失败！（也许是没有权限？）：" + err);
@@ -615,7 +635,7 @@ db.on('open', () => {
                   else if (!Array.isArray(doc[objName]))
                    return reject("数据库保存失败，理由是 count 无法处理非数组的操作：" + objName);
 
-                  
+                  resolve(doc[objName].length);
                   
                   doc.save(err => {
                     if (err) reject("数据库保存失败！（也许是没有权限？）：" + err);
