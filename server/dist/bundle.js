@@ -554,16 +554,7 @@ db.on('open', () => {
                   if (!numberRound || !selection) return reject("数据库操作失败，你传输的参数有问题！");
                   let match = /^([0-9]+)\.\.([0-9]*)$/.exec(numberRound);
                   console.log("参数解析结果：", match);
-                  let list = selection == "id" ? doc[objName].map(n => {
-                    let str = "";
-                    n = n.toObject();
-
-                    for (let i = 0; i < 24; ++i) {
-                      str += n[i];
-                    }
-
-                    return str;
-                  }) : doc[objName].map(n => n[selection]);
+                  let list = selection == "id" ? doc[objName].map(n => n[id].toString()) : doc[objName].map(n => n[selection]);
                   console.log("列表解析结果：", list);
 
                   if (match[2]) {
@@ -620,51 +611,51 @@ db.on('open', () => {
             // 根表选择器
             "classes": {
               argsCount: 0,
-              func: () => Class
+              func: () => Class.find({})
             },
             "accounts": {
               argsCount: 0,
-              func: () => Account
+              func: () => Account.find({})
             },
             "broadcasts": {
               argsCount: 0,
-              func: () => BroadCast
+              func: () => BroadCast.find({})
             },
             "classtables": {
               argsCount: 0,
-              func: () => ClassTable
+              func: () => ClassTable.find({})
             },
             "globalusergroups": {
               argsCount: 0,
-              func: () => GlobalUserGroup
+              func: () => GlobalUserGroup.find({})
             },
             "usergroups": {
               argsCount: 0,
-              func: () => UserGroup
+              func: () => UserGroup.find({})
             },
             "grouptypes": {
               argsCount: 0,
-              func: () => GroupType
+              func: () => GroupType.find({})
             },
             "themes": {
               argsCount: 0,
-              func: () => Theme
+              func: () => Theme.find({})
             },
             "questions": {
               argsCount: 0,
-              func: () => Question
+              func: () => Question.find({})
             },
             "tests": {
               argsCount: 0,
-              func: () => Test
+              func: () => Test.find({})
             },
             "scoregroups": {
               argsCount: 0,
-              func: () => ScoreGroup
+              func: () => ScoreGroup.find({})
             },
             "scoretypes": {
               argsCount: 0,
-              func: () => ScoreType
+              func: () => ScoreType.find({})
             }
           };
           const evaluators = {
@@ -677,29 +668,25 @@ db.on('open', () => {
                   db.skip(+match[1]).limit(+match[2] - match[1]).exec((err, doc) => {
                     if (err) this.send("fail", "" + err);
                     if (!doc) return reject("数据库查询失败，压根就没查到你要的表！");
-                    console.log("查询到的东西:", doc);
-                    resolve("ok");
+                    let ret = doc.map(n => n.id.toString());
+                    resolve(ret);
                   });
                 } else {
                   db.skip(+match[1]).exec((err, doc) => {
                     if (err) this.send("fail", "" + err);
                     if (!doc) return reject("数据库查询失败，压根就没查到你要的表！");
-                    console.log("查询到的东西:", doc);
-                    resolve("ok");
+                    let ret = doc.map(n => n.id.toString());
+                    resolve(ret);
                   });
                 }
               }
             },
             "count": {
-              argsCount: 1,
-              func: (db, objName) => (resolve, reject) => {
-                db.exec((err, doc) => {
+              argsCount: 0,
+              func: db => (resolve, reject) => {
+                db.count((err, num) => {
                   if (err) this.send("fail", "" + err);
-                  if (!doc) return reject("数据库保存失败，压根就没查到你要的表！");else if (!doc[objName]) return reject("数据库保存失败，理由是没有这个键：" + objName);else if (!Array.isArray(doc[objName])) return reject("数据库保存失败，理由是 count 无法处理非数组的操作：" + objName);
-                  resolve(doc[objName].length);
-                  doc.save(err => {
-                    if (err) reject("数据库保存失败！（也许是没有权限？）：" + err);else resolve("ok");
-                  });
+                  resolve(num);
                 });
               }
             }
@@ -1357,7 +1344,7 @@ class PluginDashboard {
 
     _defineProperty(this, "send", (...args) => {
       this._sendMessage(args.reduce((prev, next) => {
-        if (typeof next == 'string') prev.concat(next.trim().split(' '));else if (Array.isArray(next)) prev.concat(next);else if (typeof next == 'number' || typeof next == 'bigint') prev.push("" + next);else if (typeof next == 'boolean') prev.push(next ? 'true' : 'false');else throw new Error("你似乎传入了个既不是具体数据也不是数组的东西……");
+        if (typeof next == 'string') prev.concat(next.trim().split(' '));else if (Array.isArray(next)) prev.concat(next);else if (typeof next == 'number' || typeof next == 'bigint') prev.push("" + next);else if (typeof next == 'boolean') prev.push(next ? 'true' : 'false');else if (typeof next == 'object') prev.push(JSON.stringify(next));else throw new Error("你似乎传入了个既不是具体数据也不是数组的东西……");
         return prev;
       }), ['execute']);
     });

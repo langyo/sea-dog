@@ -47,6 +47,7 @@ export default class PluginDashboard {
             else if (Array.isArray(next)) prev.concat(next);
             else if (typeof next == 'number' || typeof next == 'bigint') prev.push("" + next);
             else if (typeof next == 'boolean') prev.push(next ? 'true' : 'false');
+            else if (typeof next == 'object') prev.push(JSON.stringify(next));
             else throw new Error("你似乎传入了个既不是具体数据也不是数组的东西……");
             return prev;
         }), ['execute']);
