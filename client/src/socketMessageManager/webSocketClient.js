@@ -1,1 +1,0 @@
-import PluginDashboard from "./pluginDashboard";

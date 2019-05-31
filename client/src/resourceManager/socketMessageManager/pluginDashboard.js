@@ -12,7 +12,7 @@ export class PluginDashboard {
         this.connection = conn;
         this.registerObject = {};
         this.receiveObject = {};
-        conn.on('text', this._receiveMessage);
+        conn.onmessagg = (data) => this._receiveMessage(data.data);
 
         this.userId = null;
     }
@@ -33,7 +33,7 @@ export class PluginDashboard {
         switch(type) {
             case 'execute':
             case 'data':
-                this.connection.sendText(cmd);
+                this.connection.send(cmd);
                 break;
             default:
                 throw new Error("不合法的命令类型！");
