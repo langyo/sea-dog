@@ -1,11 +1,9 @@
-import ws from "./socketMessageManager/webSocketClient";
+import { send, register, receive, connectionEvents } from "./socketMessageManager/webSocketClient";
 
 import Actions from "./actions";
 
-console.log(ws);
-
-ws.connectionEvents.on("load", () => {
-  ws.receive({
+connectionEvents.on("load", () => {
+  receive({
     database: {
       list: function (name, _run, cmd, state, ...list) {
         if (state == "success") {
@@ -27,7 +25,13 @@ ws.connectionEvents.on("load", () => {
         }else console.error("data 指令出现了问题，指令状态报头为", state);
       }
     }
-  })
-})
+  });
 
-export default ws;
+  send("execute", "database list classes run count");
+});
+
+export default {
+  send: send,
+  register: register,
+  receive: receive
+};

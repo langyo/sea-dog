@@ -20,10 +20,10 @@ client.onmessage = (data) => {
     }
 };
 
-export let send = (...data) => client.send(data);
+export let send = (...data) => dashboard.send(data);
 
-export let register = (obj) => client.register(obj);
+export let register = (obj) => dashboard.register(obj);
 
-export let receive = (obj) => client.receive(obj);
+export let receive = (obj) => dashboard.receive(obj);
 
 export let connectionEvents = clientConnectionEventEmitter;

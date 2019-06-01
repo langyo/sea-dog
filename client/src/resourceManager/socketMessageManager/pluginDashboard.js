@@ -31,11 +31,11 @@ export default class PluginDashboard {
     }
 
     register(obj) {
-        PluginDashboard.registerObject = diff(obj, PluginDashboard.registerObject);
+        PluginDashboard.registerObject = diff(obj, this.registerObject);
     }
 
     receive(obj) {
-        PluginDashboard.receiveObject = diff(obj, PluginDashboard.receiveObject);
+        PluginDashboard.receiveObject = diff(obj, this.receiveObject);
     }
 
     send = (...args) => {
@@ -53,7 +53,7 @@ export default class PluginDashboard {
     _sendMessage(...args) {
         console.log("Socket Manager 即将发送", args);
         let cmd = args.reduce((prev, next) => prev + ' ' + next);
-        let type = args.shift();
+        let type = /^(execute|data).*$/.exec(cmd)[1];
 
         switch(type) {
             case 'execute':

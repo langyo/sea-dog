@@ -1352,7 +1352,7 @@ class PluginDashboard {
     _defineProperty(this, "_sendMessage", args => {
       console.log("即将发送：", args, "，类型：", typeof args);
       let cmd = args.reduce((prev, next) => prev + ' ' + next);
-      let type = args.shift();
+      let type = /^(execute|data).*$/.exec(cmd)[1];
 
       switch (type) {
         case 'execute':

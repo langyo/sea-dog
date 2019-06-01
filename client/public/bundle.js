@@ -86130,17 +86130,17 @@ class PluginDashboard {
   }
 
   register(obj) {
-    PluginDashboard.registerObject = diff(obj, PluginDashboard.registerObject);
+    PluginDashboard.registerObject = diff(obj, this.registerObject);
   }
 
   receive(obj) {
-    PluginDashboard.receiveObject = diff(obj, PluginDashboard.receiveObject);
+    PluginDashboard.receiveObject = diff(obj, this.receiveObject);
   }
 
   _sendMessage(...args) {
     console.log("Socket Manager 即将发送", args);
     let cmd = args.reduce((prev, next) => prev + ' ' + next);
-    let type = args.shift();
+    let type = /^(execute|data).*$/.exec(cmd)[1];
 
     switch (type) {
       case 'execute':
@@ -86188,15 +86188,15 @@ client.onmessage = data => {
   }
 };
 
-let send = (...data) => client.send(data);
+let send = (...data) => dashboard.send(data);
 
 exports.send = send;
 
-let register = obj => client.register(obj);
+let register = obj => dashboard.register(obj);
 
 exports.register = register;
 
-let receive = obj => client.receive(obj);
+let receive = obj => dashboard.receive(obj);
 
 exports.receive = receive;
 let connectionEvents = clientConnectionEventEmitter;
@@ -86671,16 +86671,14 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _webSocketClient = _interopRequireDefault(require("./socketMessageManager/webSocketClient"));
+var _webSocketClient = require("./socketMessageManager/webSocketClient");
 
 var _actions = _interopRequireDefault(require("./actions"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-console.log(_webSocketClient.default);
-
-_webSocketClient.default.connectionEvents.on("load", () => {
-  _webSocketClient.default.receive({
+_webSocketClient.connectionEvents.on("load", () => {
+  (0, _webSocketClient.receive)({
     database: {
       list: function (name, _run, cmd, state, ...list) {
         if (state == "success") {
@@ -86707,9 +86705,14 @@ _webSocketClient.default.connectionEvents.on("load", () => {
       }
     }
   });
+  (0, _webSocketClient.send)("execute", "database list classes run count");
 });
 
-var _default = _webSocketClient.default;
+var _default = {
+  send: _webSocketClient.send,
+  register: _webSocketClient.register,
+  receive: _webSocketClient.receive
+};
 exports.default = _default;
 
 },{"./actions":420,"./socketMessageManager/webSocketClient":433}],445:[function(require,module,exports){
