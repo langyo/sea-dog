@@ -28,6 +28,9 @@ connectionEvents.on("load", () => {
   });
 
   send("execute", "database list classes run count");
+
+  // 设置数据库状态为已准备好
+  Actions.view.system.toggleDatabaseState("ready");
 });
 
 export default {

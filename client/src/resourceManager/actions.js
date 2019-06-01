@@ -69,7 +69,9 @@ export default {
         ]),
         system: Reflux.createActions([
             'toggleDatabaseState',
-            'toggleNetworkState'
+            'toggleNetworkState',
+            'log',
+            'error'
         ])
     },
 

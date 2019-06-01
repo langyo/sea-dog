@@ -1,6 +1,8 @@
 import PluginDashboard from "./pluginDashboard";
 import { EventEmitter } from 'events';
 
+import Actions from "../actions";
+
 let client = new WebSocket("ws://localhost:9201");
 
 let dashboard;
@@ -9,6 +11,7 @@ let clientConnectionEventEmitter = new EventEmitter();
 
 client.onopen = () => {
     console.log("连接成功！");
+    Actions.view.system.toggleNetworkState("success");
     client.send("execute system register h5");
 };
 

@@ -16,10 +16,13 @@ import BindClassDesktopDialog from "../dialogs/bindClassDesktop";
 import AppendAccountDialog from "../dialogs/appendAccount";
 import AppendClassMemberDialog from "../dialogs/appendClassMember";
 
+import DatabaseLoadingDialog from "../dialogs/databaseLoading";
+
 class MainWindowManager extends Reflux.Component {
   constructor(props) {
     super(props);
-    // this.store = Stores.view.dialog;
+    
+    this.store = Stores.view.system;
   }
 
   render() {
@@ -33,6 +36,8 @@ class MainWindowManager extends Reflux.Component {
         <BindClassDesktopDialog />
         <AppendAccountDialog />
         <AppendClassMemberDialog />
+
+        {this.state.databaseState != "ready" && <DatabaseLoadingDialog />}
       </div>
     );
   }
