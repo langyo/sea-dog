@@ -7,8 +7,6 @@ let dashboard;
 
 let clientConnectionEventEmitter = new EventEmitter();
 
-console.log(client);
-
 client.onopen = () => {
     console.log("连接成功！");
     client.send("execute system register h5");

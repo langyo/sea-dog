@@ -7,7 +7,20 @@ const diff = (from, to) => {
     return to;
 }
 
-export class PluginDashboard {
+class ExecuterContext {
+    constructor(cmds, conn) {
+        this.cmdHead = ['data'].concat(cmds);
+        this.conn = conn;
+        this.userId = conn.userId;
+    }
+
+    send = (...args) => {
+        let arr = this.cmdHead.concat(args);
+        this.conn._sendMessage(arr);
+    };
+}
+
+export default class PluginDashboard {
     constructor(conn) {
         this.connection = conn;
         this.registerObject = {};
@@ -25,6 +38,18 @@ export class PluginDashboard {
         PluginDashboard.receiveObject = diff(obj, PluginDashboard.receiveObject);
     }
 
+    send = (...args) => {
+        this._sendMessage(args.reduce((prev, next) => {
+            if (typeof next == 'string') prev.concat(next.trim().split(' '));
+            else if (Array.isArray(next)) prev.concat(next);
+            else if (typeof next == 'number' || typeof next == 'bigint') prev.push("" + next);
+            else if (typeof next == 'boolean') prev.push(next ? 'true' : 'false');
+            else if (typeof next == 'object') prev.push(JSON.stringify(next));
+            else throw new Error("你似乎传入了个既不是具体数据也不是数组的东西……");
+            return prev;
+        }), ['execute']);
+    }
+
     _sendMessage(...args) {
         console.log("Socket Manager 即将发送", args);
         let cmd = args.reduce((prev, next) => prev + ' ' + next);
@@ -40,18 +65,44 @@ export class PluginDashboard {
         }
     }
 
-    _receiveMessage(cmd) {
+    _receiveMessagePre = (str) => {
+        if (str[0] == '@') return;
+        this.buffer += str + '\n';
+        let cmds = this.buffer.split('\n');
+        this.buffer = cmds.pop();
+        console.log("当前缓冲区：", this.buffer);
+        console.log("即将传入指令：", cmds);
+        cmds.forEach(n => this._receiveMessage(n));
+    }
+
+    _receiveMessage = (cmd) => {
+        console.log(cmd);
         let args = cmd.trim().split(' ');
         let type = args.shift();
-    
-        let func = type == 'execute' ? PluginDashboard.register : PluginDashboard.receive;
+
+        let func = type == 'execute' ? this.registerObject : this.receiveObject;
         let arg = args.shift();
-    
-        for (; typeof func[arg] == 'object'; console.log(typeof func[arg]), func = func[arg], arg = args.shift())
-            if(func === undefined) throw new Error("不存在这个对象！");
-    
-        if(func[arg] === undefined) throw new Error("不存在这个对象！");
-        func[arg].apply(null, args);
+        let cmds = [arg];
+
+        try {
+            for (; typeof func[arg] == 'object'; func = func[arg], arg = args.shift(), cmds.push(arg))
+             if (func === undefined) throw new Error("不存在这个对象！");
+
+            if (type == 'execute' && func[arg] === undefined) throw new Error("不存在这个对象！");
+        } catch (e) {
+            this._sendMessage(['data', 'system', 'fail', '未知路径']);
+        }
+        try {
+            // 开始根据解析出的参数列表调用对应的函数
+            let ret = func[arg].apply(new ExecuterContext(cmds, this), args);
+            // 如果对方为 execute，则说明是在请求数据，当 ret 非空时自动给对方一个反馈
+            if (type == 'execute' && ret != null) this._sendMessage(['data'].concat(cmds).concat(ret.trim().split(' ')));
+        } catch (e) {
+            console.log(e);
+            let n = ['data'].concat(cmds);
+            n.push("fail 未注册的指令");
+            this._sendMessage(n);
+        }
     }
 }
 

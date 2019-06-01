@@ -66,6 +66,10 @@ export default {
         ]),
         language: Reflux.createActions([
             'toggleTo',
+        ]),
+        system: Reflux.createActions([
+            'toggleDatabaseState',
+            'toggleNetworkState'
         ])
     },
 

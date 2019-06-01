@@ -8,6 +8,7 @@ import theme from "./viewStore/theme";
 import fab from "./viewStore/fab";
 import language from "./viewStore/language";
 import drawer from "./viewStore/drawer";
+import system from "./viewStore/system";
 
 import broadcastPage from "./pageStore/broadcasts";
 import accountPage from "./pageStore/account";
@@ -32,7 +33,8 @@ export default {
         popupMessage: popupMessage,
         theme: theme,
         fab: fab,
-        language: language
+        language: language,
+        system: system
     },
 
     page: {

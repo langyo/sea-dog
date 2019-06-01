@@ -85710,7 +85710,8 @@ var _default = {
     popupMenu: _reflux.default.createActions(['toggleTo', 'reset']),
     popupMessage: _reflux.default.createActions(['sendNewMessage', 'popupNewMessage', 'consoleError']),
     theme: _reflux.default.createActions(['togglePrimary', 'toggleSecondary', 'toggleMenuTheme', 'handleResize']),
-    language: _reflux.default.createActions(['toggleTo'])
+    language: _reflux.default.createActions(['toggleTo']),
+    system: _reflux.default.createActions(['toggleDatabaseState', 'toggleNetworkState'])
   },
   page: {
     broadcast: _reflux.default.createActions(['update']),
@@ -85740,17 +85741,15 @@ var _lowdb = _interopRequireDefault(require("lowdb"));
 
 var _LocalStorage = _interopRequireDefault(require("lowdb/adapters/LocalStorage"));
 
-var _webSocketClient = _interopRequireDefault(require("./socketMessageManager/webSocketClient"));
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const adapter = new _LocalStorage.default('db');
 const db = (0, _lowdb.default)(adapter);
 db.defaults({}).write();
-var _default = _webSocketClient.default;
+var _default = db;
 exports.default = _default;
 
-},{"./socketMessageManager/webSocketClient":433,"lowdb":310,"lowdb/adapters/LocalStorage":308}],422:[function(require,module,exports){
+},{"lowdb":310,"lowdb/adapters/LocalStorage":308}],422:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -86045,7 +86044,9 @@ exports.default = _default;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.PluginDashboard = void 0;
+exports.default = void 0;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 const diff = (from, to) => {
   for (let i of Object.keys(from)) {
@@ -86055,8 +86056,70 @@ const diff = (from, to) => {
   return to;
 };
 
+class ExecuterContext {
+  constructor(cmds, conn) {
+    _defineProperty(this, "send", (...args) => {
+      let arr = this.cmdHead.concat(args);
+
+      this.conn._sendMessage(arr);
+    });
+
+    this.cmdHead = ['data'].concat(cmds);
+    this.conn = conn;
+    this.userId = conn.userId;
+  }
+
+}
+
 class PluginDashboard {
   constructor(conn) {
+    _defineProperty(this, "send", (...args) => {
+      this._sendMessage(args.reduce((prev, next) => {
+        if (typeof next == 'string') prev.concat(next.trim().split(' '));else if (Array.isArray(next)) prev.concat(next);else if (typeof next == 'number' || typeof next == 'bigint') prev.push("" + next);else if (typeof next == 'boolean') prev.push(next ? 'true' : 'false');else if (typeof next == 'object') prev.push(JSON.stringify(next));else throw new Error("你似乎传入了个既不是具体数据也不是数组的东西……");
+        return prev;
+      }), ['execute']);
+    });
+
+    _defineProperty(this, "_receiveMessagePre", str => {
+      if (str[0] == '@') return;
+      this.buffer += str + '\n';
+      let cmds = this.buffer.split('\n');
+      this.buffer = cmds.pop();
+      console.log("当前缓冲区：", this.buffer);
+      console.log("即将传入指令：", cmds);
+      cmds.forEach(n => this._receiveMessage(n));
+    });
+
+    _defineProperty(this, "_receiveMessage", cmd => {
+      console.log(cmd);
+      let args = cmd.trim().split(' ');
+      let type = args.shift();
+      let func = type == 'execute' ? this.registerObject : this.receiveObject;
+      let arg = args.shift();
+      let cmds = [arg];
+
+      try {
+        for (; typeof func[arg] == 'object'; func = func[arg], arg = args.shift(), cmds.push(arg)) if (func === undefined) throw new Error("不存在这个对象！");
+
+        if (type == 'execute' && func[arg] === undefined) throw new Error("不存在这个对象！");
+      } catch (e) {
+        this._sendMessage(['data', 'system', 'fail', '未知路径']);
+      }
+
+      try {
+        // 开始根据解析出的参数列表调用对应的函数
+        let ret = func[arg].apply(new ExecuterContext(cmds, this), args); // 如果对方为 execute，则说明是在请求数据，当 ret 非空时自动给对方一个反馈
+
+        if (type == 'execute' && ret != null) this._sendMessage(['data'].concat(cmds).concat(ret.trim().split(' ')));
+      } catch (e) {
+        console.log(e);
+        let n = ['data'].concat(cmds);
+        n.push("fail 未注册的指令");
+
+        this._sendMessage(n);
+      }
+    });
+
     this.connection = conn;
     this.registerObject = {};
     this.receiveObject = {};
@@ -86090,21 +86153,9 @@ class PluginDashboard {
     }
   }
 
-  _receiveMessage(cmd) {
-    let args = cmd.trim().split(' ');
-    let type = args.shift();
-    let func = type == 'execute' ? PluginDashboard.register : PluginDashboard.receive;
-    let arg = args.shift();
-
-    for (; typeof func[arg] == 'object'; console.log(typeof func[arg]), func = func[arg], arg = args.shift()) if (func === undefined) throw new Error("不存在这个对象！");
-
-    if (func[arg] === undefined) throw new Error("不存在这个对象！");
-    func[arg].apply(null, args);
-  }
-
 }
 
-exports.PluginDashboard = PluginDashboard;
+exports.default = PluginDashboard;
 
 },{}],433:[function(require,module,exports){
 "use strict";
@@ -86123,7 +86174,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 let client = new WebSocket("ws://localhost:9201");
 let dashboard;
 let clientConnectionEventEmitter = new _events.EventEmitter();
-console.log(client);
 
 client.onopen = () => {
   console.log("连接成功！");
@@ -86178,6 +86228,8 @@ var _language = _interopRequireDefault(require("./viewStore/language"));
 
 var _drawer = _interopRequireDefault(require("./viewStore/drawer"));
 
+var _system = _interopRequireDefault(require("./viewStore/system"));
+
 var _broadcasts = _interopRequireDefault(require("./pageStore/broadcasts"));
 
 var _account = _interopRequireDefault(require("./pageStore/account"));
@@ -86210,7 +86262,8 @@ var _default = {
     popupMessage: _popupMessage.default,
     theme: _theme.default,
     fab: _fab.default,
-    language: _language.default
+    language: _language.default,
+    system: _system.default
   },
   page: {
     broadcast: _broadcasts.default,
@@ -86226,7 +86279,7 @@ var _default = {
 };
 exports.default = _default;
 
-},{"./databaseStore/classes":422,"./pageStore/account":423,"./pageStore/broadcasts":424,"./pageStore/classManagement":425,"./pageStore/classTable":426,"./pageStore/picker":427,"./pageStore/practise":428,"./pageStore/randomizer":429,"./pageStore/rank":430,"./pageStore/schoolManagement":431,"./viewStore/dialog":435,"./viewStore/drawer":436,"./viewStore/fab":437,"./viewStore/language":438,"./viewStore/popupMenu":439,"./viewStore/popupMessage":440,"./viewStore/tag":441,"./viewStore/theme":442}],435:[function(require,module,exports){
+},{"./databaseStore/classes":422,"./pageStore/account":423,"./pageStore/broadcasts":424,"./pageStore/classManagement":425,"./pageStore/classTable":426,"./pageStore/picker":427,"./pageStore/practise":428,"./pageStore/randomizer":429,"./pageStore/rank":430,"./pageStore/schoolManagement":431,"./viewStore/dialog":435,"./viewStore/drawer":436,"./viewStore/fab":437,"./viewStore/language":438,"./viewStore/popupMenu":439,"./viewStore/popupMessage":440,"./viewStore/system":441,"./viewStore/tag":442,"./viewStore/theme":443}],435:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -86491,6 +86544,37 @@ var _reflux = _interopRequireDefault(require("reflux"));
 
 var _database = _interopRequireDefault(require("../database"));
 
+var _websocket = _interopRequireDefault(require("../websocket"));
+
+var _actions = _interopRequireDefault(require("../actions"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+class System extends _reflux.default.Store {
+  constructor() {
+    super();
+    this.state = {};
+    this.listenToMany(_actions.default.view.system);
+  }
+
+}
+
+var _default = new System();
+
+exports.default = _default;
+
+},{"../actions":420,"../database":421,"../websocket":444,"reflux":395}],442:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _reflux = _interopRequireDefault(require("reflux"));
+
+var _database = _interopRequireDefault(require("../database"));
+
 var _actions = _interopRequireDefault(require("../actions"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -86514,7 +86598,7 @@ var _default = new Tag();
 
 exports.default = _default;
 
-},{"../actions":420,"../database":421,"reflux":395}],442:[function(require,module,exports){
+},{"../actions":420,"../database":421,"reflux":395}],443:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -86579,7 +86663,56 @@ var _default = new Theme();
 
 exports.default = _default;
 
-},{"../actions":420,"../database":421,"reflux":395}],443:[function(require,module,exports){
+},{"../actions":420,"../database":421,"reflux":395}],444:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _webSocketClient = _interopRequireDefault(require("./socketMessageManager/webSocketClient"));
+
+var _actions = _interopRequireDefault(require("./actions"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+console.log(_webSocketClient.default);
+
+_webSocketClient.default.connectionEvents.on("load", () => {
+  _webSocketClient.default.receive({
+    database: {
+      list: function (name, _run, cmd, state, ...list) {
+        if (state == "success") {
+          switch (cmd) {
+            case "count":
+              if (!_actions.default.databse[name]) return console.error("data 指令出现了问题，没有名为", name, "的数据存储 Store！");
+              if (typeof list[0] != "number") return console.error("data 指令出现了问题，list count 参数", list[0], "不是数字！");
+
+              _actions.default.database[name].updateDatabase(list[0]);
+
+              break;
+
+            case "list":
+              if (!_actions.default.database[nae]) return console.error("data 指令出现了问题，没有名为", name, "的数据存储 Store！");
+
+              _actions.default.database[name].pushListFromDatabase(Array.prototype.slice.call(list));
+
+              break;
+
+            default:
+              console.error("data 指令出现了问题，无法识别", cmd, "指令！");
+          }
+        } else console.error("data 指令出现了问题，指令状态报头为", state);
+      }
+    }
+  });
+});
+
+var _default = _webSocketClient.default;
+exports.default = _default;
+
+},{"./actions":420,"./socketMessageManager/webSocketClient":433}],445:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -86673,7 +86806,7 @@ var _default = (0, _styles.withStyles)(styles)(About);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":420,"../../resourceManager/stores":434,"@material-ui/core/Button":39,"@material-ui/core/Dialog":57,"@material-ui/core/DialogActions":49,"@material-ui/core/DialogContent":53,"@material-ui/core/DialogContentText":51,"@material-ui/core/DialogTitle":55,"@material-ui/core/Fade":63,"@material-ui/core/Grow":82,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"classnames":231,"prop-types":340,"react":370,"react-router":358,"reflux":395,"shortid":405}],444:[function(require,module,exports){
+},{"../../resourceManager/actions":420,"../../resourceManager/stores":434,"@material-ui/core/Button":39,"@material-ui/core/Dialog":57,"@material-ui/core/DialogActions":49,"@material-ui/core/DialogContent":53,"@material-ui/core/DialogContentText":51,"@material-ui/core/DialogTitle":55,"@material-ui/core/Fade":63,"@material-ui/core/Grow":82,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"classnames":231,"prop-types":340,"react":370,"react-router":358,"reflux":395,"shortid":405}],446:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -86839,7 +86972,7 @@ var _default = (0, _styles.withStyles)(styles)(AppendAccount);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":420,"../../resourceManager/stores":434,"@material-ui/core/Button":39,"@material-ui/core/Dialog":57,"@material-ui/core/DialogActions":49,"@material-ui/core/DialogContent":53,"@material-ui/core/DialogContentText":51,"@material-ui/core/DialogTitle":55,"@material-ui/core/Fade":63,"@material-ui/core/FormControl":71,"@material-ui/core/Grid":80,"@material-ui/core/Grow":82,"@material-ui/core/InputLabel":92,"@material-ui/core/Menu":110,"@material-ui/core/MenuItem":106,"@material-ui/core/OutlinedInput":122,"@material-ui/core/Select":139,"@material-ui/core/TextField":168,"@material-ui/core/Typography":174,"@material-ui/core/colors/green":176,"@material-ui/core/colors/red":180,"@material-ui/core/styles":200,"classnames":231,"prop-types":340,"react":370,"react-router":358,"reflux":395,"shortid":405}],445:[function(require,module,exports){
+},{"../../resourceManager/actions":420,"../../resourceManager/stores":434,"@material-ui/core/Button":39,"@material-ui/core/Dialog":57,"@material-ui/core/DialogActions":49,"@material-ui/core/DialogContent":53,"@material-ui/core/DialogContentText":51,"@material-ui/core/DialogTitle":55,"@material-ui/core/Fade":63,"@material-ui/core/FormControl":71,"@material-ui/core/Grid":80,"@material-ui/core/Grow":82,"@material-ui/core/InputLabel":92,"@material-ui/core/Menu":110,"@material-ui/core/MenuItem":106,"@material-ui/core/OutlinedInput":122,"@material-ui/core/Select":139,"@material-ui/core/TextField":168,"@material-ui/core/Typography":174,"@material-ui/core/colors/green":176,"@material-ui/core/colors/red":180,"@material-ui/core/styles":200,"classnames":231,"prop-types":340,"react":370,"react-router":358,"reflux":395,"shortid":405}],447:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -87007,7 +87140,7 @@ var _default = (0, _styles.withStyles)(styles)(AppendClassMember);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":420,"../../resourceManager/stores":434,"@material-ui/core/Button":39,"@material-ui/core/Dialog":57,"@material-ui/core/DialogActions":49,"@material-ui/core/DialogContent":53,"@material-ui/core/DialogContentText":51,"@material-ui/core/DialogTitle":55,"@material-ui/core/Fade":63,"@material-ui/core/FormControl":71,"@material-ui/core/Grid":80,"@material-ui/core/Grow":82,"@material-ui/core/InputLabel":92,"@material-ui/core/Menu":110,"@material-ui/core/MenuItem":106,"@material-ui/core/Select":139,"@material-ui/core/TextField":168,"@material-ui/core/Typography":174,"@material-ui/core/colors/green":176,"@material-ui/core/colors/red":180,"@material-ui/core/styles":200,"classnames":231,"prop-types":340,"react":370,"react-router":358,"reflux":395,"shortid":405}],446:[function(require,module,exports){
+},{"../../resourceManager/actions":420,"../../resourceManager/stores":434,"@material-ui/core/Button":39,"@material-ui/core/Dialog":57,"@material-ui/core/DialogActions":49,"@material-ui/core/DialogContent":53,"@material-ui/core/DialogContentText":51,"@material-ui/core/DialogTitle":55,"@material-ui/core/Fade":63,"@material-ui/core/FormControl":71,"@material-ui/core/Grid":80,"@material-ui/core/Grow":82,"@material-ui/core/InputLabel":92,"@material-ui/core/Menu":110,"@material-ui/core/MenuItem":106,"@material-ui/core/Select":139,"@material-ui/core/TextField":168,"@material-ui/core/Typography":174,"@material-ui/core/colors/green":176,"@material-ui/core/colors/red":180,"@material-ui/core/styles":200,"classnames":231,"prop-types":340,"react":370,"react-router":358,"reflux":395,"shortid":405}],448:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -87097,7 +87230,7 @@ var _default = (0, _styles.withStyles)(styles)(BindClassDesktop);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":420,"../../resourceManager/stores":434,"@material-ui/core/Button":39,"@material-ui/core/Dialog":57,"@material-ui/core/DialogActions":49,"@material-ui/core/DialogContent":53,"@material-ui/core/DialogTitle":55,"@material-ui/core/Fade":63,"@material-ui/core/FormControlLabel":67,"@material-ui/core/FormGroup":74,"@material-ui/core/Grow":82,"@material-ui/core/Radio":134,"@material-ui/core/RadioGroup":132,"@material-ui/core/Switch":145,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"classnames":231,"prop-types":340,"react":370,"react-router":358,"reflux":395,"shortid":405}],447:[function(require,module,exports){
+},{"../../resourceManager/actions":420,"../../resourceManager/stores":434,"@material-ui/core/Button":39,"@material-ui/core/Dialog":57,"@material-ui/core/DialogActions":49,"@material-ui/core/DialogContent":53,"@material-ui/core/DialogTitle":55,"@material-ui/core/Fade":63,"@material-ui/core/FormControlLabel":67,"@material-ui/core/FormGroup":74,"@material-ui/core/Grow":82,"@material-ui/core/Radio":134,"@material-ui/core/RadioGroup":132,"@material-ui/core/Switch":145,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"classnames":231,"prop-types":340,"react":370,"react-router":358,"reflux":395,"shortid":405}],449:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -87287,7 +87420,7 @@ var _default = (0, _styles.withStyles)(styles)(NumberDashboard);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":420,"../../resourceManager/stores":434,"@material-ui/core/Avatar":23,"@material-ui/core/Button":39,"@material-ui/core/Dialog":57,"@material-ui/core/DialogActions":49,"@material-ui/core/DialogContent":53,"@material-ui/core/DialogContentText":51,"@material-ui/core/DialogTitle":55,"@material-ui/core/Fade":63,"@material-ui/core/Grid":80,"@material-ui/core/Grow":82,"@material-ui/core/IconButton":84,"@material-ui/core/Menu":110,"@material-ui/core/TextField":168,"@material-ui/core/Typography":174,"@material-ui/core/colors/green":176,"@material-ui/core/colors/red":180,"@material-ui/core/styles":200,"classnames":231,"prop-types":340,"react":370,"react-router":358,"reflux":395,"shortid":405}],448:[function(require,module,exports){
+},{"../../resourceManager/actions":420,"../../resourceManager/stores":434,"@material-ui/core/Avatar":23,"@material-ui/core/Button":39,"@material-ui/core/Dialog":57,"@material-ui/core/DialogActions":49,"@material-ui/core/DialogContent":53,"@material-ui/core/DialogContentText":51,"@material-ui/core/DialogTitle":55,"@material-ui/core/Fade":63,"@material-ui/core/Grid":80,"@material-ui/core/Grow":82,"@material-ui/core/IconButton":84,"@material-ui/core/Menu":110,"@material-ui/core/TextField":168,"@material-ui/core/Typography":174,"@material-ui/core/colors/green":176,"@material-ui/core/colors/red":180,"@material-ui/core/styles":200,"classnames":231,"prop-types":340,"react":370,"react-router":358,"reflux":395,"shortid":405}],450:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -87392,7 +87525,7 @@ var _default = (0, _styles.withStyles)(styles)(Setting);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":420,"../../resourceManager/stores":434,"@material-ui/core/Button":39,"@material-ui/core/Dialog":57,"@material-ui/core/DialogActions":49,"@material-ui/core/DialogContent":53,"@material-ui/core/DialogTitle":55,"@material-ui/core/Fade":63,"@material-ui/core/FormControlLabel":67,"@material-ui/core/FormGroup":74,"@material-ui/core/Grow":82,"@material-ui/core/Radio":134,"@material-ui/core/RadioGroup":132,"@material-ui/core/Switch":145,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"classnames":231,"prop-types":340,"react":370,"react-router":358,"reflux":395,"shortid":405}],449:[function(require,module,exports){
+},{"../../resourceManager/actions":420,"../../resourceManager/stores":434,"@material-ui/core/Button":39,"@material-ui/core/Dialog":57,"@material-ui/core/DialogActions":49,"@material-ui/core/DialogContent":53,"@material-ui/core/DialogTitle":55,"@material-ui/core/Fade":63,"@material-ui/core/FormControlLabel":67,"@material-ui/core/FormGroup":74,"@material-ui/core/Grow":82,"@material-ui/core/Radio":134,"@material-ui/core/RadioGroup":132,"@material-ui/core/Switch":145,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"classnames":231,"prop-types":340,"react":370,"react-router":358,"reflux":395,"shortid":405}],451:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -87511,7 +87644,7 @@ var _default = (0, _styles.withStyles)(styles)(Root);
 
 exports.default = _default;
 
-},{"../resourceManager/actions":420,"../resourceManager/stores":434,"./views/appbar":463,"./views/fab":466,"./views/routeDesktop/accountDashboard":467,"./views/routeDesktop/classTable":468,"./views/routeDesktop/deviceDashboard":469,"./views/routeDesktop/mainPage":470,"./views/routeDesktop/management":471,"./views/routeDesktop/picker":472,"./views/routeDesktop/practise":473,"./views/routeDesktop/rankList":474,"./views/windowManager":475,"@material-ui/core/CssBaseline":47,"@material-ui/core/colors/red":180,"@material-ui/core/styles":200,"classnames":231,"prop-types":340,"react":370,"reflux":395,"shortid":405}],450:[function(require,module,exports){
+},{"../resourceManager/actions":420,"../resourceManager/stores":434,"./views/appbar":465,"./views/fab":468,"./views/routeDesktop/accountDashboard":469,"./views/routeDesktop/classTable":470,"./views/routeDesktop/deviceDashboard":471,"./views/routeDesktop/mainPage":472,"./views/routeDesktop/management":473,"./views/routeDesktop/picker":474,"./views/routeDesktop/practise":475,"./views/routeDesktop/rankList":476,"./views/windowManager":477,"@material-ui/core/CssBaseline":47,"@material-ui/core/colors/red":180,"@material-ui/core/styles":200,"classnames":231,"prop-types":340,"react":370,"reflux":395,"shortid":405}],452:[function(require,module,exports){
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -87524,7 +87657,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 _reactDom.default.render(_react.default.createElement(_mainView.default, null), document.querySelector('#content'));
 
-},{"./mainView":449,"react":370,"react-dom":346}],451:[function(require,module,exports){
+},{"./mainView":451,"react":370,"react-dom":346}],453:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -87614,7 +87747,7 @@ var _default = (0, _styles.withStyles)(styles)(Account);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":420,"../../resourceManager/stores":434,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":63,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"classnames":231,"mdi-material-ui/DotsVertical":314,"mdi-material-ui/KeyboardOutline":318,"mdi-material-ui/Minus":320,"mdi-material-ui/PacMan":322,"mdi-material-ui/Plus":324,"mdi-material-ui/StopCircleOutline":326,"prop-types":340,"react":370,"reflux":395,"shortid":405}],452:[function(require,module,exports){
+},{"../../resourceManager/actions":420,"../../resourceManager/stores":434,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":63,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"classnames":231,"mdi-material-ui/DotsVertical":314,"mdi-material-ui/KeyboardOutline":318,"mdi-material-ui/Minus":320,"mdi-material-ui/PacMan":322,"mdi-material-ui/Plus":324,"mdi-material-ui/StopCircleOutline":326,"prop-types":340,"react":370,"reflux":395,"shortid":405}],454:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -87704,7 +87837,7 @@ var _default = (0, _styles.withStyles)(styles)(AccountMobile);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":420,"../../resourceManager/stores":434,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":63,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"classnames":231,"mdi-material-ui/DotsVertical":314,"mdi-material-ui/KeyboardOutline":318,"mdi-material-ui/Minus":320,"mdi-material-ui/PacMan":322,"mdi-material-ui/Plus":324,"mdi-material-ui/StopCircleOutline":326,"prop-types":340,"react":370,"reflux":395,"shortid":405}],453:[function(require,module,exports){
+},{"../../resourceManager/actions":420,"../../resourceManager/stores":434,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":63,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"classnames":231,"mdi-material-ui/DotsVertical":314,"mdi-material-ui/KeyboardOutline":318,"mdi-material-ui/Minus":320,"mdi-material-ui/PacMan":322,"mdi-material-ui/Plus":324,"mdi-material-ui/StopCircleOutline":326,"prop-types":340,"react":370,"reflux":395,"shortid":405}],455:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -87835,7 +87968,7 @@ var _default = (0, _styles.withStyles)(styles)(Picker);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":420,"../../resourceManager/stores":434,"@material-ui/core/Button":39,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":63,"@material-ui/core/IconButton":84,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"classnames":231,"mdi-material-ui/DotsVertical":314,"mdi-material-ui/Minus":320,"mdi-material-ui/PacMan":322,"mdi-material-ui/Plus":324,"mdi-material-ui/StopCircleOutline":326,"prop-types":340,"react":370,"reflux":395,"shortid":405}],454:[function(require,module,exports){
+},{"../../resourceManager/actions":420,"../../resourceManager/stores":434,"@material-ui/core/Button":39,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":63,"@material-ui/core/IconButton":84,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"classnames":231,"mdi-material-ui/DotsVertical":314,"mdi-material-ui/Minus":320,"mdi-material-ui/PacMan":322,"mdi-material-ui/Plus":324,"mdi-material-ui/StopCircleOutline":326,"prop-types":340,"react":370,"reflux":395,"shortid":405}],456:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -87925,7 +88058,7 @@ var _default = (0, _styles.withStyles)(styles)(ClassChoiceDesktop);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":420,"../../resourceManager/stores":434,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":63,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"classnames":231,"mdi-material-ui/DotsVertical":314,"mdi-material-ui/KeyboardOutline":318,"mdi-material-ui/Minus":320,"mdi-material-ui/PacMan":322,"mdi-material-ui/Plus":324,"mdi-material-ui/StopCircleOutline":326,"prop-types":340,"react":370,"reflux":395,"shortid":405}],455:[function(require,module,exports){
+},{"../../resourceManager/actions":420,"../../resourceManager/stores":434,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":63,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"classnames":231,"mdi-material-ui/DotsVertical":314,"mdi-material-ui/KeyboardOutline":318,"mdi-material-ui/Minus":320,"mdi-material-ui/PacMan":322,"mdi-material-ui/Plus":324,"mdi-material-ui/StopCircleOutline":326,"prop-types":340,"react":370,"reflux":395,"shortid":405}],457:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -88091,7 +88224,7 @@ var _default = (0, _styles.withStyles)(styles)(ClassManagement);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":420,"../../resourceManager/stores":434,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":63,"@material-ui/core/IconButton":84,"@material-ui/core/Table":161,"@material-ui/core/TableBody":149,"@material-ui/core/TableCell":151,"@material-ui/core/TableHead":153,"@material-ui/core/TableRow":155,"@material-ui/core/TableSortLabel":157,"@material-ui/core/Toolbar":170,"@material-ui/core/Tooltip":172,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"classnames":231,"mdi-material-ui/DotsVertical":314,"mdi-material-ui/Plus":324,"prop-types":340,"react":370,"reflux":395,"shortid":405}],456:[function(require,module,exports){
+},{"../../resourceManager/actions":420,"../../resourceManager/stores":434,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":63,"@material-ui/core/IconButton":84,"@material-ui/core/Table":161,"@material-ui/core/TableBody":149,"@material-ui/core/TableCell":151,"@material-ui/core/TableHead":153,"@material-ui/core/TableRow":155,"@material-ui/core/TableSortLabel":157,"@material-ui/core/Toolbar":170,"@material-ui/core/Tooltip":172,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"classnames":231,"mdi-material-ui/DotsVertical":314,"mdi-material-ui/Plus":324,"prop-types":340,"react":370,"reflux":395,"shortid":405}],458:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -88181,7 +88314,7 @@ var _default = (0, _styles.withStyles)(styles)(ClassMap);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":420,"../../resourceManager/stores":434,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":63,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"classnames":231,"mdi-material-ui/DotsVertical":314,"mdi-material-ui/KeyboardOutline":318,"mdi-material-ui/Minus":320,"mdi-material-ui/PacMan":322,"mdi-material-ui/Plus":324,"mdi-material-ui/StopCircleOutline":326,"prop-types":340,"react":370,"reflux":395,"shortid":405}],457:[function(require,module,exports){
+},{"../../resourceManager/actions":420,"../../resourceManager/stores":434,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":63,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"classnames":231,"mdi-material-ui/DotsVertical":314,"mdi-material-ui/KeyboardOutline":318,"mdi-material-ui/Minus":320,"mdi-material-ui/PacMan":322,"mdi-material-ui/Plus":324,"mdi-material-ui/StopCircleOutline":326,"prop-types":340,"react":370,"reflux":395,"shortid":405}],459:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -88308,7 +88441,7 @@ var _default = (0, _styles.withStyles)(styles)(ClassTable);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":420,"../../resourceManager/stores":434,"@material-ui/core/Avatar":23,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":63,"@material-ui/core/Grid":80,"@material-ui/core/IconButton":84,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"classnames":231,"mdi-material-ui/DotsVertical":314,"prop-types":340,"react":370,"reflux":395,"shortid":405}],458:[function(require,module,exports){
+},{"../../resourceManager/actions":420,"../../resourceManager/stores":434,"@material-ui/core/Avatar":23,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":63,"@material-ui/core/Grid":80,"@material-ui/core/IconButton":84,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"classnames":231,"mdi-material-ui/DotsVertical":314,"prop-types":340,"react":370,"reflux":395,"shortid":405}],460:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -88509,7 +88642,7 @@ var _default = (0, _styles.withStyles)(styles)(GroupPicker);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":420,"../../resourceManager/stores":434,"@material-ui/core/Button":39,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":63,"@material-ui/core/FormControl":71,"@material-ui/core/FormHelperText":76,"@material-ui/core/IconButton":84,"@material-ui/core/Input":94,"@material-ui/core/InputAdornment":86,"@material-ui/core/InputLabel":92,"@material-ui/core/List":104,"@material-ui/core/ListItem":101,"@material-ui/core/ListItemText":98,"@material-ui/core/MenuItem":106,"@material-ui/core/OutlinedInput":122,"@material-ui/core/Select":139,"@material-ui/core/Switch":145,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"classnames":231,"mdi-material-ui/DotsVertical":314,"mdi-material-ui/KeyboardOutline":318,"mdi-material-ui/Minus":320,"mdi-material-ui/PacMan":322,"mdi-material-ui/Plus":324,"mdi-material-ui/StopCircleOutline":326,"prop-types":340,"react":370,"reflux":395,"shortid":405}],459:[function(require,module,exports){
+},{"../../resourceManager/actions":420,"../../resourceManager/stores":434,"@material-ui/core/Button":39,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":63,"@material-ui/core/FormControl":71,"@material-ui/core/FormHelperText":76,"@material-ui/core/IconButton":84,"@material-ui/core/Input":94,"@material-ui/core/InputAdornment":86,"@material-ui/core/InputLabel":92,"@material-ui/core/List":104,"@material-ui/core/ListItem":101,"@material-ui/core/ListItemText":98,"@material-ui/core/MenuItem":106,"@material-ui/core/OutlinedInput":122,"@material-ui/core/Select":139,"@material-ui/core/Switch":145,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"classnames":231,"mdi-material-ui/DotsVertical":314,"mdi-material-ui/KeyboardOutline":318,"mdi-material-ui/Minus":320,"mdi-material-ui/PacMan":322,"mdi-material-ui/Plus":324,"mdi-material-ui/StopCircleOutline":326,"prop-types":340,"react":370,"reflux":395,"shortid":405}],461:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -88673,7 +88806,7 @@ var _default = (0, _styles.withStyles)(styles)(Picker);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":420,"../../resourceManager/stores":434,"@material-ui/core/Button":39,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":63,"@material-ui/core/IconButton":84,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"classnames":231,"mdi-material-ui/DotsVertical":314,"mdi-material-ui/Minus":320,"mdi-material-ui/PacMan":322,"mdi-material-ui/Plus":324,"mdi-material-ui/StopCircleOutline":326,"prop-types":340,"react":370,"reflux":395,"shortid":405}],460:[function(require,module,exports){
+},{"../../resourceManager/actions":420,"../../resourceManager/stores":434,"@material-ui/core/Button":39,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":63,"@material-ui/core/IconButton":84,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"classnames":231,"mdi-material-ui/DotsVertical":314,"mdi-material-ui/Minus":320,"mdi-material-ui/PacMan":322,"mdi-material-ui/Plus":324,"mdi-material-ui/StopCircleOutline":326,"prop-types":340,"react":370,"reflux":395,"shortid":405}],462:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -88840,7 +88973,7 @@ var _default = (0, _styles.withStyles)(styles)(Randomizer);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":420,"../../resourceManager/stores":434,"@material-ui/core/Button":39,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":63,"@material-ui/core/FormControl":71,"@material-ui/core/FormHelperText":76,"@material-ui/core/IconButton":84,"@material-ui/core/Input":94,"@material-ui/core/InputAdornment":86,"@material-ui/core/InputLabel":92,"@material-ui/core/List":104,"@material-ui/core/ListItem":101,"@material-ui/core/ListItemText":98,"@material-ui/core/Typography":174,"@material-ui/core/colors/green":176,"@material-ui/core/colors/red":180,"@material-ui/core/styles":200,"classnames":231,"mdi-material-ui/DotsVertical":314,"mdi-material-ui/KeyboardOutline":318,"mdi-material-ui/Minus":320,"mdi-material-ui/PacMan":322,"mdi-material-ui/Plus":324,"mdi-material-ui/StopCircleOutline":326,"prop-types":340,"react":370,"reflux":395,"shortid":405}],461:[function(require,module,exports){
+},{"../../resourceManager/actions":420,"../../resourceManager/stores":434,"@material-ui/core/Button":39,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":63,"@material-ui/core/FormControl":71,"@material-ui/core/FormHelperText":76,"@material-ui/core/IconButton":84,"@material-ui/core/Input":94,"@material-ui/core/InputAdornment":86,"@material-ui/core/InputLabel":92,"@material-ui/core/List":104,"@material-ui/core/ListItem":101,"@material-ui/core/ListItemText":98,"@material-ui/core/Typography":174,"@material-ui/core/colors/green":176,"@material-ui/core/colors/red":180,"@material-ui/core/styles":200,"classnames":231,"mdi-material-ui/DotsVertical":314,"mdi-material-ui/KeyboardOutline":318,"mdi-material-ui/Minus":320,"mdi-material-ui/PacMan":322,"mdi-material-ui/Plus":324,"mdi-material-ui/StopCircleOutline":326,"prop-types":340,"react":370,"reflux":395,"shortid":405}],463:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -88930,7 +89063,7 @@ var _default = (0, _styles.withStyles)(styles)(Rank);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":420,"../../resourceManager/stores":434,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":63,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"classnames":231,"mdi-material-ui/DotsVertical":314,"mdi-material-ui/KeyboardOutline":318,"mdi-material-ui/Minus":320,"mdi-material-ui/PacMan":322,"mdi-material-ui/Plus":324,"mdi-material-ui/StopCircleOutline":326,"prop-types":340,"react":370,"reflux":395,"shortid":405}],462:[function(require,module,exports){
+},{"../../resourceManager/actions":420,"../../resourceManager/stores":434,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":63,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"classnames":231,"mdi-material-ui/DotsVertical":314,"mdi-material-ui/KeyboardOutline":318,"mdi-material-ui/Minus":320,"mdi-material-ui/PacMan":322,"mdi-material-ui/Plus":324,"mdi-material-ui/StopCircleOutline":326,"prop-types":340,"react":370,"reflux":395,"shortid":405}],464:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -89096,7 +89229,7 @@ var _default = (0, _styles.withStyles)(styles)(SchoolManagement);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":420,"../../resourceManager/stores":434,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":63,"@material-ui/core/IconButton":84,"@material-ui/core/Table":161,"@material-ui/core/TableBody":149,"@material-ui/core/TableCell":151,"@material-ui/core/TableHead":153,"@material-ui/core/TableRow":155,"@material-ui/core/TableSortLabel":157,"@material-ui/core/Toolbar":170,"@material-ui/core/Tooltip":172,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"classnames":231,"mdi-material-ui/DotsVertical":314,"mdi-material-ui/Plus":324,"prop-types":340,"react":370,"reflux":395,"shortid":405}],463:[function(require,module,exports){
+},{"../../resourceManager/actions":420,"../../resourceManager/stores":434,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":63,"@material-ui/core/IconButton":84,"@material-ui/core/Table":161,"@material-ui/core/TableBody":149,"@material-ui/core/TableCell":151,"@material-ui/core/TableHead":153,"@material-ui/core/TableRow":155,"@material-ui/core/TableSortLabel":157,"@material-ui/core/Toolbar":170,"@material-ui/core/Tooltip":172,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"classnames":231,"mdi-material-ui/DotsVertical":314,"mdi-material-ui/Plus":324,"prop-types":340,"react":370,"reflux":395,"shortid":405}],465:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -89196,7 +89329,7 @@ var _default = (0, _styles.withStyles)(styles)(MainAppbar);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":420,"../../resourceManager/stores":434,"./bottomNavigation":464,"./drawer":465,"@material-ui/core/AppBar":21,"@material-ui/core/IconButton":84,"@material-ui/core/Toolbar":170,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"classnames":231,"mdi-material-ui/Menu":319,"prop-types":340,"react":370,"react-svg":359,"reflux":395,"shortid":405}],464:[function(require,module,exports){
+},{"../../resourceManager/actions":420,"../../resourceManager/stores":434,"./bottomNavigation":466,"./drawer":467,"@material-ui/core/AppBar":21,"@material-ui/core/IconButton":84,"@material-ui/core/Toolbar":170,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"classnames":231,"mdi-material-ui/Menu":319,"prop-types":340,"react":370,"react-svg":359,"reflux":395,"shortid":405}],466:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -89307,7 +89440,7 @@ var _default = (0, _styles.withStyles)(styles)(TheBottomNavigation);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":420,"../../resourceManager/stores":434,"@material-ui/core/BottomNavigation":31,"@material-ui/core/BottomNavigationAction":29,"@material-ui/core/styles":200,"classnames":231,"mdi-material-ui/AccountCircleOutline":311,"mdi-material-ui/CursorDefaultClickOutline":313,"mdi-material-ui/Home":316,"mdi-material-ui/NoteOutline":321,"mdi-material-ui/TrophyVariantOutline":328,"prop-types":340,"react":370,"reflux":395,"shortid":405}],465:[function(require,module,exports){
+},{"../../resourceManager/actions":420,"../../resourceManager/stores":434,"@material-ui/core/BottomNavigation":31,"@material-ui/core/BottomNavigationAction":29,"@material-ui/core/styles":200,"classnames":231,"mdi-material-ui/AccountCircleOutline":311,"mdi-material-ui/CursorDefaultClickOutline":313,"mdi-material-ui/Home":316,"mdi-material-ui/NoteOutline":321,"mdi-material-ui/TrophyVariantOutline":328,"prop-types":340,"react":370,"reflux":395,"shortid":405}],467:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -89498,9 +89631,9 @@ var _default = (0, _styles.withStyles)(styles)(MainDrawer);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":420,"../../resourceManager/stores":434,"@material-ui/core/Badge":27,"@material-ui/core/Divider":59,"@material-ui/core/Drawer":61,"@material-ui/core/IconButton":84,"@material-ui/core/List":104,"@material-ui/core/ListItem":101,"@material-ui/core/ListItemIcon":96,"@material-ui/core/ListItemText":98,"@material-ui/core/styles":200,"classnames":231,"mdi-material-ui/AccountCircleOutline":311,"mdi-material-ui/AccountGroup":312,"mdi-material-ui/CursorDefaultClickOutline":313,"mdi-material-ui/GoogleClassroom":315,"mdi-material-ui/Home":316,"mdi-material-ui/InformationOutline":317,"mdi-material-ui/NoteOutline":321,"mdi-material-ui/Palette":323,"mdi-material-ui/SettingsOutline":325,"mdi-material-ui/TableLarge":327,"mdi-material-ui/TrophyVariantOutline":328,"prop-types":340,"react":370,"react-router-dom":355,"reflux":395,"shortid":405}],466:[function(require,module,exports){
+},{"../../resourceManager/actions":420,"../../resourceManager/stores":434,"@material-ui/core/Badge":27,"@material-ui/core/Divider":59,"@material-ui/core/Drawer":61,"@material-ui/core/IconButton":84,"@material-ui/core/List":104,"@material-ui/core/ListItem":101,"@material-ui/core/ListItemIcon":96,"@material-ui/core/ListItemText":98,"@material-ui/core/styles":200,"classnames":231,"mdi-material-ui/AccountCircleOutline":311,"mdi-material-ui/AccountGroup":312,"mdi-material-ui/CursorDefaultClickOutline":313,"mdi-material-ui/GoogleClassroom":315,"mdi-material-ui/Home":316,"mdi-material-ui/InformationOutline":317,"mdi-material-ui/NoteOutline":321,"mdi-material-ui/Palette":323,"mdi-material-ui/SettingsOutline":325,"mdi-material-ui/TableLarge":327,"mdi-material-ui/TrophyVariantOutline":328,"prop-types":340,"react":370,"react-router-dom":355,"reflux":395,"shortid":405}],468:[function(require,module,exports){
 arguments[4][423][0].apply(exports,arguments)
-},{"dup":423}],467:[function(require,module,exports){
+},{"dup":423}],469:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -89554,7 +89687,7 @@ var _default = (0, _styles.withStyles)(styles)(AccountDashboard);
 
 exports.default = _default;
 
-},{"../../../resourceManager/actions":420,"../../../resourceManager/stores":434,"../../pages/account":451,"../../pages/accountMobile":452,"@material-ui/core/styles":200,"prop-types":340,"react":370,"reflux":395}],468:[function(require,module,exports){
+},{"../../../resourceManager/actions":420,"../../../resourceManager/stores":434,"../../pages/account":453,"../../pages/accountMobile":454,"@material-ui/core/styles":200,"prop-types":340,"react":370,"reflux":395}],470:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -89632,7 +89765,7 @@ var _default = (0, _styles.withStyles)(styles)(ClassTableRouter);
 
 exports.default = _default;
 
-},{"../../../resourceManager/actions":420,"../../../resourceManager/stores":434,"../../pages/classMap":456,"../../pages/classTable":457,"@material-ui/core/Tab":147,"@material-ui/core/Tabs":166,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"prop-types":340,"react":370,"reflux":395}],469:[function(require,module,exports){
+},{"../../../resourceManager/actions":420,"../../../resourceManager/stores":434,"../../pages/classMap":458,"../../pages/classTable":459,"@material-ui/core/Tab":147,"@material-ui/core/Tabs":166,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"prop-types":340,"react":370,"reflux":395}],471:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -89684,7 +89817,7 @@ var _default = (0, _styles.withStyles)(styles)(DeviceDashboard);
 
 exports.default = _default;
 
-},{"../../../resourceManager/actions":420,"../../../resourceManager/stores":434,"../../pages/classChoiceDesktop":454,"@material-ui/core/styles":200,"prop-types":340,"react":370,"reflux":395}],470:[function(require,module,exports){
+},{"../../../resourceManager/actions":420,"../../../resourceManager/stores":434,"../../pages/classChoiceDesktop":456,"@material-ui/core/styles":200,"prop-types":340,"react":370,"reflux":395}],472:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -89736,7 +89869,7 @@ var _default = (0, _styles.withStyles)(styles)(MainPage);
 
 exports.default = _default;
 
-},{"../../../resourceManager/actions":420,"../../../resourceManager/stores":434,"../../pages/broadcasts":453,"@material-ui/core/styles":200,"prop-types":340,"react":370,"reflux":395}],471:[function(require,module,exports){
+},{"../../../resourceManager/actions":420,"../../../resourceManager/stores":434,"../../pages/broadcasts":455,"@material-ui/core/styles":200,"prop-types":340,"react":370,"reflux":395}],473:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -89814,7 +89947,7 @@ var _default = (0, _styles.withStyles)(styles)(Management);
 
 exports.default = _default;
 
-},{"../../../resourceManager/actions":420,"../../../resourceManager/stores":434,"../../pages/classManagement":455,"../../pages/schoolManagement":462,"@material-ui/core/Tab":147,"@material-ui/core/Tabs":166,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"prop-types":340,"react":370,"reflux":395}],472:[function(require,module,exports){
+},{"../../../resourceManager/actions":420,"../../../resourceManager/stores":434,"../../pages/classManagement":457,"../../pages/schoolManagement":464,"@material-ui/core/Tab":147,"@material-ui/core/Tabs":166,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"prop-types":340,"react":370,"reflux":395}],474:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -89897,7 +90030,7 @@ var _default = (0, _styles.withStyles)(styles)(PickerTabs);
 
 exports.default = _default;
 
-},{"../../../resourceManager/actions":420,"../../../resourceManager/stores":434,"../../pages/groupPicker":458,"../../pages/picker":459,"../../pages/randomizer":460,"@material-ui/core/Tab":147,"@material-ui/core/Tabs":166,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"prop-types":340,"react":370,"reflux":395}],473:[function(require,module,exports){
+},{"../../../resourceManager/actions":420,"../../../resourceManager/stores":434,"../../pages/groupPicker":460,"../../pages/picker":461,"../../pages/randomizer":462,"@material-ui/core/Tab":147,"@material-ui/core/Tabs":166,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"prop-types":340,"react":370,"reflux":395}],475:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -89949,7 +90082,7 @@ var _default = (0, _styles.withStyles)(styles)(MainPage);
 
 exports.default = _default;
 
-},{"../../../resourceManager/actions":420,"../../../resourceManager/stores":434,"@material-ui/core/styles":200,"prop-types":340,"react":370,"reflux":395}],474:[function(require,module,exports){
+},{"../../../resourceManager/actions":420,"../../../resourceManager/stores":434,"@material-ui/core/styles":200,"prop-types":340,"react":370,"reflux":395}],476:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -90007,7 +90140,7 @@ var _default = (0, _styles.withStyles)(styles)(RankList);
 
 exports.default = _default;
 
-},{"../../../resourceManager/actions":420,"../../../resourceManager/stores":434,"../../pages/rank":461,"@material-ui/core/Tab":147,"@material-ui/core/Tabs":166,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"prop-types":340,"react":370,"reflux":395}],475:[function(require,module,exports){
+},{"../../../resourceManager/actions":420,"../../../resourceManager/stores":434,"../../pages/rank":463,"@material-ui/core/Tab":147,"@material-ui/core/Tabs":166,"@material-ui/core/Typography":174,"@material-ui/core/styles":200,"prop-types":340,"react":370,"reflux":395}],477:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -90065,4 +90198,4 @@ class MainWindowManager extends _reflux.default.Component {
 var _default = MainWindowManager;
 exports.default = _default;
 
-},{"../../resourceManager/stores":434,"../dialogs/about":443,"../dialogs/appendAccount":444,"../dialogs/appendClassMember":445,"../dialogs/bindClassDesktop":446,"../dialogs/numberDashboard":447,"../dialogs/setting":448,"@material-ui/core/styles":200,"classnames":231,"prop-types":340,"react":370,"react-router":358,"reflux":395,"shortid":405}]},{},[450]);
+},{"../../resourceManager/stores":434,"../dialogs/about":445,"../dialogs/appendAccount":446,"../dialogs/appendClassMember":447,"../dialogs/bindClassDesktop":448,"../dialogs/numberDashboard":449,"../dialogs/setting":450,"@material-ui/core/styles":200,"classnames":231,"prop-types":340,"react":370,"react-router":358,"reflux":395,"shortid":405}]},{},[452]);
