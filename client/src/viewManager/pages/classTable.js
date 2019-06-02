@@ -23,11 +23,12 @@ import Actions from "../../resourceManager/actions";
 const styles = theme => ({
   root: {
     display: "flex",
-    width: 600,
+    width: 400,
     opacity: 0.8,
     marginLeft: "auto",
     marginRight: "auto",
-    marginTop: 30
+    marginTop: 30,
+    marginBottom: 30
   },
   card: {
     width: 116 + 84 * 1,

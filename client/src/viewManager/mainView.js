@@ -10,7 +10,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 
 import red from '@material-ui/core/colors/red';
 
-import CustomScroll from 'react-custom-scroll';
+import Scroll from 'react-scrollbar';
 
 import Appbar from "./views/appbar";
 import WindowManager from "./views/windowManager";
@@ -39,7 +39,12 @@ const styles = theme => ({
   toolbar: theme.mixins.toolbar,
   body: {
     overflow: 'hidden',
-    maxHeight: 'calc(100%)'
+    height: 'calc(100%)',
+    width: 'calc(100%)'
+  },
+  content: {
+    height: 'calc(100%)',
+    width: 'calc(100%)'
   }
 });
 
@@ -85,70 +90,77 @@ class Root extends Reflux.Component {
 
           <div className={classes.toolbar} />
 
+          <div className={classes.body}>
+            <Scroll
+              horizontal
+              vertical
+              autoHide={false}
+              onScroll={(e) => console.log("scroll!")}
+              smoothScrolling={true}
+              minScrollSize={40}
+            >
+              <div className={classes.content}>
+                {this.state.isDesktop && <div>
+                  {
+                    [""]
+                      .indexOf(this.state.show) != -1
+                    && <MainPage />
+                  }
+                  {
+                    ["picker", "randomizer", "groupPicker"]
+                      .indexOf(this.state.show) != -1
+                    && <Picker />
+                  }
+                  {
+                    ["classTable", "classMap"]
+                      .indexOf(this.state.show) != -1
+                    && <ClassTable />
+                  }
+                  {
+                    ["rankGroup", "rankClass"]
+                      .indexOf(this.state.show) != -1 && <RankList />
+                  }
+                  {
+                    ["tests", "questions", "test", "question"]
+                      .indexOf(this.state.show) != -1
+                    && <Practise />
+                  }
+                  {
+                    ["classManagement", "schoolManagement"]
+                      .indexOf(this.state.show) != -1
+                    && <Management />
+                  }
+                </div>}
 
-          <CustomScroll allowOuterScroll>
-            <div className={classes.body}>
-              {this.state.isDesktop && <div>
-                {
-                  [""]
-                    .indexOf(this.state.show) != -1
-                  && <MainPage />
-                }
-                {
-                  ["picker", "randomizer", "groupPicker"]
-                    .indexOf(this.state.show) != -1
-                  && <Picker />
-                }
-                {
-                  ["classTable", "classMap"]
-                    .indexOf(this.state.show) != -1
-                  && <ClassTable />
-                }
-                {
-                  ["rankGroup", "rankClass"]
-                    .indexOf(this.state.show) != -1 && <RankList />
-                }
-                {
-                  ["tests", "questions", "test", "question"]
-                    .indexOf(this.state.show) != -1
-                  && <Practise />
-                }
-                {
-                  ["classManagement", "schoolManagement"]
-                    .indexOf(this.state.show) != -1
-                  && <Management />
-                }
-              </div>}
-
-              {!this.state.isDesktop && <div>
-                {
-                  [""]
-                    .indexOf(this.state.show) != -1
-                  && <MainPage />
-                }
-                {
-                  ["picker", "randomizer", "groupPicker"]
-                    .indexOf(this.state.show) != -1
-                  && <Picker />
-                }
-                {
-                  ["classTable", "classMap"]
-                    .indexOf(this.state.show) != -1
-                  && <ClassTable />
-                }
-                {
-                  ["rankGroup", "rankClass"]
-                    .indexOf(this.state.show) != -1 && <RankList />
-                }
-                {
-                  ["tests", "questions", "test", "question"]
-                    .indexOf(this.state.show) != -1
-                  && <Practise />
-                }
-              </div>}
-            </div>
-          </CustomScroll>
-
+                {!this.state.isDesktop && <div>
+                  {
+                    [""]
+                      .indexOf(this.state.show) != -1
+                    && <MainPage />
+                  }
+                  {
+                    ["picker", "randomizer", "groupPicker"]
+                      .indexOf(this.state.show) != -1
+                    && <Picker />
+                  }
+                  {
+                    ["classTable", "classMap"]
+                      .indexOf(this.state.show) != -1
+                    && <ClassTable />
+                  }
+                  {
+                    ["rankGroup", "rankClass"]
+                      .indexOf(this.state.show) != -1 && <RankList />
+                  }
+                  {
+                    ["tests", "questions", "test", "question"]
+                      .indexOf(this.state.show) != -1
+                    && <Practise />
+                  }
+                </div>}
+              </div>
+            </Scroll>
+          </div>
         </MuiThemeProvider>
       </div>
     );

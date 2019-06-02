@@ -24,12 +24,13 @@ import Actions from "../../resourceManager/actions";
 
 const styles = theme => ({
   card: {
-    width: 500,
+    width: 400,
     opacity: 0.8,
     marginLeft: "auto",
     marginRight: "auto",
     textAlign: "center",
-    marginTop: 30
+    marginTop: 30,
+    marginBottom: 30
   }
 });
 

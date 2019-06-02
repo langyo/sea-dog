@@ -51,7 +51,8 @@ const styles = theme => ({
     marginLeft: "auto",
     marginRight: "auto",
     textAlign: "center",
-    marginTop: 30
+    marginTop: 30,
+    marginBottom: 30
   },
   left: {
     marginRight: "auto"
