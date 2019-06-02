@@ -39,13 +39,14 @@ const styles = theme => ({
   button: {
     width: 150,
     marginRight: "auto",
-    marginLeft: 20
+    marginLeft: 20,
+    marginTop: theme.spacing.unit * 2
   },
   extendedIcon: {
     marginRight: theme.spacing.unit
   },
   card: {
-    width: 500,
+    width: 400,
     opacity: 0.8,
     marginLeft: "auto",
     marginRight: "auto",
@@ -68,6 +69,10 @@ const styles = theme => ({
   },
   peopleName: {
     marginRight: "auto"
+  },
+  input: {
+    width: 150,
+    transform: "translateY(8px)"
   }
 });
 
@@ -95,12 +100,12 @@ class Randomizer extends Reflux.Component {
                 <PacManIcon className={classes.extendedIcon} />
                 生成名单
                 </Button>
-              <FormControl>
+              <FormControl className={classes.input}>
                 <InputLabel htmlFor="memberCount">成员数</InputLabel>
                 <Input
                   id="memberCount"
                   type="text"
-                  value={"0"}
+                  value={this.state.generateCount}
                   color="primary"
                   endAdornment={
                     <InputAdornment position="end">

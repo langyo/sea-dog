@@ -29,7 +29,7 @@ import Actions from "../../resourceManager/actions";
 
 const styles = theme => ({
   card: {
-    width: 600,
+    width: 400,
     opacity: 0.8,
     marginLeft: "auto",
     marginRight: "auto",

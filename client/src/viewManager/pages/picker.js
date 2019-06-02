@@ -28,13 +28,13 @@ const styles = theme => ({
     width: 150,
     marginLeft: "auto",
     marginRight: "auto",
-    transform: "translateX(40px)"
+    transform: "translateX(64px)"
   },
   extendedIcon: {
     marginRight: theme.spacing.unit
   },
   card: {
-    width: 300,
+    width: 400,
     opacity: 0.8,
     marginLeft: "auto",
     marginRight: "auto",
@@ -101,7 +101,7 @@ class Picker extends Reflux.Component {
           <Card className={classes.card}>
             <CardContent>
               <Typography variant="h6">
-                当前个人分数
+                本节课个人分数
               </Typography>
             </CardContent>
             <CardActions>
@@ -127,31 +127,6 @@ class Picker extends Reflux.Component {
                 <PlusIcon />
               </IconButton>
             </CardActions>
-          </Card>
-          <Card className={classes.card}>
-            <CardContent>
-              <Typography variant="h6">
-                战绩
-              </Typography>
-              <Typography variant="body1">
-                本节课已获得：0
-              </Typography>
-              <Typography variant="body1">
-                今日已获得： 0
-              </Typography>
-              <Typography variant="body1">
-                本周已获得：0
-              </Typography>
-              <Typography variant="body1">
-                本月已获得：0
-              </Typography>
-              <Typography variant="body1">
-                所在小组总分：0
-              </Typography>
-              <Typography variant="body1">
-                所在小组排名：0
-              </Typography>
-            </CardContent>
           </Card>
         </div>
       </Fade>

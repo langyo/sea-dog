@@ -24,7 +24,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
-import Switch from "@material-ui/core/Switch";
+import Chip from "@material-ui/core/Chip";
 
 import PacManIcon from "mdi-material-ui/PacMan";
 import StopIcon from "mdi-material-ui/StopCircleOutline";
@@ -46,7 +46,7 @@ const styles = theme => ({
     marginRight: theme.spacing.unit
   },
   card: {
-    width: 500,
+    width: 400,
     opacity: 0.8,
     marginLeft: "auto",
     marginRight: "auto",
@@ -138,10 +138,7 @@ class GroupPicker extends Reflux.Component {
             <CardContent>
               <List>
                 <ListItem>
-                  <Switch className={classes.switch} color="primary" />
-                  <Typography variant="h5" className={classes.peopleGroup}>
-                    测试组名
-                  </Typography>
+                  <Chip label="group" />
                   <Typography variant="h5" className={classes.peopleName}>
                     测试用户
                   </Typography>

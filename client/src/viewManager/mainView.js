@@ -10,6 +10,8 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 
 import red from '@material-ui/core/colors/red';
 
+import CustomScroll from 'react-custom-scroll';
+
 import Appbar from "./views/appbar";
 import WindowManager from "./views/windowManager";
 import FabView from "./views/fab";
@@ -34,7 +36,11 @@ const styles = theme => ({
     padding: 0,
     border: 0
   },
-  toolbar: theme.mixins.toolbar
+  toolbar: theme.mixins.toolbar,
+  body: {
+    overflow: 'hidden',
+    maxHeight: 'calc(100%)'
+  }
 });
 
 class Root extends Reflux.Component {
@@ -79,64 +85,70 @@ class Root extends Reflux.Component {
 
           <div className={classes.toolbar} />
 
-          {this.state.isDesktop && <div>
-            {
-              [""]
-                .indexOf(this.state.show) != -1
-              && <MainPage />
-            }
-            {
-              ["picker", "randomizer", "groupPicker"]
-                .indexOf(this.state.show) != -1
-              && <Picker />
-            }
-            {
-              ["classTable", "classMap"]
-                .indexOf(this.state.show) != -1
-              && <ClassTable />
-            }
-            {
-              ["rankGroup", "rankClass"]
-                .indexOf(this.state.show) != -1 && <RankList />
-            }
-            {
-              ["tests", "questions", "test", "question"]
-                .indexOf(this.state.show) != -1
-              && <Practise />
-            }
-            {
-              ["classManagement", "schoolManagement"]
-                .indexOf(this.state.show) != -1
-              && <Management />
-            }
-          </div>}
 
-          {!this.state.isDesktop && <div>
-            {
-              [""]
-                .indexOf(this.state.show) != -1
-              && <MainPage />
-            }
-            {
-              ["picker", "randomizer", "groupPicker"]
-                .indexOf(this.state.show) != -1
-              && <Picker />
-            }
-            {
-              ["classTable", "classMap"]
-                .indexOf(this.state.show) != -1
-              && <ClassTable />
-            }
-            {
-              ["rankGroup", "rankClass"]
-                .indexOf(this.state.show) != -1 && <RankList />
-            }
-            {
-              ["tests", "questions", "test", "question"]
-                .indexOf(this.state.show) != -1
-              && <Practise />
-            }
-          </div>}
+          <CustomScroll allowOuterScroll>
+            <div className={classes.body}>
+              {this.state.isDesktop && <div>
+                {
+                  [""]
+                    .indexOf(this.state.show) != -1
+                  && <MainPage />
+                }
+                {
+                  ["picker", "randomizer", "groupPicker"]
+                    .indexOf(this.state.show) != -1
+                  && <Picker />
+                }
+                {
+                  ["classTable", "classMap"]
+                    .indexOf(this.state.show) != -1
+                  && <ClassTable />
+                }
+                {
+                  ["rankGroup", "rankClass"]
+                    .indexOf(this.state.show) != -1 && <RankList />
+                }
+                {
+                  ["tests", "questions", "test", "question"]
+                    .indexOf(this.state.show) != -1
+                  && <Practise />
+                }
+                {
+                  ["classManagement", "schoolManagement"]
+                    .indexOf(this.state.show) != -1
+                  && <Management />
+                }
+              </div>}
+
+              {!this.state.isDesktop && <div>
+                {
+                  [""]
+                    .indexOf(this.state.show) != -1
+                  && <MainPage />
+                }
+                {
+                  ["picker", "randomizer", "groupPicker"]
+                    .indexOf(this.state.show) != -1
+                  && <Picker />
+                }
+                {
+                  ["classTable", "classMap"]
+                    .indexOf(this.state.show) != -1
+                  && <ClassTable />
+                }
+                {
+                  ["rankGroup", "rankClass"]
+                    .indexOf(this.state.show) != -1 && <RankList />
+                }
+                {
+                  ["tests", "questions", "test", "question"]
+                    .indexOf(this.state.show) != -1
+                  && <Practise />
+                }
+              </div>}
+            </div>
+          </CustomScroll>
+
         </MuiThemeProvider>
       </div>
     );

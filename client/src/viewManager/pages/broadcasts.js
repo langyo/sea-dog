@@ -34,7 +34,7 @@ const styles = theme => ({
     marginRight: theme.spacing.unit
   },
   card: {
-    width: 500,
+    width: 400,
     opacity: 0.8,
     marginLeft: "auto",
     marginRight: "auto",
