@@ -17,13 +17,15 @@ import PaperIcon from "mdi-material-ui/NoteOutline";
 
 import Stores from "../../resourceManager/stores";
 import Actions from "../../resourceManager/actions";
+import zIndex from "@material-ui/core/styles/zIndex";
 
 const styles = theme => ({
     root: {
         width: '100%',
         bottom: 0,
         left: 0,
-        position: 'absolute'
+        position: 'absolute',
+        zIndex: "1"
     }
 });
 

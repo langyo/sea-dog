@@ -35,7 +35,7 @@ import Actions from "../../resourceManager/actions";
 const styles = theme => ({
   list: {
     width: 250,
-    opacity: 0.8
+    opacity: 0.9
   },
   toolbar: theme.mixins.toolbar,
   line: {

@@ -17,25 +17,34 @@ import Avatar from "@material-ui/core/Avatar";
 
 import MoreIcon from "mdi-material-ui/DotsVertical";
 
+import Scroll from "react-scrollbar";
+
 import Stores from '../../resourceManager/stores';
 import Actions from "../../resourceManager/actions";
 
 const styles = theme => ({
-  root: {
-    display: "flex",
+  outerContainer: {
     width: 400,
-    opacity: 0.8,
+    height: 600,
+    border: "1px solid white",
+    position: "relative",
     marginLeft: "auto",
     marginRight: "auto",
-    marginTop: 30,
-    marginBottom: 30
+    overflow: "hidden",
+    background: "rgba(255, 255, 255, 0.2)"
+  },
+  innerContainer: {
+    position: "absolute",
+    overflowX: "hidden",
+    overflowY: "scroll",
+    left: 0
   },
   card: {
     width: 116 + 84 * 1,
     marginLeft: "auto",
     marginRight: "auto",
     textAlign: "center",
-    marginTop: 30
+    margin: 30
   },
   avatarButton: {
     margin: 10
@@ -56,57 +65,57 @@ class ClassTable extends Reflux.Component {
 
     return (
       <Fade in={true}>
-        <div>
-          <Card className={classes.root}>
-            <Card className={classes.card}>
-              <CardContent>
-                <Grid container justify="center" alignItems="center">
-                  {["喵", "喵", "喵", "喵", "喵", "喵", "喵", "喵"].map(n => (
-                    <IconButton className={classes.avatarButton}>
-                      <Avatar>{n}</Avatar>
-                    </IconButton>
-                  ))}
-                </Grid>
-              </CardContent>
-              <CardActions>
-                <IconButton className={classes.moreButton}>
-                  <MoreIcon />
-                </IconButton>
-              </CardActions>
-            </Card>
-            <Card className={classes.card}>
-              <CardContent>
-                <Grid container justify="center" alignItems="center">
-                  {["喵", "喵", "喵", "喵", "喵", "喵", "喵", "喵"].map(n => (
-                    <IconButton className={classes.avatarButton}>
-                      <Avatar>{n}</Avatar>
-                    </IconButton>
-                  ))}
-                </Grid>
-              </CardContent>
-              <CardActions>
-                <IconButton className={classes.moreButton}>
-                  <MoreIcon />
-                </IconButton>
-              </CardActions>
-            </Card>
-            <Card className={classes.card}>
-              <CardContent>
-                <Grid container justify="center" alignItems="center">
-                  {["喵", "喵", "喵", "喵", "喵", "喵", "喵", "喵"].map(n => (
-                    <IconButton className={classes.avatarButton}>
-                      <Avatar>{n}</Avatar>
-                    </IconButton>
-                  ))}
-                </Grid>
-              </CardContent>
-              <CardActions>
-                <IconButton className={classes.moreButton}>
-                  <MoreIcon />
-                </IconButton>
-              </CardActions>
-            </Card>
-          </Card>
+        <div className={classes.outerContainer}>
+          <div className={classes.innerContainer}>
+              <Card className={classes.card}>
+                <CardContent>
+                  <Grid container justify="center" alignItems="center">
+                    {["喵", "喵", "喵", "喵", "喵", "喵", "喵", "喵"].map(n => (
+                      <IconButton className={classes.avatarButton}>
+                        <Avatar>{n}</Avatar>
+                      </IconButton>
+                    ))}
+                  </Grid>
+                </CardContent>
+                <CardActions>
+                  <IconButton className={classes.moreButton}>
+                    <MoreIcon />
+                  </IconButton>
+                </CardActions>
+              </Card>
+              <Card className={classes.card}>
+                <CardContent>
+                  <Grid container justify="center" alignItems="center">
+                    {["喵", "喵", "喵", "喵", "喵", "喵", "喵", "喵"].map(n => (
+                      <IconButton className={classes.avatarButton}>
+                        <Avatar>{n}</Avatar>
+                      </IconButton>
+                    ))}
+                  </Grid>
+                </CardContent>
+                <CardActions>
+                  <IconButton className={classes.moreButton}>
+                    <MoreIcon />
+                  </IconButton>
+                </CardActions>
+              </Card>
+              <Card className={classes.card}>
+                <CardContent>
+                  <Grid container justify="center" alignItems="center">
+                    {["喵", "喵", "喵", "喵", "喵", "喵", "喵", "喵"].map(n => (
+                      <IconButton className={classes.avatarButton}>
+                        <Avatar>{n}</Avatar>
+                      </IconButton>
+                    ))}
+                  </Grid>
+                </CardContent>
+                <CardActions>
+                  <IconButton className={classes.moreButton}>
+                    <MoreIcon />
+                  </IconButton>
+                </CardActions>
+              </Card>
+          </div>
         </div>
       </Fade>
     );

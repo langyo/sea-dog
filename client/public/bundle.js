@@ -88584,11 +88584,14 @@ const styles = theme => ({
   body: {
     overflow: 'hidden',
     height: 'calc(100%)',
-    width: 'calc(100%)'
+    width: '500px',
+    marginLeft: "auto",
+    marginRight: "auto",
+    position: "relative"
   },
   content: {
     height: 'calc(100%)',
-    width: 'calc(100%)'
+    width: '490px'
   }
 });
 
@@ -88635,16 +88638,9 @@ class Root extends _reflux.default.Component {
       className: classes.toolbar
     }), _react.default.createElement("div", {
       className: classes.body
-    }, _react.default.createElement(_reactScrollbar.default, {
-      horizontal: true,
-      vertical: true,
-      autoHide: false,
-      onScroll: e => console.log("scroll!"),
-      smoothScrolling: true,
-      minScrollSize: 40
     }, _react.default.createElement("div", {
       className: classes.content
-    }, this.state.isDesktop && _react.default.createElement("div", null, [""].indexOf(this.state.show) != -1 && _react.default.createElement(_mainPage.default, null), ["picker", "randomizer", "groupPicker"].indexOf(this.state.show) != -1 && _react.default.createElement(_picker.default, null), ["classTable", "classMap"].indexOf(this.state.show) != -1 && _react.default.createElement(_classTable.default, null), ["rankGroup", "rankClass"].indexOf(this.state.show) != -1 && _react.default.createElement(_rankList.default, null), ["tests", "questions", "test", "question"].indexOf(this.state.show) != -1 && _react.default.createElement(_practise.default, null), ["classManagement", "schoolManagement"].indexOf(this.state.show) != -1 && _react.default.createElement(_management.default, null)), !this.state.isDesktop && _react.default.createElement("div", null, [""].indexOf(this.state.show) != -1 && _react.default.createElement(_mainPage.default, null), ["picker", "randomizer", "groupPicker"].indexOf(this.state.show) != -1 && _react.default.createElement(_picker.default, null), ["classTable", "classMap"].indexOf(this.state.show) != -1 && _react.default.createElement(_classTable.default, null), ["rankGroup", "rankClass"].indexOf(this.state.show) != -1 && _react.default.createElement(_rankList.default, null), ["tests", "questions", "test", "question"].indexOf(this.state.show) != -1 && _react.default.createElement(_practise.default, null)))))));
+    }, this.state.isDesktop && _react.default.createElement("div", null, [""].indexOf(this.state.show) != -1 && _react.default.createElement(_mainPage.default, null), ["picker", "randomizer", "groupPicker"].indexOf(this.state.show) != -1 && _react.default.createElement(_picker.default, null), ["classTable", "classMap"].indexOf(this.state.show) != -1 && _react.default.createElement(_classTable.default, null), ["rankGroup", "rankClass"].indexOf(this.state.show) != -1 && _react.default.createElement(_rankList.default, null), ["tests", "questions", "test", "question"].indexOf(this.state.show) != -1 && _react.default.createElement(_practise.default, null), ["classManagement", "schoolManagement"].indexOf(this.state.show) != -1 && _react.default.createElement(_management.default, null)), !this.state.isDesktop && _react.default.createElement("div", null, [""].indexOf(this.state.show) != -1 && _react.default.createElement(_mainPage.default, null), ["picker", "randomizer", "groupPicker"].indexOf(this.state.show) != -1 && _react.default.createElement(_picker.default, null), ["classTable", "classMap"].indexOf(this.state.show) != -1 && _react.default.createElement(_classTable.default, null), ["rankGroup", "rankClass"].indexOf(this.state.show) != -1 && _react.default.createElement(_rankList.default, null), ["tests", "questions", "test", "question"].indexOf(this.state.show) != -1 && _react.default.createElement(_practise.default, null))))));
   }
 
 }
@@ -89371,6 +89367,8 @@ var _Avatar = _interopRequireDefault(require("@material-ui/core/Avatar"));
 
 var _DotsVertical = _interopRequireDefault(require("mdi-material-ui/DotsVertical"));
 
+var _reactScrollbar = _interopRequireDefault(require("react-scrollbar"));
+
 var _stores = _interopRequireDefault(require("../../resourceManager/stores"));
 
 var _actions = _interopRequireDefault(require("../../resourceManager/actions"));
@@ -89380,21 +89378,28 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
 const styles = theme => ({
-  root: {
-    display: "flex",
+  outerContainer: {
     width: 400,
-    opacity: 0.8,
+    height: 600,
+    border: "1px solid white",
+    position: "relative",
     marginLeft: "auto",
     marginRight: "auto",
-    marginTop: 30,
-    marginBottom: 30
+    overflow: "hidden",
+    background: "rgba(255, 255, 255, 0.2)"
+  },
+  innerContainer: {
+    position: "absolute",
+    overflowX: "hidden",
+    overflowY: "scroll",
+    left: 0
   },
   card: {
     width: 116 + 84 * 1,
     marginLeft: "auto",
     marginRight: "auto",
     textAlign: "center",
-    marginTop: 30
+    margin: 30
   },
   avatarButton: {
     margin: 10
@@ -89416,8 +89421,10 @@ class ClassTable extends _reflux.default.Component {
     } = this.props;
     return _react.default.createElement(_Fade.default, {
       in: true
-    }, _react.default.createElement("div", null, _react.default.createElement(_Card.default, {
-      className: classes.root
+    }, _react.default.createElement("div", {
+      className: classes.outerContainer
+    }, _react.default.createElement("div", {
+      className: classes.innerContainer
     }, _react.default.createElement(_Card.default, {
       className: classes.card
     }, _react.default.createElement(_CardContent.default, null, _react.default.createElement(_Grid.default, {
@@ -89461,7 +89468,7 @@ var _default = (0, _styles.withStyles)(styles)(ClassTable);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":426,"../../resourceManager/stores":440,"@material-ui/core/Avatar":23,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":67,"@material-ui/core/Grid":84,"@material-ui/core/IconButton":88,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"classnames":236,"mdi-material-ui/DotsVertical":319,"prop-types":345,"react":376,"reflux":401,"shortid":411}],467:[function(require,module,exports){
+},{"../../resourceManager/actions":426,"../../resourceManager/stores":440,"@material-ui/core/Avatar":23,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":67,"@material-ui/core/Grid":84,"@material-ui/core/IconButton":88,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"classnames":236,"mdi-material-ui/DotsVertical":319,"prop-types":345,"react":376,"react-scrollbar":364,"reflux":401,"shortid":411}],467:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -90395,6 +90402,8 @@ var _stores = _interopRequireDefault(require("../../resourceManager/stores"));
 
 var _actions = _interopRequireDefault(require("../../resourceManager/actions"));
 
+var _zIndex = _interopRequireDefault(require("@material-ui/core/styles/zIndex"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -90404,7 +90413,8 @@ const styles = theme => ({
     width: '100%',
     bottom: 0,
     left: 0,
-    position: 'absolute'
+    position: 'absolute',
+    zIndex: "1"
   }
 });
 
@@ -90468,7 +90478,7 @@ var _default = (0, _styles.withStyles)(styles)(TheBottomNavigation);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":426,"../../resourceManager/stores":440,"@material-ui/core/BottomNavigation":31,"@material-ui/core/BottomNavigationAction":29,"@material-ui/core/styles":205,"classnames":236,"mdi-material-ui/AccountCircleOutline":316,"mdi-material-ui/CursorDefaultClickOutline":318,"mdi-material-ui/Home":321,"mdi-material-ui/NoteOutline":326,"mdi-material-ui/TrophyVariantOutline":333,"prop-types":345,"react":376,"reflux":401,"shortid":411}],474:[function(require,module,exports){
+},{"../../resourceManager/actions":426,"../../resourceManager/stores":440,"@material-ui/core/BottomNavigation":31,"@material-ui/core/BottomNavigationAction":29,"@material-ui/core/styles":205,"@material-ui/core/styles/zIndex":217,"classnames":236,"mdi-material-ui/AccountCircleOutline":316,"mdi-material-ui/CursorDefaultClickOutline":318,"mdi-material-ui/Home":321,"mdi-material-ui/NoteOutline":326,"mdi-material-ui/TrophyVariantOutline":333,"prop-types":345,"react":376,"reflux":401,"shortid":411}],474:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -90537,7 +90547,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 const styles = theme => ({
   list: {
     width: 250,
-    opacity: 0.8
+    opacity: 0.9
   },
   toolbar: theme.mixins.toolbar,
   line: {
