@@ -57,7 +57,8 @@ class Picker extends Reflux.Component {
   }
 
   handleRoundingToggle = () => {
-    this.setState({ rounding: !this.state.rounding });
+    if(this.state.working) Actions.page.picker.closeRandomPicker();
+    else Actions.page.picker.openRandomPicker();
   };
 
   render() {
@@ -69,7 +70,7 @@ class Picker extends Reflux.Component {
           <Card className={classes.card}>
             <CardContent>
               <Typography variant="h4" gutterBottom>
-                {this.state.nowSelecting}
+                {this.state.nowSelectingLuckyGuy}
               </Typography>
               <Typography variant="caption" gutterBottom>
                 当前正在抽取 ，共 人
@@ -83,15 +84,15 @@ class Picker extends Reflux.Component {
                 onClick={this.handleRoundingToggle}
                 size="large"
               >
-                {!this.state.rounding && (
+                {!this.state.working && (
                   <PacManIcon className={classes.extendedIcon} />
                 )}
-                {!this.state.rounding && "开始点名"}
-                {this.state.rounding && (
+                {!this.state.working && "开始点名"}
+                {this.state.working && (
                   <StopIcon className={classes.extendedIcon} />
 
                 )}
-                {this.state.rounding && "停！"}
+                {this.state.working && "停！"}
               </Button>
               <IconButton className={classes.right}>
                 <MoreVertIcon />

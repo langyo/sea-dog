@@ -86605,7 +86605,7 @@ var _default = {
     classTable: _reflux.default.createActions([]),
     classManagement: _reflux.default.createActions(['appendNewMember']),
     schoolManagement: _reflux.default.createActions([]),
-    picker: _reflux.default.createActions(['scoreAddOne', 'scoreRemoveOne']),
+    picker: _reflux.default.createActions(['scoreAddOne', 'scoreRemoveOne', 'openRandomPicker', 'closeRandomPicker']),
     randomizer: _reflux.default.createActions(['scoreAddOne', 'scoreRemoveOne', 'handleChangeGenerateCountNumber', 'handlePushGenerateCountNumber', 'handlePopGenerateCountNumber']),
     practise: _reflux.default.createActions([]),
     rank: _reflux.default.createActions([])
@@ -86797,12 +86797,21 @@ var _actions = _interopRequireDefault(require("../actions"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 class Picker extends _reflux.default.Store {
   constructor() {
     super();
+
+    _defineProperty(this, "list", ['张三', '李四', '王五']);
+
     this.state = {
       score: 0,
-      nowSelecting: "点击开始"
+      nowSelectingLuckyGuy: "点击开始",
+      nowSelectingGroup: '',
+      nowSelectingGroupType: '',
+      nowSelectingClass: '',
+      working: false
     };
     this.listenToMany(_actions.default.page.picker);
   }
@@ -86816,6 +86825,34 @@ class Picker extends _reflux.default.Store {
   scoreRemoveOne() {
     this.setState({
       score: this.state.score - 1
+    });
+  }
+
+  openRandomPicker() {
+    // const { accounts, groups, nowSelectingGroup} = this.state;
+    // if(!groups[nowSelectingGroup]) return;
+    // this.list = groups[nowSelectingGroup].members.map(n => accounts[n.id].name);
+    this.setState(state => {
+      state.working = true;
+      return state;
+    }, this.generateRandom);
+  }
+
+  generateRandom() {
+    console.log(0);
+    this.setState(state => {
+      state.nowSelectingLuckyGuy = this.list[Math.random() * this.list.length];
+      console.log(1);
+      return state;
+    }, () => {
+      console.log(2);
+      if (this.state.working) requestAnimationFrame(this.generateRandom);
+    });
+  }
+
+  closeRandomPicker() {
+    this.setState({
+      working: false
     });
   }
 
@@ -89724,9 +89761,7 @@ class Picker extends _reflux.default.Component {
     super(props);
 
     _defineProperty(this, "handleRoundingToggle", () => {
-      this.setState({
-        rounding: !this.state.rounding
-      });
+      if (this.state.working) _actions.default.page.picker.closeRandomPicker();else _actions.default.page.picker.openRandomPicker();
     });
 
     this.store = _stores.default.page.picker;
@@ -89743,7 +89778,7 @@ class Picker extends _reflux.default.Component {
     }, _react.default.createElement(_CardContent.default, null, _react.default.createElement(_Typography.default, {
       variant: "h4",
       gutterBottom: true
-    }, this.state.nowSelecting), _react.default.createElement(_Typography.default, {
+    }, this.state.nowSelectingLuckyGuy), _react.default.createElement(_Typography.default, {
       variant: "caption",
       gutterBottom: true
     }, "\u5F53\u524D\u6B63\u5728\u62BD\u53D6 \uFF0C\u5171 \u4EBA")), _react.default.createElement(_CardActions.default, null, _react.default.createElement(_Button.default, {
@@ -89752,11 +89787,11 @@ class Picker extends _reflux.default.Component {
       color: "primary",
       onClick: this.handleRoundingToggle,
       size: "large"
-    }, !this.state.rounding && _react.default.createElement(_PacMan.default, {
+    }, !this.state.working && _react.default.createElement(_PacMan.default, {
       className: classes.extendedIcon
-    }), !this.state.rounding && "开始点名", this.state.rounding && _react.default.createElement(_StopCircleOutline.default, {
+    }), !this.state.working && "开始点名", this.state.working && _react.default.createElement(_StopCircleOutline.default, {
       className: classes.extendedIcon
-    }), this.state.rounding && "停！"), _react.default.createElement(_IconButton.default, {
+    }), this.state.working && "停！"), _react.default.createElement(_IconButton.default, {
       className: classes.right
     }, _react.default.createElement(_DotsVertical.default, null)), ")}")), _react.default.createElement(_Card.default, {
       className: classes.card

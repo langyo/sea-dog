@@ -99,7 +99,9 @@ export default {
         ]),
         picker: Reflux.createActions([
             'scoreAddOne',
-            'scoreRemoveOne'
+            'scoreRemoveOne',
+            'openRandomPicker',
+            'closeRandomPicker'
         ]),
         randomizer: Reflux.createActions([
             'scoreAddOne',
