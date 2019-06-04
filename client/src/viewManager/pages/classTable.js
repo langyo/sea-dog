@@ -23,28 +23,22 @@ import Stores from '../../resourceManager/stores';
 import Actions from "../../resourceManager/actions";
 
 const styles = theme => ({
-  outerContainer: {
+  root: {
     width: 400,
-    height: 600,
-    border: "1px solid white",
+    height: "100%",
     position: "relative",
     marginLeft: "auto",
     marginRight: "auto",
-    overflow: "hidden",
-    background: "rgba(255, 255, 255, 0.2)"
-  },
-  innerContainer: {
-    position: "absolute",
-    overflowX: "hidden",
-    overflowY: "scroll",
-    left: 0
+    padding: 30,
+    background: "rgba(255, 255, 255, 0.6)"
   },
   card: {
-    width: 116 + 84 * 1,
+    width: 116 + 84 * 2,
     marginLeft: "auto",
     marginRight: "auto",
     textAlign: "center",
-    margin: 30
+    opacity: 0.8,
+    margin: 10
   },
   avatarButton: {
     margin: 10
@@ -65,57 +59,23 @@ class ClassTable extends Reflux.Component {
 
     return (
       <Fade in={true}>
-        <div className={classes.outerContainer}>
-          <div className={classes.innerContainer}>
-              <Card className={classes.card}>
-                <CardContent>
-                  <Grid container justify="center" alignItems="center">
-                    {["喵", "喵", "喵", "喵", "喵", "喵", "喵", "喵"].map(n => (
-                      <IconButton className={classes.avatarButton}>
-                        <Avatar>{n}</Avatar>
-                      </IconButton>
-                    ))}
-                  </Grid>
-                </CardContent>
-                <CardActions>
-                  <IconButton className={classes.moreButton}>
-                    <MoreIcon />
+        <div className={classes.root}>
+          <Card className={classes.card}>
+            <CardContent>
+              <Grid container justify="center" alignItems="center">
+                {["喵", "喵", "喵", "喵", "喵", "喵", "喵", "喵"].map(n => (
+                  <IconButton className={classes.avatarButton}>
+                    <Avatar>{n}</Avatar>
                   </IconButton>
-                </CardActions>
-              </Card>
-              <Card className={classes.card}>
-                <CardContent>
-                  <Grid container justify="center" alignItems="center">
-                    {["喵", "喵", "喵", "喵", "喵", "喵", "喵", "喵"].map(n => (
-                      <IconButton className={classes.avatarButton}>
-                        <Avatar>{n}</Avatar>
-                      </IconButton>
-                    ))}
-                  </Grid>
-                </CardContent>
-                <CardActions>
-                  <IconButton className={classes.moreButton}>
-                    <MoreIcon />
-                  </IconButton>
-                </CardActions>
-              </Card>
-              <Card className={classes.card}>
-                <CardContent>
-                  <Grid container justify="center" alignItems="center">
-                    {["喵", "喵", "喵", "喵", "喵", "喵", "喵", "喵"].map(n => (
-                      <IconButton className={classes.avatarButton}>
-                        <Avatar>{n}</Avatar>
-                      </IconButton>
-                    ))}
-                  </Grid>
-                </CardContent>
-                <CardActions>
-                  <IconButton className={classes.moreButton}>
-                    <MoreIcon />
-                  </IconButton>
-                </CardActions>
-              </Card>
-          </div>
+                ))}
+              </Grid>
+            </CardContent>
+            <CardActions>
+              <IconButton className={classes.moreButton}>
+                <MoreIcon />
+              </IconButton>
+            </CardActions>
+          </Card>
         </div>
       </Fade>
     );

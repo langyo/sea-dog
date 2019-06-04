@@ -89378,28 +89378,22 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
 const styles = theme => ({
-  outerContainer: {
+  root: {
     width: 400,
-    height: 600,
-    border: "1px solid white",
+    height: "100%",
     position: "relative",
     marginLeft: "auto",
     marginRight: "auto",
-    overflow: "hidden",
-    background: "rgba(255, 255, 255, 0.2)"
-  },
-  innerContainer: {
-    position: "absolute",
-    overflowX: "hidden",
-    overflowY: "scroll",
-    left: 0
+    padding: 30,
+    background: "rgba(255, 255, 255, 0.6)"
   },
   card: {
-    width: 116 + 84 * 1,
+    width: 116 + 84 * 2,
     marginLeft: "auto",
     marginRight: "auto",
     textAlign: "center",
-    margin: 30
+    opacity: 0.8,
+    margin: 10
   },
   avatarButton: {
     margin: 10
@@ -89422,9 +89416,7 @@ class ClassTable extends _reflux.default.Component {
     return _react.default.createElement(_Fade.default, {
       in: true
     }, _react.default.createElement("div", {
-      className: classes.outerContainer
-    }, _react.default.createElement("div", {
-      className: classes.innerContainer
+      className: classes.root
     }, _react.default.createElement(_Card.default, {
       className: classes.card
     }, _react.default.createElement(_CardContent.default, null, _react.default.createElement(_Grid.default, {
@@ -89435,27 +89427,7 @@ class ClassTable extends _reflux.default.Component {
       className: classes.avatarButton
     }, _react.default.createElement(_Avatar.default, null, n))))), _react.default.createElement(_CardActions.default, null, _react.default.createElement(_IconButton.default, {
       className: classes.moreButton
-    }, _react.default.createElement(_DotsVertical.default, null)))), _react.default.createElement(_Card.default, {
-      className: classes.card
-    }, _react.default.createElement(_CardContent.default, null, _react.default.createElement(_Grid.default, {
-      container: true,
-      justify: "center",
-      alignItems: "center"
-    }, ["喵", "喵", "喵", "喵", "喵", "喵", "喵", "喵"].map(n => _react.default.createElement(_IconButton.default, {
-      className: classes.avatarButton
-    }, _react.default.createElement(_Avatar.default, null, n))))), _react.default.createElement(_CardActions.default, null, _react.default.createElement(_IconButton.default, {
-      className: classes.moreButton
-    }, _react.default.createElement(_DotsVertical.default, null)))), _react.default.createElement(_Card.default, {
-      className: classes.card
-    }, _react.default.createElement(_CardContent.default, null, _react.default.createElement(_Grid.default, {
-      container: true,
-      justify: "center",
-      alignItems: "center"
-    }, ["喵", "喵", "喵", "喵", "喵", "喵", "喵", "喵"].map(n => _react.default.createElement(_IconButton.default, {
-      className: classes.avatarButton
-    }, _react.default.createElement(_Avatar.default, null, n))))), _react.default.createElement(_CardActions.default, null, _react.default.createElement(_IconButton.default, {
-      className: classes.moreButton
-    }, _react.default.createElement(_DotsVertical.default, null)))))));
+    }, _react.default.createElement(_DotsVertical.default, null))))));
   }
 
 }
