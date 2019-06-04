@@ -3,7 +3,7 @@ import { EventEmitter } from 'events';
 
 import Actions from "../actions";
 
-let client = new WebSocket("ws://localhost:9201");
+let client = new WebSocket("ws://seadog.langyo.xyz:9201");
 
 let dashboard;
 

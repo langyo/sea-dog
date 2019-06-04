@@ -50,7 +50,7 @@ export default class PluginDashboard {
         }), ['execute']);
     }
 
-    _sendMessage(...args) {
+    _sendMessage(args) {
         console.log("Socket Manager 即将发送", args);
         let cmd = args.reduce((prev, next) => prev + ' ' + next);
         let type = /^(execute|data).*$/.exec(cmd)[1];

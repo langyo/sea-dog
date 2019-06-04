@@ -87058,7 +87058,7 @@ class PluginDashboard {
     PluginDashboard.receiveObject = diff(obj, this.receiveObject);
   }
 
-  _sendMessage(...args) {
+  _sendMessage(args) {
     console.log("Socket Manager 即将发送", args);
     let cmd = args.reduce((prev, next) => prev + ' ' + next);
     let type = /^(execute|data).*$/.exec(cmd)[1];
@@ -87094,7 +87094,7 @@ var _actions = _interopRequireDefault(require("../actions"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-let client = new WebSocket("ws://localhost:9201");
+let client = new WebSocket("ws://seadog.langyo.xyz:9201");
 let dashboard;
 let clientConnectionEventEmitter = new _events.EventEmitter();
 
