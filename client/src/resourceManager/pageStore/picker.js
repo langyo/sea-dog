@@ -41,22 +41,14 @@ class Picker extends Reflux.Store {
 
         // this.list = groups[nowSelectingGroup].members.map(n => accounts[n.id].name);
 
-        this.setState(state => {
-            state.working = true
-            return state;
-        }, this.generateRandom)
+        this.setState({ working: true });
+        this.generateRandom();
     }
 
-    generateRandom() {
-        console.log(0)
-        this.setState(state => {
-            state.nowSelectingLuckyGuy = this.list[Math.random() * this.list.length];
-            console.log(1);
-            return state;
-        }, () => {
-            console.log(2);
-            if(this.state.working) requestAnimationFrame(this.generateRandom);
-        })
+    generateRandom = () => {
+        let n = Math.ceil(Math.random() * this.list.length);
+        this.setState({ nowSelectingLuckyGuy: n >= this.list.length ? "运气不佳 :P" : this.list[n] });
+        if (this.state.working) requestAnimationFrame(this.generateRandom);
     }
 
     closeRandomPicker() {

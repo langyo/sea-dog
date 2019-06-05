@@ -86805,6 +86805,14 @@ class Picker extends _reflux.default.Store {
 
     _defineProperty(this, "list", ['张三', '李四', '王五']);
 
+    _defineProperty(this, "generateRandom", () => {
+      let n = Math.ceil(Math.random() * this.list.length);
+      this.setState({
+        nowSelectingLuckyGuy: n >= this.list.length ? "运气不佳 :P" : this.list[n]
+      });
+      if (this.state.working) requestAnimationFrame(this.generateRandom);
+    });
+
     this.state = {
       score: 0,
       nowSelectingLuckyGuy: "点击开始",
@@ -86832,22 +86840,10 @@ class Picker extends _reflux.default.Store {
     // const { accounts, groups, nowSelectingGroup} = this.state;
     // if(!groups[nowSelectingGroup]) return;
     // this.list = groups[nowSelectingGroup].members.map(n => accounts[n.id].name);
-    this.setState(state => {
-      state.working = true;
-      return state;
-    }, this.generateRandom);
-  }
-
-  generateRandom() {
-    console.log(0);
-    this.setState(state => {
-      state.nowSelectingLuckyGuy = this.list[Math.random() * this.list.length];
-      console.log(1);
-      return state;
-    }, () => {
-      console.log(2);
-      if (this.state.working) requestAnimationFrame(this.generateRandom);
+    this.setState({
+      working: true
     });
+    this.generateRandom();
   }
 
   closeRandomPicker() {
