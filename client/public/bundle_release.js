@@ -86605,7 +86605,7 @@ var _default = {
     classTable: _reflux.default.createActions([]),
     classManagement: _reflux.default.createActions(['appendNewMember']),
     schoolManagement: _reflux.default.createActions([]),
-    picker: _reflux.default.createActions(['scoreAddOne', 'scoreRemoveOne']),
+    picker: _reflux.default.createActions(['scoreAddOne', 'scoreRemoveOne', 'openRandomPicker', 'closeRandomPicker']),
     randomizer: _reflux.default.createActions(['scoreAddOne', 'scoreRemoveOne', 'handleChangeGenerateCountNumber', 'handlePushGenerateCountNumber', 'handlePopGenerateCountNumber']),
     practise: _reflux.default.createActions([]),
     rank: _reflux.default.createActions([])
@@ -86732,9 +86732,13 @@ class Drawer extends _reflux.default.Store {
     super();
     this.state = {
       broadcasts: [{
-        title: "正在建设中",
+        title: "欢迎使用「海点」！",
         date: getNowDate(),
-        description: "现在正在建设，请耐心等待……"
+        description: "海点是一套为校园提供课上点名、加分与排名的信息平台，可用于丰富课堂体验、提高课堂效率。\n这是一个响应式单页面应用，并且依赖于在线数据库。您可以在任何带有现代浏览器的平台上使用本应用。请注意使用时保证网络畅通！\n点击左上角的菜单按钮开始使用！~"
+      }, {
+        title: "依赖库说明",
+        date: getNowDate(),
+        description: "基底：Node.js\n前端页面构建：React、Reflux、Material-UI、mdi-material-ui\n后端通讯与数据库：Socket.io-websocket、Mongoose、MongoDB、Express\n服务器提供商：阿里云"
       }]
     };
     this.listenToMany(_actions.default.view.drawer);
@@ -86797,12 +86801,29 @@ var _actions = _interopRequireDefault(require("../actions"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 class Picker extends _reflux.default.Store {
   constructor() {
     super();
+
+    _defineProperty(this, "list", ['张三', '李四', '王五']);
+
+    _defineProperty(this, "generateRandom", () => {
+      let n = Math.ceil(Math.random() * this.list.length);
+      this.setState({
+        nowSelectingLuckyGuy: n >= this.list.length ? "运气不佳 :P" : this.list[n]
+      });
+      if (this.state.working) requestAnimationFrame(this.generateRandom);
+    });
+
     this.state = {
       score: 0,
-      nowSelecting: "点击开始"
+      nowSelectingLuckyGuy: "点击开始",
+      nowSelectingGroup: '',
+      nowSelectingGroupType: '',
+      nowSelectingClass: '',
+      working: false
     };
     this.listenToMany(_actions.default.page.picker);
   }
@@ -86816,6 +86837,22 @@ class Picker extends _reflux.default.Store {
   scoreRemoveOne() {
     this.setState({
       score: this.state.score - 1
+    });
+  }
+
+  openRandomPicker() {
+    // const { accounts, groups, nowSelectingGroup} = this.state;
+    // if(!groups[nowSelectingGroup]) return;
+    // this.list = groups[nowSelectingGroup].members.map(n => accounts[n.id].name);
+    this.setState({
+      working: true
+    });
+    this.generateRandom();
+  }
+
+  closeRandomPicker() {
+    this.setState({
+      working: false
     });
   }
 
@@ -87021,7 +87058,7 @@ class PluginDashboard {
     PluginDashboard.receiveObject = diff(obj, this.receiveObject);
   }
 
-  _sendMessage(...args) {
+  _sendMessage(args) {
     console.log("Socket Manager 即将发送", args);
     let cmd = args.reduce((prev, next) => prev + ' ' + next);
     let type = /^(execute|data).*$/.exec(cmd)[1];
@@ -87057,7 +87094,7 @@ var _actions = _interopRequireDefault(require("../actions"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-let client = new WebSocket("ws://localhost:9201");
+let client = new WebSocket("ws://seadog.langyo.xyz:9201");
 let dashboard;
 let clientConnectionEventEmitter = new _events.EventEmitter();
 
@@ -88918,8 +88955,8 @@ const styles = theme => ({
     marginLeft: "auto",
     marginRight: "auto",
     textAlign: "center",
-    marginTop: 30,
-    marginBottom: 30
+    marginTop: 25,
+    marginBottom: 5
   },
   left: {
     marginRight: "auto"
@@ -88932,6 +88969,9 @@ const styles = theme => ({
   },
   textRight: {
     textAlign: "Right"
+  },
+  textMargin: {
+    marginBottom: 5
   }
 });
 
@@ -88954,9 +88994,10 @@ class Picker extends _reflux.default.Component {
     } = this.props;
     return _react.default.createElement(_Fade.default, {
       in: true
-    }, _react.default.createElement("div", null, _react.default.createElement(_Card.default, {
-      className: classes.card
-    }, _react.default.createElement(_CardContent.default, null, this.state.broadcasts.map((n, index) => _react.default.createElement("div", {
+    }, _react.default.createElement("div", null, this.state.broadcasts.map((n, index) => _react.default.createElement(_Card.default, {
+      className: classes.card,
+      key: index
+    }, _react.default.createElement(_CardContent.default, null, _react.default.createElement("div", {
       key: index
     }, _react.default.createElement(_Typography.default, {
       variant: "h5",
@@ -88964,10 +89005,11 @@ class Picker extends _reflux.default.Component {
     }, n.title), _react.default.createElement(_Typography.default, {
       variant: "caption",
       className: classes.textLeft
-    }, n.date), _react.default.createElement(_Typography.default, {
+    }, n.date), n.description.split('\n').map((str, subIndex) => _react.default.createElement(_Typography.default, {
       variant: "body1",
-      className: classes.textLeft
-    }, n.description)))))));
+      className: (0, _classnames.default)(classes.textLeft, classes.textMargin),
+      key: subIndex
+    }, str))))))));
   }
 
 }
@@ -89378,28 +89420,22 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
 const styles = theme => ({
-  outerContainer: {
+  root: {
     width: 400,
-    height: 600,
-    border: "1px solid white",
+    height: "100%",
     position: "relative",
     marginLeft: "auto",
     marginRight: "auto",
-    overflow: "hidden",
-    background: "rgba(255, 255, 255, 0.2)"
-  },
-  innerContainer: {
-    position: "absolute",
-    overflowX: "hidden",
-    overflowY: "scroll",
-    left: 0
+    padding: 30,
+    background: "rgba(255, 255, 255, 0.6)"
   },
   card: {
-    width: 116 + 84 * 1,
+    width: 116 + 84 * 2,
     marginLeft: "auto",
     marginRight: "auto",
     textAlign: "center",
-    margin: 30
+    opacity: 0.8,
+    margin: 10
   },
   avatarButton: {
     margin: 10
@@ -89422,9 +89458,7 @@ class ClassTable extends _reflux.default.Component {
     return _react.default.createElement(_Fade.default, {
       in: true
     }, _react.default.createElement("div", {
-      className: classes.outerContainer
-    }, _react.default.createElement("div", {
-      className: classes.innerContainer
+      className: classes.root
     }, _react.default.createElement(_Card.default, {
       className: classes.card
     }, _react.default.createElement(_CardContent.default, null, _react.default.createElement(_Grid.default, {
@@ -89435,27 +89469,7 @@ class ClassTable extends _reflux.default.Component {
       className: classes.avatarButton
     }, _react.default.createElement(_Avatar.default, null, n))))), _react.default.createElement(_CardActions.default, null, _react.default.createElement(_IconButton.default, {
       className: classes.moreButton
-    }, _react.default.createElement(_DotsVertical.default, null)))), _react.default.createElement(_Card.default, {
-      className: classes.card
-    }, _react.default.createElement(_CardContent.default, null, _react.default.createElement(_Grid.default, {
-      container: true,
-      justify: "center",
-      alignItems: "center"
-    }, ["喵", "喵", "喵", "喵", "喵", "喵", "喵", "喵"].map(n => _react.default.createElement(_IconButton.default, {
-      className: classes.avatarButton
-    }, _react.default.createElement(_Avatar.default, null, n))))), _react.default.createElement(_CardActions.default, null, _react.default.createElement(_IconButton.default, {
-      className: classes.moreButton
-    }, _react.default.createElement(_DotsVertical.default, null)))), _react.default.createElement(_Card.default, {
-      className: classes.card
-    }, _react.default.createElement(_CardContent.default, null, _react.default.createElement(_Grid.default, {
-      container: true,
-      justify: "center",
-      alignItems: "center"
-    }, ["喵", "喵", "喵", "喵", "喵", "喵", "喵", "喵"].map(n => _react.default.createElement(_IconButton.default, {
-      className: classes.avatarButton
-    }, _react.default.createElement(_Avatar.default, null, n))))), _react.default.createElement(_CardActions.default, null, _react.default.createElement(_IconButton.default, {
-      className: classes.moreButton
-    }, _react.default.createElement(_DotsVertical.default, null)))))));
+    }, _react.default.createElement(_DotsVertical.default, null))))));
   }
 
 }
@@ -89752,9 +89766,7 @@ class Picker extends _reflux.default.Component {
     super(props);
 
     _defineProperty(this, "handleRoundingToggle", () => {
-      this.setState({
-        rounding: !this.state.rounding
-      });
+      if (this.state.working) _actions.default.page.picker.closeRandomPicker();else _actions.default.page.picker.openRandomPicker();
     });
 
     this.store = _stores.default.page.picker;
@@ -89771,7 +89783,7 @@ class Picker extends _reflux.default.Component {
     }, _react.default.createElement(_CardContent.default, null, _react.default.createElement(_Typography.default, {
       variant: "h4",
       gutterBottom: true
-    }, this.state.nowSelecting), _react.default.createElement(_Typography.default, {
+    }, this.state.nowSelectingLuckyGuy), _react.default.createElement(_Typography.default, {
       variant: "caption",
       gutterBottom: true
     }, "\u5F53\u524D\u6B63\u5728\u62BD\u53D6 \uFF0C\u5171 \u4EBA")), _react.default.createElement(_CardActions.default, null, _react.default.createElement(_Button.default, {
@@ -89780,11 +89792,11 @@ class Picker extends _reflux.default.Component {
       color: "primary",
       onClick: this.handleRoundingToggle,
       size: "large"
-    }, !this.state.rounding && _react.default.createElement(_PacMan.default, {
+    }, !this.state.working && _react.default.createElement(_PacMan.default, {
       className: classes.extendedIcon
-    }), !this.state.rounding && "开始点名", this.state.rounding && _react.default.createElement(_StopCircleOutline.default, {
+    }), !this.state.working && "开始点名", this.state.working && _react.default.createElement(_StopCircleOutline.default, {
       className: classes.extendedIcon
-    }), this.state.rounding && "停！"), _react.default.createElement(_IconButton.default, {
+    }), this.state.working && "停！"), _react.default.createElement(_IconButton.default, {
       className: classes.right
     }, _react.default.createElement(_DotsVertical.default, null)), ")}")), _react.default.createElement(_Card.default, {
       className: classes.card
