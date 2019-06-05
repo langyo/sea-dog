@@ -86732,9 +86732,13 @@ class Drawer extends _reflux.default.Store {
     super();
     this.state = {
       broadcasts: [{
-        title: "正在建设中",
+        title: "欢迎使用「海点」！",
         date: getNowDate(),
-        description: "现在正在建设，请耐心等待……"
+        description: "海点是一套为校园提供课上点名、加分与排名的信息平台，可用于丰富课堂体验、提高课堂效率。\n这是一个响应式单页面应用，并且依赖于在线数据库。您可以在任何带有现代浏览器的平台上使用本应用。请注意使用时保证网络畅通！\n点击左上角的菜单按钮开始使用！~"
+      }, {
+        title: "依赖库说明",
+        date: getNowDate(),
+        description: "基底：Node.js\n前端页面构建：React、Reflux、Material-UI、mdi-material-ui\n后端通讯与数据库：Socket.io-websocket、Mongoose、MongoDB、Express\n服务器提供商：阿里云"
       }]
     };
     this.listenToMany(_actions.default.view.drawer);
@@ -88951,8 +88955,8 @@ const styles = theme => ({
     marginLeft: "auto",
     marginRight: "auto",
     textAlign: "center",
-    marginTop: 30,
-    marginBottom: 30
+    marginTop: 25,
+    marginBottom: 5
   },
   left: {
     marginRight: "auto"
@@ -88965,6 +88969,9 @@ const styles = theme => ({
   },
   textRight: {
     textAlign: "Right"
+  },
+  textMargin: {
+    marginBottom: 5
   }
 });
 
@@ -88987,9 +88994,10 @@ class Picker extends _reflux.default.Component {
     } = this.props;
     return _react.default.createElement(_Fade.default, {
       in: true
-    }, _react.default.createElement("div", null, _react.default.createElement(_Card.default, {
-      className: classes.card
-    }, _react.default.createElement(_CardContent.default, null, this.state.broadcasts.map((n, index) => _react.default.createElement("div", {
+    }, _react.default.createElement("div", null, this.state.broadcasts.map((n, index) => _react.default.createElement(_Card.default, {
+      className: classes.card,
+      key: index
+    }, _react.default.createElement(_CardContent.default, null, _react.default.createElement("div", {
       key: index
     }, _react.default.createElement(_Typography.default, {
       variant: "h5",
@@ -88997,10 +89005,11 @@ class Picker extends _reflux.default.Component {
     }, n.title), _react.default.createElement(_Typography.default, {
       variant: "caption",
       className: classes.textLeft
-    }, n.date), _react.default.createElement(_Typography.default, {
+    }, n.date), n.description.split('\n').map((str, subIndex) => _react.default.createElement(_Typography.default, {
       variant: "body1",
-      className: classes.textLeft
-    }, n.description)))))));
+      className: (0, _classnames.default)(classes.textLeft, classes.textMargin),
+      key: subIndex
+    }, str))))))));
   }
 
 }

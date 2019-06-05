@@ -29,9 +29,14 @@ class Drawer extends Reflux.Store {
         this.state = {
             broadcasts: [
                 {
-                    title: "正在建设中",
+                    title: "欢迎使用「海点」！",
                     date: getNowDate(),
-                    description: "现在正在建设，请耐心等待……"
+                    description: "海点是一套为校园提供课上点名、加分与排名的信息平台，可用于丰富课堂体验、提高课堂效率。\n这是一个响应式单页面应用，并且依赖于在线数据库。您可以在任何带有现代浏览器的平台上使用本应用。请注意使用时保证网络畅通！\n点击左上角的菜单按钮开始使用！~"
+                },
+                {
+                    title: "依赖库说明",
+                    date: getNowDate(),
+                    description: "基底：Node.js\n前端页面构建：React、Reflux、Material-UI、mdi-material-ui\n后端通讯与数据库：Socket.io-websocket、Mongoose、MongoDB、Express\n服务器提供商：阿里云"
                 }
             ]
         };

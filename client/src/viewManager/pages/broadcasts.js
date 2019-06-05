@@ -39,8 +39,8 @@ const styles = theme => ({
     marginLeft: "auto",
     marginRight: "auto",
     textAlign: "center",
-    marginTop: 30,
-    marginBottom: 30
+    marginTop: 25,
+    marginBottom: 5
   },
   left: {
     marginRight: "auto"
@@ -53,6 +53,9 @@ const styles = theme => ({
   },
   textRight: {
     textAlign: "Right"
+  },
+  textMargin: {
+    marginBottom: 5
   }
 });
 
@@ -72,10 +75,10 @@ class Picker extends Reflux.Component {
     return (
       <Fade in={true}>
         <div>
-          <Card className={classes.card}>
-            <CardContent>
-              {
-                this.state.broadcasts.map((n, index) => (
+          {
+            this.state.broadcasts.map((n, index) => (
+              <Card className={classes.card} key={index}>
+                <CardContent>
                   <div key={index}>
                     <Typography variant="h5" className={classes.textLeft}>
                       {n.title}
@@ -83,14 +86,18 @@ class Picker extends Reflux.Component {
                     <Typography variant="caption" className={classes.textLeft}>
                       {n.date}
                     </Typography>
-                    <Typography variant="body1" className={classes.textLeft}>
-                      {n.description}
-                    </Typography>
+                    {
+                      n.description.split('\n').map((str, subIndex) => (
+                        <Typography variant="body1" className={classNames(classes.textLeft, classes.textMargin)} key={subIndex}>
+                          {str}
+                        </Typography>
+                      ))
+                    }
                   </div>
-                ))
-              }
-            </CardContent>
-          </Card>
+                </CardContent>
+              </Card>
+            ))
+          }
         </div>
       </Fade>
     );
