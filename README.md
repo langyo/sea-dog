@@ -4,6 +4,16 @@
 
 [旧版仓库地址](https://github.com/langyo/random_picker)
 
+## 名字渊源
+
+sea dog 不是海狗！它是俚语，意思是“老水手”~
+
+该套件最初是为本人的物理老师开发的，但后来恰逢学校提出了加分机制，于是本人就灵光一闪，尝试为这套机制配上实施的硬件。
+
+海纳百川，有容乃大。这个套件致力于优化课堂体验，不止步于点名，也不止步于加分，一切可能会对课堂有所帮助的功能都会逐渐地加入进来，造福社会。
+
+Enjoy!
+
 ## 安装
 
 在您为本地机器安装前，请先安装 [Git](https://git-scm.com/downloads)，[Node](https://nodejs.org/en/) 与 (MongoDB)[https://www.mongodb.com/download-center/community]，然后运行本目录下的 setup.bat。

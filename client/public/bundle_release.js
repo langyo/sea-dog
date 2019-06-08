@@ -87750,13 +87750,28 @@ class About extends _reflux.default.Component {
     }, "\u6B22\u8FCE\u4F7F\u7528\u201C\u6D77\u70B9\u201D\u70B9\u540D\u5668\uFF01"), _react.default.createElement(_Typography.default, {
       paragraph: true,
       variant: "body1"
-    }, "\u6709\u9053\u201C\u6D77\u7EB3\u767E\u5DDD\uFF0C\u6709\u5BB9\u4E43\u5927\u201D\uFF0C\u672C\u6B3E\u70B9\u540D\u5668\u4EE5\u6B64\u4E3A\u5BD3\u610F\uFF0C\u5E0C\u671B\u65E2\u80FD\u8D77\u5230\u70B9\u540D\u7684\u4F5C\u7528\uFF0C\u53C8\u80FD\u8BA9\u4F7F\u7528\u672C\u70B9\u540D\u5668\u7684\u8BFE\u5802\u6216\u8005\u6D3B\u52A8\u6709\u7740\u5927\u6D77\u4E00\u822C\u7684\u5E0C\u671B\u548C\u6DF1\u5EA6\u3002"), _react.default.createElement(_Button.default, {
+    }, "\u6D77\u70B9\u662F\u4E00\u6B3E\u4E13\u7528\u4E8E\u6821\u56ED\u7684\u70B9\u8BC4\u670D\u52A1\u5957\u4EF6\uFF0C\u540C\u65F6\u5305\u542B\u5BA2\u6237\u7AEF\u4E0E\u670D\u52A1\u7AEF\uFF0C\u7528\u4E8E\u8BFE\u4E0A\u7684\u70B9\u540D\u3001\u52A0\u5206\uFF0C\u4EE5\u63D0\u9AD8\u5B66\u751F\u8BFE\u5802\u6548\u7387\u3002"), _react.default.createElement(_Typography.default, {
+      paragraph: true,
+      variant: "body1"
+    }, "sea dog \u4E0D\u662F\u6D77\u72D7\uFF01\u5B83\u662F\u4FDA\u8BED\uFF0C\u610F\u601D\u662F\u201C\u8001\u6C34\u624B\u201D~"), _react.default.createElement(_Typography.default, {
+      paragraph: true,
+      variant: "body1"
+    }, "\u8BE5\u5957\u4EF6\u6700\u521D\u662F\u4E3A\u672C\u4EBA\u7684\u7269\u7406\u8001\u5E08\u5F00\u53D1\u7684\uFF0C\u4F46\u540E\u6765\u6070\u9022\u5B66\u6821\u63D0\u51FA\u4E86\u52A0\u5206\u673A\u5236\uFF0C\u4E8E\u662F\u672C\u4EBA\u5C31\u7075\u5149\u4E00\u95EA\uFF0C\u5C1D\u8BD5\u4E3A\u8FD9\u5957\u673A\u5236\u914D\u4E0A\u5B9E\u65BD\u7684\u786C\u4EF6\u3002"), _react.default.createElement(_Typography.default, {
+      paragraph: true,
+      variant: "body1"
+    }, "\u6D77\u7EB3\u767E\u5DDD\uFF0C\u6709\u5BB9\u4E43\u5927\u3002\u8FD9\u4E2A\u5957\u4EF6\u81F4\u529B\u4E8E\u4F18\u5316\u8BFE\u5802\u4F53\u9A8C\uFF0C\u4E0D\u6B62\u6B65\u4E8E\u70B9\u540D\uFF0C\u4E5F\u4E0D\u6B62\u6B65\u4E8E\u52A0\u5206\uFF0C\u4E00\u5207\u53EF\u80FD\u4F1A\u5BF9\u8BFE\u5802\u6709\u6240\u5E2E\u52A9\u7684\u529F\u80FD\u90FD\u4F1A\u9010\u6E10\u5730\u52A0\u5165\u8FDB\u6765\uFF0C\u9020\u798F\u793E\u4F1A\u3002"), _react.default.createElement(_Typography.default, {
+      paragraph: true,
+      variant: "body1"
+    }, "Enjoy!"), _react.default.createElement(_Button.default, {
       variant: "contained",
       onClick: () => window.open("https://github.com/langyo/sea-dog")
     }, "\u8BE5\u8F6F\u4EF6\u7684\u5F00\u6E90\u5730\u5740"), _react.default.createElement(_Typography.default, {
       paragraph: true,
       variant: "body1"
-    }, "(https://github.com/langyo/sea-dog)")), _react.default.createElement(_DialogActions.default, null, _react.default.createElement(_Button.default, {
+    }, "(https://github.com/langyo/sea-dog)"), _react.default.createElement(_Typography.default, {
+      paragraph: true,
+      variant: "body1"
+    }, "\u76EE\u524D\u8BE5\u8F6F\u4EF6\u4ECD\u7136\u5904\u4E8E\u534A\u5B8C\u5DE5\u72B6\u6001\uFF0C\u7248\u672C\u5728\u6240\u6709\u57FA\u672C\u529F\u80FD\u5B8C\u6210\u4E4B\u524D\u4E00\u76F4\u4F1A\u5B9A\u683C\u5728 v0.1.0\u3002")), _react.default.createElement(_DialogActions.default, null, _react.default.createElement(_Button.default, {
       onClick: this.handleCloseDialog,
       color: "primary"
     }, "确定")));
