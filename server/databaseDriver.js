@@ -489,31 +489,31 @@ db.on('open', () => {
           // 由于 Promise 无法传参，所以在新建 Promise 时会先调用外层的工厂函数，得到的内部函数才能交给 Promise 正常使用
           const selectors = {
             // 根表选择器
-            "class": {
+            "classes": {
               argsCount: 1,
               func: (db, id) => Class.findOne({ _id: id })
             },
-            "account": {
+            "accounts": {
               argsCount: 1,
               func: (db, id) => Account.findOne({ id: id })
             },
-            "broadcast": {
+            "broadcasts": {
               argsCount: 1,
               func: (db, id) => BroadCast.findOne({ id: id })
             },
-            "classtable": {
+            "classTables": {
               argsCount: 1,
               func: (db, id) => ClassTable.findOne({ id: id })
             },
-            "globalusergroup": {
+            "globalUserGroups": {
               argsCount: 1,
               func: (db, id) => GlobalUserGroup.findOne({ id: id })
             },
-            "usergroup": {
+            "userGroup": {
               argsCount: 1,
               func: (db, id) => UserGroup.findOne({ id: id })
             },
-            "grouptype": {
+            "groupType": {
               argsCount: 1,
               func: (db, id) => GroupType.findOne({ id: id })
             },
@@ -529,11 +529,11 @@ db.on('open', () => {
               argsCount: 1,
               func: (db, id) => Test.findOne({ id: id })
             },
-            "scoregroup": {
+            "scoreGroup": {
               argsCount: 1,
               func: (db, id) => ScoreGroup.findOne({ id: id })
             },
-            "scoretype": {
+            "scoreType": {
               argsCount: 1,
               func: (db, id) => ScoreType.findOne({ id: id })
             }
@@ -545,7 +545,7 @@ db.on('open', () => {
               func: (db, objName) => (resolve, reject) => {
                 db.exec((err, doc) => {
                   if (err) this.send("fail", "" + err);
-                  if (doc && doc[objName]) resolve(doc[objName]);
+                  if (doc && doc[objName]) resolve(objName + " " + doc[objName]);
                   else console.log(doc), reject("没有这个值！");
                 });
               }
@@ -567,7 +567,7 @@ db.on('open', () => {
 
                   doc.save(err => {
                     if (err) reject("数据库保存失败！（也许是没有权限？）：" + err);
-                    else resolve("ok");
+                    else resolve(objName + " " + "ok");
                   });
                 });
               }
@@ -590,7 +590,7 @@ db.on('open', () => {
 
                   doc.save(err => {
                     if (err) reject("数据库保存失败！（也许是没有权限？）：" + err);
-                    else resolve("ok");
+                    else resolve(objName + " " + "ok");
                   });
                 })
               }
@@ -613,7 +613,7 @@ db.on('open', () => {
 
                   doc.save(err => {
                     if (err) reject("数据库保存失败！（也许是没有权限？）：" + err);
-                    else resolve("ok");
+                    else resolve(objName + " " + "ok");
                   });
                 })
               }
@@ -632,12 +632,13 @@ db.on('open', () => {
                     return reject("数据库保存失败，理由是 list 无法处理非数组的操作：" + objName);
 
                   if (!numberRound || !selection)
-                    return reject("数据库操作失败，你传输的参数有问题！");
+                    return reject("数据库操作失败，你传输的参数有问题！"); 
 
                   let match = /^([0-9]+)\.\.([0-9]*)$/.exec(numberRound);
                   console.log("参数解析结果：", match);
-                  let list = selection == "id" 
-                    ? doc[objName].map(n => n[id].toString())
+                  console.log("数据：", doc[objName][0].toString());
+                  let list = selection == "id"
+                    ? doc[objName].map(n => n["id"].toString())
                     : doc[objName].map(n => n[selection]);
                   console.log("列表解析结果：", list);
                   if (match[2]) {
@@ -646,7 +647,7 @@ db.on('open', () => {
                     list = list.slice(+match[1]);
                   }
                   let str = list.reduce((prev, next) => prev + " " + next);
-                  resolve(str);
+                  resolve(objName + " " + str);
                 })
               }
             },
@@ -663,7 +664,7 @@ db.on('open', () => {
                   else if (!Array.isArray(doc[objName]))
                     return reject("数据库保存失败，理由是 count 无法处理非数组的操作：" + objName);
 
-                  resolve(doc[objName].length);
+                  resolve(objName + " " + doc[objName].length);
                 })
               }
             },
@@ -718,19 +719,19 @@ db.on('open', () => {
               argsCount: 0,
               func: () => BroadCast.find({})
             },
-            "classtables": {
+            "classTables": {
               argsCount: 0,
               func: () => ClassTable.find({})
             },
-            "globalusergroups": {
+            "globalUserGroups": {
               argsCount: 0,
               func: () => GlobalUserGroup.find({})
             },
-            "usergroups": {
+            "userGroups": {
               argsCount: 0,
               func: () => UserGroup.find({})
             },
-            "grouptypes": {
+            "groupTypes": {
               argsCount: 0,
               func: () => GroupType.find({})
             },
@@ -746,11 +747,11 @@ db.on('open', () => {
               argsCount: 0,
               func: () => Test.find({})
             },
-            "scoregroups": {
+            "scoreGroups": {
               argsCount: 0,
               func: () => ScoreGroup.find({})
             },
-            "scoretypes": {
+            "scoreTypes": {
               argsCount: 0,
               func: () => ScoreType.find({})
             }

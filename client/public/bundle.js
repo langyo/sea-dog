@@ -86582,9 +86582,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 let classes = {};
 var _default = {
   database: {
-    accounts: _reflux.default.createActions(['updateAccountByDatabase', 'login', 'logout', 'register']),
-    classes: _reflux.default.createActions(['addGroup', 'addMember', 'removeGroup', 'removeMember', 'updateGroup', 'updateMember', 'updateMembersByDatabase']),
-    groups: _reflux.default.createActions(['addMember', 'removeMember', 'updateMember', 'updateGroupTypeByDatabase', 'updateGroupByDatabase'])
+    accounts: _reflux.default.createActions(['updateAccountByDatabase', 'login', 'logout', 'register', 'generateList', 'initializeList', 'updateByDatabase']),
+    classes: _reflux.default.createActions(['addGroup', 'addMember', 'removeGroup', 'removeMember', 'updateGroup', 'updateMember', 'generateList', 'initializeList', 'updateByDatabase']),
+    groups: _reflux.default.createActions(['addMember', 'removeMember', 'updateMember', 'generateList', 'initializeList', 'updateByDatabase'])
   },
   view: {
     drawer: _reflux.default.createActions(['toggleTo', 'reset', 'toggleDrawerOpen']),
@@ -86797,6 +86797,8 @@ var _reflux = _interopRequireDefault(require("reflux"));
 
 var _database = _interopRequireDefault(require("../database"));
 
+var _webSocketClient = require("../socketMessageManager/webSocketClient");
+
 var _actions = _interopRequireDefault(require("../actions"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -86806,8 +86808,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 class Picker extends _reflux.default.Store {
   constructor() {
     super();
-
-    _defineProperty(this, "list", ['张三', '李四', '王五']);
 
     _defineProperty(this, "generateRandom", () => {
       let n = Math.ceil(Math.random() * this.list.length);
@@ -86841,9 +86841,13 @@ class Picker extends _reflux.default.Store {
   }
 
   openRandomPicker() {
-    // const { accounts, groups, nowSelectingGroup} = this.state;
-    // if(!groups[nowSelectingGroup]) return;
-    // this.list = groups[nowSelectingGroup].members.map(n => accounts[n.id].name);
+    const {
+      accounts,
+      groups,
+      nowSelectingGroup
+    } = this.state;
+    if (!groups[nowSelectingGroup]) return;
+    this.list = groups[nowSelectingGroup].members.map(n => accounts[n.id].name);
     this.setState({
       working: true
     });
@@ -86862,7 +86866,7 @@ var _default = new Picker();
 
 exports.default = _default;
 
-},{"../actions":426,"../database":427,"reflux":401}],434:[function(require,module,exports){
+},{"../actions":426,"../database":427,"../socketMessageManager/webSocketClient":439,"reflux":401}],434:[function(require,module,exports){
 arguments[4][429][0].apply(exports,arguments)
 },{"dup":429}],435:[function(require,module,exports){
 "use strict";
@@ -87641,17 +87645,17 @@ _webSocketClient.connectionEvents.on("load", () => {
         if (state == "success") {
           switch (cmd) {
             case "count":
-              if (!_actions.default.databse[name]) return console.error("data 指令出现了问题，没有名为", name, "的数据存储 Store！");
-              if (typeof list[0] != "number") return console.error("data 指令出现了问题，list count 参数", list[0], "不是数字！");
+              if (!_actions.default.database[name]) return console.error("data 指令出现了问题，没有名为", name, "的数据存储 Store！");
+              if (typeof list[0] != "number") return console.error("data 指令出现了问题，list count 参数", list[0], "不是数字！"); // 开始批量获取 ID
 
-              _actions.default.database[name].updateDatabase(list[0]);
+              _actions.default.database[name].generateList(0, list[0]);
 
               break;
 
             case "list":
-              if (!_actions.default.database[nae]) return console.error("data 指令出现了问题，没有名为", name, "的数据存储 Store！");
+              if (!_actions.default.database[name]) return console.error("data 指令出现了问题，没有名为", name, "的数据存储 Store！");
 
-              _actions.default.database[name].pushListFromDatabase(Array.prototype.slice.call(list));
+              _actions.default.database[name].initializeList(Array.prototype.slice.call(list));
 
               break;
 
@@ -87659,6 +87663,24 @@ _webSocketClient.connectionEvents.on("load", () => {
               console.error("data 指令出现了问题，无法识别", cmd, "指令！");
           }
         } else console.error("data 指令出现了问题，指令状态报头为", state);
+      },
+      at: function (name, id, _run, cmd, state, key, value) {
+        if (state == "success") {
+          switch (cmd) {
+            case "get":
+              _actions.default.database[name].updateByDatabase(id, key, value);
+
+              break;
+
+            case "set":
+            case "add":
+            case "remove":
+            case "list":
+            case "count":
+            default:
+              console.error("data 指令出现了问题，无法识别", cmd, "指令！");
+          }
+        }
       }
     }
   });
