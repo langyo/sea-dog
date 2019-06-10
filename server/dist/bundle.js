@@ -500,7 +500,7 @@ db.on('open', () => {
               argsCount: 1,
               func: (db, objName) => (resolve, reject) => {
                 db.exec((err, doc) => {
-                  if (err) this.send("fail", "" + err);
+                  if (err) this.send("fail", err.toString());
                   if (doc && doc[objName]) resolve(objName + " " + doc[objName]);else console.log(doc), reject("没有这个值！");
                 });
               }
@@ -509,7 +509,7 @@ db.on('open', () => {
               argsCount: 2,
               func: (db, objName, value) => (resolve, reject) => {
                 db.exec((err, doc) => {
-                  if (err) this.send("fail", "" + err);
+                  if (err) this.send("fail", err.toString());
                   if (!doc) return reject("数据库保存失败，压根就没查到你要的表！");else if (!doc[objName]) return reject("数据库保存失败，理由是没有这个键：" + objName);else if (Array.isArray(doc[objName])) return reject("数据库保存失败，理由是 set 无法处理数组的操作：" + objName);
                   doc[objName] = value;
                   doc.save(err => {
@@ -522,7 +522,7 @@ db.on('open', () => {
               argsCount: 2,
               func: (db, objName, value) => (resolve, reject) => {
                 db.exec((err, doc) => {
-                  if (err) this.send("fail", "" + err);
+                  if (err) this.send("fail", err.toString());
                   if (!doc) return reject("数据库保存失败，压根就没查到你要的表！");else if (!doc[objName]) return reject("数据库保存失败，理由是没有这个键：" + objName);else if (!Array.isArray(doc[objName])) return reject("数据库保存失败，理由是 add 无法处理非数组的操作：" + objName);
                   if (!doc.indexOf(objName)) doc[objName].push(value);else reject("已经有这个元素了！");
                   doc.save(err => {
@@ -535,7 +535,7 @@ db.on('open', () => {
               argsCount: 2,
               func: (db, objName, value) => (resolve, reject) => {
                 db.exec((err, doc) => {
-                  if (err) this.send("fail", "" + err);
+                  if (err) this.send("fail", err.toString());
                   if (!doc) return reject("数据库保存失败，压根就没查到你要的表！");else if (!doc[objName]) return reject("数据库保存失败，理由是没有这个键：" + objName);else if (!Array.isArray(doc[objName])) return reject("数据库保存失败，理由是 remove 无法处理非数组的操作：" + objName);
                   doc[objName] = doc[objName].filter(n => n.id != value);
                   console.log(doc[objName]);
@@ -549,7 +549,7 @@ db.on('open', () => {
               argsCount: 3,
               func: (db, objName, numberRound, selection) => (resolve, reject) => {
                 db.exec((err, doc) => {
-                  if (err) this.send("fail", "" + err);
+                  if (err) this.send("fail", err.toString());
                   if (!doc) return reject("数据库保存失败，压根就没查到你要的表！");else if (!doc[objName]) return reject("数据库保存失败，理由是没有这个键：" + objName);else if (!Array.isArray(doc[objName])) return reject("数据库保存失败，理由是 list 无法处理非数组的操作：" + objName);
                   if (!numberRound || !selection) return reject("数据库操作失败，你传输的参数有问题！");
                   let match = /^([0-9]+)\.\.([0-9]*)$/.exec(numberRound);
@@ -580,7 +580,7 @@ db.on('open', () => {
               argsCount: 1,
               func: (db, objName) => (resolve, reject) => {
                 db.exec((err, doc) => {
-                  if (err) this.send("fail", "" + err);
+                  if (err) this.send("fail", err.toString());
                   if (!doc) return reject("数据库保存失败，压根就没查到你要的表！");else if (!doc[objName]) return reject("数据库保存失败，理由是没有这个键：" + objName);else if (!Array.isArray(doc[objName])) return reject("数据库保存失败，理由是 count 无法处理非数组的操作：" + objName);
                   resolve(objName + " " + doc[objName].length);
                 });
@@ -590,8 +590,8 @@ db.on('open', () => {
 
           const run_evaluator = (db, args) => {
             if (evaluators[args[0]]) {
-              new Promise(evaluators[args[0]].func.apply(null, [db].concat(args.slice(1)))).then(res => this.send("success", res)).catch(err => this.send("fail", "" + err));
-            } else this.send("不存在这个执行方法！", args[0]);
+              new Promise(evaluators[args[0]].func.apply(null, [db].concat(args.slice(1)))).then(res => this.send("success", res)).catch(err => this.send("fail", err.toString()));
+            } else this.send("fail", "不存在这个执行方法！", args[0]);
           }; // 开始递归 selector
 
 
@@ -606,7 +606,7 @@ db.on('open', () => {
             if (selectors[args[0]]) {
               console.log("即将传入新一轮 selector 的指令：", args.slice(1 + selectors[args[0]].argsCount));
               dfs_selector(selectors[args[0]].func.apply(null, [db].concat(args.slice(1, 1 + selectors[args[0]].argsCount))), args.slice(1 + selectors[args[0]].argsCount));
-            } else this.send("不存在这个选择器！", args[0]);
+            } else this.send("fail", "不存在这个选择器！", args[0]);
           };
 
           dfs_selector(db, args);
@@ -674,14 +674,14 @@ db.on('open', () => {
 
                 if (match[2]) {
                   db.skip(+match[1]).limit(+match[2] - match[1]).exec((err, doc) => {
-                    if (err) this.send("fail", "" + err);
+                    if (err) this.send("fail", err.toString());
                     if (!doc) return reject("数据库查询失败，压根就没查到你要的表！");
                     let ret = doc.map(n => n.id.toString());
                     resolve(ret);
                   });
                 } else {
                   db.skip(+match[1]).exec((err, doc) => {
-                    if (err) this.send("fail", "" + err);
+                    if (err) this.send("fail", err.toString());
                     if (!doc) return reject("数据库查询失败，压根就没查到你要的表！");
                     let ret = doc.map(n => n.id.toString());
                     resolve(ret);
@@ -693,7 +693,7 @@ db.on('open', () => {
               argsCount: 0,
               func: db => (resolve, reject) => {
                 db.count((err, num) => {
-                  if (err) this.send("fail", "" + err);
+                  if (err) this.send("fail", err.toString());
                   resolve(num);
                 });
               }
@@ -702,8 +702,8 @@ db.on('open', () => {
 
           const run_evaluator = (db, args) => {
             if (evaluators[args[0]]) {
-              new Promise(evaluators[args[0]].func.apply(null, [db].concat(args.slice(1)))).then(res => this.send("success", res)).catch(err => this.send("fail", "" + err));
-            } else this.send("不存在这个执行方法！", args[0]);
+              new Promise(evaluators[args[0]].func.apply(null, [db].concat(args.slice(1)))).then(res => this.send("success", res)).catch(err => this.send("fail", err.toString()));
+            } else this.send("fail", "不存在这个执行方法！", args[0]);
           }; // 开始递归 selector
 
 
@@ -718,10 +718,69 @@ db.on('open', () => {
             if (selectors[args[0]]) {
               console.log("即将传入新一轮 selector 的指令：", args.slice(1 + selectors[args[0]].argsCount));
               dfs_selector(selectors[args[0]].func.apply(null, [db].concat(args.slice(1, 1 + selectors[args[0]].argsCount))), args.slice(1 + selectors[args[0]].argsCount));
-            } else this.send("不存在这个选择器！", args[0]);
+            } else this.send("fail", "不存在这个选择器！", args[0]);
           };
 
           dfs_selector(db, args);
+        },
+        doc: function (name, cmd, id) {
+          const docs = {
+            "classes": Class,
+            "accounts": Account,
+            "broadcasts": BroadCast,
+            "classTables": ClassTable,
+            "globalUserGroups": GlobalUserGroup,
+            "userGroups": UserGroup,
+            "groupTypes": GroupType,
+            "themes": Theme,
+            "questions": Question,
+            "tests": Test,
+            "scoreGroups": ScoreGroup,
+            "scoreTypes": ScoreType
+          };
+          const docDefault = {
+            "classes": {
+              name: "新班级"
+            },
+            "accounts": {
+              name: "新用户"
+            },
+            "broadcasts": {},
+            "classTables": {},
+            "globalUserGroups": {},
+            "userGroups": {},
+            "groupTypes": {},
+            "themes": {},
+            "questions": {},
+            "tests": {},
+            "scoreGroups": {},
+            "scoreTypes": {}
+          };
+
+          if (!docs[name] || !docDefault[name]) {
+            this.send("fail", "不存在这个表！");
+            return;
+          }
+
+          switch (cmd) {
+            case "create":
+              let n = new docs[name](docDefault[name]);
+              n.save(err => {
+                if (err) this.send("fail", "存储失败, " + err);else this.send("success", n.id);
+              });
+              return;
+
+            case "remove":
+              docs[name].remove({
+                '_id': id
+              }, (err, msg) => {
+                if (err) this.send("fail", err.toString());else this.send("success", msg.toString());
+              });
+              return;
+
+            default:
+              this.send("fail", "无法识别的指令：" + cmd);
+          }
         }
       }
     });
