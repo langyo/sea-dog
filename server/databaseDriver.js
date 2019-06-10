@@ -636,13 +636,18 @@ db.on('open', () => {
 
                   let match = /^([0-9]+)\.\.([0-9]*)$/.exec(numberRound);
                   console.log("参数解析结果：", match);
-                  console.log("数据：", doc[objName][0].toString());
+                  console.log('objName:', objName);
                   let list = selection == "id"
-                    ? doc[objName].map(n => n["id"].toString())
+                    ? doc[objName].map(n => {
+                      n = n.toObject();
+                      let str = "";
+                      for(let i = 0; i < 24; ++i) str += n["" + i];
+                      return str;
+                    })
                     : doc[objName].map(n => n[selection]);
                   console.log("列表解析结果：", list);
                   if (match[2]) {
-                    list = list.slice(+match[1], +match[2]);
+                    list = list.slice(+match[1], +match[2] + 1);
                   } else {
                     list = list.slice(+match[1]);
                   }
