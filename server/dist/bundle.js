@@ -431,67 +431,67 @@ db.on('open', () => {
             "accounts": {
               argsCount: 1,
               func: (db, id) => Account.findOne({
-                id: id
+                _id: id
               })
             },
             "broadcasts": {
               argsCount: 1,
               func: (db, id) => BroadCast.findOne({
-                id: id
+                _id: id
               })
             },
             "classTables": {
               argsCount: 1,
               func: (db, id) => ClassTable.findOne({
-                id: id
+                _id: id
               })
             },
             "globalUserGroups": {
               argsCount: 1,
               func: (db, id) => GlobalUserGroup.findOne({
-                id: id
+                _id: id
               })
             },
             "userGroup": {
               argsCount: 1,
               func: (db, id) => UserGroup.findOne({
-                id: id
+                _id: id
               })
             },
             "groupType": {
               argsCount: 1,
               func: (db, id) => GroupType.findOne({
-                id: id
+                _id: id
               })
             },
             "theme": {
               argsCount: 1,
               func: (db, id) => Theme.findOne({
-                id: id
+                _id: id
               })
             },
             "question": {
               argsCount: 1,
               func: (db, id) => Question.findOne({
-                id: id
+                _id: id
               })
             },
             "test": {
               argsCount: 1,
               func: (db, id) => Test.findOne({
-                id: id
+                _id: id
               })
             },
             "scoreGroup": {
               argsCount: 1,
               func: (db, id) => ScoreGroup.findOne({
-                id: id
+                _id: id
               })
             },
             "scoreType": {
               argsCount: 1,
               func: (db, id) => ScoreType.findOne({
-                id: id
+                _id: id
               })
             }
           };
@@ -524,7 +524,7 @@ db.on('open', () => {
                 db.exec((err, doc) => {
                   if (err) this.send("fail", err.toString());
                   if (!doc) return reject("数据库保存失败，压根就没查到你要的表！");else if (!doc[objName]) return reject("数据库保存失败，理由是没有这个键：" + objName);else if (!Array.isArray(doc[objName])) return reject("数据库保存失败，理由是 add 无法处理非数组的操作：" + objName);
-                  if (!doc.indexOf(objName)) doc[objName].push(value);else reject("已经有这个元素了！");
+                  if (doc[objName].indexOf(value) == -1) doc[objName].push(value);else reject("已经有这个元素了！");
                   doc.save(err => {
                     if (err) reject("数据库保存失败！（也许是没有权限？）：" + err);else resolve(objName + " " + "ok");
                   });
@@ -555,14 +555,8 @@ db.on('open', () => {
                   let match = /^([0-9]+)\.\.([0-9]*)$/.exec(numberRound);
                   console.log("参数解析结果：", match);
                   console.log('objName:', objName);
-                  let list = selection == "id" ? doc[objName].map(n => {
-                    n = n.toObject();
-                    let str = "";
-
-                    for (let i = 0; i < 24; ++i) str += n["" + i];
-
-                    return str;
-                  }) : doc[objName].map(n => n[selection]);
+                  console.log('doc[objName]:', doc[objName]);
+                  let list = selection == "id" ? doc[objName].map(n => n._id) : doc[objName].map(n => n[selection]);
                   console.log("列表解析结果：", list);
 
                   if (match[2]) {
@@ -673,17 +667,17 @@ db.on('open', () => {
                 let match = /^([0-9]+)\.\.([0-9]*)$/.exec(numberRound);
 
                 if (match[2]) {
-                  db.skip(+match[1]).limit(+match[2] - match[1]).exec((err, doc) => {
+                  db.skip(+match[1]).limit(+match[2] - match[1] + 1).exec((err, doc) => {
                     if (err) this.send("fail", err.toString());
                     if (!doc) return reject("数据库查询失败，压根就没查到你要的表！");
-                    let ret = doc.map(n => n.id.toString());
+                    let ret = doc.map(n => n.id.toString()).reduce((prev, next) => prev + " " + next);
                     resolve(ret);
                   });
                 } else {
                   db.skip(+match[1]).exec((err, doc) => {
                     if (err) this.send("fail", err.toString());
                     if (!doc) return reject("数据库查询失败，压根就没查到你要的表！");
-                    let ret = doc.map(n => n.id.toString());
+                    let ret = doc.map(n => n.id.toString()).reduce((prev, next) => prev + " " + next);
                     resolve(ret);
                   });
                 }
@@ -723,7 +717,7 @@ db.on('open', () => {
 
           dfs_selector(db, args);
         },
-        doc: function (name, cmd, id) {
+        doc: function (name, _run, cmd, id) {
           const docs = {
             "classes": Class,
             "accounts": Account,
