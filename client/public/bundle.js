@@ -86584,7 +86584,8 @@ var _default = {
   database: {
     accounts: _reflux.default.createActions(['updateAccountByDatabase', 'login', 'logout', 'register', 'generateList', 'initializeList', 'updateByDatabase']),
     classes: _reflux.default.createActions(['addGroup', 'addMember', 'removeGroup', 'removeMember', 'updateGroup', 'updateMember', 'generateList', 'initializeList', 'updateByDatabase']),
-    groups: _reflux.default.createActions(['addMember', 'removeMember', 'updateMember', 'generateList', 'initializeList', 'updateByDatabase'])
+    groups: _reflux.default.createActions(['addMember', 'removeMember', 'updateMember', 'generateList', 'initializeList', 'updateByDatabase']),
+    groupTypes: _reflux.default.createActions(['addGroup', 'removeGroup', 'updateGroup', 'generateList', 'initializeList', 'updateByDatabase'])
   },
   view: {
     drawer: _reflux.default.createActions(['toggleTo', 'reset', 'toggleDrawerOpen']),
@@ -86656,17 +86657,39 @@ class Classes extends _reflux.default.Store {
       classes: []
     };
     this.listenToMany(_actions.default.database.classes);
+  } // 用于获取 ID 列表
+
+
+  generateList(from, globalCount) {
+    const skip = 10;
+    let to = from + skip;
+    if (from >= globalCount) return;else if (to >= globalCount) to = globalCount - 1;
+    send("execute", "database list classes run list", from + ".." + to);
+    this.generateList(to + 1, globalCount);
+  } // 用于读取 ID 列表中各个 ID 对应对象的数据
+
+
+  initializeList(list) {
+    let n = this.state.classes; // 初始化
+
+    for (let i of list) n[i] = {};
+
+    this.setState({
+      classes: n
+    }); // 对每一项逐个请求
+
+    for (let i of list) {
+      send("execute", "database at classes", i, "run get", "name");
+    }
   }
 
-  updateMembersByDatabase(members) {
-    let className = members[0];
-    members = members.slice(1);
-    let diff = this.state.classes;
-    if (diff[className] == undefined) diff[className] = {};
-    diff[className].members = members.reduce((prev, next) => prev.indexOf(next) != -1 ? prev : prev.push(next));
+  updateByDatabase(id, key, value) {
+    let n = this.state.classes[id];
+    n[key] = value;
     this.setState({
-      classes: diff
+      classes: n
     });
+    console.log("当前的 classes：", n);
   }
 
   addGroup() {}
@@ -87006,6 +87029,7 @@ class PluginDashboard {
     });
 
     _defineProperty(this, "_receiveMessagePre", str => {
+      console.log("服务器发送信息：", str);
       if (str[0] == '@') return;
       this.buffer += str + '\n';
       let cmds = this.buffer.split('\n');
@@ -87049,9 +87073,10 @@ class PluginDashboard {
     this.registerObject = {};
     this.receiveObject = {};
 
-    conn.onmessagg = data => this._receiveMessage(data.data);
+    conn.onmessage = data => this._receiveMessagePre(data.data);
 
     this.userId = null;
+    this.buffer = "";
   }
 
   register(obj) {
@@ -87641,12 +87666,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 _webSocketClient.connectionEvents.on("load", () => {
   (0, _webSocketClient.receive)({
     database: {
-      list: function (name, _run, cmd, state, ...list) {
+      list: function (name, cmd, state, ...list) {
         if (state == "success") {
           switch (cmd) {
             case "count":
               if (!_actions.default.database[name]) return console.error("data 指令出现了问题，没有名为", name, "的数据存储 Store！");
               if (typeof list[0] != "number") return console.error("data 指令出现了问题，list count 参数", list[0], "不是数字！"); // 开始批量获取 ID
+
+              console.log("开始获取", name, "的 id 列表...");
 
               _actions.default.database[name].generateList(0, list[0]);
 
@@ -87654,6 +87681,7 @@ _webSocketClient.connectionEvents.on("load", () => {
 
             case "list":
               if (!_actions.default.database[name]) return console.error("data 指令出现了问题，没有名为", name, "的数据存储 Store！");
+              console.log("拉取到了", name, "的 id 列表", list);
 
               _actions.default.database[name].initializeList(Array.prototype.slice.call(list));
 
@@ -87664,7 +87692,7 @@ _webSocketClient.connectionEvents.on("load", () => {
           }
         } else console.error("data 指令出现了问题，指令状态报头为", state);
       },
-      at: function (name, id, _run, cmd, state, key, value) {
+      at: function (name, id, cmd, state, key, value) {
         if (state == "success") {
           switch (cmd) {
             case "get":

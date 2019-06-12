@@ -25,9 +25,10 @@ export default class PluginDashboard {
         this.connection = conn;
         this.registerObject = {};
         this.receiveObject = {};
-        conn.onmessagg = (data) => this._receiveMessage(data.data);
+        conn.onmessage = (data) => this._receiveMessagePre(data.data);
 
         this.userId = null;
+        this.buffer = "";
     }
 
     register(obj) {
@@ -66,6 +67,7 @@ export default class PluginDashboard {
     }
 
     _receiveMessagePre = (str) => {
+        console.log("服务器发送信息：", str);
         if (str[0] == '@') return;
         this.buffer += str + '\n';
         let cmds = this.buffer.split('\n');

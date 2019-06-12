@@ -34,6 +34,15 @@ export default {
       'generateList',
       'initializeList',
       'updateByDatabase'
+    ]),
+    groupTypes: Reflux.createActions([
+      'addGroup',
+      'removeGroup',
+      'updateGroup',
+
+      'generateList',
+      'initializeList',
+      'updateByDatabase'
     ])
   },
 
