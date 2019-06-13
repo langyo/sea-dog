@@ -5,8 +5,8 @@
   "main": "bundle.js",
   "scripts": {
     "start": "node ./dist/bundle.js",
-    "watch": "watchify ./databaseDriver.js -t babelify -o ./dist/bundle.js --release --verbose",
-    "build": "browserify ./databaseDriver.js -o ./dist/bundle.js -t babelify",
+    "watch": "watchify ./commandRegister.js -t babelify -o ./dist/bundle.js --release --verbose",
+    "build": "browserify ./commandRegister.js -o ./dist/bundle.js -t babelify",
     "test": "jest --watch"
   },
   "author": "langyo",

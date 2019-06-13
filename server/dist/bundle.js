@@ -3,419 +3,24 @@
 
 var _webSocketServer = require("./webSocketServer");
 
-var _types = require("@jest/types");
+var _databaseDriver = _interopRequireDefault(require("./databaseDriver"));
 
-const mongoose = eval('require\("mongoose"\)');
-let db = mongoose.createConnection('mongodb://localhost/test');
-db.on('error', e => console.error(e));
-db.on('open', () => {
-  console.log("数据库连接成功");
-  const ObjectId = mongoose.Schema.Types.ObjectId;
-  let PathSchema = mongoose.Schema({
-    theClass: String,
-    groupType: String,
-    group: String,
-    member: String
-  });
-  let ScoreSchema = mongoose.Schema({
-    at: {
-      type: ObjectId,
-      ref: "ScoreType"
-    },
-    value: Number
-  });
-  let ExpressionSchema = mongoose.Schema({
-    path: PathSchema,
-    tag: Boolean
-  });
-  let ExpressionGroupSchema = mongoose.Schema({
-    read: [ExpressionSchema],
-    write: [ExpressionSchema],
-    add: [ExpressionSchema],
-    minus: [ExpressionSchema]
-  });
-  let TradeRuleSchema = mongoose.Schema({
-    from: {
-      type: ObjectId,
-      ref: "ScoreType"
-    },
-    to: {
-      type: ObjectId,
-      ref: "ScoreType"
-    },
-    weight: {
-      from: Number,
-      to: Number,
-      decimalPartRule: {
-        type: String,
-        enum: ['toZero', 'toOne', 'nearly'] // 分别代表抹零、进一和四舍五入
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-      }
-    }
-  });
-  let ScoreTypeSchema = mongoose.Schema({
-    name: {
-      type: String,
-      index: true
-    },
-    description: String,
-    tradeRules: [TradeRuleSchema],
-    virtual: Boolean // 默认为假；如果为真，这个分数的加减会带动其它与之相关联的分数的加减，也就是具有绑定性，加减规则直接使用 tradeRules 记录的信息
-
-  });
-  let ScoreGroupSchema = mongoose.Schema({
-    name: {
-      type: String,
-      index: true
-    },
-    description: String,
-    usingScoreTypes: [{
-      type: ObjectId,
-      ref: 'ScoreType'
-    }]
-  });
-  let ClassTableItemSchema = mongoose.Schema({
-    timeForm: Date,
-    timeTo: Date,
-    dateFrom: Date,
-    dateTo: Date,
-    subject: String,
-    repeatAt: {
-      type: String,
-      enum: ['Mon', 'Tue', 'Wed', 'Thr', 'Fri', 'Sat', 'Sun']
-    }
-  });
-  let ClassTableSchema = mongoose.Schema({
-    description: String,
-    name: {
-      type: String,
-      index: true
-    },
-    timeLine: [ClassTableItemSchema],
-    userType: {
-      type: String,
-      enum: ['student', 'teacher']
-    }
-  });
-  let ConfigSchema = mongoose.Schema({
-    allow: [{
-      type: String,
-      enum: ['createQuestion', 'forkQuestion', 'deleteQuestion', 'createTest', 'watchTestResult', 'forkTest', 'deleteTest', 'setTheme', 'root']
-    }],
-    disallow: [{
-      type: String,
-      enum: ['createQuestion', 'forkQuestion', 'deleteQuestion', 'createTest', 'watchTestResult', 'forkTest', 'deleteTest', 'setTheme', 'root']
-    }]
-  });
-  let ClassStateSchema = mongoose.Schema({
-    isHavingClass: {
-      type: String,
-      enum: ['begin', // 正常上课
-      'over', // 下课
-      'continue' // 拖堂
-      ]
-    },
-    nowTeacher: {
-      type: ObjectId,
-      ref: 'Account'
-    }
-  });
-  let ProvideSchema = mongoose.Schema({
-    to: {
-      type: String,
-      enum: ['class', 'group', 'member']
-    },
-    atClass: {
-      type: ObjectId,
-      ref: 'Class'
-    },
-    atGroup: {
-      type: ObjectId,
-      ref: 'Group'
-    },
-    atMember: {
-      type: ObjectId,
-      ref: 'Account'
-    }
-  });
-  let QuestionSchema = mongoose.Schema({
-    owner: {
-      type: ObjectId,
-      ref: 'Account',
-      index: true
-    },
-    forkFrom: {
-      type: ObjectId,
-      ref: 'Question'
-    },
-    questionType: {
-      type: String,
-      enum: ['objective', // 客观题
-      'subjective' // 主观题
-      ]
-    },
-    description: String,
-    // 允许使用 Markdown
-    answer: [String],
-    // 如果为客观题，则存储的是各个选项的编号，并且如果多于一个则成为多选题；
-    // 如果为主观题，则存储的是候选答案，并且如果多于一个则该题答案不唯一；
-    // 如果为空，则默认为由教师自行检阅
-    createTime: Date,
-    deleted: {
-      type: Boolean,
-      default: false
-    },
-    provideTo: [{
-      type: ObjectId,
-      ref: 'Provide',
-      index: true
-    }]
-  });
-  let TestSchema = mongoose.Schema({
-    owner: {
-      type: ObjectId,
-      ref: 'Account'
-    },
-    forkFrom: {
-      type: ObjectId,
-      ref: 'Test'
-    },
-    questions: [{
-      type: ObjectId,
-      ref: 'Question'
-    }],
-    createTime: Date,
-    beginAt: Date,
-    endAt: Date,
-    deleted: {
-      type: Boolean,
-      default: false
-    },
-    provideTo: ProvideSchema
-  });
-  let AccountHistorySchema = mongoose.Schema({
-    practiced: {
-      questions: [{
-        at: {
-          type: ObjectId,
-          ref: 'Question'
-        },
-        timeLine: [{
-          time: Date,
-          answer: String
-        }]
-      }],
-      test: [{
-        at: {
-          type: ObjectId,
-          ref: 'Test'
-        },
-        timeLine: [{
-          time: Date,
-          answer: String
-        }]
-      }]
-    },
-    picked: [{
-      teacher: {
-        type: ObjectId,
-        ref: 'Account'
-      },
-      timeLine: [Date]
-    }]
-  });
-  let ThemeSchema = mongoose.Schema({
-    picture: String,
-    // BASE64
-    isVR: {
-      type: Boolean,
-      default: false,
-      index: true
-    },
-    primaryColor: String,
-    secondaryColor: String,
-    opacity: Number,
-    mobileTheme: {
-      type: String,
-      enum: ['android', 'ios'],
-      index: true
-    }
-  });
-  let BroadcastSchema = mongoose.Schema({
-    whoCanView: [{
-      type: ObjectId,
-      ref: 'UserGroup'
-    }],
-    // 如果为空，则所有人都看得到
-    date: {
-      type: Date,
-      index: true
-    },
-    message: String,
-    // 允许使用 Markdown
-    title: String
-  });
-  let GlobalUserGroupSchema = mongoose.Schema({
-    name: {
-      type: String,
-      index: true
-    },
-    scoreExpression: ExpressionGroupSchema,
-    userExpression: ExpressionGroupSchema
-  });
-  let UserGroupSchema = mongoose.Schema({
-    extendBy: {
-      type: ObjectId,
-      ref: 'GlobalUserGroup'
-    },
-    name: {
-      type: String,
-      index: true
-    },
-    scoreExpression: ExpressionGroupSchema,
-    userExpression: ExpressionGroupSchema
-  });
-  let GroupScoreWeightSchema = mongoose.Schema({
-    scoreType: {
-      type: ObjectId,
-      ref: 'ScoreType',
-      index: true
-    },
-    expression: String // 为一个以 JavaScript 写的函数代码文本，具体内容需额外设计 API
-
-  });
-  let GroupSchema = mongoose.Schema({
-    scores: [ScoreSchema],
-    name: String,
-    description: String,
-    members: [{
-      account: {
-        type: ObjectId,
-        ref: 'Account'
-      }
-    }]
-  });
-  let GroupTypeSchema = mongoose.Schema({
-    userType: {
-      type: ObjectId,
-      ref: 'UserGroup'
-    },
-    groups: [GroupSchema],
-    name: String,
-    groupScoreTransfer: GroupScoreWeightSchema
-  });
-  let LogSchema = mongoose.Schema({
-    action: {
-      type: String,
-      enum: ['scoreAdd', 'scoreRemove', 'scoreSet', 'memberAdd', 'memberRemove', 'memberSet']
-    },
-    target: PathSchema,
-    value: Number,
-    reason: String,
-    operator: {
-      type: ObjectId,
-      ref: 'Account'
-    },
-    time: Date
-  });
-  let AccountSchema = mongoose.Schema({
-    name: {
-      type: String,
-      index: true
-    },
-    password: String,
-    // MD5/SHA3
-    userGroup: [{
-      type: ObjectId,
-      ref: 'UserGroup',
-      index: true
-    }],
-    scoreExpression: ExpressionGroupSchema,
-    userExpression: ExpressionGroupSchema,
-    classTable: {
-      type: ObjectId,
-      ref: 'ClassTable'
-    },
-    theme: {
-      type: ObjectId,
-      ref: 'Theme'
-    },
-    config: ConfigSchema,
-    accountHistory: AccountHistorySchema
-  });
-  let ClassMapRowSchema = mongoose.Schema({
-    columns: [{
-      type: ObjectId,
-      ref: "Account"
-    }]
-  });
-  let ClassMapBlockSchema = mongoose.Schema({
-    height: Number,
-    weight: Number,
-    rows: [ClassMapRowSchema]
-  });
-  let ClassMapSchema = mongoose.Schema({
-    height: Number,
-    weight: Number,
-    blocks: [ClassMapBlockSchema]
-  });
-  let ClassSchema = mongoose.Schema({
-    groupTypes: [GroupTypeSchema],
-    members: [{
-      account: {
-        type: ObjectId,
-        ref: 'Account'
-      },
-      scores: [ScoreSchema]
-    }],
-    name: {
-      type: String,
-      index: true
-    },
-    scores: [ScoreSchema],
-    state: ClassStateSchema,
-    classTable: {
-      type: ObjectId,
-      ref: "ClassTable"
-    },
-    theme: [ThemeSchema],
-    classMap: ClassMapSchema
-  });
-  console.log("数据库表创建完成");
-  let Class = db.model('Class', ClassSchema);
-  let GroupType = db.model('GroupType', GroupTypeSchema);
-  let GroupScoreWeight = db.model('GroupScoreWeight', GroupScoreWeightSchema);
-  let Group = db.model('Group', GroupSchema);
-  let Log = db.model('Log', LogSchema);
-  let Path = db.model('Path', PathSchema);
-  let Score = db.model('Score', ScoreSchema);
-  let Account = db.model('Account', AccountSchema);
-  let ExpressionGroup = db.model('ExpressionGroup', ExpressionGroupSchema);
-  let Expression = db.model('Expression', ExpressionSchema);
-  let ScoreType = db.model('ScoreType', ScoreTypeSchema);
-  let TradeRule = db.model('TradeRule', TradeRuleSchema);
-  let UserGroup = db.model('UserGroup', UserGroupSchema);
-  let GlobalUserGroup = db.model('GlobalUserGroup', GlobalUserGroupSchema);
-  let ScoreGroup = db.model('ScoreGroup', ScoreGroupSchema);
-  let ClassTable = db.model('ClassTable', ClassTableSchema);
-  let ClassTableItem = db.model('ClassTableItem', ClassTableItemSchema);
-  let Config = db.model('Config', ConfigSchema);
-  let ClassState = db.model('ClassState', ClassStateSchema);
-  let Question = db.model('Question', QuestionSchema);
-  let Test = db.model('Test', TestSchema);
-  let Provide = db.model('Provide', ProvideSchema);
-  let AccountHistory = db.model('AccountHistory', AccountHistorySchema);
-  let Theme = db.model('Theme', ThemeSchema);
-  let BroadCast = db.model('Broadcast', BroadcastSchema);
-  let ClassMap = db.model('ClassMap', ClassMapSchema);
-  let ClassMapBlock = db.model('ClassMapBlock', ClassMapBlockSchema);
-  let ClassMapRow = db.model('ClassMapRow', ClassMapRowSchema);
-  console.log("数据库表格关联完毕");
-
-  _webSocketServer.connectionEvents.on('h5', conn => {
+_databaseDriver.default.then(collections => {
+  _webSocketServer.connectionEvents.on('h5', () => {
     console.log("开始注册 h5 的指令……");
     (0, _webSocketServer.register)("h5", {
       database: {
+        get: function (collection, id, key) {
+          if (!collections[collection]) this.send(collection, id, key, "fail", "不存在这个集合");
+          collections[collection].findOne({
+            _id: id
+          }).exec((err, doc) => {
+            if (err) this.send(collection, id, key, "fail", err.toString());
+            if (doc && doc[key]) this.send(collection, id, key, "success", doc[key]);else console.log(doc), this.send(collection, id, key, "fail", "没有这个值！");
+          });
+        },
         at: function (...args) {
           args = Array.prototype.slice.call(args); // selectors 与 evaluator 下的执行函数会被包装为 Promise
           // 由于 Promise 无法传参，所以在新建 Promise 时会先调用外层的工厂函数，得到的内部函数才能交给 Promise 正常使用
@@ -603,7 +208,7 @@ db.on('open', () => {
             } else this.send("fail", "不存在这个选择器！", args[0]);
           };
 
-          dfs_selector(db, args);
+          dfs_selector(_databaseDriver.default, args);
         },
         list: function (...args) {
           args = Array.prototype.slice.call(args); // selectors 与 evaluator 下的执行函数会被包装为 Promise
@@ -715,7 +320,7 @@ db.on('open', () => {
             } else this.send("fail", "不存在这个选择器！", args[0]);
           };
 
-          dfs_selector(db, args);
+          dfs_selector(_databaseDriver.default, args);
         },
         doc: function (name, _run, cmd, id) {
           const docs = {
@@ -781,59 +386,568 @@ db.on('open', () => {
   });
 });
 
-},{"./webSocketServer":8,"@jest/types":5}],2:[function(require,module,exports){
-'use strict';
+},{"./databaseDriver":2,"./webSocketServer":5}],2:[function(require,module,exports){
+"use strict";
 
-},{}],3:[function(require,module,exports){
-arguments[4][2][0].apply(exports,arguments)
-},{"dup":2}],4:[function(require,module,exports){
-arguments[4][2][0].apply(exports,arguments)
-},{"dup":2}],5:[function(require,module,exports){
-'use strict';
-
-Object.defineProperty(exports, '__esModule', {
+Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Global = exports.Config = exports.Circus = void 0;
+exports.default = void 0;
+const mongoose = eval('require\("mongoose"\)');
+let db = mongoose.createConnection('mongodb://localhost/test');
+db.on('error', e => console.error(e));
 
-var Circus = _interopRequireWildcard(require('./Circus'));
+var _default = new Promise(resolve => {
+  db.on('open', () => {
+    console.log("数据库连接成功");
+    const ObjectId = mongoose.Schema.Types.ObjectId;
+    let PathSchema = mongoose.Schema({
+      theClass: String,
+      groupType: String,
+      group: String,
+      member: String
+    });
+    let ScoreSchema = mongoose.Schema({
+      at: {
+        type: ObjectId,
+        ref: "ScoreType"
+      },
+      value: Number
+    });
+    let ExpressionSchema = mongoose.Schema({
+      path: {
+        type: ObjectId,
+        ref: "Path"
+      },
+      tag: Boolean
+    });
+    let ExpressionGroupSchema = mongoose.Schema({
+      read: [{
+        type: ObjectId,
+        ref: "Expression"
+      }],
+      write: [{
+        type: ObjectId,
+        ref: "Expression"
+      }],
+      add: [{
+        type: ObjectId,
+        ref: "Expression"
+      }],
+      minus: [{
+        type: ObjectId,
+        ref: "Expression"
+      }]
+    });
+    let TradeRuleSchema = mongoose.Schema({
+      from: {
+        type: ObjectId,
+        ref: "ScoreType"
+      },
+      to: {
+        type: ObjectId,
+        ref: "ScoreType"
+      },
+      weightFrom: Number,
+      weightTo: Number,
+      weightDecimalPartRule: {
+        type: String,
+        enum: ['toZero', 'toOne', 'nearly'] // 分别代表抹零、进一和四舍五入
 
-exports.Circus = Circus;
-
-var Config = _interopRequireWildcard(require('./Config'));
-
-exports.Config = Config;
-
-var Global = _interopRequireWildcard(require('./Global'));
-
-exports.Global = Global;
-
-function _interopRequireWildcard(obj) {
-  if (obj && obj.__esModule) {
-    return obj;
-  } else {
-    var newObj = {};
-    if (obj != null) {
-      for (var key in obj) {
-        if (Object.prototype.hasOwnProperty.call(obj, key)) {
-          var desc =
-            Object.defineProperty && Object.getOwnPropertyDescriptor
-              ? Object.getOwnPropertyDescriptor(obj, key)
-              : {};
-          if (desc.get || desc.set) {
-            Object.defineProperty(newObj, key, desc);
-          } else {
-            newObj[key] = obj[key];
-          }
-        }
       }
-    }
-    newObj.default = obj;
-    return newObj;
-  }
-}
+    });
+    let ScoreTypeSchema = mongoose.Schema({
+      name: {
+        type: String,
+        index: true
+      },
+      description: String,
+      tradeRules: [{
+        type: ObjectId,
+        ref: "TradeRule"
+      }],
+      virtual: Boolean // 默认为假；如果为真，这个分数的加减会带动其它与之相关联的分数的加减，也就是具有绑定性，加减规则直接使用 tradeRules 记录的信息
 
-},{"./Circus":2,"./Config":3,"./Global":4}],6:[function(require,module,exports){
+    });
+    let ScoreGroupSchema = mongoose.Schema({
+      name: {
+        type: String,
+        index: true
+      },
+      description: String,
+      usingScoreTypes: [{
+        type: ObjectId,
+        ref: 'ScoreType'
+      }]
+    });
+    let ClassTableItemSchema = mongoose.Schema({
+      timeForm: Date,
+      timeTo: Date,
+      dateFrom: Date,
+      dateTo: Date,
+      subject: String,
+      repeatAt: {
+        type: String,
+        enum: ['Mon', 'Tue', 'Wed', 'Thr', 'Fri', 'Sat', 'Sun']
+      }
+    });
+    let ClassTableSchema = mongoose.Schema({
+      description: String,
+      name: {
+        type: String,
+        index: true
+      },
+      timeLine: [{
+        type: ObjectId,
+        ref: "ClassTableItem"
+      }],
+      userType: {
+        type: String,
+        enum: ['student', 'teacher']
+      }
+    });
+    let ConfigSchema = mongoose.Schema({
+      'createQuestion': {
+        type: String,
+        enum: ['enable', 'disable', 'default']
+      },
+      'forkQuestion': {
+        type: String,
+        enum: ['enable', 'disable', 'default']
+      },
+      'deleteQuestion': {
+        type: String,
+        enum: ['enable', 'disable', 'default']
+      },
+      'createTest': {
+        type: String,
+        enum: ['enable', 'disable', 'default']
+      },
+      'watchTestResult': {
+        type: String,
+        enum: ['enable', 'disable', 'default']
+      },
+      'forkTest': {
+        type: String,
+        enum: ['enable', 'disable', 'default']
+      },
+      'deleteTest': {
+        type: String,
+        enum: ['enable', 'disable', 'default']
+      },
+      'setTheme': {
+        type: String,
+        enum: ['enable', 'disable', 'default']
+      },
+      'root': {
+        type: String,
+        enum: ['enable', 'disable', 'default']
+      }
+    });
+    let ClassStateSchema = mongoose.Schema({
+      isHavingClass: {
+        type: String,
+        enum: ['begin', // 正常上课
+        'over', // 下课
+        'continue' // 拖堂
+        ]
+      },
+      nowTeacher: {
+        type: ObjectId,
+        ref: 'Account'
+      }
+    });
+    let ProvideSchema = mongoose.Schema({
+      to: {
+        type: String,
+        enum: ['class', 'group', 'member']
+      },
+      atClass: {
+        type: ObjectId,
+        ref: 'Class'
+      },
+      atGroup: {
+        type: ObjectId,
+        ref: 'Group'
+      },
+      atMember: {
+        type: ObjectId,
+        ref: 'Account'
+      }
+    });
+    let AnswerSchema = mongoose.Schema({
+      answer: String
+    });
+    let QuestionSchema = mongoose.Schema({
+      owner: {
+        type: ObjectId,
+        ref: 'Account',
+        index: true
+      },
+      forkFrom: {
+        type: ObjectId,
+        ref: 'Question'
+      },
+      questionType: {
+        type: String,
+        enum: ['objective', // 客观题
+        'subjective' // 主观题
+        ]
+      },
+      description: String,
+      // 允许使用 Markdown
+      answer: [{
+        type: ObjectId,
+        ref: "Answer"
+      }],
+      // 如果为客观题，则存储的是各个选项的编号，并且如果多于一个则成为多选题；
+      // 如果为主观题，则存储的是候选答案，并且如果多于一个则该题答案不唯一；
+      // 如果为空，则默认为由教师自行检阅
+      createTime: Date,
+      deleted: {
+        type: Boolean,
+        default: false
+      },
+      provideTo: [{
+        type: ObjectId,
+        ref: 'Provide',
+        index: true
+      }]
+    });
+    let TestSchema = mongoose.Schema({
+      owner: {
+        type: ObjectId,
+        ref: 'Account'
+      },
+      forkFrom: {
+        type: ObjectId,
+        ref: 'Test'
+      },
+      questions: [{
+        type: ObjectId,
+        ref: 'Question'
+      }],
+      createTime: Date,
+      beginAt: Date,
+      endAt: Date,
+      deleted: {
+        type: Boolean,
+        default: false
+      },
+      provideTo: {
+        type: ObjectId,
+        ref: "Provide"
+      }
+    });
+    let AccountHistoryQuestionItemSchema = mongoose.Schema({
+      time: Date,
+      answer: String
+    });
+    let AccountHistoryQuestionSchema = mongoose.Schema({
+      at: {
+        type: ObjectId,
+        ref: 'Question'
+      },
+      timeLine: [{
+        type: ObjectId,
+        ref: "AccountHistoryQuestionItem"
+      }]
+    });
+    let AccountHistoryTestItemSchema = mongoose.Schema({
+      time: Date,
+      answer: String
+    });
+    let AccountHistoryTestSchema = mongoose.Schema({
+      at: {
+        type: ObjectId,
+        ref: 'Test'
+      },
+      timeLine: [{
+        type: ObjectId,
+        ref: "AccountHistoryTestItem"
+      }]
+    });
+    let DateSchema = mongoose.Schema({
+      date: Date
+    });
+    let PickedHistorySchema = mongoose.Schema({
+      teacher: {
+        type: ObjectId,
+        ref: 'Account'
+      },
+      timeLine: [{
+        type: ObjectId,
+        ref: "Date"
+      }]
+    });
+    let AccountHistorySchema = mongoose.Schema({
+      practisedQuestions: [{
+        type: ObjectId,
+        ref: "AccountHistoryQuestion"
+      }],
+      practisedTest: [{
+        type: ObjectId,
+        ref: "AccountHistoryTest"
+      }],
+      picked: [{
+        type: ObjectId,
+        ref: 'PickedHistory'
+      }]
+    });
+    let ThemeSchema = mongoose.Schema({
+      picture: String,
+      // BASE64
+      isVR: {
+        type: Boolean,
+        default: false,
+        index: true
+      },
+      primaryColor: String,
+      secondaryColor: String,
+      opacity: Number,
+      mobileTheme: {
+        type: String,
+        enum: ['android', 'ios'],
+        index: true
+      }
+    });
+    let BroadcastSchema = mongoose.Schema({
+      whoCanView: [{
+        type: ObjectId,
+        ref: 'UserGroup'
+      }],
+      // 如果为空，则所有人都看得到
+      date: {
+        type: Date,
+        index: true
+      },
+      message: String,
+      // 允许使用 Markdown
+      title: String
+    });
+    let GlobalUserGroupSchema = mongoose.Schema({
+      name: {
+        type: String,
+        index: true
+      },
+      scoreExpression: {
+        type: ObjectId,
+        ref: "ExpressionGroup"
+      },
+      userExpression: {
+        type: ObjectId,
+        ref: "ExpressionGroup"
+      }
+    });
+    let UserGroupSchema = mongoose.Schema({
+      extendBy: {
+        type: ObjectId,
+        ref: 'GlobalUserGroup'
+      },
+      name: {
+        type: String,
+        index: true
+      },
+      scoreExpression: {
+        type: ObjectId,
+        ref: "ExpressionGroup"
+      },
+      userExpression: {
+        type: ObjectId,
+        ref: "ExpressionGroup"
+      }
+    });
+    let GroupScoreWeightSchema = mongoose.Schema({
+      scoreType: {
+        type: ObjectId,
+        ref: 'ScoreType',
+        index: true
+      },
+      expression: String // 为一个以 JavaScript 写的函数代码文本，具体内容需额外设计 API
+
+    });
+    let GroupSchema = mongoose.Schema({
+      scores: [ScoreSchema],
+      name: String,
+      description: String,
+      members: [{
+        account: {
+          type: ObjectId,
+          ref: 'Account'
+        }
+      }]
+    });
+    let GroupTypeSchema = mongoose.Schema({
+      userType: {
+        type: ObjectId,
+        ref: 'UserGroup'
+      },
+      groups: [{
+        type: ObjectId,
+        ref: "Group"
+      }],
+      name: String,
+      groupScoreTransfer: {
+        type: ObjectId,
+        ref: "GroupScoreWeight"
+      }
+    });
+    let LogSchema = mongoose.Schema({
+      action: {
+        type: String,
+        enum: ['scoreAdd', 'scoreRemove', 'scoreSet', 'memberAdd', 'memberRemove', 'memberSet']
+      },
+      target: PathSchema,
+      value: Number,
+      reason: String,
+      operator: {
+        type: ObjectId,
+        ref: 'Account'
+      },
+      time: Date
+    });
+    let AccountSchema = mongoose.Schema({
+      name: {
+        type: String,
+        index: true
+      },
+      password: String,
+      // MD5/SHA3
+      userGroup: [{
+        type: ObjectId,
+        ref: 'UserGroup',
+        index: true
+      }],
+      scoreExpression: {
+        type: ObjectId,
+        ref: "ExpressionGroup"
+      },
+      userExpression: {
+        type: ObjectId,
+        ref: "ExpressionGroup"
+      },
+      classTable: {
+        type: ObjectId,
+        ref: 'ClassTable'
+      },
+      theme: {
+        type: ObjectId,
+        ref: 'Theme'
+      },
+      config: {
+        type: ObjectId,
+        ref: "Config"
+      },
+      accountHistory: {
+        type: ObjectId,
+        ref: "AccountHistory"
+      }
+    });
+    let ClassMapRowSchema = mongoose.Schema({
+      columns: [{
+        type: ObjectId,
+        ref: "Account"
+      }]
+    });
+    let ClassMapBlockSchema = mongoose.Schema({
+      height: Number,
+      weight: Number,
+      rows: [{
+        type: ObjectId,
+        ref: "ClassMapRow"
+      }]
+    });
+    let ClassMapSchema = mongoose.Schema({
+      height: Number,
+      weight: Number,
+      blocks: [{
+        type: ObjectId,
+        ref: "ClassMapBlock"
+      }]
+    });
+    let ClassSchema = mongoose.Schema({
+      groupTypes: [{
+        type: ObjectId,
+        ref: "GroupType"
+      }],
+      members: [{
+        account: {
+          type: ObjectId,
+          ref: 'Account'
+        },
+        scores: [{
+          type: ObjectId,
+          ref: 'Score'
+        }]
+      }],
+      name: {
+        type: String,
+        index: true
+      },
+      scores: [{
+        type: ObjectId,
+        ref: 'Score'
+      }],
+      state: {
+        type: ObjectId,
+        ref: 'ClassState'
+      },
+      classTable: {
+        type: ObjectId,
+        ref: "ClassTable"
+      },
+      theme: [{
+        type: ObjectId,
+        ref: 'Theme'
+      }],
+      classMap: {
+        type: ObjectId,
+        ref: 'ClassMap'
+      }
+    });
+    resolve({
+      classes: db.model('Class', ClassSchema),
+      groupTypes: db.model('GroupType', GroupTypeSchema),
+      groupScoreWeights: db.model('GroupScoreWeight', GroupScoreWeightSchema),
+      groups: db.model('Group', GroupSchema),
+      logs: db.model('Log', LogSchema),
+      paths: db.model('Path', PathSchema),
+      scores: db.model('Score', ScoreSchema),
+      accounts: db.model('Account', AccountSchema),
+      expressionGroups: db.model('ExpressionGroup', ExpressionGroupSchema),
+      expressions: db.model('Expression', ExpressionSchema),
+      scoreTypes: db.model('ScoreType', ScoreTypeSchema),
+      tradeRules: db.model('TradeRule', TradeRuleSchema),
+      userGroups: db.model('UserGroup', UserGroupSchema),
+      globalUserGroups: db.model('GlobalUserGroup', GlobalUserGroupSchema),
+      scoreGroups: db.model('ScoreGroup', ScoreGroupSchema),
+      classTables: db.model('ClassTable', ClassTableSchema),
+      classTableItems: db.model('ClassTableItem', ClassTableItemSchema),
+      configs: db.model('Config', ConfigSchema),
+      classStates: db.model('ClassState', ClassStateSchema),
+      answers: db.model('Answer', AnswerSchema),
+      questions: db.model('Question', QuestionSchema),
+      tests: db.model('Test', TestSchema),
+      provides: db.model('Provide', ProvideSchema),
+      accountHistoryQuestionItems: db.model('AccountHistoryQuestionItem', AccountHistoryQuestionItemSchema),
+      accountHistoryQuestions: db.model('AccountHistoryQuestion', AccountHistoryQuestionSchema),
+      accountHistoryTestItems: db.model('AccountHistoryTestItem', AccountHistoryTestItemSchema),
+      accountHistoryTests: db.model('AccountHistoryTest', AccountHistoryTestSchema),
+      dates: db.model('Date', DateSchema),
+      pickedHistorys: db.model('PickedHistory', PickedHistorySchema),
+      accountHistorys: db.model('AccountHistory', AccountHistorySchema),
+      themes: db.model('Theme', ThemeSchema),
+      broadcasts: db.model('Broadcast', BroadcastSchema),
+      classMaps: db.model('ClassMap', ClassMapSchema),
+      classMapBlocks: db.model('ClassMapBlock', ClassMapBlockSchema),
+      classMapRows: db.model('ClassMapRow', ClassMapRowSchema)
+    }), console.log("数据库初始化完毕");
+  });
+});
+
+exports.default = _default;
+
+},{}],3:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -1358,7 +1472,7 @@ function functionBindPolyfill(context) {
   };
 }
 
-},{}],7:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1479,7 +1593,7 @@ class PluginDashboard {
 
 exports.default = PluginDashboard;
 
-},{}],8:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1533,4 +1647,4 @@ exports.receive = receive;
 let connectionEvents = clientConnectionEventEmitter;
 exports.connectionEvents = connectionEvents;
 
-},{"./pluginDashboard":7,"events":6}]},{},[1]);
+},{"./pluginDashboard":4,"events":3}]},{},[1]);
