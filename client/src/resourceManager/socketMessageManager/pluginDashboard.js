@@ -56,7 +56,7 @@ export default class PluginDashboard {
         let cmd = args.reduce((prev, next) => prev + ' ' + next);
         let type = /^(execute|data).*$/.exec(cmd)[1];
 
-        switch(type) {
+        switch (type) {
             case 'execute':
             case 'data':
                 this.connection.send(cmd);
@@ -87,8 +87,9 @@ export default class PluginDashboard {
         let cmds = [arg];
 
         try {
+            console.log(func);
             for (; typeof func[arg] == 'object'; func = func[arg], arg = args.shift(), cmds.push(arg))
-             if (func === undefined) throw new Error("不存在这个对象！");
+                if (func === undefined) throw new Error("不存在这个对象！");
 
             if (type == 'execute' && func[arg] === undefined) throw new Error("不存在这个对象！");
         } catch (e) {
@@ -101,12 +102,14 @@ export default class PluginDashboard {
             if (type == 'execute' && ret != null) this._sendMessage(['data'].concat(cmds).concat(ret.trim().split(' ')));
         } catch (e) {
             console.log(e);
-            let n = ['data'].concat(cmds);
-            n.push("fail 未注册的指令");
-            this._sendMessage(n);
+            if (type == 'execute') {
+                let n = ['data'].concat(cmds);
+                n.push("fail 未注册的指令");
+                this._sendMessage(n);
+            }
         }
     }
 }
 
-    
+
 

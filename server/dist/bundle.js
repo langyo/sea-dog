@@ -1346,10 +1346,13 @@ class PluginDashboard {
         if (type == 'execute' && ret != null) this._sendMessage(['data'].concat(cmds).concat(ret.trim().split(' ')));
       } catch (e) {
         console.log(e);
-        let n = ['data'].concat(cmds);
-        n.push("fail 未注册的指令");
 
-        this._sendMessage(n);
+        if (type == 'execute') {
+          let n = ['data'].concat(cmds);
+          n.push("fail 未注册的指令");
+
+          this._sendMessage(n);
+        }
       }
     });
 

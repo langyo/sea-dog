@@ -86670,7 +86670,7 @@ class BaseStore extends _reflux.default.Store {
     const skip = 10;
     console.log("接收到", this.collection, "的回调指令，提示一共有", globalCount, "个表项，现在正在获取第", Math.ceil(from / skip), "批");
     let to = from + skip;
-    if (from >= globalCount) return;else if (to >= globalCount) to = globalCount - 1;
+    if (from >= globalCount || from == 0) return;else if (to >= globalCount) to = globalCount - 1;
     (0, _webSocketClient.send)("execute", "database list", this.collection, from, to);
 
     this._count(to + 1, globalCount);
@@ -87200,6 +87200,8 @@ class PluginDashboard {
       let cmds = [arg];
 
       try {
+        console.log(func);
+
         for (; typeof func[arg] == 'object'; func = func[arg], arg = args.shift(), cmds.push(arg)) if (func === undefined) throw new Error("不存在这个对象！");
 
         if (type == 'execute' && func[arg] === undefined) throw new Error("不存在这个对象！");
@@ -87214,10 +87216,13 @@ class PluginDashboard {
         if (type == 'execute' && ret != null) this._sendMessage(['data'].concat(cmds).concat(ret.trim().split(' ')));
       } catch (e) {
         console.log(e);
-        let n = ['data'].concat(cmds);
-        n.push("fail 未注册的指令");
 
-        this._sendMessage(n);
+        if (type == 'execute') {
+          let n = ['data'].concat(cmds);
+          n.push("fail 未注册的指令");
+
+          this._sendMessage(n);
+        }
       }
     });
 

@@ -25,7 +25,7 @@ export default class BaseStore extends Reflux.Store {
     const skip = 10;
     console.log("接收到", this.collection, "的回调指令，提示一共有", globalCount, "个表项，现在正在获取第", Math.ceil(from / skip), "批");
     let to = from + skip;
-    if (from >= globalCount) return;
+    if (from >= globalCount || from == 0) return;
     else if (to >= globalCount) to = globalCount - 1;
     send("execute", "database list", this.collection, from, to);
     this._count(to + 1, globalCount);
