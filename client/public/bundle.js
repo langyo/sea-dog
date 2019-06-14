@@ -86579,13 +86579,13 @@ var _reflux = _interopRequireDefault(require("reflux"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-let classes = {};
+const databaseActions = ['_count', '_list', '_get'];
 var _default = {
   database: {
-    accounts: _reflux.default.createActions(['updateAccountByDatabase', 'login', 'logout', 'register', 'generateList', 'initializeList', 'updateByDatabase']),
-    classes: _reflux.default.createActions(['addGroup', 'addMember', 'removeGroup', 'removeMember', 'updateGroup', 'updateMember', 'generateList', 'initializeList', 'updateByDatabase']),
-    groups: _reflux.default.createActions(['addMember', 'removeMember', 'updateMember', 'generateList', 'initializeList', 'updateByDatabase']),
-    groupTypes: _reflux.default.createActions(['addGroup', 'removeGroup', 'updateGroup', 'generateList', 'initializeList', 'updateByDatabase'])
+    accounts: _reflux.default.createActions(['updateAccountByDatabase', 'login', 'logout', 'register'].concat(databaseActions)),
+    classes: _reflux.default.createActions(['addGroup', 'addMember', 'removeGroup', 'removeMember', 'updateGroup', 'updateMember'].concat(databaseActions)),
+    groups: _reflux.default.createActions(['addMember', 'removeMember', 'updateMember'].concat(databaseActions)),
+    groupTypes: _reflux.default.createActions(['addGroup', 'removeGroup', 'updateGroup'].concat(databaseActions))
   },
   view: {
     drawer: _reflux.default.createActions(['toggleTo', 'reset', 'toggleDrawerOpen']),
@@ -86646,50 +86646,128 @@ var _reflux = _interopRequireDefault(require("reflux"));
 
 var _database = _interopRequireDefault(require("../database"));
 
+var _webSocketClient = require("../socketMessageManager/webSocketClient");
+
 var _actions = _interopRequireDefault(require("../actions"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-class Classes extends _reflux.default.Store {
-  constructor() {
+class BaseStore extends _reflux.default.Store {
+  constructor(listener, collection, props, propsArray) {
     super();
-    this.state = {
-      classes: []
-    };
-    this.listenToMany(_actions.default.database.classes);
+    this.state = {};
+    this.state[collection] = {};
+    this.listenToMany(listener);
+    this.collection = collection;
+    this.props = props;
+    this.propsArray = propsArray;
+    console.log("数据库", collection, "正在初始化");
+    (0, _webSocketClient.send)("execute", "database count", collection);
   } // 用于获取 ID 列表
 
 
-  generateList(from, globalCount) {
+  _count(from, globalCount) {
     const skip = 10;
+    console.log("接收到", this.collection, "的回调指令，提示一共有", globalCount, "个表项，现在正在获取第", Math.ceil(from / skip), "批");
     let to = from + skip;
     if (from >= globalCount) return;else if (to >= globalCount) to = globalCount - 1;
-    send("execute", "database list classes run list", from + ".." + to);
-    this.generateList(to + 1, globalCount);
+    (0, _webSocketClient.send)("execute", "database list", this.collection, from, to);
+
+    this._count(to + 1, globalCount);
   } // 用于读取 ID 列表中各个 ID 对应对象的数据
 
 
-  initializeList(list) {
-    let n = this.state.classes; // 初始化
+  _list(list) {
+    console.log("接收到", this.collection, "的回调指令，获取到了 ID 列表", list);
+    let n = this.state[this.collection]; // 初始化
 
     for (let i of list) n[i] = {};
 
-    this.setState({
-      classes: n
-    }); // 对每一项逐个请求
+    let doc = {};
+    doc[this.collection] = n;
+    this.setState(doc); // 对每一项逐个请求
 
-    for (let i of list) {
-      send("execute", "database at classes", i, "run get", "name");
-    }
+    for (let i of list) for (let j of this.props) (0, _webSocketClient.send)("execute", "database get", this.collection, i, j);
+  } // 用于存储来自数据库的数据
+
+
+  _get(id, key, value) {
+    let n = this.state[this.collection][id];
+    n[key] = value;
+    let doc = {};
+    doc[this.collection] = n;
+    this.setState(doc);
+    console.log("当前的 ", this.collection, "：", n);
   }
 
-  updateByDatabase(id, key, value) {
-    let n = this.state.classes[id];
-    n[key] = value;
-    this.setState({
-      classes: n
-    });
-    console.log("当前的 classes：", n);
+  _arrayCount(id, key, state, count) {}
+
+  _arrayList(id, key, state, ...list) {}
+
+}
+
+exports.default = BaseStore;
+
+},{"../actions":426,"../database":427,"../socketMessageManager/webSocketClient":443,"reflux":401}],429:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _reflux = _interopRequireDefault(require("reflux"));
+
+var _database = _interopRequireDefault(require("../database"));
+
+var _webSocketClient = require("../socketMessageManager/webSocketClient");
+
+var _actions = _interopRequireDefault(require("../actions"));
+
+var _baseStore = _interopRequireDefault(require("./_baseStore"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+class Accounts extends _baseStore.default {
+  constructor() {
+    super(_actions.default.database.accounts, 'accounts', ['name']);
+  }
+
+  login() {}
+
+  logout() {}
+
+  register() {}
+
+}
+
+var _default = new Accounts();
+
+exports.default = _default;
+
+},{"../actions":426,"../database":427,"../socketMessageManager/webSocketClient":443,"./_baseStore":428,"reflux":401}],430:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _reflux = _interopRequireDefault(require("reflux"));
+
+var _database = _interopRequireDefault(require("../database"));
+
+var _webSocketClient = require("../socketMessageManager/webSocketClient");
+
+var _actions = _interopRequireDefault(require("../actions"));
+
+var _baseStore = _interopRequireDefault(require("./_baseStore"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+class Classes extends _baseStore.default {
+  constructor() {
+    super(_actions.default.database.classes, 'classes', ['name']);
   }
 
   addGroup() {}
@@ -86710,10 +86788,84 @@ var _default = new Classes();
 
 exports.default = _default;
 
-},{"../actions":426,"../database":427,"reflux":401}],429:[function(require,module,exports){
+},{"../actions":426,"../database":427,"../socketMessageManager/webSocketClient":443,"./_baseStore":428,"reflux":401}],431:[function(require,module,exports){
 "use strict";
 
-},{}],430:[function(require,module,exports){
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _reflux = _interopRequireDefault(require("reflux"));
+
+var _database = _interopRequireDefault(require("../database"));
+
+var _webSocketClient = require("../socketMessageManager/webSocketClient");
+
+var _actions = _interopRequireDefault(require("../actions"));
+
+var _baseStore = _interopRequireDefault(require("./_baseStore"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+class GroupTypes extends _baseStore.default {
+  constructor() {
+    super(_actions.default.database.groupTypes, 'groupTypes', ['name']);
+  }
+
+  addGroup(className, type, name) {}
+
+  removeGroup(className, type, name) {}
+
+  updateGroup(className, type, name, info) {}
+
+}
+
+var _default = new GroupTypes();
+
+exports.default = _default;
+
+},{"../actions":426,"../database":427,"../socketMessageManager/webSocketClient":443,"./_baseStore":428,"reflux":401}],432:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _reflux = _interopRequireDefault(require("reflux"));
+
+var _database = _interopRequireDefault(require("../database"));
+
+var _webSocketClient = require("../socketMessageManager/webSocketClient");
+
+var _actions = _interopRequireDefault(require("../actions"));
+
+var _baseStore = _interopRequireDefault(require("./_baseStore"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+class Groups extends _baseStore.default {
+  constructor() {
+    super(_actions.default.database.groups, 'groups', ['name']);
+  }
+
+  addMember() {}
+
+  removeMember() {}
+
+  updateMember() {}
+
+}
+
+var _default = new Groups();
+
+exports.default = _default;
+
+},{"../actions":426,"../database":427,"../socketMessageManager/webSocketClient":443,"./_baseStore":428,"reflux":401}],433:[function(require,module,exports){
+"use strict";
+
+},{}],434:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -86775,7 +86927,7 @@ var _default = new Drawer();
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":426,"../../resourceManager/stores":440,"../database":427,"reflux":401}],431:[function(require,module,exports){
+},{"../../resourceManager/actions":426,"../../resourceManager/stores":444,"../database":427,"reflux":401}],435:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -86806,9 +86958,9 @@ var _default = new ClassManagement();
 
 exports.default = _default;
 
-},{"../actions":426,"../database":427,"reflux":401}],432:[function(require,module,exports){
-arguments[4][429][0].apply(exports,arguments)
-},{"dup":429}],433:[function(require,module,exports){
+},{"../actions":426,"../database":427,"reflux":401}],436:[function(require,module,exports){
+arguments[4][433][0].apply(exports,arguments)
+},{"dup":433}],437:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -86889,9 +87041,9 @@ var _default = new Picker();
 
 exports.default = _default;
 
-},{"../actions":426,"../database":427,"../socketMessageManager/webSocketClient":439,"reflux":401}],434:[function(require,module,exports){
-arguments[4][429][0].apply(exports,arguments)
-},{"dup":429}],435:[function(require,module,exports){
+},{"../actions":426,"../database":427,"../socketMessageManager/webSocketClient":443,"reflux":401}],438:[function(require,module,exports){
+arguments[4][433][0].apply(exports,arguments)
+},{"dup":433}],439:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -86955,9 +87107,9 @@ var _default = new Randomizer();
 
 exports.default = _default;
 
-},{"../actions":426,"../database":427,"reflux":401}],436:[function(require,module,exports){
-arguments[4][429][0].apply(exports,arguments)
-},{"dup":429}],437:[function(require,module,exports){
+},{"../actions":426,"../database":427,"reflux":401}],440:[function(require,module,exports){
+arguments[4][433][0].apply(exports,arguments)
+},{"dup":433}],441:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -86986,7 +87138,7 @@ var _default = new SchoolManagement();
 
 exports.default = _default;
 
-},{"../actions":426,"../database":427,"reflux":401}],438:[function(require,module,exports){
+},{"../actions":426,"../database":427,"reflux":401}],442:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -87107,7 +87259,7 @@ class PluginDashboard {
 
 exports.default = PluginDashboard;
 
-},{}],439:[function(require,module,exports){
+},{}],443:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -87125,7 +87277,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 let client = new WebSocket("ws://seadog.langyo.xyz:9201");
 let dashboard;
-let clientConnectionEventEmitter = new _events.EventEmitter();
+let connectionEmitter = new _events.EventEmitter();
+let dashboardEmitter = new _events.EventEmitter();
 
 client.onopen = () => {
   console.log("连接成功！");
@@ -87139,25 +87292,36 @@ client.onmessage = data => {
   if (data.data == "data system register ok") {
     console.log("认证成功！");
     dashboard = new _pluginDashboard.default(client);
-    clientConnectionEventEmitter.emit("load");
+    dashboardEmitter.on('send', n => dashboard.send(n));
+    dashboardEmitter.on('register', n => dashboard.register(n));
+    dashboardEmitter.on('receive', n => dashboard.receive(n));
+    connectionEmitter.emit("load");
   }
 };
 
-let send = (...data) => dashboard.send(data);
+client.onerror = err => console.error(err);
+
+let send = (...data) => {
+  if (dashboard) dashboardEmitter.emit(data);else connectionEmitter.on('ready', () => dashboardEmitter.emit('send', data), console.log("已注册 send", data));
+};
 
 exports.send = send;
 
-let register = obj => dashboard.register(obj);
+let register = obj => {
+  if (dashboard) dashboardEmitter.emit(obj);else connectionEmitter.on('ready', () => dashboardEmitter.emit('register', obj), console.log("已注册 register", obj));
+};
 
 exports.register = register;
 
-let receive = obj => dashboard.receive(obj);
+let receive = obj => {
+  if (dashboard) dashboardEmitter.emit(obj);else connectionEmitter.on('ready', () => dashboardEmitter.emit('receive', obj), console.log("已注册 receive", obj));
+};
 
 exports.receive = receive;
-let connectionEvents = clientConnectionEventEmitter;
+let connectionEvents = connectionEmitter;
 exports.connectionEvents = connectionEvents;
 
-},{"../actions":426,"./pluginDashboard":438,"events":259}],440:[function(require,module,exports){
+},{"../actions":426,"./pluginDashboard":442,"events":259}],444:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -87165,7 +87329,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
+var _accounts = _interopRequireDefault(require("./databaseStore/accounts"));
+
 var _classes = _interopRequireDefault(require("./databaseStore/classes"));
+
+var _groups = _interopRequireDefault(require("./databaseStore/groups"));
+
+var _groupTypes = _interopRequireDefault(require("./databaseStore/groupTypes"));
 
 var _tag = _interopRequireDefault(require("./viewStore/tag"));
 
@@ -87207,7 +87377,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var _default = {
   database: {
-    classes: _classes.default
+    accounts: _accounts.default,
+    classes: _classes.default,
+    groups: _groups.default,
+    groupTypes: _groupTypes.default
   },
   view: {
     drawer: _drawer.default,
@@ -87234,7 +87407,7 @@ var _default = {
 };
 exports.default = _default;
 
-},{"./databaseStore/classes":428,"./pageStore/account":429,"./pageStore/broadcasts":430,"./pageStore/classManagement":431,"./pageStore/classTable":432,"./pageStore/picker":433,"./pageStore/practise":434,"./pageStore/randomizer":435,"./pageStore/rank":436,"./pageStore/schoolManagement":437,"./viewStore/dialog":441,"./viewStore/drawer":442,"./viewStore/fab":443,"./viewStore/language":444,"./viewStore/popupMenu":445,"./viewStore/popupMessage":446,"./viewStore/system":447,"./viewStore/tag":448,"./viewStore/theme":449}],441:[function(require,module,exports){
+},{"./databaseStore/accounts":429,"./databaseStore/classes":430,"./databaseStore/groupTypes":431,"./databaseStore/groups":432,"./pageStore/account":433,"./pageStore/broadcasts":434,"./pageStore/classManagement":435,"./pageStore/classTable":436,"./pageStore/picker":437,"./pageStore/practise":438,"./pageStore/randomizer":439,"./pageStore/rank":440,"./pageStore/schoolManagement":441,"./viewStore/dialog":445,"./viewStore/drawer":446,"./viewStore/fab":447,"./viewStore/language":448,"./viewStore/popupMenu":449,"./viewStore/popupMessage":450,"./viewStore/system":451,"./viewStore/tag":452,"./viewStore/theme":453}],445:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -87277,7 +87450,7 @@ var _default = new Dialog();
 
 exports.default = _default;
 
-},{"../actions":426,"../database":427,"reflux":401}],442:[function(require,module,exports){
+},{"../actions":426,"../database":427,"reflux":401}],446:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -87336,7 +87509,7 @@ var _default = new Drawer();
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":426,"../../resourceManager/stores":440,"../database":427,"reflux":401}],443:[function(require,module,exports){
+},{"../../resourceManager/actions":426,"../../resourceManager/stores":444,"../database":427,"reflux":401}],447:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -87371,7 +87544,7 @@ var _default = new Fab();
 
 exports.default = _default;
 
-},{"../actions":426,"../database":427,"reflux":401}],444:[function(require,module,exports){
+},{"../actions":426,"../database":427,"reflux":401}],448:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -87409,7 +87582,7 @@ var _default = new Language();
 
 exports.default = _default;
 
-},{"../actions":426,"../database":427,"reflux":401}],445:[function(require,module,exports){
+},{"../actions":426,"../database":427,"reflux":401}],449:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -87452,7 +87625,7 @@ var _default = new PopupMenu();
 
 exports.default = _default;
 
-},{"../actions":426,"../database":427,"reflux":401}],446:[function(require,module,exports){
+},{"../actions":426,"../database":427,"reflux":401}],450:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -87487,7 +87660,7 @@ var _default = new PopupMessage();
 
 exports.default = _default;
 
-},{"../actions":426,"../database":427,"reflux":401}],447:[function(require,module,exports){
+},{"../actions":426,"../database":427,"reflux":401}],451:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -87549,7 +87722,7 @@ var _default = new System();
 
 exports.default = _default;
 
-},{"../actions":426,"../database":427,"../websocket":450,"reflux":401}],448:[function(require,module,exports){
+},{"../actions":426,"../database":427,"../websocket":454,"reflux":401}],452:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -87584,7 +87757,7 @@ var _default = new Tag();
 
 exports.default = _default;
 
-},{"../actions":426,"../database":427,"reflux":401}],449:[function(require,module,exports){
+},{"../actions":426,"../database":427,"reflux":401}],453:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -87649,7 +87822,7 @@ var _default = new Theme();
 
 exports.default = _default;
 
-},{"../actions":426,"../database":427,"reflux":401}],450:[function(require,module,exports){
+},{"../actions":426,"../database":427,"reflux":401}],454:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -87666,53 +87839,29 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 _webSocketClient.connectionEvents.on("load", () => {
   (0, _webSocketClient.receive)({
     database: {
-      list: function (name, cmd, state, ...list) {
-        if (state == "success") {
-          switch (cmd) {
-            case "count":
-              if (!_actions.default.database[name]) return console.error("data 指令出现了问题，没有名为", name, "的数据存储 Store！");
-              if (typeof list[0] != "number") return console.error("data 指令出现了问题，list count 参数", list[0], "不是数字！"); // 开始批量获取 ID
-
-              console.log("开始获取", name, "的 id 列表...");
-
-              _actions.default.database[name].generateList(0, list[0]);
-
-              break;
-
-            case "list":
-              if (!_actions.default.database[name]) return console.error("data 指令出现了问题，没有名为", name, "的数据存储 Store！");
-              console.log("拉取到了", name, "的 id 列表", list);
-
-              _actions.default.database[name].initializeList(Array.prototype.slice.call(list));
-
-              break;
-
-            default:
-              console.error("data 指令出现了问题，无法识别", cmd, "指令！");
-          }
-        } else console.error("data 指令出现了问题，指令状态报头为", state);
+      count: function (collection, state, count) {
+        if (_actions.default.database[collection] && state == "success") {
+          _actions.default.database[collection]._count(0, count);
+        } else if (state != "success") console.error("count 指令执行失败，原因：", arguments[arguments.length - 1]);else console.error("接收到了个无效的 count 指令回复，操作的表为", collection);
       },
-      at: function (name, id, cmd, state, key, value) {
-        if (state == "success") {
-          switch (cmd) {
-            case "get":
-              _actions.default.database[name].updateByDatabase(id, key, value);
+      list: function (collection, state, ...list) {
+        if (_actions.default.database[collection] && state == "success") {
+          list = Array.prototype.slice.call(list);
 
-              break;
-
-            case "set":
-            case "add":
-            case "remove":
-            case "list":
-            case "count":
-            default:
-              console.error("data 指令出现了问题，无法识别", cmd, "指令！");
-          }
-        }
+          _actions.default.database[collection]._list(list);
+        } else if (state != "success") console.error("list 指令执行失败，原因：", arguments[arguments.length - 1]);else console.error("接收到了个无效的 list 指令回复，操作的表为", collection);
+      },
+      get: function (collection, id, key, state, value) {
+        if (_actions.default.database[collection] && state == "success") {
+          _actions.default.database[collection]._get(id, key, value);
+        } else if (state != "success") console.error("get 指令执行失败，原因：", arguments[arguments.length - 1]);else console.error("接收到了个无效的 get 指令回复，操作的表为", collection);
       }
     }
   });
-  (0, _webSocketClient.send)("execute", "database list classes run count"); // 设置数据库状态为已准备好
+  console.log("触发 ready 事件");
+
+  _webSocketClient.connectionEvents.emit('ready'); // 设置数据库状态为已准备好
+
 
   _actions.default.view.system.toggleDatabaseState("ready");
 });
@@ -87724,7 +87873,7 @@ var _default = {
 };
 exports.default = _default;
 
-},{"./actions":426,"./socketMessageManager/webSocketClient":439}],451:[function(require,module,exports){
+},{"./actions":426,"./socketMessageManager/webSocketClient":443}],455:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -87833,7 +87982,7 @@ var _default = (0, _styles.withStyles)(styles)(About);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":426,"../../resourceManager/stores":440,"@material-ui/core/Button":39,"@material-ui/core/Dialog":61,"@material-ui/core/DialogActions":53,"@material-ui/core/DialogContent":57,"@material-ui/core/DialogContentText":55,"@material-ui/core/DialogTitle":59,"@material-ui/core/Fade":67,"@material-ui/core/Grow":86,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"classnames":236,"prop-types":345,"react":376,"react-router":363,"reflux":401,"shortid":411}],452:[function(require,module,exports){
+},{"../../resourceManager/actions":426,"../../resourceManager/stores":444,"@material-ui/core/Button":39,"@material-ui/core/Dialog":61,"@material-ui/core/DialogActions":53,"@material-ui/core/DialogContent":57,"@material-ui/core/DialogContentText":55,"@material-ui/core/DialogTitle":59,"@material-ui/core/Fade":67,"@material-ui/core/Grow":86,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"classnames":236,"prop-types":345,"react":376,"react-router":363,"reflux":401,"shortid":411}],456:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -87999,7 +88148,7 @@ var _default = (0, _styles.withStyles)(styles)(AppendAccount);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":426,"../../resourceManager/stores":440,"@material-ui/core/Button":39,"@material-ui/core/Dialog":61,"@material-ui/core/DialogActions":53,"@material-ui/core/DialogContent":57,"@material-ui/core/DialogContentText":55,"@material-ui/core/DialogTitle":59,"@material-ui/core/Fade":67,"@material-ui/core/FormControl":75,"@material-ui/core/Grid":84,"@material-ui/core/Grow":86,"@material-ui/core/InputLabel":96,"@material-ui/core/Menu":114,"@material-ui/core/MenuItem":110,"@material-ui/core/OutlinedInput":126,"@material-ui/core/Select":143,"@material-ui/core/TextField":172,"@material-ui/core/Typography":178,"@material-ui/core/colors/green":180,"@material-ui/core/colors/red":184,"@material-ui/core/styles":205,"classnames":236,"prop-types":345,"react":376,"react-router":363,"reflux":401,"shortid":411}],453:[function(require,module,exports){
+},{"../../resourceManager/actions":426,"../../resourceManager/stores":444,"@material-ui/core/Button":39,"@material-ui/core/Dialog":61,"@material-ui/core/DialogActions":53,"@material-ui/core/DialogContent":57,"@material-ui/core/DialogContentText":55,"@material-ui/core/DialogTitle":59,"@material-ui/core/Fade":67,"@material-ui/core/FormControl":75,"@material-ui/core/Grid":84,"@material-ui/core/Grow":86,"@material-ui/core/InputLabel":96,"@material-ui/core/Menu":114,"@material-ui/core/MenuItem":110,"@material-ui/core/OutlinedInput":126,"@material-ui/core/Select":143,"@material-ui/core/TextField":172,"@material-ui/core/Typography":178,"@material-ui/core/colors/green":180,"@material-ui/core/colors/red":184,"@material-ui/core/styles":205,"classnames":236,"prop-types":345,"react":376,"react-router":363,"reflux":401,"shortid":411}],457:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -88167,7 +88316,7 @@ var _default = (0, _styles.withStyles)(styles)(AppendClassMember);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":426,"../../resourceManager/stores":440,"@material-ui/core/Button":39,"@material-ui/core/Dialog":61,"@material-ui/core/DialogActions":53,"@material-ui/core/DialogContent":57,"@material-ui/core/DialogContentText":55,"@material-ui/core/DialogTitle":59,"@material-ui/core/Fade":67,"@material-ui/core/FormControl":75,"@material-ui/core/Grid":84,"@material-ui/core/Grow":86,"@material-ui/core/InputLabel":96,"@material-ui/core/Menu":114,"@material-ui/core/MenuItem":110,"@material-ui/core/Select":143,"@material-ui/core/TextField":172,"@material-ui/core/Typography":178,"@material-ui/core/colors/green":180,"@material-ui/core/colors/red":184,"@material-ui/core/styles":205,"classnames":236,"prop-types":345,"react":376,"react-router":363,"reflux":401,"shortid":411}],454:[function(require,module,exports){
+},{"../../resourceManager/actions":426,"../../resourceManager/stores":444,"@material-ui/core/Button":39,"@material-ui/core/Dialog":61,"@material-ui/core/DialogActions":53,"@material-ui/core/DialogContent":57,"@material-ui/core/DialogContentText":55,"@material-ui/core/DialogTitle":59,"@material-ui/core/Fade":67,"@material-ui/core/FormControl":75,"@material-ui/core/Grid":84,"@material-ui/core/Grow":86,"@material-ui/core/InputLabel":96,"@material-ui/core/Menu":114,"@material-ui/core/MenuItem":110,"@material-ui/core/Select":143,"@material-ui/core/TextField":172,"@material-ui/core/Typography":178,"@material-ui/core/colors/green":180,"@material-ui/core/colors/red":184,"@material-ui/core/styles":205,"classnames":236,"prop-types":345,"react":376,"react-router":363,"reflux":401,"shortid":411}],458:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -88257,7 +88406,7 @@ var _default = (0, _styles.withStyles)(styles)(BindClassDesktop);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":426,"../../resourceManager/stores":440,"@material-ui/core/Button":39,"@material-ui/core/Dialog":61,"@material-ui/core/DialogActions":53,"@material-ui/core/DialogContent":57,"@material-ui/core/DialogTitle":59,"@material-ui/core/Fade":67,"@material-ui/core/FormControlLabel":71,"@material-ui/core/FormGroup":78,"@material-ui/core/Grow":86,"@material-ui/core/Radio":138,"@material-ui/core/RadioGroup":136,"@material-ui/core/Switch":149,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"classnames":236,"prop-types":345,"react":376,"react-router":363,"reflux":401,"shortid":411}],455:[function(require,module,exports){
+},{"../../resourceManager/actions":426,"../../resourceManager/stores":444,"@material-ui/core/Button":39,"@material-ui/core/Dialog":61,"@material-ui/core/DialogActions":53,"@material-ui/core/DialogContent":57,"@material-ui/core/DialogTitle":59,"@material-ui/core/Fade":67,"@material-ui/core/FormControlLabel":71,"@material-ui/core/FormGroup":78,"@material-ui/core/Grow":86,"@material-ui/core/Radio":138,"@material-ui/core/RadioGroup":136,"@material-ui/core/Switch":149,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"classnames":236,"prop-types":345,"react":376,"react-router":363,"reflux":401,"shortid":411}],459:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -88323,7 +88472,7 @@ var _default = (0, _styles.withStyles)(styles)(About);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":426,"../../resourceManager/stores":440,"@material-ui/core/CircularProgress":49,"@material-ui/core/Dialog":61,"@material-ui/core/DialogContent":57,"@material-ui/core/Fade":67,"@material-ui/core/Grow":86,"@material-ui/core/styles":205,"classnames":236,"prop-types":345,"react":376,"react-router":363,"reflux":401,"shortid":411}],456:[function(require,module,exports){
+},{"../../resourceManager/actions":426,"../../resourceManager/stores":444,"@material-ui/core/CircularProgress":49,"@material-ui/core/Dialog":61,"@material-ui/core/DialogContent":57,"@material-ui/core/Fade":67,"@material-ui/core/Grow":86,"@material-ui/core/styles":205,"classnames":236,"prop-types":345,"react":376,"react-router":363,"reflux":401,"shortid":411}],460:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -88513,7 +88662,7 @@ var _default = (0, _styles.withStyles)(styles)(NumberDashboard);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":426,"../../resourceManager/stores":440,"@material-ui/core/Avatar":23,"@material-ui/core/Button":39,"@material-ui/core/Dialog":61,"@material-ui/core/DialogActions":53,"@material-ui/core/DialogContent":57,"@material-ui/core/DialogContentText":55,"@material-ui/core/DialogTitle":59,"@material-ui/core/Fade":67,"@material-ui/core/Grid":84,"@material-ui/core/Grow":86,"@material-ui/core/IconButton":88,"@material-ui/core/Menu":114,"@material-ui/core/TextField":172,"@material-ui/core/Typography":178,"@material-ui/core/colors/green":180,"@material-ui/core/colors/red":184,"@material-ui/core/styles":205,"classnames":236,"prop-types":345,"react":376,"react-router":363,"reflux":401,"shortid":411}],457:[function(require,module,exports){
+},{"../../resourceManager/actions":426,"../../resourceManager/stores":444,"@material-ui/core/Avatar":23,"@material-ui/core/Button":39,"@material-ui/core/Dialog":61,"@material-ui/core/DialogActions":53,"@material-ui/core/DialogContent":57,"@material-ui/core/DialogContentText":55,"@material-ui/core/DialogTitle":59,"@material-ui/core/Fade":67,"@material-ui/core/Grid":84,"@material-ui/core/Grow":86,"@material-ui/core/IconButton":88,"@material-ui/core/Menu":114,"@material-ui/core/TextField":172,"@material-ui/core/Typography":178,"@material-ui/core/colors/green":180,"@material-ui/core/colors/red":184,"@material-ui/core/styles":205,"classnames":236,"prop-types":345,"react":376,"react-router":363,"reflux":401,"shortid":411}],461:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -88618,7 +88767,7 @@ var _default = (0, _styles.withStyles)(styles)(Setting);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":426,"../../resourceManager/stores":440,"@material-ui/core/Button":39,"@material-ui/core/Dialog":61,"@material-ui/core/DialogActions":53,"@material-ui/core/DialogContent":57,"@material-ui/core/DialogTitle":59,"@material-ui/core/Fade":67,"@material-ui/core/FormControlLabel":71,"@material-ui/core/FormGroup":78,"@material-ui/core/Grow":86,"@material-ui/core/Radio":138,"@material-ui/core/RadioGroup":136,"@material-ui/core/Switch":149,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"classnames":236,"prop-types":345,"react":376,"react-router":363,"reflux":401,"shortid":411}],458:[function(require,module,exports){
+},{"../../resourceManager/actions":426,"../../resourceManager/stores":444,"@material-ui/core/Button":39,"@material-ui/core/Dialog":61,"@material-ui/core/DialogActions":53,"@material-ui/core/DialogContent":57,"@material-ui/core/DialogTitle":59,"@material-ui/core/Fade":67,"@material-ui/core/FormControlLabel":71,"@material-ui/core/FormGroup":78,"@material-ui/core/Grow":86,"@material-ui/core/Radio":138,"@material-ui/core/RadioGroup":136,"@material-ui/core/Switch":149,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"classnames":236,"prop-types":345,"react":376,"react-router":363,"reflux":401,"shortid":411}],462:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -88755,7 +88904,7 @@ var _default = (0, _styles.withStyles)(styles)(Root);
 
 exports.default = _default;
 
-},{"../resourceManager/actions":426,"../resourceManager/stores":440,"./views/appbar":472,"./views/fab":475,"./views/routeDesktop/accountDashboard":476,"./views/routeDesktop/classTable":477,"./views/routeDesktop/deviceDashboard":478,"./views/routeDesktop/mainPage":479,"./views/routeDesktop/management":480,"./views/routeDesktop/picker":481,"./views/routeDesktop/practise":482,"./views/routeDesktop/rankList":483,"./views/windowManager":484,"@material-ui/core/CssBaseline":51,"@material-ui/core/colors/red":184,"@material-ui/core/styles":205,"classnames":236,"prop-types":345,"react":376,"react-scrollbar":364,"reflux":401,"shortid":411}],459:[function(require,module,exports){
+},{"../resourceManager/actions":426,"../resourceManager/stores":444,"./views/appbar":476,"./views/fab":479,"./views/routeDesktop/accountDashboard":480,"./views/routeDesktop/classTable":481,"./views/routeDesktop/deviceDashboard":482,"./views/routeDesktop/mainPage":483,"./views/routeDesktop/management":484,"./views/routeDesktop/picker":485,"./views/routeDesktop/practise":486,"./views/routeDesktop/rankList":487,"./views/windowManager":488,"@material-ui/core/CssBaseline":51,"@material-ui/core/colors/red":184,"@material-ui/core/styles":205,"classnames":236,"prop-types":345,"react":376,"react-scrollbar":364,"reflux":401,"shortid":411}],463:[function(require,module,exports){
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -88768,7 +88917,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 _reactDom.default.render(_react.default.createElement(_mainView.default, null), document.querySelector('#content'));
 
-},{"./mainView":458,"react":376,"react-dom":351}],460:[function(require,module,exports){
+},{"./mainView":462,"react":376,"react-dom":351}],464:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -88859,7 +89008,7 @@ var _default = (0, _styles.withStyles)(styles)(Account);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":426,"../../resourceManager/stores":440,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":67,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"classnames":236,"mdi-material-ui/DotsVertical":319,"mdi-material-ui/KeyboardOutline":323,"mdi-material-ui/Minus":325,"mdi-material-ui/PacMan":327,"mdi-material-ui/Plus":329,"mdi-material-ui/StopCircleOutline":331,"prop-types":345,"react":376,"reflux":401,"shortid":411}],461:[function(require,module,exports){
+},{"../../resourceManager/actions":426,"../../resourceManager/stores":444,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":67,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"classnames":236,"mdi-material-ui/DotsVertical":319,"mdi-material-ui/KeyboardOutline":323,"mdi-material-ui/Minus":325,"mdi-material-ui/PacMan":327,"mdi-material-ui/Plus":329,"mdi-material-ui/StopCircleOutline":331,"prop-types":345,"react":376,"reflux":401,"shortid":411}],465:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -88950,7 +89099,7 @@ var _default = (0, _styles.withStyles)(styles)(AccountMobile);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":426,"../../resourceManager/stores":440,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":67,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"classnames":236,"mdi-material-ui/DotsVertical":319,"mdi-material-ui/KeyboardOutline":323,"mdi-material-ui/Minus":325,"mdi-material-ui/PacMan":327,"mdi-material-ui/Plus":329,"mdi-material-ui/StopCircleOutline":331,"prop-types":345,"react":376,"reflux":401,"shortid":411}],462:[function(require,module,exports){
+},{"../../resourceManager/actions":426,"../../resourceManager/stores":444,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":67,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"classnames":236,"mdi-material-ui/DotsVertical":319,"mdi-material-ui/KeyboardOutline":323,"mdi-material-ui/Minus":325,"mdi-material-ui/PacMan":327,"mdi-material-ui/Plus":329,"mdi-material-ui/StopCircleOutline":331,"prop-types":345,"react":376,"reflux":401,"shortid":411}],466:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -89087,7 +89236,7 @@ var _default = (0, _styles.withStyles)(styles)(Picker);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":426,"../../resourceManager/stores":440,"@material-ui/core/Button":39,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":67,"@material-ui/core/IconButton":88,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"classnames":236,"mdi-material-ui/DotsVertical":319,"mdi-material-ui/Minus":325,"mdi-material-ui/PacMan":327,"mdi-material-ui/Plus":329,"mdi-material-ui/StopCircleOutline":331,"prop-types":345,"react":376,"reflux":401,"shortid":411}],463:[function(require,module,exports){
+},{"../../resourceManager/actions":426,"../../resourceManager/stores":444,"@material-ui/core/Button":39,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":67,"@material-ui/core/IconButton":88,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"classnames":236,"mdi-material-ui/DotsVertical":319,"mdi-material-ui/Minus":325,"mdi-material-ui/PacMan":327,"mdi-material-ui/Plus":329,"mdi-material-ui/StopCircleOutline":331,"prop-types":345,"react":376,"reflux":401,"shortid":411}],467:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -89178,7 +89327,7 @@ var _default = (0, _styles.withStyles)(styles)(ClassChoiceDesktop);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":426,"../../resourceManager/stores":440,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":67,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"classnames":236,"mdi-material-ui/DotsVertical":319,"mdi-material-ui/KeyboardOutline":323,"mdi-material-ui/Minus":325,"mdi-material-ui/PacMan":327,"mdi-material-ui/Plus":329,"mdi-material-ui/StopCircleOutline":331,"prop-types":345,"react":376,"reflux":401,"shortid":411}],464:[function(require,module,exports){
+},{"../../resourceManager/actions":426,"../../resourceManager/stores":444,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":67,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"classnames":236,"mdi-material-ui/DotsVertical":319,"mdi-material-ui/KeyboardOutline":323,"mdi-material-ui/Minus":325,"mdi-material-ui/PacMan":327,"mdi-material-ui/Plus":329,"mdi-material-ui/StopCircleOutline":331,"prop-types":345,"react":376,"reflux":401,"shortid":411}],468:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -89345,7 +89494,7 @@ var _default = (0, _styles.withStyles)(styles)(ClassManagement);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":426,"../../resourceManager/stores":440,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":67,"@material-ui/core/IconButton":88,"@material-ui/core/Table":165,"@material-ui/core/TableBody":153,"@material-ui/core/TableCell":155,"@material-ui/core/TableHead":157,"@material-ui/core/TableRow":159,"@material-ui/core/TableSortLabel":161,"@material-ui/core/Toolbar":174,"@material-ui/core/Tooltip":176,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"classnames":236,"mdi-material-ui/DotsVertical":319,"mdi-material-ui/Plus":329,"prop-types":345,"react":376,"reflux":401,"shortid":411}],465:[function(require,module,exports){
+},{"../../resourceManager/actions":426,"../../resourceManager/stores":444,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":67,"@material-ui/core/IconButton":88,"@material-ui/core/Table":165,"@material-ui/core/TableBody":153,"@material-ui/core/TableCell":155,"@material-ui/core/TableHead":157,"@material-ui/core/TableRow":159,"@material-ui/core/TableSortLabel":161,"@material-ui/core/Toolbar":174,"@material-ui/core/Tooltip":176,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"classnames":236,"mdi-material-ui/DotsVertical":319,"mdi-material-ui/Plus":329,"prop-types":345,"react":376,"reflux":401,"shortid":411}],469:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -89436,7 +89585,7 @@ var _default = (0, _styles.withStyles)(styles)(ClassMap);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":426,"../../resourceManager/stores":440,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":67,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"classnames":236,"mdi-material-ui/DotsVertical":319,"mdi-material-ui/KeyboardOutline":323,"mdi-material-ui/Minus":325,"mdi-material-ui/PacMan":327,"mdi-material-ui/Plus":329,"mdi-material-ui/StopCircleOutline":331,"prop-types":345,"react":376,"reflux":401,"shortid":411}],466:[function(require,module,exports){
+},{"../../resourceManager/actions":426,"../../resourceManager/stores":444,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":67,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"classnames":236,"mdi-material-ui/DotsVertical":319,"mdi-material-ui/KeyboardOutline":323,"mdi-material-ui/Minus":325,"mdi-material-ui/PacMan":327,"mdi-material-ui/Plus":329,"mdi-material-ui/StopCircleOutline":331,"prop-types":345,"react":376,"reflux":401,"shortid":411}],470:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -89547,7 +89696,7 @@ var _default = (0, _styles.withStyles)(styles)(ClassTable);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":426,"../../resourceManager/stores":440,"@material-ui/core/Avatar":23,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":67,"@material-ui/core/Grid":84,"@material-ui/core/IconButton":88,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"classnames":236,"mdi-material-ui/DotsVertical":319,"prop-types":345,"react":376,"react-scrollbar":364,"reflux":401,"shortid":411}],467:[function(require,module,exports){
+},{"../../resourceManager/actions":426,"../../resourceManager/stores":444,"@material-ui/core/Avatar":23,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":67,"@material-ui/core/Grid":84,"@material-ui/core/IconButton":88,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"classnames":236,"mdi-material-ui/DotsVertical":319,"prop-types":345,"react":376,"react-scrollbar":364,"reflux":401,"shortid":411}],471:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -89745,7 +89894,7 @@ var _default = (0, _styles.withStyles)(styles)(GroupPicker);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":426,"../../resourceManager/stores":440,"@material-ui/core/Button":39,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Chip":47,"@material-ui/core/Fade":67,"@material-ui/core/FormControl":75,"@material-ui/core/FormHelperText":80,"@material-ui/core/IconButton":88,"@material-ui/core/Input":98,"@material-ui/core/InputAdornment":90,"@material-ui/core/InputLabel":96,"@material-ui/core/List":108,"@material-ui/core/ListItem":105,"@material-ui/core/ListItemText":102,"@material-ui/core/MenuItem":110,"@material-ui/core/OutlinedInput":126,"@material-ui/core/Select":143,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"classnames":236,"mdi-material-ui/DotsVertical":319,"mdi-material-ui/KeyboardOutline":323,"mdi-material-ui/Minus":325,"mdi-material-ui/PacMan":327,"mdi-material-ui/Plus":329,"mdi-material-ui/StopCircleOutline":331,"prop-types":345,"react":376,"reflux":401,"shortid":411}],468:[function(require,module,exports){
+},{"../../resourceManager/actions":426,"../../resourceManager/stores":444,"@material-ui/core/Button":39,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Chip":47,"@material-ui/core/Fade":67,"@material-ui/core/FormControl":75,"@material-ui/core/FormHelperText":80,"@material-ui/core/IconButton":88,"@material-ui/core/Input":98,"@material-ui/core/InputAdornment":90,"@material-ui/core/InputLabel":96,"@material-ui/core/List":108,"@material-ui/core/ListItem":105,"@material-ui/core/ListItemText":102,"@material-ui/core/MenuItem":110,"@material-ui/core/OutlinedInput":126,"@material-ui/core/Select":143,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"classnames":236,"mdi-material-ui/DotsVertical":319,"mdi-material-ui/KeyboardOutline":323,"mdi-material-ui/Minus":325,"mdi-material-ui/PacMan":327,"mdi-material-ui/Plus":329,"mdi-material-ui/StopCircleOutline":331,"prop-types":345,"react":376,"reflux":401,"shortid":411}],472:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -89908,7 +90057,7 @@ var _default = (0, _styles.withStyles)(styles)(Picker);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":426,"../../resourceManager/stores":440,"@material-ui/core/Button":39,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":67,"@material-ui/core/IconButton":88,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"classnames":236,"mdi-material-ui/DotsVertical":319,"mdi-material-ui/Minus":325,"mdi-material-ui/PacMan":327,"mdi-material-ui/Plus":329,"mdi-material-ui/StopCircleOutline":331,"prop-types":345,"react":376,"reflux":401,"shortid":411}],469:[function(require,module,exports){
+},{"../../resourceManager/actions":426,"../../resourceManager/stores":444,"@material-ui/core/Button":39,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":67,"@material-ui/core/IconButton":88,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"classnames":236,"mdi-material-ui/DotsVertical":319,"mdi-material-ui/Minus":325,"mdi-material-ui/PacMan":327,"mdi-material-ui/Plus":329,"mdi-material-ui/StopCircleOutline":331,"prop-types":345,"react":376,"reflux":401,"shortid":411}],473:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -90083,7 +90232,7 @@ var _default = (0, _styles.withStyles)(styles)(Randomizer);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":426,"../../resourceManager/stores":440,"@material-ui/core/Button":39,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":67,"@material-ui/core/FormControl":75,"@material-ui/core/FormHelperText":80,"@material-ui/core/IconButton":88,"@material-ui/core/Input":98,"@material-ui/core/InputAdornment":90,"@material-ui/core/InputLabel":96,"@material-ui/core/List":108,"@material-ui/core/ListItem":105,"@material-ui/core/ListItemText":102,"@material-ui/core/Typography":178,"@material-ui/core/colors/green":180,"@material-ui/core/colors/red":184,"@material-ui/core/styles":205,"classnames":236,"mdi-material-ui/DotsVertical":319,"mdi-material-ui/KeyboardOutline":323,"mdi-material-ui/Minus":325,"mdi-material-ui/PacMan":327,"mdi-material-ui/Plus":329,"mdi-material-ui/StopCircleOutline":331,"prop-types":345,"react":376,"reflux":401,"shortid":411}],470:[function(require,module,exports){
+},{"../../resourceManager/actions":426,"../../resourceManager/stores":444,"@material-ui/core/Button":39,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":67,"@material-ui/core/FormControl":75,"@material-ui/core/FormHelperText":80,"@material-ui/core/IconButton":88,"@material-ui/core/Input":98,"@material-ui/core/InputAdornment":90,"@material-ui/core/InputLabel":96,"@material-ui/core/List":108,"@material-ui/core/ListItem":105,"@material-ui/core/ListItemText":102,"@material-ui/core/Typography":178,"@material-ui/core/colors/green":180,"@material-ui/core/colors/red":184,"@material-ui/core/styles":205,"classnames":236,"mdi-material-ui/DotsVertical":319,"mdi-material-ui/KeyboardOutline":323,"mdi-material-ui/Minus":325,"mdi-material-ui/PacMan":327,"mdi-material-ui/Plus":329,"mdi-material-ui/StopCircleOutline":331,"prop-types":345,"react":376,"reflux":401,"shortid":411}],474:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -90174,7 +90323,7 @@ var _default = (0, _styles.withStyles)(styles)(Rank);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":426,"../../resourceManager/stores":440,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":67,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"classnames":236,"mdi-material-ui/DotsVertical":319,"mdi-material-ui/KeyboardOutline":323,"mdi-material-ui/Minus":325,"mdi-material-ui/PacMan":327,"mdi-material-ui/Plus":329,"mdi-material-ui/StopCircleOutline":331,"prop-types":345,"react":376,"reflux":401,"shortid":411}],471:[function(require,module,exports){
+},{"../../resourceManager/actions":426,"../../resourceManager/stores":444,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":67,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"classnames":236,"mdi-material-ui/DotsVertical":319,"mdi-material-ui/KeyboardOutline":323,"mdi-material-ui/Minus":325,"mdi-material-ui/PacMan":327,"mdi-material-ui/Plus":329,"mdi-material-ui/StopCircleOutline":331,"prop-types":345,"react":376,"reflux":401,"shortid":411}],475:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -90341,7 +90490,7 @@ var _default = (0, _styles.withStyles)(styles)(SchoolManagement);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":426,"../../resourceManager/stores":440,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":67,"@material-ui/core/IconButton":88,"@material-ui/core/Table":165,"@material-ui/core/TableBody":153,"@material-ui/core/TableCell":155,"@material-ui/core/TableHead":157,"@material-ui/core/TableRow":159,"@material-ui/core/TableSortLabel":161,"@material-ui/core/Toolbar":174,"@material-ui/core/Tooltip":176,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"classnames":236,"mdi-material-ui/DotsVertical":319,"mdi-material-ui/Plus":329,"prop-types":345,"react":376,"reflux":401,"shortid":411}],472:[function(require,module,exports){
+},{"../../resourceManager/actions":426,"../../resourceManager/stores":444,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":67,"@material-ui/core/IconButton":88,"@material-ui/core/Table":165,"@material-ui/core/TableBody":153,"@material-ui/core/TableCell":155,"@material-ui/core/TableHead":157,"@material-ui/core/TableRow":159,"@material-ui/core/TableSortLabel":161,"@material-ui/core/Toolbar":174,"@material-ui/core/Tooltip":176,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"classnames":236,"mdi-material-ui/DotsVertical":319,"mdi-material-ui/Plus":329,"prop-types":345,"react":376,"reflux":401,"shortid":411}],476:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -90441,7 +90590,7 @@ var _default = (0, _styles.withStyles)(styles)(MainAppbar);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":426,"../../resourceManager/stores":440,"./bottomNavigation":473,"./drawer":474,"@material-ui/core/AppBar":21,"@material-ui/core/IconButton":88,"@material-ui/core/Toolbar":174,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"classnames":236,"mdi-material-ui/Menu":324,"prop-types":345,"react":376,"react-svg":365,"reflux":401,"shortid":411}],473:[function(require,module,exports){
+},{"../../resourceManager/actions":426,"../../resourceManager/stores":444,"./bottomNavigation":477,"./drawer":478,"@material-ui/core/AppBar":21,"@material-ui/core/IconButton":88,"@material-ui/core/Toolbar":174,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"classnames":236,"mdi-material-ui/Menu":324,"prop-types":345,"react":376,"react-svg":365,"reflux":401,"shortid":411}],477:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -90555,7 +90704,7 @@ var _default = (0, _styles.withStyles)(styles)(TheBottomNavigation);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":426,"../../resourceManager/stores":440,"@material-ui/core/BottomNavigation":31,"@material-ui/core/BottomNavigationAction":29,"@material-ui/core/styles":205,"@material-ui/core/styles/zIndex":217,"classnames":236,"mdi-material-ui/AccountCircleOutline":316,"mdi-material-ui/CursorDefaultClickOutline":318,"mdi-material-ui/Home":321,"mdi-material-ui/NoteOutline":326,"mdi-material-ui/TrophyVariantOutline":333,"prop-types":345,"react":376,"reflux":401,"shortid":411}],474:[function(require,module,exports){
+},{"../../resourceManager/actions":426,"../../resourceManager/stores":444,"@material-ui/core/BottomNavigation":31,"@material-ui/core/BottomNavigationAction":29,"@material-ui/core/styles":205,"@material-ui/core/styles/zIndex":217,"classnames":236,"mdi-material-ui/AccountCircleOutline":316,"mdi-material-ui/CursorDefaultClickOutline":318,"mdi-material-ui/Home":321,"mdi-material-ui/NoteOutline":326,"mdi-material-ui/TrophyVariantOutline":333,"prop-types":345,"react":376,"reflux":401,"shortid":411}],478:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -90746,9 +90895,9 @@ var _default = (0, _styles.withStyles)(styles)(MainDrawer);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":426,"../../resourceManager/stores":440,"@material-ui/core/Badge":27,"@material-ui/core/Divider":63,"@material-ui/core/Drawer":65,"@material-ui/core/IconButton":88,"@material-ui/core/List":108,"@material-ui/core/ListItem":105,"@material-ui/core/ListItemIcon":100,"@material-ui/core/ListItemText":102,"@material-ui/core/styles":205,"classnames":236,"mdi-material-ui/AccountCircleOutline":316,"mdi-material-ui/AccountGroup":317,"mdi-material-ui/CursorDefaultClickOutline":318,"mdi-material-ui/GoogleClassroom":320,"mdi-material-ui/Home":321,"mdi-material-ui/InformationOutline":322,"mdi-material-ui/NoteOutline":326,"mdi-material-ui/Palette":328,"mdi-material-ui/SettingsOutline":330,"mdi-material-ui/TableLarge":332,"mdi-material-ui/TrophyVariantOutline":333,"prop-types":345,"react":376,"react-router-dom":360,"reflux":401,"shortid":411}],475:[function(require,module,exports){
-arguments[4][429][0].apply(exports,arguments)
-},{"dup":429}],476:[function(require,module,exports){
+},{"../../resourceManager/actions":426,"../../resourceManager/stores":444,"@material-ui/core/Badge":27,"@material-ui/core/Divider":63,"@material-ui/core/Drawer":65,"@material-ui/core/IconButton":88,"@material-ui/core/List":108,"@material-ui/core/ListItem":105,"@material-ui/core/ListItemIcon":100,"@material-ui/core/ListItemText":102,"@material-ui/core/styles":205,"classnames":236,"mdi-material-ui/AccountCircleOutline":316,"mdi-material-ui/AccountGroup":317,"mdi-material-ui/CursorDefaultClickOutline":318,"mdi-material-ui/GoogleClassroom":320,"mdi-material-ui/Home":321,"mdi-material-ui/InformationOutline":322,"mdi-material-ui/NoteOutline":326,"mdi-material-ui/Palette":328,"mdi-material-ui/SettingsOutline":330,"mdi-material-ui/TableLarge":332,"mdi-material-ui/TrophyVariantOutline":333,"prop-types":345,"react":376,"react-router-dom":360,"reflux":401,"shortid":411}],479:[function(require,module,exports){
+arguments[4][433][0].apply(exports,arguments)
+},{"dup":433}],480:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -90802,7 +90951,7 @@ var _default = (0, _styles.withStyles)(styles)(AccountDashboard);
 
 exports.default = _default;
 
-},{"../../../resourceManager/actions":426,"../../../resourceManager/stores":440,"../../pages/account":460,"../../pages/accountMobile":461,"@material-ui/core/styles":205,"prop-types":345,"react":376,"reflux":401}],477:[function(require,module,exports){
+},{"../../../resourceManager/actions":426,"../../../resourceManager/stores":444,"../../pages/account":464,"../../pages/accountMobile":465,"@material-ui/core/styles":205,"prop-types":345,"react":376,"reflux":401}],481:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -90880,7 +91029,7 @@ var _default = (0, _styles.withStyles)(styles)(ClassTableRouter);
 
 exports.default = _default;
 
-},{"../../../resourceManager/actions":426,"../../../resourceManager/stores":440,"../../pages/classMap":465,"../../pages/classTable":466,"@material-ui/core/Tab":151,"@material-ui/core/Tabs":170,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"prop-types":345,"react":376,"reflux":401}],478:[function(require,module,exports){
+},{"../../../resourceManager/actions":426,"../../../resourceManager/stores":444,"../../pages/classMap":469,"../../pages/classTable":470,"@material-ui/core/Tab":151,"@material-ui/core/Tabs":170,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"prop-types":345,"react":376,"reflux":401}],482:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -90932,7 +91081,7 @@ var _default = (0, _styles.withStyles)(styles)(DeviceDashboard);
 
 exports.default = _default;
 
-},{"../../../resourceManager/actions":426,"../../../resourceManager/stores":440,"../../pages/classChoiceDesktop":463,"@material-ui/core/styles":205,"prop-types":345,"react":376,"reflux":401}],479:[function(require,module,exports){
+},{"../../../resourceManager/actions":426,"../../../resourceManager/stores":444,"../../pages/classChoiceDesktop":467,"@material-ui/core/styles":205,"prop-types":345,"react":376,"reflux":401}],483:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -90984,7 +91133,7 @@ var _default = (0, _styles.withStyles)(styles)(MainPage);
 
 exports.default = _default;
 
-},{"../../../resourceManager/actions":426,"../../../resourceManager/stores":440,"../../pages/broadcasts":462,"@material-ui/core/styles":205,"prop-types":345,"react":376,"reflux":401}],480:[function(require,module,exports){
+},{"../../../resourceManager/actions":426,"../../../resourceManager/stores":444,"../../pages/broadcasts":466,"@material-ui/core/styles":205,"prop-types":345,"react":376,"reflux":401}],484:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -91062,7 +91211,7 @@ var _default = (0, _styles.withStyles)(styles)(Management);
 
 exports.default = _default;
 
-},{"../../../resourceManager/actions":426,"../../../resourceManager/stores":440,"../../pages/classManagement":464,"../../pages/schoolManagement":471,"@material-ui/core/Tab":151,"@material-ui/core/Tabs":170,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"prop-types":345,"react":376,"reflux":401}],481:[function(require,module,exports){
+},{"../../../resourceManager/actions":426,"../../../resourceManager/stores":444,"../../pages/classManagement":468,"../../pages/schoolManagement":475,"@material-ui/core/Tab":151,"@material-ui/core/Tabs":170,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"prop-types":345,"react":376,"reflux":401}],485:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -91145,7 +91294,7 @@ var _default = (0, _styles.withStyles)(styles)(PickerTabs);
 
 exports.default = _default;
 
-},{"../../../resourceManager/actions":426,"../../../resourceManager/stores":440,"../../pages/groupPicker":467,"../../pages/picker":468,"../../pages/randomizer":469,"@material-ui/core/Tab":151,"@material-ui/core/Tabs":170,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"prop-types":345,"react":376,"reflux":401}],482:[function(require,module,exports){
+},{"../../../resourceManager/actions":426,"../../../resourceManager/stores":444,"../../pages/groupPicker":471,"../../pages/picker":472,"../../pages/randomizer":473,"@material-ui/core/Tab":151,"@material-ui/core/Tabs":170,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"prop-types":345,"react":376,"reflux":401}],486:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -91197,7 +91346,7 @@ var _default = (0, _styles.withStyles)(styles)(MainPage);
 
 exports.default = _default;
 
-},{"../../../resourceManager/actions":426,"../../../resourceManager/stores":440,"@material-ui/core/styles":205,"prop-types":345,"react":376,"reflux":401}],483:[function(require,module,exports){
+},{"../../../resourceManager/actions":426,"../../../resourceManager/stores":444,"@material-ui/core/styles":205,"prop-types":345,"react":376,"reflux":401}],487:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -91255,7 +91404,7 @@ var _default = (0, _styles.withStyles)(styles)(RankList);
 
 exports.default = _default;
 
-},{"../../../resourceManager/actions":426,"../../../resourceManager/stores":440,"../../pages/rank":470,"@material-ui/core/Tab":151,"@material-ui/core/Tabs":170,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"prop-types":345,"react":376,"reflux":401}],484:[function(require,module,exports){
+},{"../../../resourceManager/actions":426,"../../../resourceManager/stores":444,"../../pages/rank":474,"@material-ui/core/Tab":151,"@material-ui/core/Tabs":170,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"prop-types":345,"react":376,"reflux":401}],488:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -91316,4 +91465,4 @@ class MainWindowManager extends _reflux.default.Component {
 var _default = MainWindowManager;
 exports.default = _default;
 
-},{"../../resourceManager/stores":440,"../dialogs/about":451,"../dialogs/appendAccount":452,"../dialogs/appendClassMember":453,"../dialogs/bindClassDesktop":454,"../dialogs/databaseLoading":455,"../dialogs/numberDashboard":456,"../dialogs/setting":457,"@material-ui/core/styles":205,"classnames":236,"prop-types":345,"react":376,"react-router":363,"reflux":401,"shortid":411}]},{},[459]);
+},{"../../resourceManager/stores":444,"../dialogs/about":455,"../dialogs/appendAccount":456,"../dialogs/appendClassMember":457,"../dialogs/bindClassDesktop":458,"../dialogs/databaseLoading":459,"../dialogs/numberDashboard":460,"../dialogs/setting":461,"@material-ui/core/styles":205,"classnames":236,"prop-types":345,"react":376,"react-router":363,"reflux":401,"shortid":411}]},{},[463]);

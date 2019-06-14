@@ -1,4 +1,7 @@
-﻿import classes from "./databaseStore/classes";
+﻿import accounts from "./databaseStore/accounts";
+import classes from "./databaseStore/classes";
+import groups from "./databaseStore/groups";
+import groupTypes from "./databaseStore/groupTypes";
 
 import tag from "./viewStore/tag";
 import dialog from "./viewStore/dialog";
@@ -22,7 +25,10 @@ import rankPage from "./pageStore/rank";
 
 export default {
     database: {
-        classes: classes
+        accounts: accounts,
+        classes: classes,
+        groups: groups,
+        groupTypes: groupTypes
     },
 
     view: {

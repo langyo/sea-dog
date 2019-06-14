@@ -1,6 +1,10 @@
 ﻿import Reflux from "reflux";
 
-let classes = {};
+const databaseActions = [
+  '_count',
+  '_list',
+  '_get'
+];
 
 export default {
   database: {
@@ -9,11 +13,7 @@ export default {
       'login',
       'logout',
       'register',
-
-      'generateList',
-      'initializeList',
-      'updateByDatabase'
-    ]),
+    ].concat(databaseActions)),
     classes: Reflux.createActions([
       'addGroup',
       'addMember',
@@ -21,29 +21,17 @@ export default {
       'removeMember',
       'updateGroup',
       'updateMember',
-
-      'generateList',
-      'initializeList',
-      'updateByDatabase'
-    ]),
+    ].concat(databaseActions)),
     groups: Reflux.createActions([
       'addMember',
       'removeMember',
       'updateMember',
-
-      'generateList',
-      'initializeList',
-      'updateByDatabase'
-    ]),
+    ].concat(databaseActions)),
     groupTypes: Reflux.createActions([
       'addGroup',
       'removeGroup',
-      'updateGroup',
-
-      'generateList',
-      'initializeList',
-      'updateByDatabase'
-    ])
+      'updateGroup'
+    ].concat(databaseActions))
   },
 
   view: {
