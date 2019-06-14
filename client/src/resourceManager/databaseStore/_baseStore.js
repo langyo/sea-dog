@@ -23,9 +23,9 @@ export default class BaseStore extends Reflux.Store {
   // 用于获取 ID 列表
   _count(from, globalCount) {
     const skip = 10;
-    console.log("接收到", this.collection, "的回调指令，提示一共有", globalCount, "个表项，现在正在获取第", Math.ceil(from / skip), "批");
+    console.log("接收到", this.collection, "的回调指令，提示一共有", globalCount, "个表项，现在正在获取第", Math.ceil(from / skip) + 1, "批");
     let to = from + skip;
-    if (from >= globalCount || from == 0) return;
+    if (from >= globalCount || globalCount == 0) return;
     else if (to >= globalCount) to = globalCount - 1;
     send("execute", "database list", this.collection, from, to);
     this._count(to + 1, globalCount);
@@ -50,12 +50,14 @@ export default class BaseStore extends Reflux.Store {
 
   // 用于存储来自数据库的数据
   _get(id, key, value) {
-    let n = this.state[this.collection][id];
-    n[key] = value;
+    console.log("接收到", this.collection, "的回调指令，", id, '[', key, '] = ', value);
+    let n = this.state[this.collection];
+    if(!n[id]) n[id] = {};
+    n[id][key] = value;
     let doc = {};
     doc[this.collection] = n;
     this.setState(doc);
-    console.log("当前的 ", this.collection, "：", n);
+    console.log("当前的 ", this.collection, "：", doc);
   }
 
   _arrayCount(id, key, state, count) {

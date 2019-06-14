@@ -86668,9 +86668,9 @@ class BaseStore extends _reflux.default.Store {
 
   _count(from, globalCount) {
     const skip = 10;
-    console.log("接收到", this.collection, "的回调指令，提示一共有", globalCount, "个表项，现在正在获取第", Math.ceil(from / skip), "批");
+    console.log("接收到", this.collection, "的回调指令，提示一共有", globalCount, "个表项，现在正在获取第", Math.ceil(from / skip) + 1, "批");
     let to = from + skip;
-    if (from >= globalCount || from == 0) return;else if (to >= globalCount) to = globalCount - 1;
+    if (from >= globalCount || globalCount == 0) return;else if (to >= globalCount) to = globalCount - 1;
     (0, _webSocketClient.send)("execute", "database list", this.collection, from, to);
 
     this._count(to + 1, globalCount);
@@ -86692,12 +86692,14 @@ class BaseStore extends _reflux.default.Store {
 
 
   _get(id, key, value) {
-    let n = this.state[this.collection][id];
-    n[key] = value;
+    console.log("接收到", this.collection, "的回调指令，", id, '[', key, '] = ', value);
+    let n = this.state[this.collection];
+    if (!n[id]) n[id] = {};
+    n[id][key] = value;
     let doc = {};
     doc[this.collection] = n;
     this.setState(doc);
-    console.log("当前的 ", this.collection, "：", n);
+    console.log("当前的 ", this.collection, "：", doc);
   }
 
   _arrayCount(id, key, state, count) {}
@@ -87173,6 +87175,15 @@ class ExecuterContext {
 
 class PluginDashboard {
   constructor(conn) {
+    _defineProperty(this, "register", obj => {
+      PluginDashboard.registerObject = diff(obj, this.registerObject);
+    });
+
+    _defineProperty(this, "receive", obj => {
+      console.log(obj);
+      PluginDashboard.receiveObject = diff(obj, this.receiveObject);
+    });
+
     _defineProperty(this, "send", (...args) => {
       this._sendMessage(args.reduce((prev, next) => {
         if (typeof next == 'string') prev.concat(next.trim().split(' '));else if (Array.isArray(next)) prev.concat(next);else if (typeof next == 'number' || typeof next == 'bigint') prev.push("" + next);else if (typeof next == 'boolean') prev.push(next ? 'true' : 'false');else if (typeof next == 'object') prev.push(JSON.stringify(next));else throw new Error("你似乎传入了个既不是具体数据也不是数组的东西……");
@@ -87200,8 +87211,6 @@ class PluginDashboard {
       let cmds = [arg];
 
       try {
-        console.log(func);
-
         for (; typeof func[arg] == 'object'; func = func[arg], arg = args.shift(), cmds.push(arg)) if (func === undefined) throw new Error("不存在这个对象！");
 
         if (type == 'execute' && func[arg] === undefined) throw new Error("不存在这个对象！");
@@ -87234,14 +87243,6 @@ class PluginDashboard {
 
     this.userId = null;
     this.buffer = "";
-  }
-
-  register(obj) {
-    PluginDashboard.registerObject = diff(obj, this.registerObject);
-  }
-
-  receive(obj) {
-    PluginDashboard.receiveObject = diff(obj, this.receiveObject);
   }
 
   _sendMessage(args) {
@@ -87297,9 +87298,9 @@ client.onmessage = data => {
   if (data.data == "data system register ok") {
     console.log("认证成功！");
     dashboard = new _pluginDashboard.default(client);
-    dashboardEmitter.on('send', n => dashboard.send(n));
-    dashboardEmitter.on('register', n => dashboard.register(n));
-    dashboardEmitter.on('receive', n => dashboard.receive(n));
+    dashboardEmitter.on('send', msg => dashboard.send(msg));
+    dashboardEmitter.on('register', obj => dashboard.register(obj));
+    dashboardEmitter.on('receive', obj => dashboard.receive(obj));
     connectionEmitter.emit("load");
   }
 };
@@ -87307,19 +87308,19 @@ client.onmessage = data => {
 client.onerror = err => console.error(err);
 
 let send = (...data) => {
-  if (dashboard) dashboardEmitter.emit(data);else connectionEmitter.on('ready', () => dashboardEmitter.emit('send', data), console.log("已注册 send", data));
+  if (dashboard) dashboardEmitter.emit('send', data);else connectionEmitter.on('ready', () => dashboardEmitter.emit('send', data), console.log("已注册 send", data));
 };
 
 exports.send = send;
 
 let register = obj => {
-  if (dashboard) dashboardEmitter.emit(obj);else connectionEmitter.on('ready', () => dashboardEmitter.emit('register', obj), console.log("已注册 register", obj));
+  if (dashboard) dashboardEmitter.emit('register', obj);else connectionEmitter.on('ready', () => dashboardEmitter.emit('register', obj), console.log("已注册 register", obj));
 };
 
 exports.register = register;
 
 let receive = obj => {
-  if (dashboard) dashboardEmitter.emit(obj);else connectionEmitter.on('ready', () => dashboardEmitter.emit('receive', obj), console.log("已注册 receive", obj));
+  if (dashboard) dashboardEmitter.emit('receive', obj);else connectionEmitter.on('ready', () => dashboardEmitter.emit('receive', obj), console.log("已注册 receive", obj));
 };
 
 exports.receive = receive;
