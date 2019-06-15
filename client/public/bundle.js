@@ -86579,7 +86579,7 @@ var _reflux = _interopRequireDefault(require("reflux"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-const databaseActions = ['_count', '_list', '_get'];
+const databaseActions = ['_count', '_list', '_get', '_arrayCount', '_arrayList'];
 var _default = {
   database: {
     accounts: _reflux.default.createActions(['updateAccountByDatabase', 'login', 'logout', 'register'].concat(databaseActions)),
@@ -86679,7 +86679,7 @@ class BaseStore extends _reflux.default.Store {
 
   _list(list) {
     console.log("接收到", this.collection, "的回调指令，获取到了 ID 列表", list);
-    let n = this.state[this.collection]; // 初始化
+    let n = this.state[this.collection];
 
     for (let i of list) n[i] = {};
 
@@ -86688,6 +86688,8 @@ class BaseStore extends _reflux.default.Store {
     this.setState(doc); // 对每一项逐个请求
 
     for (let i of list) for (let j of this.props) (0, _webSocketClient.send)("execute", "database get", this.collection, i, j);
+
+    for (let i of list) for (let j of this.propsArray) (0, _webSocketClient.send)("execute", "database array count", this.collection, i, j);
   } // 用于存储来自数据库的数据
 
 
@@ -86699,12 +86701,29 @@ class BaseStore extends _reflux.default.Store {
     let doc = {};
     doc[this.collection] = n;
     this.setState(doc);
-    console.log("当前的 ", this.collection, "：", doc);
   }
 
-  _arrayCount(id, key, state, count) {}
+  _arrayCount(id, key, from, globalCount) {
+    const skip = 10;
+    console.log("接收到", this.collection, "的回调指令，提示在", key, "中一共有", globalCount, "个元素，现在正在获取第", Math.ceil(from / skip) + 1, "批");
+    let to = from + skip;
+    if (from >= globalCount || globalCount == 0) return;else if (to >= globalCount) to = globalCount - 1;
+    (0, _webSocketClient.send)("execute", "database array list", this.collection, id, key, from, to);
 
-  _arrayList(id, key, state, ...list) {}
+    this._arrayCount(id, key, to + 1, globalCount);
+  }
+
+  _arrayList(id, key, list) {
+    console.log("接收到", this.collection, "的回调指令，获取到了", key, "的列表", list);
+    if (!this.state[this.collection][id]) this.state[this.collection][id] = {};
+    if (!this.state[this.collection][id][key]) this.state[this.collection][id][key] = [];
+    let n = this.state[this.collection][id][key].concat(list);
+    let doc = {};
+    doc[this.collection] = {};
+    doc[this.collection][id] = {};
+    doc[this.collection][id][key] = n;
+    this.setState(doc);
+  }
 
 }
 
@@ -86732,7 +86751,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 class Accounts extends _baseStore.default {
   constructor() {
-    super(_actions.default.database.accounts, 'accounts', ['name']);
+    super(_actions.default.database.accounts, 'accounts', ['name'], []);
   }
 
   login() {}
@@ -86769,7 +86788,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 class Classes extends _baseStore.default {
   constructor() {
-    super(_actions.default.database.classes, 'classes', ['name']);
+    super(_actions.default.database.classes, 'classes', ['name'], ['members']);
   }
 
   addGroup() {}
@@ -86812,7 +86831,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 class GroupTypes extends _baseStore.default {
   constructor() {
-    super(_actions.default.database.groupTypes, 'groupTypes', ['name']);
+    super(_actions.default.database.groupTypes, 'groupTypes', ['name'], []);
   }
 
   addGroup(className, type, name) {}
@@ -86849,7 +86868,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 class Groups extends _baseStore.default {
   constructor() {
-    super(_actions.default.database.groups, 'groups', ['name']);
+    super(_actions.default.database.groups, 'groups', ['name'], []);
   }
 
   addMember() {}
@@ -87281,7 +87300,8 @@ var _actions = _interopRequireDefault(require("../actions"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-let client = new WebSocket("ws://seadog.langyo.xyz:9201");
+// let client = new WebSocket("ws://seadog.langyo.xyz:9201");
+let client = new WebSocket("ws://localhost:9201");
 let dashboard;
 let connectionEmitter = new _events.EventEmitter();
 let dashboardEmitter = new _events.EventEmitter();
@@ -87861,6 +87881,20 @@ _webSocketClient.connectionEvents.on("load", () => {
         if (_actions.default.database[collection] && state == "success") {
           _actions.default.database[collection]._get(id, key, value);
         } else if (state != "success") console.error("get 指令执行失败，原因：", arguments[arguments.length - 1]);else console.error("接收到了个无效的 get 指令回复，操作的表为", collection);
+      },
+      array: {
+        count: function (collection, id, key, state, count) {
+          if (_actions.default.database[collection] && state == "success") {
+            _actions.default.database[collection]._arrayCount(id, key, 0, count);
+          } else if (state != "success") console.error("count 指令执行失败，原因：", arguments[arguments.length - 1]);else console.error("接收到了个无效的 array count 指令回复，操作的表为", collection);
+        },
+        list: function (collection, id, key, state, ...list) {
+          if (_actions.default.database[collection] && state == "success") {
+            list = Array.prototype.slice.call(list);
+
+            _actions.default.database[collection]._arrayList(id, key, list);
+          } else if (state != "success") console.error("list 指令执行失败，原因：", arguments[arguments.length - 1]);else console.error("接收到了个无效的 array list 指令回复，操作的表为", collection);
+        }
       }
     }
   });

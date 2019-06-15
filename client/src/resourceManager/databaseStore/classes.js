@@ -12,6 +12,9 @@ class Classes extends DatabaseBaseClass {
         'classes',
         [
           'name'
+        ],
+        [
+          'members'
         ]
       );
     }

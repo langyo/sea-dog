@@ -12,6 +12,9 @@ class GroupTypes extends DatabaseBaseClass {
       'groupTypes',
       [
         'name'
+      ],
+      [
+        
       ]
     );
   }

@@ -3,7 +3,10 @@
 const databaseActions = [
   '_count',
   '_list',
-  '_get'
+  '_get',
+
+  '_arrayCount',
+  '_arrayList'
 ];
 
 export default {
