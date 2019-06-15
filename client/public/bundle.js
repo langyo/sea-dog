@@ -86582,10 +86582,39 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 const databaseActions = ['_count', '_list', '_get', '_arrayCount', '_arrayList'];
 var _default = {
   database: {
+    accountHistoryQuestionItems: _reflux.default.createActions([].concat(databaseActions)),
+    accountHistoryQuestions: _reflux.default.createActions([].concat(databaseActions)),
+    accountHistoryTestItems: _reflux.default.createActions([].concat(databaseActions)),
+    accountHistoryTests: _reflux.default.createActions([].concat(databaseActions)),
     accounts: _reflux.default.createActions(['updateAccountByDatabase', 'login', 'logout', 'register'].concat(databaseActions)),
+    accountHistorys: _reflux.default.createActions([].concat(databaseActions)),
+    answers: _reflux.default.createActions([].concat(databaseActions)),
+    broadcasts: _reflux.default.createActions([].concat(databaseActions)),
     classes: _reflux.default.createActions(['addGroup', 'addMember', 'removeGroup', 'removeMember', 'updateGroup', 'updateMember'].concat(databaseActions)),
+    classMapBlocks: _reflux.default.createActions([].concat(databaseActions)),
+    classMapRows: _reflux.default.createActions([].concat(databaseActions)),
+    classMaps: _reflux.default.createActions([].concat(databaseActions)),
+    classStates: _reflux.default.createActions([].concat(databaseActions)),
+    classTableItems: _reflux.default.createActions([].concat(databaseActions)),
+    classTables: _reflux.default.createActions([].concat(databaseActions)),
+    configs: _reflux.default.createActions([].concat(databaseActions)),
+    dates: _reflux.default.createActions([].concat(databaseActions)),
+    expressionGroups: _reflux.default.createActions([].concat(databaseActions)),
+    expressions: _reflux.default.createActions([].concat(databaseActions)),
+    globalUserGroups: _reflux.default.createActions([].concat(databaseActions)),
     groups: _reflux.default.createActions(['addMember', 'removeMember', 'updateMember'].concat(databaseActions)),
-    groupTypes: _reflux.default.createActions(['addGroup', 'removeGroup', 'updateGroup'].concat(databaseActions))
+    groupTypes: _reflux.default.createActions(['addGroup', 'removeGroup', 'updateGroup'].concat(databaseActions)),
+    logs: _reflux.default.createActions([].concat(databaseActions)),
+    paths: _reflux.default.createActions([].concat(databaseActions)),
+    pickedHistorys: _reflux.default.createActions([].concat(databaseActions)),
+    providers: _reflux.default.createActions([].concat(databaseActions)),
+    questions: _reflux.default.createActions([].concat(databaseActions)),
+    scoreGroups: _reflux.default.createActions([].concat(databaseActions)),
+    scores: _reflux.default.createActions([].concat(databaseActions)),
+    scoreTypes: _reflux.default.createActions([].concat(databaseActions)),
+    tests: _reflux.default.createActions([].concat(databaseActions)),
+    themes: _reflux.default.createActions([].concat(databaseActions)),
+    tradeRules: _reflux.default.createActions([].concat(databaseActions))
   },
   view: {
     drawer: _reflux.default.createActions(['toggleTo', 'reset', 'toggleDrawerOpen']),
@@ -86729,7 +86758,162 @@ class BaseStore extends _reflux.default.Store {
 
 exports.default = BaseStore;
 
-},{"../actions":426,"../database":427,"../socketMessageManager/webSocketClient":443,"reflux":401}],429:[function(require,module,exports){
+},{"../actions":426,"../database":427,"../socketMessageManager/webSocketClient":472,"reflux":401}],429:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _reflux = _interopRequireDefault(require("reflux"));
+
+var _database = _interopRequireDefault(require("../database"));
+
+var _webSocketClient = require("../socketMessageManager/webSocketClient");
+
+var _actions = _interopRequireDefault(require("../actions"));
+
+var _baseStore = _interopRequireDefault(require("./_baseStore"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+class AccountHistoryQuestionItems extends _baseStore.default {
+  constructor() {
+    super(_actions.default.database.accountHIstoryQuestionItems, 'accountHistoryQuestionItems', [], []);
+  }
+
+}
+
+var _default = new AccountHistoryQuestionItems();
+
+exports.default = _default;
+
+},{"../actions":426,"../database":427,"../socketMessageManager/webSocketClient":472,"./_baseStore":428,"reflux":401}],430:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _reflux = _interopRequireDefault(require("reflux"));
+
+var _database = _interopRequireDefault(require("../database"));
+
+var _webSocketClient = require("../socketMessageManager/webSocketClient");
+
+var _actions = _interopRequireDefault(require("../actions"));
+
+var _baseStore = _interopRequireDefault(require("./_baseStore"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+class AccountHistoryQuestions extends _baseStore.default {
+  constructor() {
+    super(_actions.default.database.accountHistoryQuestions, 'accountHistoryQuestions', [], []);
+  }
+
+}
+
+var _default = new AccountHistoryQuestions();
+
+exports.default = _default;
+
+},{"../actions":426,"../database":427,"../socketMessageManager/webSocketClient":472,"./_baseStore":428,"reflux":401}],431:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _reflux = _interopRequireDefault(require("reflux"));
+
+var _database = _interopRequireDefault(require("../database"));
+
+var _webSocketClient = require("../socketMessageManager/webSocketClient");
+
+var _actions = _interopRequireDefault(require("../actions"));
+
+var _baseStore = _interopRequireDefault(require("./_baseStore"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+class AccountHistoryTestItems extends _baseStore.default {
+  constructor() {
+    super(_actions.default.database.accountHistoryTestItems, 'accountHistoryTestItems', [], []);
+  }
+
+}
+
+var _default = new AccountHistoryTestItems();
+
+exports.default = _default;
+
+},{"../actions":426,"../database":427,"../socketMessageManager/webSocketClient":472,"./_baseStore":428,"reflux":401}],432:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _reflux = _interopRequireDefault(require("reflux"));
+
+var _database = _interopRequireDefault(require("../database"));
+
+var _webSocketClient = require("../socketMessageManager/webSocketClient");
+
+var _actions = _interopRequireDefault(require("../actions"));
+
+var _baseStore = _interopRequireDefault(require("./_baseStore"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+class AccountHistoryTests extends _baseStore.default {
+  constructor() {
+    super(_actions.default.database.accountHistoryTests, 'accountHistoryTests', [], []);
+  }
+
+}
+
+var _default = new AccountHistoryTests();
+
+exports.default = _default;
+
+},{"../actions":426,"../database":427,"../socketMessageManager/webSocketClient":472,"./_baseStore":428,"reflux":401}],433:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _reflux = _interopRequireDefault(require("reflux"));
+
+var _database = _interopRequireDefault(require("../database"));
+
+var _webSocketClient = require("../socketMessageManager/webSocketClient");
+
+var _actions = _interopRequireDefault(require("../actions"));
+
+var _baseStore = _interopRequireDefault(require("./_baseStore"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+class AccountHistorys extends _baseStore.default {
+  constructor() {
+    super(_actions.default.database.accountHistorys, 'accountHistorys', [], []);
+  }
+
+}
+
+var _default = new AccountHistorys();
+
+exports.default = _default;
+
+},{"../actions":426,"../database":427,"../socketMessageManager/webSocketClient":472,"./_baseStore":428,"reflux":401}],434:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -86766,7 +86950,255 @@ var _default = new Accounts();
 
 exports.default = _default;
 
-},{"../actions":426,"../database":427,"../socketMessageManager/webSocketClient":443,"./_baseStore":428,"reflux":401}],430:[function(require,module,exports){
+},{"../actions":426,"../database":427,"../socketMessageManager/webSocketClient":472,"./_baseStore":428,"reflux":401}],435:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _reflux = _interopRequireDefault(require("reflux"));
+
+var _database = _interopRequireDefault(require("../database"));
+
+var _webSocketClient = require("../socketMessageManager/webSocketClient");
+
+var _actions = _interopRequireDefault(require("../actions"));
+
+var _baseStore = _interopRequireDefault(require("./_baseStore"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+class Answers extends _baseStore.default {
+  constructor() {
+    super(_actions.default.database.answers, 'answers', [], []);
+  }
+
+}
+
+var _default = new Answers();
+
+exports.default = _default;
+
+},{"../actions":426,"../database":427,"../socketMessageManager/webSocketClient":472,"./_baseStore":428,"reflux":401}],436:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _reflux = _interopRequireDefault(require("reflux"));
+
+var _database = _interopRequireDefault(require("../database"));
+
+var _webSocketClient = require("../socketMessageManager/webSocketClient");
+
+var _actions = _interopRequireDefault(require("../actions"));
+
+var _baseStore = _interopRequireDefault(require("./_baseStore"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+class Broadcasts extends _baseStore.default {
+  constructor() {
+    super(_actions.default.database.broadcasts, 'broadcasts', [], []);
+  }
+
+}
+
+var _default = new Broadcasts();
+
+exports.default = _default;
+
+},{"../actions":426,"../database":427,"../socketMessageManager/webSocketClient":472,"./_baseStore":428,"reflux":401}],437:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _reflux = _interopRequireDefault(require("reflux"));
+
+var _database = _interopRequireDefault(require("../database"));
+
+var _webSocketClient = require("../socketMessageManager/webSocketClient");
+
+var _actions = _interopRequireDefault(require("../actions"));
+
+var _baseStore = _interopRequireDefault(require("./_baseStore"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+class ClassMapBlocks extends _baseStore.default {
+  constructor() {
+    super(_actions.default.database.classMapBlocks, 'classMapBlocks', [], []);
+  }
+
+}
+
+var _default = new ClassMapBlocks();
+
+exports.default = _default;
+
+},{"../actions":426,"../database":427,"../socketMessageManager/webSocketClient":472,"./_baseStore":428,"reflux":401}],438:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _reflux = _interopRequireDefault(require("reflux"));
+
+var _database = _interopRequireDefault(require("../database"));
+
+var _webSocketClient = require("../socketMessageManager/webSocketClient");
+
+var _actions = _interopRequireDefault(require("../actions"));
+
+var _baseStore = _interopRequireDefault(require("./_baseStore"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+class ClassMapRows extends _baseStore.default {
+  constructor() {
+    super(_actions.default.database.classMapRows, 'classMapRows', [], []);
+  }
+
+}
+
+var _default = new ClassMapRows();
+
+exports.default = _default;
+
+},{"../actions":426,"../database":427,"../socketMessageManager/webSocketClient":472,"./_baseStore":428,"reflux":401}],439:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _reflux = _interopRequireDefault(require("reflux"));
+
+var _database = _interopRequireDefault(require("../database"));
+
+var _webSocketClient = require("../socketMessageManager/webSocketClient");
+
+var _actions = _interopRequireDefault(require("../actions"));
+
+var _baseStore = _interopRequireDefault(require("./_baseStore"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+class ClassMaps extends _baseStore.default {
+  constructor() {
+    super(_actions.default.database.classMaps, 'classMaps', [], []);
+  }
+
+}
+
+var _default = new ClassMaps();
+
+exports.default = _default;
+
+},{"../actions":426,"../database":427,"../socketMessageManager/webSocketClient":472,"./_baseStore":428,"reflux":401}],440:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _reflux = _interopRequireDefault(require("reflux"));
+
+var _database = _interopRequireDefault(require("../database"));
+
+var _webSocketClient = require("../socketMessageManager/webSocketClient");
+
+var _actions = _interopRequireDefault(require("../actions"));
+
+var _baseStore = _interopRequireDefault(require("./_baseStore"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+class ClassStates extends _baseStore.default {
+  constructor() {
+    super(_actions.default.database.classStates, 'classStates', [], []);
+  }
+
+}
+
+var _default = new ClassStates();
+
+exports.default = _default;
+
+},{"../actions":426,"../database":427,"../socketMessageManager/webSocketClient":472,"./_baseStore":428,"reflux":401}],441:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _reflux = _interopRequireDefault(require("reflux"));
+
+var _database = _interopRequireDefault(require("../database"));
+
+var _webSocketClient = require("../socketMessageManager/webSocketClient");
+
+var _actions = _interopRequireDefault(require("../actions"));
+
+var _baseStore = _interopRequireDefault(require("./_baseStore"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+class ClassTableItems extends _baseStore.default {
+  constructor() {
+    super(_actions.default.database.classTableItems, 'classTableItems', [], []);
+  }
+
+}
+
+var _default = new ClassTableItems();
+
+exports.default = _default;
+
+},{"../actions":426,"../database":427,"../socketMessageManager/webSocketClient":472,"./_baseStore":428,"reflux":401}],442:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _reflux = _interopRequireDefault(require("reflux"));
+
+var _database = _interopRequireDefault(require("../database"));
+
+var _webSocketClient = require("../socketMessageManager/webSocketClient");
+
+var _actions = _interopRequireDefault(require("../actions"));
+
+var _baseStore = _interopRequireDefault(require("./_baseStore"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+class ClassTables extends _baseStore.default {
+  constructor() {
+    super(_actions.default.database.classTables, 'classTables', [], []);
+  }
+
+}
+
+var _default = new ClassTables();
+
+exports.default = _default;
+
+},{"../actions":426,"../database":427,"../socketMessageManager/webSocketClient":472,"./_baseStore":428,"reflux":401}],443:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -86809,7 +87241,162 @@ var _default = new Classes();
 
 exports.default = _default;
 
-},{"../actions":426,"../database":427,"../socketMessageManager/webSocketClient":443,"./_baseStore":428,"reflux":401}],431:[function(require,module,exports){
+},{"../actions":426,"../database":427,"../socketMessageManager/webSocketClient":472,"./_baseStore":428,"reflux":401}],444:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _reflux = _interopRequireDefault(require("reflux"));
+
+var _database = _interopRequireDefault(require("../database"));
+
+var _webSocketClient = require("../socketMessageManager/webSocketClient");
+
+var _actions = _interopRequireDefault(require("../actions"));
+
+var _baseStore = _interopRequireDefault(require("./_baseStore"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+class Configs extends _baseStore.default {
+  constructor() {
+    super(_actions.default.database.configs, 'configs', [], []);
+  }
+
+}
+
+var _default = new Configs();
+
+exports.default = _default;
+
+},{"../actions":426,"../database":427,"../socketMessageManager/webSocketClient":472,"./_baseStore":428,"reflux":401}],445:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _reflux = _interopRequireDefault(require("reflux"));
+
+var _database = _interopRequireDefault(require("../database"));
+
+var _webSocketClient = require("../socketMessageManager/webSocketClient");
+
+var _actions = _interopRequireDefault(require("../actions"));
+
+var _baseStore = _interopRequireDefault(require("./_baseStore"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+class Dates extends _baseStore.default {
+  constructor() {
+    super(_actions.default.database.dates, 'dates', [], []);
+  }
+
+}
+
+var _default = new Dates();
+
+exports.default = _default;
+
+},{"../actions":426,"../database":427,"../socketMessageManager/webSocketClient":472,"./_baseStore":428,"reflux":401}],446:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _reflux = _interopRequireDefault(require("reflux"));
+
+var _database = _interopRequireDefault(require("../database"));
+
+var _webSocketClient = require("../socketMessageManager/webSocketClient");
+
+var _actions = _interopRequireDefault(require("../actions"));
+
+var _baseStore = _interopRequireDefault(require("./_baseStore"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+class ExpressionGroups extends _baseStore.default {
+  constructor() {
+    super(_actions.default.database.expressionGroups, 'expressionGroups', [], []);
+  }
+
+}
+
+var _default = new ExpressionGroups();
+
+exports.default = _default;
+
+},{"../actions":426,"../database":427,"../socketMessageManager/webSocketClient":472,"./_baseStore":428,"reflux":401}],447:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _reflux = _interopRequireDefault(require("reflux"));
+
+var _database = _interopRequireDefault(require("../database"));
+
+var _webSocketClient = require("../socketMessageManager/webSocketClient");
+
+var _actions = _interopRequireDefault(require("../actions"));
+
+var _baseStore = _interopRequireDefault(require("./_baseStore"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+class Expressions extends _baseStore.default {
+  constructor() {
+    super(_actions.default.database.expressions, 'expressions', [], []);
+  }
+
+}
+
+var _default = new Expressions();
+
+exports.default = _default;
+
+},{"../actions":426,"../database":427,"../socketMessageManager/webSocketClient":472,"./_baseStore":428,"reflux":401}],448:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _reflux = _interopRequireDefault(require("reflux"));
+
+var _database = _interopRequireDefault(require("../database"));
+
+var _webSocketClient = require("../socketMessageManager/webSocketClient");
+
+var _actions = _interopRequireDefault(require("../actions"));
+
+var _baseStore = _interopRequireDefault(require("./_baseStore"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+class GlobalUserGroups extends _baseStore.default {
+  constructor() {
+    super(_actions.default.database.globalUserGroups, 'globalUserGroups', [], []);
+  }
+
+}
+
+var _default = new GlobalUserGroups();
+
+exports.default = _default;
+
+},{"../actions":426,"../database":427,"../socketMessageManager/webSocketClient":472,"./_baseStore":428,"reflux":401}],449:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -86846,7 +87433,7 @@ var _default = new GroupTypes();
 
 exports.default = _default;
 
-},{"../actions":426,"../database":427,"../socketMessageManager/webSocketClient":443,"./_baseStore":428,"reflux":401}],432:[function(require,module,exports){
+},{"../actions":426,"../database":427,"../socketMessageManager/webSocketClient":472,"./_baseStore":428,"reflux":401}],450:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -86883,10 +87470,351 @@ var _default = new Groups();
 
 exports.default = _default;
 
-},{"../actions":426,"../database":427,"../socketMessageManager/webSocketClient":443,"./_baseStore":428,"reflux":401}],433:[function(require,module,exports){
+},{"../actions":426,"../database":427,"../socketMessageManager/webSocketClient":472,"./_baseStore":428,"reflux":401}],451:[function(require,module,exports){
 "use strict";
 
-},{}],434:[function(require,module,exports){
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _reflux = _interopRequireDefault(require("reflux"));
+
+var _database = _interopRequireDefault(require("../database"));
+
+var _webSocketClient = require("../socketMessageManager/webSocketClient");
+
+var _actions = _interopRequireDefault(require("../actions"));
+
+var _baseStore = _interopRequireDefault(require("./_baseStore"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+class Logs extends _baseStore.default {
+  constructor() {
+    super(_actions.default.database.logs, 'logs', [], []);
+  }
+
+}
+
+var _default = new Logs();
+
+exports.default = _default;
+
+},{"../actions":426,"../database":427,"../socketMessageManager/webSocketClient":472,"./_baseStore":428,"reflux":401}],452:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _reflux = _interopRequireDefault(require("reflux"));
+
+var _database = _interopRequireDefault(require("../database"));
+
+var _webSocketClient = require("../socketMessageManager/webSocketClient");
+
+var _actions = _interopRequireDefault(require("../actions"));
+
+var _baseStore = _interopRequireDefault(require("./_baseStore"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+class Paths extends _baseStore.default {
+  constructor() {
+    super(_actions.default.database.paths, 'paths', [], []);
+  }
+
+}
+
+var _default = new Paths();
+
+exports.default = _default;
+
+},{"../actions":426,"../database":427,"../socketMessageManager/webSocketClient":472,"./_baseStore":428,"reflux":401}],453:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _reflux = _interopRequireDefault(require("reflux"));
+
+var _database = _interopRequireDefault(require("../database"));
+
+var _webSocketClient = require("../socketMessageManager/webSocketClient");
+
+var _actions = _interopRequireDefault(require("../actions"));
+
+var _baseStore = _interopRequireDefault(require("./_baseStore"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+class PickedHistorys extends _baseStore.default {
+  constructor() {
+    super(_actions.default.database.pickedHistorys, 'pickedHistorys', [], []);
+  }
+
+}
+
+var _default = new PickedHistorys();
+
+exports.default = _default;
+
+},{"../actions":426,"../database":427,"../socketMessageManager/webSocketClient":472,"./_baseStore":428,"reflux":401}],454:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _reflux = _interopRequireDefault(require("reflux"));
+
+var _database = _interopRequireDefault(require("../database"));
+
+var _webSocketClient = require("../socketMessageManager/webSocketClient");
+
+var _actions = _interopRequireDefault(require("../actions"));
+
+var _baseStore = _interopRequireDefault(require("./_baseStore"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+class Providers extends _baseStore.default {
+  constructor() {
+    super(_actions.default.database.providers, 'providers', [], []);
+  }
+
+}
+
+var _default = new Providers();
+
+exports.default = _default;
+
+},{"../actions":426,"../database":427,"../socketMessageManager/webSocketClient":472,"./_baseStore":428,"reflux":401}],455:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _reflux = _interopRequireDefault(require("reflux"));
+
+var _database = _interopRequireDefault(require("../database"));
+
+var _webSocketClient = require("../socketMessageManager/webSocketClient");
+
+var _actions = _interopRequireDefault(require("../actions"));
+
+var _baseStore = _interopRequireDefault(require("./_baseStore"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+class Questions extends _baseStore.default {
+  constructor() {
+    super(_actions.default.database.questions, 'questions', [], []);
+  }
+
+}
+
+var _default = new Questions();
+
+exports.default = _default;
+
+},{"../actions":426,"../database":427,"../socketMessageManager/webSocketClient":472,"./_baseStore":428,"reflux":401}],456:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _reflux = _interopRequireDefault(require("reflux"));
+
+var _database = _interopRequireDefault(require("../database"));
+
+var _webSocketClient = require("../socketMessageManager/webSocketClient");
+
+var _actions = _interopRequireDefault(require("../actions"));
+
+var _baseStore = _interopRequireDefault(require("./_baseStore"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+class ScoreGroups extends _baseStore.default {
+  constructor() {
+    super(_actions.default.database.scoreGroups, 'scoreGroups', [], []);
+  }
+
+}
+
+var _default = new ScoreGroups();
+
+exports.default = _default;
+
+},{"../actions":426,"../database":427,"../socketMessageManager/webSocketClient":472,"./_baseStore":428,"reflux":401}],457:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _reflux = _interopRequireDefault(require("reflux"));
+
+var _database = _interopRequireDefault(require("../database"));
+
+var _webSocketClient = require("../socketMessageManager/webSocketClient");
+
+var _actions = _interopRequireDefault(require("../actions"));
+
+var _baseStore = _interopRequireDefault(require("./_baseStore"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+class ScoreTypes extends _baseStore.default {
+  constructor() {
+    super(_actions.default.database.scoreTypes, 'scoreTypes', [], []);
+  }
+
+}
+
+var _default = new ScoreTypes();
+
+exports.default = _default;
+
+},{"../actions":426,"../database":427,"../socketMessageManager/webSocketClient":472,"./_baseStore":428,"reflux":401}],458:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _reflux = _interopRequireDefault(require("reflux"));
+
+var _database = _interopRequireDefault(require("../database"));
+
+var _webSocketClient = require("../socketMessageManager/webSocketClient");
+
+var _actions = _interopRequireDefault(require("../actions"));
+
+var _baseStore = _interopRequireDefault(require("./_baseStore"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+class Scores extends _baseStore.default {
+  constructor() {
+    super(_actions.default.database.scores, 'scores', [], []);
+  }
+
+}
+
+var _default = new Scores();
+
+exports.default = _default;
+
+},{"../actions":426,"../database":427,"../socketMessageManager/webSocketClient":472,"./_baseStore":428,"reflux":401}],459:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _reflux = _interopRequireDefault(require("reflux"));
+
+var _database = _interopRequireDefault(require("../database"));
+
+var _webSocketClient = require("../socketMessageManager/webSocketClient");
+
+var _actions = _interopRequireDefault(require("../actions"));
+
+var _baseStore = _interopRequireDefault(require("./_baseStore"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+class Tests extends _baseStore.default {
+  constructor() {
+    super(_actions.default.database.tests, 'tests', [], []);
+  }
+
+}
+
+var _default = new Tests();
+
+exports.default = _default;
+
+},{"../actions":426,"../database":427,"../socketMessageManager/webSocketClient":472,"./_baseStore":428,"reflux":401}],460:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _reflux = _interopRequireDefault(require("reflux"));
+
+var _database = _interopRequireDefault(require("../database"));
+
+var _webSocketClient = require("../socketMessageManager/webSocketClient");
+
+var _actions = _interopRequireDefault(require("../actions"));
+
+var _baseStore = _interopRequireDefault(require("./_baseStore"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+class Themes extends _baseStore.default {
+  constructor() {
+    super(_actions.default.database.themes, 'themes', [], []);
+  }
+
+}
+
+var _default = new Themes();
+
+exports.default = _default;
+
+},{"../actions":426,"../database":427,"../socketMessageManager/webSocketClient":472,"./_baseStore":428,"reflux":401}],461:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _reflux = _interopRequireDefault(require("reflux"));
+
+var _database = _interopRequireDefault(require("../database"));
+
+var _webSocketClient = require("../socketMessageManager/webSocketClient");
+
+var _actions = _interopRequireDefault(require("../actions"));
+
+var _baseStore = _interopRequireDefault(require("./_baseStore"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+class TradeRules extends _baseStore.default {
+  constructor() {
+    super(_actions.default.database.tradeRules, 'tradeRules', [], []);
+  }
+
+}
+
+var _default = new TradeRules();
+
+exports.default = _default;
+
+},{"../actions":426,"../database":427,"../socketMessageManager/webSocketClient":472,"./_baseStore":428,"reflux":401}],462:[function(require,module,exports){
+"use strict";
+
+},{}],463:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -86948,7 +87876,7 @@ var _default = new Drawer();
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":426,"../../resourceManager/stores":444,"../database":427,"reflux":401}],435:[function(require,module,exports){
+},{"../../resourceManager/actions":426,"../../resourceManager/stores":473,"../database":427,"reflux":401}],464:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -86979,9 +87907,9 @@ var _default = new ClassManagement();
 
 exports.default = _default;
 
-},{"../actions":426,"../database":427,"reflux":401}],436:[function(require,module,exports){
-arguments[4][433][0].apply(exports,arguments)
-},{"dup":433}],437:[function(require,module,exports){
+},{"../actions":426,"../database":427,"reflux":401}],465:[function(require,module,exports){
+arguments[4][462][0].apply(exports,arguments)
+},{"dup":462}],466:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -87062,9 +87990,9 @@ var _default = new Picker();
 
 exports.default = _default;
 
-},{"../actions":426,"../database":427,"../socketMessageManager/webSocketClient":443,"reflux":401}],438:[function(require,module,exports){
-arguments[4][433][0].apply(exports,arguments)
-},{"dup":433}],439:[function(require,module,exports){
+},{"../actions":426,"../database":427,"../socketMessageManager/webSocketClient":472,"reflux":401}],467:[function(require,module,exports){
+arguments[4][462][0].apply(exports,arguments)
+},{"dup":462}],468:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -87128,9 +88056,9 @@ var _default = new Randomizer();
 
 exports.default = _default;
 
-},{"../actions":426,"../database":427,"reflux":401}],440:[function(require,module,exports){
-arguments[4][433][0].apply(exports,arguments)
-},{"dup":433}],441:[function(require,module,exports){
+},{"../actions":426,"../database":427,"reflux":401}],469:[function(require,module,exports){
+arguments[4][462][0].apply(exports,arguments)
+},{"dup":462}],470:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -87159,7 +88087,7 @@ var _default = new SchoolManagement();
 
 exports.default = _default;
 
-},{"../actions":426,"../database":427,"reflux":401}],442:[function(require,module,exports){
+},{"../actions":426,"../database":427,"reflux":401}],471:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -87284,7 +88212,7 @@ class PluginDashboard {
 
 exports.default = PluginDashboard;
 
-},{}],443:[function(require,module,exports){
+},{}],472:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -87300,8 +88228,8 @@ var _actions = _interopRequireDefault(require("../actions"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// let client = new WebSocket("ws://seadog.langyo.xyz:9201");
-let client = new WebSocket("ws://localhost:9201");
+let client = new WebSocket("ws://seadog.langyo.xyz:9201"); // let client = new WebSocket("ws://localhost:9201");
+
 let dashboard;
 let connectionEmitter = new _events.EventEmitter();
 let dashboardEmitter = new _events.EventEmitter();
@@ -87347,7 +88275,7 @@ exports.receive = receive;
 let connectionEvents = connectionEmitter;
 exports.connectionEvents = connectionEvents;
 
-},{"../actions":426,"./pluginDashboard":442,"events":259}],444:[function(require,module,exports){
+},{"../actions":426,"./pluginDashboard":471,"events":259}],473:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -87355,13 +88283,71 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
+var _accountHistoryQuestionItems = _interopRequireDefault(require("./databaseStore/accountHistoryQuestionItems"));
+
+var _accountHistoryQuestions = _interopRequireDefault(require("./databaseStore/accountHistoryQuestions"));
+
+var _accountHistoryTestItems = _interopRequireDefault(require("./databaseStore/accountHistoryTestItems"));
+
+var _accountHistoryTests = _interopRequireDefault(require("./databaseStore/accountHistoryTests"));
+
 var _accounts = _interopRequireDefault(require("./databaseStore/accounts"));
 
+var _accountHistorys = _interopRequireDefault(require("./databaseStore/accountHistorys"));
+
+var _answers = _interopRequireDefault(require("./databaseStore/answers"));
+
+var _broadcasts = _interopRequireDefault(require("./databaseStore/broadcasts"));
+
 var _classes = _interopRequireDefault(require("./databaseStore/classes"));
+
+var _classMapBlocks = _interopRequireDefault(require("./databaseStore/classMapBlocks"));
+
+var _classMapRows = _interopRequireDefault(require("./databaseStore/classMapRows"));
+
+var _classMaps = _interopRequireDefault(require("./databaseStore/classMaps"));
+
+var _classStates = _interopRequireDefault(require("./databaseStore/classStates"));
+
+var _classTableItems = _interopRequireDefault(require("./databaseStore/classTableItems"));
+
+var _classTables = _interopRequireDefault(require("./databaseStore/classTables"));
+
+var _configs = _interopRequireDefault(require("./databaseStore/configs"));
+
+var _dates = _interopRequireDefault(require("./databaseStore/dates"));
+
+var _expressionGroups = _interopRequireDefault(require("./databaseStore/expressionGroups"));
+
+var _expressions = _interopRequireDefault(require("./databaseStore/expressions"));
+
+var _globalUserGroups = _interopRequireDefault(require("./databaseStore/globalUserGroups"));
 
 var _groups = _interopRequireDefault(require("./databaseStore/groups"));
 
 var _groupTypes = _interopRequireDefault(require("./databaseStore/groupTypes"));
+
+var _logs = _interopRequireDefault(require("./databaseStore/logs"));
+
+var _paths = _interopRequireDefault(require("./databaseStore/paths"));
+
+var _pickedHistorys = _interopRequireDefault(require("./databaseStore/pickedHistorys"));
+
+var _provides = _interopRequireDefault(require("./databaseStore/provides"));
+
+var _questions = _interopRequireDefault(require("./databaseStore/questions"));
+
+var _scoreGroups = _interopRequireDefault(require("./databaseStore/scoreGroups"));
+
+var _scores = _interopRequireDefault(require("./databaseStore/scores"));
+
+var _scoreTypes = _interopRequireDefault(require("./databaseStore/scoreTypes"));
+
+var _tests = _interopRequireDefault(require("./databaseStore/tests"));
+
+var _themes = _interopRequireDefault(require("./databaseStore/themes"));
+
+var _tradeRules = _interopRequireDefault(require("./databaseStore/tradeRules"));
 
 var _tag = _interopRequireDefault(require("./viewStore/tag"));
 
@@ -87381,7 +88367,7 @@ var _drawer = _interopRequireDefault(require("./viewStore/drawer"));
 
 var _system = _interopRequireDefault(require("./viewStore/system"));
 
-var _broadcasts = _interopRequireDefault(require("./pageStore/broadcasts"));
+var _broadcasts2 = _interopRequireDefault(require("./pageStore/broadcasts"));
 
 var _account = _interopRequireDefault(require("./pageStore/account"));
 
@@ -87403,10 +88389,39 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var _default = {
   database: {
+    accountHistoryQuestionItems: _accountHistoryQuestionItems.default,
+    accountHistoryQuestions: _accountHistoryQuestions.default,
+    accountHistoryTestItems: _accountHistoryTestItems.default,
+    accountHistoryTests: _accountHistoryTests.default,
+    accountHistorys: _accountHistorys.default,
     accounts: _accounts.default,
+    answers: _answers.default,
+    broadcasts: _broadcasts.default,
     classes: _classes.default,
+    classMapBlocks: _classMapBlocks.default,
+    classMapRows: _classMapRows.default,
+    classMaps: _classMaps.default,
+    classStates: _classStates.default,
+    classTableItems: _classTableItems.default,
+    classTables: _classTables.default,
+    configs: _configs.default,
+    dates: _dates.default,
+    expressionGroups: _expressionGroups.default,
+    expressions: _expressions.default,
+    globalUserGroups: _globalUserGroups.default,
     groups: _groups.default,
-    groupTypes: _groupTypes.default
+    groupTypes: _groupTypes.default,
+    logs: _logs.default,
+    paths: _paths.default,
+    pickedHistorys: _pickedHistorys.default,
+    providers: _provides.default,
+    questions: _questions.default,
+    scoreGroups: _scoreGroups.default,
+    scores: _scores.default,
+    scoreTypes: _scoreTypes.default,
+    tests: _tests.default,
+    themes: _themes.default,
+    tradeRules: _tradeRules.default
   },
   view: {
     drawer: _drawer.default,
@@ -87420,7 +88435,7 @@ var _default = {
     system: _system.default
   },
   page: {
-    broadcast: _broadcasts.default,
+    broadcast: _broadcasts2.default,
     account: _account.default,
     classTable: _classTable.default,
     classManagement: _classManagement.default,
@@ -87433,7 +88448,7 @@ var _default = {
 };
 exports.default = _default;
 
-},{"./databaseStore/accounts":429,"./databaseStore/classes":430,"./databaseStore/groupTypes":431,"./databaseStore/groups":432,"./pageStore/account":433,"./pageStore/broadcasts":434,"./pageStore/classManagement":435,"./pageStore/classTable":436,"./pageStore/picker":437,"./pageStore/practise":438,"./pageStore/randomizer":439,"./pageStore/rank":440,"./pageStore/schoolManagement":441,"./viewStore/dialog":445,"./viewStore/drawer":446,"./viewStore/fab":447,"./viewStore/language":448,"./viewStore/popupMenu":449,"./viewStore/popupMessage":450,"./viewStore/system":451,"./viewStore/tag":452,"./viewStore/theme":453}],445:[function(require,module,exports){
+},{"./databaseStore/accountHistoryQuestionItems":429,"./databaseStore/accountHistoryQuestions":430,"./databaseStore/accountHistoryTestItems":431,"./databaseStore/accountHistoryTests":432,"./databaseStore/accountHistorys":433,"./databaseStore/accounts":434,"./databaseStore/answers":435,"./databaseStore/broadcasts":436,"./databaseStore/classMapBlocks":437,"./databaseStore/classMapRows":438,"./databaseStore/classMaps":439,"./databaseStore/classStates":440,"./databaseStore/classTableItems":441,"./databaseStore/classTables":442,"./databaseStore/classes":443,"./databaseStore/configs":444,"./databaseStore/dates":445,"./databaseStore/expressionGroups":446,"./databaseStore/expressions":447,"./databaseStore/globalUserGroups":448,"./databaseStore/groupTypes":449,"./databaseStore/groups":450,"./databaseStore/logs":451,"./databaseStore/paths":452,"./databaseStore/pickedHistorys":453,"./databaseStore/provides":454,"./databaseStore/questions":455,"./databaseStore/scoreGroups":456,"./databaseStore/scoreTypes":457,"./databaseStore/scores":458,"./databaseStore/tests":459,"./databaseStore/themes":460,"./databaseStore/tradeRules":461,"./pageStore/account":462,"./pageStore/broadcasts":463,"./pageStore/classManagement":464,"./pageStore/classTable":465,"./pageStore/picker":466,"./pageStore/practise":467,"./pageStore/randomizer":468,"./pageStore/rank":469,"./pageStore/schoolManagement":470,"./viewStore/dialog":474,"./viewStore/drawer":475,"./viewStore/fab":476,"./viewStore/language":477,"./viewStore/popupMenu":478,"./viewStore/popupMessage":479,"./viewStore/system":480,"./viewStore/tag":481,"./viewStore/theme":482}],474:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -87476,7 +88491,7 @@ var _default = new Dialog();
 
 exports.default = _default;
 
-},{"../actions":426,"../database":427,"reflux":401}],446:[function(require,module,exports){
+},{"../actions":426,"../database":427,"reflux":401}],475:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -87535,7 +88550,7 @@ var _default = new Drawer();
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":426,"../../resourceManager/stores":444,"../database":427,"reflux":401}],447:[function(require,module,exports){
+},{"../../resourceManager/actions":426,"../../resourceManager/stores":473,"../database":427,"reflux":401}],476:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -87570,7 +88585,7 @@ var _default = new Fab();
 
 exports.default = _default;
 
-},{"../actions":426,"../database":427,"reflux":401}],448:[function(require,module,exports){
+},{"../actions":426,"../database":427,"reflux":401}],477:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -87608,7 +88623,7 @@ var _default = new Language();
 
 exports.default = _default;
 
-},{"../actions":426,"../database":427,"reflux":401}],449:[function(require,module,exports){
+},{"../actions":426,"../database":427,"reflux":401}],478:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -87651,7 +88666,7 @@ var _default = new PopupMenu();
 
 exports.default = _default;
 
-},{"../actions":426,"../database":427,"reflux":401}],450:[function(require,module,exports){
+},{"../actions":426,"../database":427,"reflux":401}],479:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -87686,7 +88701,7 @@ var _default = new PopupMessage();
 
 exports.default = _default;
 
-},{"../actions":426,"../database":427,"reflux":401}],451:[function(require,module,exports){
+},{"../actions":426,"../database":427,"reflux":401}],480:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -87748,7 +88763,7 @@ var _default = new System();
 
 exports.default = _default;
 
-},{"../actions":426,"../database":427,"../websocket":454,"reflux":401}],452:[function(require,module,exports){
+},{"../actions":426,"../database":427,"../websocket":483,"reflux":401}],481:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -87783,7 +88798,7 @@ var _default = new Tag();
 
 exports.default = _default;
 
-},{"../actions":426,"../database":427,"reflux":401}],453:[function(require,module,exports){
+},{"../actions":426,"../database":427,"reflux":401}],482:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -87848,7 +88863,7 @@ var _default = new Theme();
 
 exports.default = _default;
 
-},{"../actions":426,"../database":427,"reflux":401}],454:[function(require,module,exports){
+},{"../actions":426,"../database":427,"reflux":401}],483:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -87913,7 +88928,7 @@ var _default = {
 };
 exports.default = _default;
 
-},{"./actions":426,"./socketMessageManager/webSocketClient":443}],455:[function(require,module,exports){
+},{"./actions":426,"./socketMessageManager/webSocketClient":472}],484:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -88022,7 +89037,7 @@ var _default = (0, _styles.withStyles)(styles)(About);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":426,"../../resourceManager/stores":444,"@material-ui/core/Button":39,"@material-ui/core/Dialog":61,"@material-ui/core/DialogActions":53,"@material-ui/core/DialogContent":57,"@material-ui/core/DialogContentText":55,"@material-ui/core/DialogTitle":59,"@material-ui/core/Fade":67,"@material-ui/core/Grow":86,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"classnames":236,"prop-types":345,"react":376,"react-router":363,"reflux":401,"shortid":411}],456:[function(require,module,exports){
+},{"../../resourceManager/actions":426,"../../resourceManager/stores":473,"@material-ui/core/Button":39,"@material-ui/core/Dialog":61,"@material-ui/core/DialogActions":53,"@material-ui/core/DialogContent":57,"@material-ui/core/DialogContentText":55,"@material-ui/core/DialogTitle":59,"@material-ui/core/Fade":67,"@material-ui/core/Grow":86,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"classnames":236,"prop-types":345,"react":376,"react-router":363,"reflux":401,"shortid":411}],485:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -88188,7 +89203,7 @@ var _default = (0, _styles.withStyles)(styles)(AppendAccount);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":426,"../../resourceManager/stores":444,"@material-ui/core/Button":39,"@material-ui/core/Dialog":61,"@material-ui/core/DialogActions":53,"@material-ui/core/DialogContent":57,"@material-ui/core/DialogContentText":55,"@material-ui/core/DialogTitle":59,"@material-ui/core/Fade":67,"@material-ui/core/FormControl":75,"@material-ui/core/Grid":84,"@material-ui/core/Grow":86,"@material-ui/core/InputLabel":96,"@material-ui/core/Menu":114,"@material-ui/core/MenuItem":110,"@material-ui/core/OutlinedInput":126,"@material-ui/core/Select":143,"@material-ui/core/TextField":172,"@material-ui/core/Typography":178,"@material-ui/core/colors/green":180,"@material-ui/core/colors/red":184,"@material-ui/core/styles":205,"classnames":236,"prop-types":345,"react":376,"react-router":363,"reflux":401,"shortid":411}],457:[function(require,module,exports){
+},{"../../resourceManager/actions":426,"../../resourceManager/stores":473,"@material-ui/core/Button":39,"@material-ui/core/Dialog":61,"@material-ui/core/DialogActions":53,"@material-ui/core/DialogContent":57,"@material-ui/core/DialogContentText":55,"@material-ui/core/DialogTitle":59,"@material-ui/core/Fade":67,"@material-ui/core/FormControl":75,"@material-ui/core/Grid":84,"@material-ui/core/Grow":86,"@material-ui/core/InputLabel":96,"@material-ui/core/Menu":114,"@material-ui/core/MenuItem":110,"@material-ui/core/OutlinedInput":126,"@material-ui/core/Select":143,"@material-ui/core/TextField":172,"@material-ui/core/Typography":178,"@material-ui/core/colors/green":180,"@material-ui/core/colors/red":184,"@material-ui/core/styles":205,"classnames":236,"prop-types":345,"react":376,"react-router":363,"reflux":401,"shortid":411}],486:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -88356,7 +89371,7 @@ var _default = (0, _styles.withStyles)(styles)(AppendClassMember);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":426,"../../resourceManager/stores":444,"@material-ui/core/Button":39,"@material-ui/core/Dialog":61,"@material-ui/core/DialogActions":53,"@material-ui/core/DialogContent":57,"@material-ui/core/DialogContentText":55,"@material-ui/core/DialogTitle":59,"@material-ui/core/Fade":67,"@material-ui/core/FormControl":75,"@material-ui/core/Grid":84,"@material-ui/core/Grow":86,"@material-ui/core/InputLabel":96,"@material-ui/core/Menu":114,"@material-ui/core/MenuItem":110,"@material-ui/core/Select":143,"@material-ui/core/TextField":172,"@material-ui/core/Typography":178,"@material-ui/core/colors/green":180,"@material-ui/core/colors/red":184,"@material-ui/core/styles":205,"classnames":236,"prop-types":345,"react":376,"react-router":363,"reflux":401,"shortid":411}],458:[function(require,module,exports){
+},{"../../resourceManager/actions":426,"../../resourceManager/stores":473,"@material-ui/core/Button":39,"@material-ui/core/Dialog":61,"@material-ui/core/DialogActions":53,"@material-ui/core/DialogContent":57,"@material-ui/core/DialogContentText":55,"@material-ui/core/DialogTitle":59,"@material-ui/core/Fade":67,"@material-ui/core/FormControl":75,"@material-ui/core/Grid":84,"@material-ui/core/Grow":86,"@material-ui/core/InputLabel":96,"@material-ui/core/Menu":114,"@material-ui/core/MenuItem":110,"@material-ui/core/Select":143,"@material-ui/core/TextField":172,"@material-ui/core/Typography":178,"@material-ui/core/colors/green":180,"@material-ui/core/colors/red":184,"@material-ui/core/styles":205,"classnames":236,"prop-types":345,"react":376,"react-router":363,"reflux":401,"shortid":411}],487:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -88446,7 +89461,7 @@ var _default = (0, _styles.withStyles)(styles)(BindClassDesktop);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":426,"../../resourceManager/stores":444,"@material-ui/core/Button":39,"@material-ui/core/Dialog":61,"@material-ui/core/DialogActions":53,"@material-ui/core/DialogContent":57,"@material-ui/core/DialogTitle":59,"@material-ui/core/Fade":67,"@material-ui/core/FormControlLabel":71,"@material-ui/core/FormGroup":78,"@material-ui/core/Grow":86,"@material-ui/core/Radio":138,"@material-ui/core/RadioGroup":136,"@material-ui/core/Switch":149,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"classnames":236,"prop-types":345,"react":376,"react-router":363,"reflux":401,"shortid":411}],459:[function(require,module,exports){
+},{"../../resourceManager/actions":426,"../../resourceManager/stores":473,"@material-ui/core/Button":39,"@material-ui/core/Dialog":61,"@material-ui/core/DialogActions":53,"@material-ui/core/DialogContent":57,"@material-ui/core/DialogTitle":59,"@material-ui/core/Fade":67,"@material-ui/core/FormControlLabel":71,"@material-ui/core/FormGroup":78,"@material-ui/core/Grow":86,"@material-ui/core/Radio":138,"@material-ui/core/RadioGroup":136,"@material-ui/core/Switch":149,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"classnames":236,"prop-types":345,"react":376,"react-router":363,"reflux":401,"shortid":411}],488:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -88512,7 +89527,7 @@ var _default = (0, _styles.withStyles)(styles)(About);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":426,"../../resourceManager/stores":444,"@material-ui/core/CircularProgress":49,"@material-ui/core/Dialog":61,"@material-ui/core/DialogContent":57,"@material-ui/core/Fade":67,"@material-ui/core/Grow":86,"@material-ui/core/styles":205,"classnames":236,"prop-types":345,"react":376,"react-router":363,"reflux":401,"shortid":411}],460:[function(require,module,exports){
+},{"../../resourceManager/actions":426,"../../resourceManager/stores":473,"@material-ui/core/CircularProgress":49,"@material-ui/core/Dialog":61,"@material-ui/core/DialogContent":57,"@material-ui/core/Fade":67,"@material-ui/core/Grow":86,"@material-ui/core/styles":205,"classnames":236,"prop-types":345,"react":376,"react-router":363,"reflux":401,"shortid":411}],489:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -88702,7 +89717,7 @@ var _default = (0, _styles.withStyles)(styles)(NumberDashboard);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":426,"../../resourceManager/stores":444,"@material-ui/core/Avatar":23,"@material-ui/core/Button":39,"@material-ui/core/Dialog":61,"@material-ui/core/DialogActions":53,"@material-ui/core/DialogContent":57,"@material-ui/core/DialogContentText":55,"@material-ui/core/DialogTitle":59,"@material-ui/core/Fade":67,"@material-ui/core/Grid":84,"@material-ui/core/Grow":86,"@material-ui/core/IconButton":88,"@material-ui/core/Menu":114,"@material-ui/core/TextField":172,"@material-ui/core/Typography":178,"@material-ui/core/colors/green":180,"@material-ui/core/colors/red":184,"@material-ui/core/styles":205,"classnames":236,"prop-types":345,"react":376,"react-router":363,"reflux":401,"shortid":411}],461:[function(require,module,exports){
+},{"../../resourceManager/actions":426,"../../resourceManager/stores":473,"@material-ui/core/Avatar":23,"@material-ui/core/Button":39,"@material-ui/core/Dialog":61,"@material-ui/core/DialogActions":53,"@material-ui/core/DialogContent":57,"@material-ui/core/DialogContentText":55,"@material-ui/core/DialogTitle":59,"@material-ui/core/Fade":67,"@material-ui/core/Grid":84,"@material-ui/core/Grow":86,"@material-ui/core/IconButton":88,"@material-ui/core/Menu":114,"@material-ui/core/TextField":172,"@material-ui/core/Typography":178,"@material-ui/core/colors/green":180,"@material-ui/core/colors/red":184,"@material-ui/core/styles":205,"classnames":236,"prop-types":345,"react":376,"react-router":363,"reflux":401,"shortid":411}],490:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -88807,7 +89822,7 @@ var _default = (0, _styles.withStyles)(styles)(Setting);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":426,"../../resourceManager/stores":444,"@material-ui/core/Button":39,"@material-ui/core/Dialog":61,"@material-ui/core/DialogActions":53,"@material-ui/core/DialogContent":57,"@material-ui/core/DialogTitle":59,"@material-ui/core/Fade":67,"@material-ui/core/FormControlLabel":71,"@material-ui/core/FormGroup":78,"@material-ui/core/Grow":86,"@material-ui/core/Radio":138,"@material-ui/core/RadioGroup":136,"@material-ui/core/Switch":149,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"classnames":236,"prop-types":345,"react":376,"react-router":363,"reflux":401,"shortid":411}],462:[function(require,module,exports){
+},{"../../resourceManager/actions":426,"../../resourceManager/stores":473,"@material-ui/core/Button":39,"@material-ui/core/Dialog":61,"@material-ui/core/DialogActions":53,"@material-ui/core/DialogContent":57,"@material-ui/core/DialogTitle":59,"@material-ui/core/Fade":67,"@material-ui/core/FormControlLabel":71,"@material-ui/core/FormGroup":78,"@material-ui/core/Grow":86,"@material-ui/core/Radio":138,"@material-ui/core/RadioGroup":136,"@material-ui/core/Switch":149,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"classnames":236,"prop-types":345,"react":376,"react-router":363,"reflux":401,"shortid":411}],491:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -88944,7 +89959,7 @@ var _default = (0, _styles.withStyles)(styles)(Root);
 
 exports.default = _default;
 
-},{"../resourceManager/actions":426,"../resourceManager/stores":444,"./views/appbar":476,"./views/fab":479,"./views/routeDesktop/accountDashboard":480,"./views/routeDesktop/classTable":481,"./views/routeDesktop/deviceDashboard":482,"./views/routeDesktop/mainPage":483,"./views/routeDesktop/management":484,"./views/routeDesktop/picker":485,"./views/routeDesktop/practise":486,"./views/routeDesktop/rankList":487,"./views/windowManager":488,"@material-ui/core/CssBaseline":51,"@material-ui/core/colors/red":184,"@material-ui/core/styles":205,"classnames":236,"prop-types":345,"react":376,"react-scrollbar":364,"reflux":401,"shortid":411}],463:[function(require,module,exports){
+},{"../resourceManager/actions":426,"../resourceManager/stores":473,"./views/appbar":505,"./views/fab":508,"./views/routeDesktop/accountDashboard":509,"./views/routeDesktop/classTable":510,"./views/routeDesktop/deviceDashboard":511,"./views/routeDesktop/mainPage":512,"./views/routeDesktop/management":513,"./views/routeDesktop/picker":514,"./views/routeDesktop/practise":515,"./views/routeDesktop/rankList":516,"./views/windowManager":517,"@material-ui/core/CssBaseline":51,"@material-ui/core/colors/red":184,"@material-ui/core/styles":205,"classnames":236,"prop-types":345,"react":376,"react-scrollbar":364,"reflux":401,"shortid":411}],492:[function(require,module,exports){
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -88957,7 +89972,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 _reactDom.default.render(_react.default.createElement(_mainView.default, null), document.querySelector('#content'));
 
-},{"./mainView":462,"react":376,"react-dom":351}],464:[function(require,module,exports){
+},{"./mainView":491,"react":376,"react-dom":351}],493:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -89048,7 +90063,7 @@ var _default = (0, _styles.withStyles)(styles)(Account);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":426,"../../resourceManager/stores":444,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":67,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"classnames":236,"mdi-material-ui/DotsVertical":319,"mdi-material-ui/KeyboardOutline":323,"mdi-material-ui/Minus":325,"mdi-material-ui/PacMan":327,"mdi-material-ui/Plus":329,"mdi-material-ui/StopCircleOutline":331,"prop-types":345,"react":376,"reflux":401,"shortid":411}],465:[function(require,module,exports){
+},{"../../resourceManager/actions":426,"../../resourceManager/stores":473,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":67,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"classnames":236,"mdi-material-ui/DotsVertical":319,"mdi-material-ui/KeyboardOutline":323,"mdi-material-ui/Minus":325,"mdi-material-ui/PacMan":327,"mdi-material-ui/Plus":329,"mdi-material-ui/StopCircleOutline":331,"prop-types":345,"react":376,"reflux":401,"shortid":411}],494:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -89139,7 +90154,7 @@ var _default = (0, _styles.withStyles)(styles)(AccountMobile);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":426,"../../resourceManager/stores":444,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":67,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"classnames":236,"mdi-material-ui/DotsVertical":319,"mdi-material-ui/KeyboardOutline":323,"mdi-material-ui/Minus":325,"mdi-material-ui/PacMan":327,"mdi-material-ui/Plus":329,"mdi-material-ui/StopCircleOutline":331,"prop-types":345,"react":376,"reflux":401,"shortid":411}],466:[function(require,module,exports){
+},{"../../resourceManager/actions":426,"../../resourceManager/stores":473,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":67,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"classnames":236,"mdi-material-ui/DotsVertical":319,"mdi-material-ui/KeyboardOutline":323,"mdi-material-ui/Minus":325,"mdi-material-ui/PacMan":327,"mdi-material-ui/Plus":329,"mdi-material-ui/StopCircleOutline":331,"prop-types":345,"react":376,"reflux":401,"shortid":411}],495:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -89276,7 +90291,7 @@ var _default = (0, _styles.withStyles)(styles)(Picker);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":426,"../../resourceManager/stores":444,"@material-ui/core/Button":39,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":67,"@material-ui/core/IconButton":88,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"classnames":236,"mdi-material-ui/DotsVertical":319,"mdi-material-ui/Minus":325,"mdi-material-ui/PacMan":327,"mdi-material-ui/Plus":329,"mdi-material-ui/StopCircleOutline":331,"prop-types":345,"react":376,"reflux":401,"shortid":411}],467:[function(require,module,exports){
+},{"../../resourceManager/actions":426,"../../resourceManager/stores":473,"@material-ui/core/Button":39,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":67,"@material-ui/core/IconButton":88,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"classnames":236,"mdi-material-ui/DotsVertical":319,"mdi-material-ui/Minus":325,"mdi-material-ui/PacMan":327,"mdi-material-ui/Plus":329,"mdi-material-ui/StopCircleOutline":331,"prop-types":345,"react":376,"reflux":401,"shortid":411}],496:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -89367,7 +90382,7 @@ var _default = (0, _styles.withStyles)(styles)(ClassChoiceDesktop);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":426,"../../resourceManager/stores":444,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":67,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"classnames":236,"mdi-material-ui/DotsVertical":319,"mdi-material-ui/KeyboardOutline":323,"mdi-material-ui/Minus":325,"mdi-material-ui/PacMan":327,"mdi-material-ui/Plus":329,"mdi-material-ui/StopCircleOutline":331,"prop-types":345,"react":376,"reflux":401,"shortid":411}],468:[function(require,module,exports){
+},{"../../resourceManager/actions":426,"../../resourceManager/stores":473,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":67,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"classnames":236,"mdi-material-ui/DotsVertical":319,"mdi-material-ui/KeyboardOutline":323,"mdi-material-ui/Minus":325,"mdi-material-ui/PacMan":327,"mdi-material-ui/Plus":329,"mdi-material-ui/StopCircleOutline":331,"prop-types":345,"react":376,"reflux":401,"shortid":411}],497:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -89534,7 +90549,7 @@ var _default = (0, _styles.withStyles)(styles)(ClassManagement);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":426,"../../resourceManager/stores":444,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":67,"@material-ui/core/IconButton":88,"@material-ui/core/Table":165,"@material-ui/core/TableBody":153,"@material-ui/core/TableCell":155,"@material-ui/core/TableHead":157,"@material-ui/core/TableRow":159,"@material-ui/core/TableSortLabel":161,"@material-ui/core/Toolbar":174,"@material-ui/core/Tooltip":176,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"classnames":236,"mdi-material-ui/DotsVertical":319,"mdi-material-ui/Plus":329,"prop-types":345,"react":376,"reflux":401,"shortid":411}],469:[function(require,module,exports){
+},{"../../resourceManager/actions":426,"../../resourceManager/stores":473,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":67,"@material-ui/core/IconButton":88,"@material-ui/core/Table":165,"@material-ui/core/TableBody":153,"@material-ui/core/TableCell":155,"@material-ui/core/TableHead":157,"@material-ui/core/TableRow":159,"@material-ui/core/TableSortLabel":161,"@material-ui/core/Toolbar":174,"@material-ui/core/Tooltip":176,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"classnames":236,"mdi-material-ui/DotsVertical":319,"mdi-material-ui/Plus":329,"prop-types":345,"react":376,"reflux":401,"shortid":411}],498:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -89625,7 +90640,7 @@ var _default = (0, _styles.withStyles)(styles)(ClassMap);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":426,"../../resourceManager/stores":444,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":67,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"classnames":236,"mdi-material-ui/DotsVertical":319,"mdi-material-ui/KeyboardOutline":323,"mdi-material-ui/Minus":325,"mdi-material-ui/PacMan":327,"mdi-material-ui/Plus":329,"mdi-material-ui/StopCircleOutline":331,"prop-types":345,"react":376,"reflux":401,"shortid":411}],470:[function(require,module,exports){
+},{"../../resourceManager/actions":426,"../../resourceManager/stores":473,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":67,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"classnames":236,"mdi-material-ui/DotsVertical":319,"mdi-material-ui/KeyboardOutline":323,"mdi-material-ui/Minus":325,"mdi-material-ui/PacMan":327,"mdi-material-ui/Plus":329,"mdi-material-ui/StopCircleOutline":331,"prop-types":345,"react":376,"reflux":401,"shortid":411}],499:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -89736,7 +90751,7 @@ var _default = (0, _styles.withStyles)(styles)(ClassTable);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":426,"../../resourceManager/stores":444,"@material-ui/core/Avatar":23,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":67,"@material-ui/core/Grid":84,"@material-ui/core/IconButton":88,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"classnames":236,"mdi-material-ui/DotsVertical":319,"prop-types":345,"react":376,"react-scrollbar":364,"reflux":401,"shortid":411}],471:[function(require,module,exports){
+},{"../../resourceManager/actions":426,"../../resourceManager/stores":473,"@material-ui/core/Avatar":23,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":67,"@material-ui/core/Grid":84,"@material-ui/core/IconButton":88,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"classnames":236,"mdi-material-ui/DotsVertical":319,"prop-types":345,"react":376,"react-scrollbar":364,"reflux":401,"shortid":411}],500:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -89934,7 +90949,7 @@ var _default = (0, _styles.withStyles)(styles)(GroupPicker);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":426,"../../resourceManager/stores":444,"@material-ui/core/Button":39,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Chip":47,"@material-ui/core/Fade":67,"@material-ui/core/FormControl":75,"@material-ui/core/FormHelperText":80,"@material-ui/core/IconButton":88,"@material-ui/core/Input":98,"@material-ui/core/InputAdornment":90,"@material-ui/core/InputLabel":96,"@material-ui/core/List":108,"@material-ui/core/ListItem":105,"@material-ui/core/ListItemText":102,"@material-ui/core/MenuItem":110,"@material-ui/core/OutlinedInput":126,"@material-ui/core/Select":143,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"classnames":236,"mdi-material-ui/DotsVertical":319,"mdi-material-ui/KeyboardOutline":323,"mdi-material-ui/Minus":325,"mdi-material-ui/PacMan":327,"mdi-material-ui/Plus":329,"mdi-material-ui/StopCircleOutline":331,"prop-types":345,"react":376,"reflux":401,"shortid":411}],472:[function(require,module,exports){
+},{"../../resourceManager/actions":426,"../../resourceManager/stores":473,"@material-ui/core/Button":39,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Chip":47,"@material-ui/core/Fade":67,"@material-ui/core/FormControl":75,"@material-ui/core/FormHelperText":80,"@material-ui/core/IconButton":88,"@material-ui/core/Input":98,"@material-ui/core/InputAdornment":90,"@material-ui/core/InputLabel":96,"@material-ui/core/List":108,"@material-ui/core/ListItem":105,"@material-ui/core/ListItemText":102,"@material-ui/core/MenuItem":110,"@material-ui/core/OutlinedInput":126,"@material-ui/core/Select":143,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"classnames":236,"mdi-material-ui/DotsVertical":319,"mdi-material-ui/KeyboardOutline":323,"mdi-material-ui/Minus":325,"mdi-material-ui/PacMan":327,"mdi-material-ui/Plus":329,"mdi-material-ui/StopCircleOutline":331,"prop-types":345,"react":376,"reflux":401,"shortid":411}],501:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -90097,7 +91112,7 @@ var _default = (0, _styles.withStyles)(styles)(Picker);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":426,"../../resourceManager/stores":444,"@material-ui/core/Button":39,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":67,"@material-ui/core/IconButton":88,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"classnames":236,"mdi-material-ui/DotsVertical":319,"mdi-material-ui/Minus":325,"mdi-material-ui/PacMan":327,"mdi-material-ui/Plus":329,"mdi-material-ui/StopCircleOutline":331,"prop-types":345,"react":376,"reflux":401,"shortid":411}],473:[function(require,module,exports){
+},{"../../resourceManager/actions":426,"../../resourceManager/stores":473,"@material-ui/core/Button":39,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":67,"@material-ui/core/IconButton":88,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"classnames":236,"mdi-material-ui/DotsVertical":319,"mdi-material-ui/Minus":325,"mdi-material-ui/PacMan":327,"mdi-material-ui/Plus":329,"mdi-material-ui/StopCircleOutline":331,"prop-types":345,"react":376,"reflux":401,"shortid":411}],502:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -90272,7 +91287,7 @@ var _default = (0, _styles.withStyles)(styles)(Randomizer);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":426,"../../resourceManager/stores":444,"@material-ui/core/Button":39,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":67,"@material-ui/core/FormControl":75,"@material-ui/core/FormHelperText":80,"@material-ui/core/IconButton":88,"@material-ui/core/Input":98,"@material-ui/core/InputAdornment":90,"@material-ui/core/InputLabel":96,"@material-ui/core/List":108,"@material-ui/core/ListItem":105,"@material-ui/core/ListItemText":102,"@material-ui/core/Typography":178,"@material-ui/core/colors/green":180,"@material-ui/core/colors/red":184,"@material-ui/core/styles":205,"classnames":236,"mdi-material-ui/DotsVertical":319,"mdi-material-ui/KeyboardOutline":323,"mdi-material-ui/Minus":325,"mdi-material-ui/PacMan":327,"mdi-material-ui/Plus":329,"mdi-material-ui/StopCircleOutline":331,"prop-types":345,"react":376,"reflux":401,"shortid":411}],474:[function(require,module,exports){
+},{"../../resourceManager/actions":426,"../../resourceManager/stores":473,"@material-ui/core/Button":39,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":67,"@material-ui/core/FormControl":75,"@material-ui/core/FormHelperText":80,"@material-ui/core/IconButton":88,"@material-ui/core/Input":98,"@material-ui/core/InputAdornment":90,"@material-ui/core/InputLabel":96,"@material-ui/core/List":108,"@material-ui/core/ListItem":105,"@material-ui/core/ListItemText":102,"@material-ui/core/Typography":178,"@material-ui/core/colors/green":180,"@material-ui/core/colors/red":184,"@material-ui/core/styles":205,"classnames":236,"mdi-material-ui/DotsVertical":319,"mdi-material-ui/KeyboardOutline":323,"mdi-material-ui/Minus":325,"mdi-material-ui/PacMan":327,"mdi-material-ui/Plus":329,"mdi-material-ui/StopCircleOutline":331,"prop-types":345,"react":376,"reflux":401,"shortid":411}],503:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -90363,7 +91378,7 @@ var _default = (0, _styles.withStyles)(styles)(Rank);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":426,"../../resourceManager/stores":444,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":67,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"classnames":236,"mdi-material-ui/DotsVertical":319,"mdi-material-ui/KeyboardOutline":323,"mdi-material-ui/Minus":325,"mdi-material-ui/PacMan":327,"mdi-material-ui/Plus":329,"mdi-material-ui/StopCircleOutline":331,"prop-types":345,"react":376,"reflux":401,"shortid":411}],475:[function(require,module,exports){
+},{"../../resourceManager/actions":426,"../../resourceManager/stores":473,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":67,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"classnames":236,"mdi-material-ui/DotsVertical":319,"mdi-material-ui/KeyboardOutline":323,"mdi-material-ui/Minus":325,"mdi-material-ui/PacMan":327,"mdi-material-ui/Plus":329,"mdi-material-ui/StopCircleOutline":331,"prop-types":345,"react":376,"reflux":401,"shortid":411}],504:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -90530,7 +91545,7 @@ var _default = (0, _styles.withStyles)(styles)(SchoolManagement);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":426,"../../resourceManager/stores":444,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":67,"@material-ui/core/IconButton":88,"@material-ui/core/Table":165,"@material-ui/core/TableBody":153,"@material-ui/core/TableCell":155,"@material-ui/core/TableHead":157,"@material-ui/core/TableRow":159,"@material-ui/core/TableSortLabel":161,"@material-ui/core/Toolbar":174,"@material-ui/core/Tooltip":176,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"classnames":236,"mdi-material-ui/DotsVertical":319,"mdi-material-ui/Plus":329,"prop-types":345,"react":376,"reflux":401,"shortid":411}],476:[function(require,module,exports){
+},{"../../resourceManager/actions":426,"../../resourceManager/stores":473,"@material-ui/core/Card":45,"@material-ui/core/CardActions":41,"@material-ui/core/CardContent":43,"@material-ui/core/Fade":67,"@material-ui/core/IconButton":88,"@material-ui/core/Table":165,"@material-ui/core/TableBody":153,"@material-ui/core/TableCell":155,"@material-ui/core/TableHead":157,"@material-ui/core/TableRow":159,"@material-ui/core/TableSortLabel":161,"@material-ui/core/Toolbar":174,"@material-ui/core/Tooltip":176,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"classnames":236,"mdi-material-ui/DotsVertical":319,"mdi-material-ui/Plus":329,"prop-types":345,"react":376,"reflux":401,"shortid":411}],505:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -90630,7 +91645,7 @@ var _default = (0, _styles.withStyles)(styles)(MainAppbar);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":426,"../../resourceManager/stores":444,"./bottomNavigation":477,"./drawer":478,"@material-ui/core/AppBar":21,"@material-ui/core/IconButton":88,"@material-ui/core/Toolbar":174,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"classnames":236,"mdi-material-ui/Menu":324,"prop-types":345,"react":376,"react-svg":365,"reflux":401,"shortid":411}],477:[function(require,module,exports){
+},{"../../resourceManager/actions":426,"../../resourceManager/stores":473,"./bottomNavigation":506,"./drawer":507,"@material-ui/core/AppBar":21,"@material-ui/core/IconButton":88,"@material-ui/core/Toolbar":174,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"classnames":236,"mdi-material-ui/Menu":324,"prop-types":345,"react":376,"react-svg":365,"reflux":401,"shortid":411}],506:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -90744,7 +91759,7 @@ var _default = (0, _styles.withStyles)(styles)(TheBottomNavigation);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":426,"../../resourceManager/stores":444,"@material-ui/core/BottomNavigation":31,"@material-ui/core/BottomNavigationAction":29,"@material-ui/core/styles":205,"@material-ui/core/styles/zIndex":217,"classnames":236,"mdi-material-ui/AccountCircleOutline":316,"mdi-material-ui/CursorDefaultClickOutline":318,"mdi-material-ui/Home":321,"mdi-material-ui/NoteOutline":326,"mdi-material-ui/TrophyVariantOutline":333,"prop-types":345,"react":376,"reflux":401,"shortid":411}],478:[function(require,module,exports){
+},{"../../resourceManager/actions":426,"../../resourceManager/stores":473,"@material-ui/core/BottomNavigation":31,"@material-ui/core/BottomNavigationAction":29,"@material-ui/core/styles":205,"@material-ui/core/styles/zIndex":217,"classnames":236,"mdi-material-ui/AccountCircleOutline":316,"mdi-material-ui/CursorDefaultClickOutline":318,"mdi-material-ui/Home":321,"mdi-material-ui/NoteOutline":326,"mdi-material-ui/TrophyVariantOutline":333,"prop-types":345,"react":376,"reflux":401,"shortid":411}],507:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -90935,9 +91950,9 @@ var _default = (0, _styles.withStyles)(styles)(MainDrawer);
 
 exports.default = _default;
 
-},{"../../resourceManager/actions":426,"../../resourceManager/stores":444,"@material-ui/core/Badge":27,"@material-ui/core/Divider":63,"@material-ui/core/Drawer":65,"@material-ui/core/IconButton":88,"@material-ui/core/List":108,"@material-ui/core/ListItem":105,"@material-ui/core/ListItemIcon":100,"@material-ui/core/ListItemText":102,"@material-ui/core/styles":205,"classnames":236,"mdi-material-ui/AccountCircleOutline":316,"mdi-material-ui/AccountGroup":317,"mdi-material-ui/CursorDefaultClickOutline":318,"mdi-material-ui/GoogleClassroom":320,"mdi-material-ui/Home":321,"mdi-material-ui/InformationOutline":322,"mdi-material-ui/NoteOutline":326,"mdi-material-ui/Palette":328,"mdi-material-ui/SettingsOutline":330,"mdi-material-ui/TableLarge":332,"mdi-material-ui/TrophyVariantOutline":333,"prop-types":345,"react":376,"react-router-dom":360,"reflux":401,"shortid":411}],479:[function(require,module,exports){
-arguments[4][433][0].apply(exports,arguments)
-},{"dup":433}],480:[function(require,module,exports){
+},{"../../resourceManager/actions":426,"../../resourceManager/stores":473,"@material-ui/core/Badge":27,"@material-ui/core/Divider":63,"@material-ui/core/Drawer":65,"@material-ui/core/IconButton":88,"@material-ui/core/List":108,"@material-ui/core/ListItem":105,"@material-ui/core/ListItemIcon":100,"@material-ui/core/ListItemText":102,"@material-ui/core/styles":205,"classnames":236,"mdi-material-ui/AccountCircleOutline":316,"mdi-material-ui/AccountGroup":317,"mdi-material-ui/CursorDefaultClickOutline":318,"mdi-material-ui/GoogleClassroom":320,"mdi-material-ui/Home":321,"mdi-material-ui/InformationOutline":322,"mdi-material-ui/NoteOutline":326,"mdi-material-ui/Palette":328,"mdi-material-ui/SettingsOutline":330,"mdi-material-ui/TableLarge":332,"mdi-material-ui/TrophyVariantOutline":333,"prop-types":345,"react":376,"react-router-dom":360,"reflux":401,"shortid":411}],508:[function(require,module,exports){
+arguments[4][462][0].apply(exports,arguments)
+},{"dup":462}],509:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -90991,7 +92006,7 @@ var _default = (0, _styles.withStyles)(styles)(AccountDashboard);
 
 exports.default = _default;
 
-},{"../../../resourceManager/actions":426,"../../../resourceManager/stores":444,"../../pages/account":464,"../../pages/accountMobile":465,"@material-ui/core/styles":205,"prop-types":345,"react":376,"reflux":401}],481:[function(require,module,exports){
+},{"../../../resourceManager/actions":426,"../../../resourceManager/stores":473,"../../pages/account":493,"../../pages/accountMobile":494,"@material-ui/core/styles":205,"prop-types":345,"react":376,"reflux":401}],510:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -91069,7 +92084,7 @@ var _default = (0, _styles.withStyles)(styles)(ClassTableRouter);
 
 exports.default = _default;
 
-},{"../../../resourceManager/actions":426,"../../../resourceManager/stores":444,"../../pages/classMap":469,"../../pages/classTable":470,"@material-ui/core/Tab":151,"@material-ui/core/Tabs":170,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"prop-types":345,"react":376,"reflux":401}],482:[function(require,module,exports){
+},{"../../../resourceManager/actions":426,"../../../resourceManager/stores":473,"../../pages/classMap":498,"../../pages/classTable":499,"@material-ui/core/Tab":151,"@material-ui/core/Tabs":170,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"prop-types":345,"react":376,"reflux":401}],511:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -91121,7 +92136,7 @@ var _default = (0, _styles.withStyles)(styles)(DeviceDashboard);
 
 exports.default = _default;
 
-},{"../../../resourceManager/actions":426,"../../../resourceManager/stores":444,"../../pages/classChoiceDesktop":467,"@material-ui/core/styles":205,"prop-types":345,"react":376,"reflux":401}],483:[function(require,module,exports){
+},{"../../../resourceManager/actions":426,"../../../resourceManager/stores":473,"../../pages/classChoiceDesktop":496,"@material-ui/core/styles":205,"prop-types":345,"react":376,"reflux":401}],512:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -91173,7 +92188,7 @@ var _default = (0, _styles.withStyles)(styles)(MainPage);
 
 exports.default = _default;
 
-},{"../../../resourceManager/actions":426,"../../../resourceManager/stores":444,"../../pages/broadcasts":466,"@material-ui/core/styles":205,"prop-types":345,"react":376,"reflux":401}],484:[function(require,module,exports){
+},{"../../../resourceManager/actions":426,"../../../resourceManager/stores":473,"../../pages/broadcasts":495,"@material-ui/core/styles":205,"prop-types":345,"react":376,"reflux":401}],513:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -91251,7 +92266,7 @@ var _default = (0, _styles.withStyles)(styles)(Management);
 
 exports.default = _default;
 
-},{"../../../resourceManager/actions":426,"../../../resourceManager/stores":444,"../../pages/classManagement":468,"../../pages/schoolManagement":475,"@material-ui/core/Tab":151,"@material-ui/core/Tabs":170,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"prop-types":345,"react":376,"reflux":401}],485:[function(require,module,exports){
+},{"../../../resourceManager/actions":426,"../../../resourceManager/stores":473,"../../pages/classManagement":497,"../../pages/schoolManagement":504,"@material-ui/core/Tab":151,"@material-ui/core/Tabs":170,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"prop-types":345,"react":376,"reflux":401}],514:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -91334,7 +92349,7 @@ var _default = (0, _styles.withStyles)(styles)(PickerTabs);
 
 exports.default = _default;
 
-},{"../../../resourceManager/actions":426,"../../../resourceManager/stores":444,"../../pages/groupPicker":471,"../../pages/picker":472,"../../pages/randomizer":473,"@material-ui/core/Tab":151,"@material-ui/core/Tabs":170,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"prop-types":345,"react":376,"reflux":401}],486:[function(require,module,exports){
+},{"../../../resourceManager/actions":426,"../../../resourceManager/stores":473,"../../pages/groupPicker":500,"../../pages/picker":501,"../../pages/randomizer":502,"@material-ui/core/Tab":151,"@material-ui/core/Tabs":170,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"prop-types":345,"react":376,"reflux":401}],515:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -91386,7 +92401,7 @@ var _default = (0, _styles.withStyles)(styles)(MainPage);
 
 exports.default = _default;
 
-},{"../../../resourceManager/actions":426,"../../../resourceManager/stores":444,"@material-ui/core/styles":205,"prop-types":345,"react":376,"reflux":401}],487:[function(require,module,exports){
+},{"../../../resourceManager/actions":426,"../../../resourceManager/stores":473,"@material-ui/core/styles":205,"prop-types":345,"react":376,"reflux":401}],516:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -91444,7 +92459,7 @@ var _default = (0, _styles.withStyles)(styles)(RankList);
 
 exports.default = _default;
 
-},{"../../../resourceManager/actions":426,"../../../resourceManager/stores":444,"../../pages/rank":474,"@material-ui/core/Tab":151,"@material-ui/core/Tabs":170,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"prop-types":345,"react":376,"reflux":401}],488:[function(require,module,exports){
+},{"../../../resourceManager/actions":426,"../../../resourceManager/stores":473,"../../pages/rank":503,"@material-ui/core/Tab":151,"@material-ui/core/Tabs":170,"@material-ui/core/Typography":178,"@material-ui/core/styles":205,"prop-types":345,"react":376,"reflux":401}],517:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -91505,4 +92520,4 @@ class MainWindowManager extends _reflux.default.Component {
 var _default = MainWindowManager;
 exports.default = _default;
 
-},{"../../resourceManager/stores":444,"../dialogs/about":455,"../dialogs/appendAccount":456,"../dialogs/appendClassMember":457,"../dialogs/bindClassDesktop":458,"../dialogs/databaseLoading":459,"../dialogs/numberDashboard":460,"../dialogs/setting":461,"@material-ui/core/styles":205,"classnames":236,"prop-types":345,"react":376,"react-router":363,"reflux":401,"shortid":411}]},{},[463]);
+},{"../../resourceManager/stores":473,"../dialogs/about":484,"../dialogs/appendAccount":485,"../dialogs/appendClassMember":486,"../dialogs/bindClassDesktop":487,"../dialogs/databaseLoading":488,"../dialogs/numberDashboard":489,"../dialogs/setting":490,"@material-ui/core/styles":205,"classnames":236,"prop-types":345,"react":376,"react-router":363,"reflux":401,"shortid":411}]},{},[492]);

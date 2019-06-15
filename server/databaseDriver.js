@@ -6,7 +6,7 @@ db.on('error', e => console.error(e));
 
 export default new Promise(resolve => {
   db.on('open', () => {
-    console.log("数据库连接成功");
+    console.log('数据库连接成功');
 
     const ObjectId = mongoose.Schema.Types.ObjectId;
 
@@ -20,7 +20,7 @@ export default new Promise(resolve => {
     let ScoreSchema = mongoose.Schema({
       at: {
         type: ObjectId,
-        ref: "ScoreType"
+        ref: 'ScoreType'
       },
       value: Number
     });
@@ -28,7 +28,7 @@ export default new Promise(resolve => {
     let ExpressionSchema = mongoose.Schema({
       path: {
         type: ObjectId,
-        ref: "Path"
+        ref: 'Path'
       },
       tag: Boolean
     });
@@ -36,30 +36,30 @@ export default new Promise(resolve => {
     let ExpressionGroupSchema = mongoose.Schema({
       read: [{
         type: ObjectId,
-        ref: "Expression"
+        ref: 'Expression'
       }],
       write: [{
         type: ObjectId,
-        ref: "Expression"
+        ref: 'Expression'
       }],
       add: [{
         type: ObjectId,
-        ref: "Expression"
+        ref: 'Expression'
       }],
       minus: [{
         type: ObjectId,
-        ref: "Expression"
+        ref: 'Expression'
       }]
     });
 
     let TradeRuleSchema = mongoose.Schema({
       from: {
         type: ObjectId,
-        ref: "ScoreType"
+        ref: 'ScoreType'
       },
       to: {
         type: ObjectId,
-        ref: "ScoreType"
+        ref: 'ScoreType'
       },
       weightFrom: Number,
       weightTo: Number,
@@ -77,7 +77,7 @@ export default new Promise(resolve => {
       description: String,
       tradeRules: [{
         type: ObjectId,
-        ref: "TradeRule"
+        ref: 'TradeRule'
       }],
       virtual: Boolean    // 默认为假；如果为真，这个分数的加减会带动其它与之相关联的分数的加减，也就是具有绑定性，加减规则直接使用 tradeRules 记录的信息
     });
@@ -122,7 +122,7 @@ export default new Promise(resolve => {
       },
       timeLine: [{
         type: ObjectId,
-        ref: "ClassTableItem"
+        ref: 'ClassTableItem'
       }],
       userType: {
         type: String,
@@ -184,7 +184,7 @@ export default new Promise(resolve => {
       }
     });
 
-    let ProvideSchema = mongoose.Schema({
+    let ProviderSchema = mongoose.Schema({
       to: {
         type: String,
         enum: [
@@ -231,7 +231,7 @@ export default new Promise(resolve => {
       description: String,    // 允许使用 Markdown
       answer: [{
         type: ObjectId,
-        ref: "Answer"
+        ref: 'Answer'
       }],
       // 如果为客观题，则存储的是各个选项的编号，并且如果多于一个则成为多选题；
       // 如果为主观题，则存储的是候选答案，并且如果多于一个则该题答案不唯一；
@@ -270,7 +270,7 @@ export default new Promise(resolve => {
       },
       provideTo: {
         type: ObjectId,
-        ref: "Provide"
+        ref: 'Provide'
       }
     });
 
@@ -286,7 +286,7 @@ export default new Promise(resolve => {
       },
       timeLine: [{
         type: ObjectId,
-        ref: "AccountHistoryQuestionItem"
+        ref: 'AccountHistoryQuestionItem'
       }]
     });
 
@@ -302,7 +302,7 @@ export default new Promise(resolve => {
       },
       timeLine: [{
         type: ObjectId,
-        ref: "AccountHistoryTestItem"
+        ref: 'AccountHistoryTestItem'
       }]
     });
 
@@ -317,18 +317,18 @@ export default new Promise(resolve => {
       },
       timeLine: [{
         type: ObjectId,
-        ref: "Date"
+        ref: 'Date'
       }]
     });
 
     let AccountHistorySchema = mongoose.Schema({
       practisedQuestions: [{
         type: ObjectId,
-        ref: "AccountHistoryQuestion"
+        ref: 'AccountHistoryQuestion'
       }],
       practisedTest: [{
         type: ObjectId,
-        ref: "AccountHistoryTest"
+        ref: 'AccountHistoryTest'
       }],
       picked: [{
         type: ObjectId,
@@ -376,11 +376,11 @@ export default new Promise(resolve => {
       },
       scoreExpression: {
         type: ObjectId,
-        ref: "ExpressionGroup"
+        ref: 'ExpressionGroup'
       },
       userExpression: {
         type: ObjectId,
-        ref: "ExpressionGroup"
+        ref: 'ExpressionGroup'
       }
     });
 
@@ -395,11 +395,11 @@ export default new Promise(resolve => {
       },
       scoreExpression: {
         type: ObjectId,
-        ref: "ExpressionGroup"
+        ref: 'ExpressionGroup'
       },
       userExpression: {
         type: ObjectId,
-        ref: "ExpressionGroup"
+        ref: 'ExpressionGroup'
       }
     });
 
@@ -431,12 +431,12 @@ export default new Promise(resolve => {
       },
       groups: [{
         type: ObjectId,
-        ref: "Group"
+        ref: 'Group'
       }],
       name: String,
       groupScoreTransfer: {
         type: ObjectId,
-        ref: "GroupScoreWeight"
+        ref: 'GroupScoreWeight'
       }
     });
 
@@ -475,11 +475,11 @@ export default new Promise(resolve => {
       }],
       scoreExpression: {
         type: ObjectId,
-        ref: "ExpressionGroup"
+        ref: 'ExpressionGroup'
       },
       userExpression: {
         type: ObjectId,
-        ref: "ExpressionGroup"
+        ref: 'ExpressionGroup'
       },
       classTable: {
         type: ObjectId,
@@ -491,18 +491,18 @@ export default new Promise(resolve => {
       },
       config: {
         type: ObjectId,
-        ref: "Config"
+        ref: 'Config'
       },
       accountHistory: {
         type: ObjectId,
-        ref: "AccountHistory"
+        ref: 'AccountHistory'
       }
     });
 
     let ClassMapRowSchema = mongoose.Schema({
       columns: [{
         type: ObjectId,
-        ref: "Account"
+        ref: 'Account'
       }]
     });
 
@@ -511,7 +511,7 @@ export default new Promise(resolve => {
       weight: Number,
       rows: [{
         type: ObjectId,
-        ref: "ClassMapRow"
+        ref: 'ClassMapRow'
       }]
     })
 
@@ -520,14 +520,14 @@ export default new Promise(resolve => {
       weight: Number,
       blocks: [{
         type: ObjectId,
-        ref: "ClassMapBlock"
+        ref: 'ClassMapBlock'
       }]
     });
 
     let ClassSchema = mongoose.Schema({
       groupTypes: [{
         type: ObjectId,
-        ref: "GroupType"
+        ref: 'GroupType'
       }],
       members: [{
         account: {
@@ -553,7 +553,7 @@ export default new Promise(resolve => {
       },
       classTable: {
         type: ObjectId,
-        ref: "ClassTable"
+        ref: 'ClassTable'
       },
       theme: [{
         type: ObjectId,
@@ -588,7 +588,7 @@ export default new Promise(resolve => {
        answers: db.model('Answer', AnswerSchema),
        questions: db.model('Question', QuestionSchema),
        tests: db.model('Test', TestSchema),
-       provides: db.model('Provide', ProvideSchema),
+       providers: db.model('Provider', ProviderSchema),
        accountHistoryQuestionItems: db.model('AccountHistoryQuestionItem', AccountHistoryQuestionItemSchema),
        accountHistoryQuestions: db.model('AccountHistoryQuestion', AccountHistoryQuestionSchema),
        accountHistoryTestItems: db.model('AccountHistoryTestItem', AccountHistoryTestItemSchema),
@@ -602,6 +602,6 @@ export default new Promise(resolve => {
        classMapBlocks: db.model('ClassMapBlock', ClassMapBlockSchema),
        classMapRows: db.model('ClassMapRow', ClassMapRowSchema),
     }),
-      console.log("数据库初始化完毕");
+      console.log('数据库初始化完毕');
   });
 });
