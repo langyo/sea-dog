@@ -8,8 +8,8 @@ let client = new WebSocket("ws://seadog.langyo.xyz:9201");
 
 let dashboard;
 
-let connectionEmitter = new EventEmitter();
-let dashboardEmitter = new EventEmitter();
+let connectionEmitter = new EventEmitter().setMaxListeners(0);
+let dashboardEmitter = new EventEmitter().setMaxListeners(0);
 
 client.onopen = () => {
     console.log("连接成功！");
