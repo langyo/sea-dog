@@ -2,6 +2,10 @@
 
 海点是一款专用于校园的点评服务套件，同时包含客户端与服务端，用于课上的点名、加分，以提高学生课堂效率。
 
+**该项目现已进行重构，本仓库冻结。**
+
+[新版仓库地址](https://github.com/langyo/kelp)
+
 [旧版仓库地址](https://github.com/langyo/random_picker)
 
 ## 名字渊源
